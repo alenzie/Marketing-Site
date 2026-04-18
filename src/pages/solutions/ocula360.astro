@@ -1,0 +1,297 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+import PipeHeading from '../../components/content/PipeHeading.astro';
+import CapabilityTile from '../../components/content/CapabilityTile.astro';
+
+const capabilities = [
+  {
+    title: 'Multi-Disease Detection',
+    body: 'Detects diabetic retinopathy, age-related macular degeneration (AMD), glaucoma indicators, vascular abnormalities, hemorrhages, microaneurysms, and exudates—all from a single image.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 10v6m11-11h-6M7 12H1m15.5-6.5l-4.2 4.2m-4.6 4.6L3.5 18.5m0-13l4.2 4.2m4.6 4.6l4.2 4.2"/></svg>`,
+  },
+  {
+    title: 'Automated DRSS Scoring',
+    body: 'Standardized severity grading for diabetic retinopathy, supporting consistent disease staging and eligibility decisions across screening programs.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+  },
+  {
+    title: 'Lesion-Level Explainability',
+    body: 'Transparent confidence outputs and lesion overlays show clinicians exactly where and why the model flagged a finding—building trust, not black boxes.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  },
+  {
+    title: 'Multimodal & Future-Ready',
+    body: 'Compatible with fundus imaging, ultra-widefield (UWF) scans, and patient metadata. Architected to integrate additional inputs as imaging standards evolve.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
+  },
+];
+
+const steps = [
+  { n: '01', title: 'Capture', body: 'Any retinal image from any supported camera—fundus, handheld, or ultra-widefield.' },
+  { n: '02', title: 'Upload', body: 'Images upload to the Ocula360 platform via secure, HIPAA-compliant transfer.' },
+  { n: '03', title: 'Analyze', body: 'The foundational model processes the image, detecting findings and grading severity based on your configured study criteria.' },
+  { n: '04', title: 'Act', body: 'Receive explainable reports with lesion-level overlays and confidence signals—ready for clinical review, referral routing, or trial enrollment decisions.' },
+];
+
+const useCases = [
+  {
+    title: 'Population Screening',
+    body: 'Deploy Ocula360 in primary care networks, community health centers, and home health programs to identify at-risk patients at scale—before vision loss occurs.',
+    tag: 'Often delivered via Nsight360 or Ophthal360',
+  },
+  {
+    title: 'Diagnostic Support',
+    body: 'Give optometrists and eye care professionals a second layer of AI-assisted insight on complex or borderline cases—reducing variability and increasing confidence.',
+    tag: 'Delivered via 2nd Opinion',
+  },
+  {
+    title: 'Clinical Research',
+    body: 'Accelerate patient identification for retinal-based clinical trials. Ocula360 analyzes ultra-widefield imaging against study-specific criteria, reducing manual review burden and shortening enrollment timelines.',
+    tag: 'Ocula360 direct deployment for pharma / CROs',
+  },
+];
+
+const benefits = [
+  { title: 'Accelerated Timelines', body: 'Reduce time-to-detection and time-to-enrollment by automating the most manual parts of retinal image review.' },
+  { title: 'Consistent Evaluation', body: 'Standardize interpretation across sites, readers, and geographies—reducing variability in diagnosis and research.' },
+  { title: 'Enterprise Integration', body: 'HIPAA-compliant infrastructure and flexible deployment options fit the security and workflow needs of health systems, payers, and pharma.' },
+  { title: 'Clinically Grounded', body: 'Built with and validated by ophthalmologists. Every model output is explainable and evidence-based.' },
+];
+---
+
+<Layout
+  title="Ocula360 — Foundational Retinal AI — Ophthalytics"
+  description="Ocula360 is our flagship retinal AI platform—turning a single retinal image into actionable diagnostic intelligence across screening, clinical care, and research."
+>
+  <!-- SECTION 1 — HERO (dark) -->
+  <section class="relative bg-gradient-to-br from-brand-primary-dark to-brand-primary text-white overflow-hidden">
+    <div class="absolute inset-0 opacity-20" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <defs>
+          <pattern id="grid-ocula" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid-ocula)"/>
+      </svg>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-6 py-20 md:py-28 grid gap-12 md:grid-cols-2 items-center">
+      <div>
+        <span class="inline-block rounded-full bg-white/10 text-white text-xs uppercase tracking-widest font-semibold px-3 py-1">
+          Flagship Solution
+        </span>
+        <h1 class="mt-5 text-5xl md:text-6xl font-bold leading-tight">Ocula360</h1>
+        <p class="mt-3 text-2xl md:text-3xl font-semibold text-brand-secondary">
+          Foundational Retinal AI
+        </p>
+        <p class="mt-6 text-lg text-white/90 leading-relaxed max-w-xl">
+          A single platform that turns retinal imaging into actionable diagnostic intelligence—across screening, clinical care, and research environments.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-4">
+          <button
+            type="button"
+            data-open-modal="demo"
+            class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-6 py-3 rounded-md hover:bg-brand-surface transition"
+          >
+            Request a Demo
+          </button>
+          <a
+            href="/resources/ocula360-overview.pdf"
+            class="inline-flex items-center justify-center border-2 border-white text-white font-semibold px-6 py-3 rounded-md hover:bg-white hover:text-brand-primary transition"
+          >
+            Download Overview
+          </a>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="aspect-square max-w-[420px] mx-auto rounded-full bg-gradient-to-br from-brand-secondary/30 to-brand-primary-light/10 border border-white/10 relative overflow-hidden">
+          <svg viewBox="0 0 400 400" class="w-full h-full" aria-hidden="true">
+            <defs>
+              <radialGradient id="retina" cx="50%" cy="50%">
+                <stop offset="0%" stop-color="#fca5a5" stop-opacity="0.6"/>
+                <stop offset="60%" stop-color="#dc2626" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#450a0a" stop-opacity="0.1"/>
+              </radialGradient>
+            </defs>
+            <circle cx="200" cy="200" r="170" fill="url(#retina)"/>
+            <circle cx="200" cy="200" r="20" fill="#0EA5E9" fill-opacity="0.8"/>
+            {[
+              { x: 120, y: 110, label: 'DR – Moderate' },
+              { x: 280, y: 150, label: 'Microaneurysm' },
+              { x: 250, y: 290, label: 'AMD Risk' },
+            ].map((box) => (
+              <g>
+                <rect x={box.x} y={box.y} width="80" height="26" rx="3" fill="none" stroke="#0EA5E9" stroke-width="1.5"/>
+                <text x={box.x + 40} y={box.y + 17} text-anchor="middle" fill="#fff" font-size="10" font-weight="600" font-family="Inter">{box.label}</text>
+              </g>
+            ))}
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2 — WHAT IS OCULA360 -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 py-20 text-center">
+      <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary" class="justify-center">
+        THE PLATFORM
+      </PipeHeading>
+      <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">
+        One Retinal Image. Layered Diagnostic Intelligence.
+      </h2>
+      <div class="mt-8 space-y-5 text-lg text-brand-body leading-relaxed text-left">
+        <p>
+          Ocula360 is our foundational AI engine—designed to detect multiple retinal diseases from a single image. Built on a foundational model architecture, it delivers explainable lesion-level outputs, advanced DRSS scoring, and multimodal compatibility that scales from individual clinic workflows to enterprise screening programs.
+        </p>
+        <p>
+          From diabetic retinopathy to age-related macular degeneration to glaucoma indicators, Ocula360 transforms one scan into a comprehensive diagnostic signal—so providers can act earlier, researchers can move faster, and patients get the care they need, sooner.
+        </p>
+        <p class="text-xl font-semibold text-brand-ink">
+          At its core, Ocula360 is not a feature set. It is a platform.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — CORE CAPABILITIES -->
+  <section class="bg-brand-surface-blue">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <div class="text-center max-w-3xl mx-auto">
+        <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary" class="justify-center">
+          CAPABILITIES
+        </PipeHeading>
+        <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">
+          Built for the Full Diagnostic Stack
+        </h2>
+      </div>
+      <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4" data-reveal-group>
+        {capabilities.map((c) => (
+          <CapabilityTile title={c.title} body={c.body}>
+            <span slot="icon" set:html={c.icon}></span>
+          </CapabilityTile>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 — HOW IT WORKS -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <div class="text-center max-w-3xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-brand-ink">Simple. Scalable. Integrated.</h2>
+        <p class="mt-4 text-lg text-brand-body">Ocula360 fits seamlessly into any retinal imaging workflow.</p>
+      </div>
+      <div class="mt-14 grid gap-6 md:grid-cols-4">
+        {steps.map((s) => (
+          <div class="relative bg-white border border-brand-line rounded-xl p-6">
+            <span class="text-brand-primary font-bold text-4xl">{s.n}</span>
+            <h3 class="mt-3 text-lg font-semibold text-brand-ink">{s.title}</h3>
+            <p class="mt-2 text-sm text-brand-body leading-relaxed">{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5 — USE CASES -->
+  <section class="bg-brand-surface">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <div class="text-center max-w-3xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-brand-ink">Built for How You Work</h2>
+        <p class="mt-4 text-lg text-brand-body">
+          Ocula360 powers deployments across screening, clinical care, and research—adapting to the workflow, not the other way around.
+        </p>
+      </div>
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        {useCases.map((u) => (
+          <div class="bg-white border border-brand-line rounded-2xl p-8 h-full flex flex-col">
+            <h3 class="text-xl font-bold text-brand-ink">{u.title}</h3>
+            <p class="mt-3 text-base text-brand-body leading-relaxed flex-1">{u.body}</p>
+            <p class="mt-5 text-xs uppercase tracking-widest text-brand-primary font-semibold">
+              {u.tag}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6 — HUMAN + AI -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20 grid gap-12 md:grid-cols-2 items-center">
+      <div class="flex justify-center">
+        <svg viewBox="0 0 320 300" class="w-full max-w-[340px]" aria-hidden="true">
+          <circle cx="160" cy="100" r="70" fill="#1E3A8A" fill-opacity="0.25" stroke="#1E3A8A" stroke-width="1.5"/>
+          <circle cx="110" cy="180" r="70" fill="#0EA5E9" fill-opacity="0.25" stroke="#0EA5E9" stroke-width="1.5"/>
+          <circle cx="210" cy="180" r="70" fill="#7C3AED" fill-opacity="0.25" stroke="#7C3AED" stroke-width="1.5"/>
+          <text x="160" y="55" text-anchor="middle" fill="#0F172A" font-size="12" font-weight="700" font-family="Inter">Trustworthiness</text>
+          <text x="50" y="220" text-anchor="middle" fill="#0F172A" font-size="12" font-weight="700" font-family="Inter">Explainability</text>
+          <text x="270" y="220" text-anchor="middle" fill="#0F172A" font-size="12" font-weight="700" font-family="Inter">Accountability</text>
+          <text x="160" y="150" text-anchor="middle" fill="#0F172A" font-size="11" font-weight="700" font-family="Inter">Ophthalytics</text>
+          <text x="160" y="165" text-anchor="middle" fill="#0F172A" font-size="11" font-weight="700" font-family="Inter">Platform</text>
+        </svg>
+      </div>
+      <div>
+        <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary">
+          OUR APPROACH
+        </PipeHeading>
+        <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">
+          Technology that amplifies clinical expertise.
+        </h2>
+        <div class="mt-6 space-y-4 text-lg text-brand-body leading-relaxed">
+          <p>Ocula360 is not designed to replace clinicians. It is built to support them.</p>
+          <p>
+            By combining AI-driven analysis with expert review, Ocula360 delivers the speed and scale of machine learning with the judgment and trust that only human expertise can provide.
+          </p>
+        </div>
+        <ul class="mt-6 space-y-3 text-base text-brand-body">
+          <li class="flex gap-3"><span class="font-semibold text-brand-ink min-w-[140px]">Trustworthiness:</span> Every output is explainable, auditable, and grounded in clinical evidence.</li>
+          <li class="flex gap-3"><span class="font-semibold text-brand-ink min-w-[140px]">Explainability:</span> Lesion overlays and confidence signals show exactly what the model saw and how it decided.</li>
+          <li class="flex gap-3"><span class="font-semibold text-brand-ink min-w-[140px]">Accountability:</span> Clinicians remain in the loop. Ocula360 informs decisions—it does not make them.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7 — WHY -->
+  <section class="bg-brand-primary text-white">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-center">Faster Detection. Better Precision. Real Scale.</h2>
+      <div class="mt-12 grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
+        {benefits.map((b) => (
+          <div>
+            <h3 class="text-xl font-bold">{b.title}</h3>
+            <p class="mt-2 text-base text-white/90 leading-relaxed">{b.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8 — FINAL CTA -->
+  <section class="bg-brand-surface-blue">
+    <div class="max-w-4xl mx-auto px-6 py-20 md:py-24 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink">Ready to see Ocula360 in action?</h2>
+      <p class="mt-5 max-w-2xl mx-auto text-lg text-brand-body leading-relaxed">
+        Schedule a demo to see how Ocula360 fits your screening, diagnostic, or research workflow.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <button
+          type="button"
+          data-open-modal="demo"
+          class="inline-flex items-center justify-center bg-brand-primary text-white font-semibold px-6 py-3 rounded-md hover:bg-brand-primary-dark transition"
+        >
+          Request a Demo
+        </button>
+        <button
+          type="button"
+          data-open-modal="contact"
+          class="inline-flex items-center justify-center border-2 border-brand-primary text-brand-primary font-semibold px-6 py-3 rounded-md hover:bg-brand-primary hover:text-white transition"
+        >
+          Contact Sales
+        </button>
+      </div>
+    </div>
+  </section>
+</Layout>

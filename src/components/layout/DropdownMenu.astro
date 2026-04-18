@@ -1,0 +1,197 @@
+---
+interface Item {
+  name: string;
+  href: string;
+  tagline?: string;
+  badge?: string;
+}
+
+interface Props {
+  label: string;
+  href: string;
+  isActive?: boolean;
+  items: Item[];
+  footerLink?: { label: string; href: string };
+  eyebrow?: string;
+}
+
+const { label, href, isActive = false, items, footerLink, eyebrow } = Astro.props;
+const menuId = `dropdown-${label.toLowerCase().replace(/\s+/g, '-')}`;
+---
+
+<div class="relative" data-dropdown>
+  <a
+    href={href}
+    data-dropdown-trigger
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-controls={menuId}
+    class:list={[
+      'flex items-center gap-1 text-sm font-medium transition-colors py-2',
+      isActive
+        ? 'text-brand-primary'
+        : 'text-brand-body hover:text-brand-primary',
+    ]}
+  >
+    {label}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="transition-transform duration-200"
+      data-dropdown-chevron
+    >
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </a>
+
+  <div
+    id={menuId}
+    data-dropdown-panel
+    role="menu"
+    aria-label={`${label} menu`}
+    hidden
+    class="absolute top-full left-0 mt-2 min-w-[320px] bg-white rounded-xl shadow-xl border border-brand-line p-2 z-50"
+  >
+    {eyebrow && (
+      <p class="px-3 pt-2 pb-1 text-xs font-semibold uppercase tracking-widest text-brand-body">
+        {eyebrow}
+      </p>
+    )}
+    {items.map((item) => (
+      <a
+        href={item.href}
+        role="menuitem"
+        class="block px-3 py-3 rounded-lg hover:bg-brand-surface-blue focus:bg-brand-surface-blue focus:outline-none transition-colors"
+      >
+        <div class="flex items-center justify-between gap-3">
+          <span class="font-semibold text-brand-ink">{item.name}</span>
+          {item.badge && (
+            <span class="text-[10px] uppercase tracking-widest rounded-full bg-brand-primary/10 text-brand-primary px-2 py-0.5 font-semibold">
+              {item.badge}
+            </span>
+          )}
+        </div>
+        {item.tagline && (
+          <span class="block text-sm text-brand-body mt-0.5">
+            {item.tagline}
+          </span>
+        )}
+      </a>
+    ))}
+    {footerLink && (
+      <div class="border-t border-brand-line mt-1 pt-1">
+        <a
+          href={footerLink.href}
+          role="menuitem"
+          class="block px-3 py-2 text-sm text-brand-primary font-semibold hover:bg-brand-surface-blue rounded-lg transition-colors"
+        >
+          {footerLink.label} →
+        </a>
+      </div>
+    )}
+  </div>
+</div>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll<HTMLElement>('[data-dropdown]').forEach((container) => {
+    const trigger = container.querySelector<HTMLAnchorElement>('[data-dropdown-trigger]');
+    const panel = container.querySelector<HTMLElement>('[data-dropdown-panel]');
+    const chevron = container.querySelector<SVGElement>('[data-dropdown-chevron]');
+    if (!trigger || !panel) return;
+
+    let openTimer: number | undefined;
+    let closeTimer: number | undefined;
+    let tapArmed = false;
+
+    const setOpen = (open: boolean) => {
+      trigger.setAttribute('aria-expanded', String(open));
+      panel.hidden = !open;
+      if (chevron) chevron.style.transform = open ? 'rotate(180deg)' : '';
+    };
+
+    const open = (delay = 0) => {
+      clearTimeout(closeTimer);
+      if (delay && !prefersReducedMotion) {
+        openTimer = window.setTimeout(() => setOpen(true), delay);
+      } else {
+        setOpen(true);
+      }
+    };
+
+    const close = (delay = 0) => {
+      clearTimeout(openTimer);
+      if (delay && !prefersReducedMotion) {
+        closeTimer = window.setTimeout(() => setOpen(false), delay);
+      } else {
+        setOpen(false);
+      }
+    };
+
+    // Hover (desktop with hover capability)
+    if (window.matchMedia('(hover: hover)').matches) {
+      container.addEventListener('mouseenter', () => open(100));
+      container.addEventListener('mouseleave', () => close(200));
+    }
+
+    // Keyboard + touch: first activation opens, second navigates
+    trigger.addEventListener('click', (e) => {
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      if (!isOpen) {
+        e.preventDefault();
+        setOpen(true);
+        tapArmed = true;
+      }
+    });
+
+    // Keyboard nav within panel
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setOpen(true);
+        const first = panel.querySelector<HTMLElement>('a[role="menuitem"]');
+        first?.focus();
+      } else if (e.key === 'Escape') {
+        close();
+        trigger.focus();
+      }
+    });
+
+    panel.addEventListener('keydown', (e) => {
+      const items = Array.from(panel.querySelectorAll<HTMLAnchorElement>('a[role="menuitem"]'));
+      const currentIndex = items.indexOf(document.activeElement as HTMLAnchorElement);
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        items[(currentIndex + 1) % items.length]?.focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        items[(currentIndex - 1 + items.length) % items.length]?.focus();
+      } else if (e.key === 'Escape') {
+        close();
+        trigger.focus();
+      } else if (e.key === 'Tab' && !e.shiftKey && currentIndex === items.length - 1) {
+        close();
+      }
+    });
+
+    // Click outside closes
+    document.addEventListener('click', (e) => {
+      if (!container.contains(e.target as Node)) {
+        close();
+      }
+    });
+
+    // Close when a menu item is clicked (navigating away)
+    panel.querySelectorAll('a[role="menuitem"]').forEach((item) => {
+      item.addEventListener('click', () => close());
+    });
+  });
+</script>

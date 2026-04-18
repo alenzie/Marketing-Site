@@ -1,0 +1,115 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+import ResourceCard from '../../components/content/ResourceCard.astro';
+
+const articles = [
+  {
+    thumbnail: '/resources/news/arvo-2023.jpg',
+    category: 'News',
+    categoryColor: 'primary' as const,
+    date: 'May 5, 2022',
+    title: "Ophthalytics' AI Retina Screening System Makes a Splash at ARVO 2023",
+    excerpt:
+      'Ophthalytics stole the spotlight at ARVO 2023, the world\'s largest ophthalmology conference, with groundbreaking AI models.',
+    link: '/resources/newsroom/arvo-2023',
+    placeholder: false,
+  },
+  {
+    category: 'News',
+    categoryColor: 'primary' as const,
+    date: '2025',
+    title: "Star Community Health Is Protecting Patients' Vision — One Routine Visit at a Time",
+    excerpt:
+      'A look at how community health centers are integrating Nsight360 into routine care to expand access to diabetic retinopathy screening.',
+    link: '#',
+    placeholder: true,
+  },
+  {
+    category: 'News',
+    categoryColor: 'primary' as const,
+    date: '2026',
+    title: 'Medicare Advantage News: What the 2026 Payment Increase Means for Medical Practices',
+    excerpt:
+      'Unpacking the implications of the 2026 Medicare Advantage payment adjustment for providers running diabetic retinopathy screening programs.',
+    link: '#',
+    placeholder: true,
+  },
+  {
+    category: 'Awareness',
+    categoryColor: 'warn' as const,
+    date: 'November 2025',
+    title: 'Diabetes Awareness Month 2025: Ways to Participate as a Healthcare Provider',
+    excerpt:
+      'Four practical ways healthcare providers can contribute to Diabetes Awareness Month—from patient education to expanded screening programs.',
+    link: '#',
+    placeholder: true,
+  },
+];
+---
+
+<Layout
+  title="Newsroom — Resources — Ophthalytics"
+  description="The latest from Ophthalytics—press, announcements, and conference appearances."
+>
+  <!-- SECTION 1 — HERO -->
+  <section class="bg-brand-surface-blue">
+    <div class="max-w-7xl mx-auto px-6 py-16 md:py-20">
+      <nav aria-label="Breadcrumb" class="text-sm text-brand-muted">
+        <a href="/resources" class="hover:text-brand-primary">Resources</a>
+        <span class="mx-2">/</span>
+        <span class="text-brand-ink">Newsroom</span>
+      </nav>
+      <h1 class="mt-4 text-4xl md:text-5xl font-bold text-brand-ink leading-tight">
+        Newsroom
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-brand-body leading-relaxed">
+        The latest from Ophthalytics—press, announcements, and conference appearances.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 2 — NEWS GRID -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {articles.map((a) => (
+          <div class:list={['relative h-full', a.placeholder && 'opacity-80']}>
+            {a.placeholder && (
+              <span class="absolute top-3 right-3 z-10 rounded-full bg-brand-ink/70 text-white text-[10px] font-semibold uppercase tracking-widest px-2 py-1">
+                Coming Soon
+              </span>
+            )}
+            <ResourceCard
+              thumbnail={a.thumbnail}
+              category={a.category}
+              categoryColor={a.categoryColor}
+              title={a.title}
+              excerpt={a.excerpt}
+              link={a.link}
+            />
+            <p class="absolute bottom-4 right-5 text-xs text-brand-muted">{a.date}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — RELATED RESOURCES -->
+  <section class="bg-brand-surface">
+    <div class="max-w-5xl mx-auto px-6 py-16">
+      <h2 class="text-xl font-semibold text-brand-ink text-center">Related Resources</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        <a href="/resources/journal-articles" class="bg-white border border-brand-line rounded-xl p-6 hover:shadow-lg transition-all">
+          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold">Resources</p>
+          <h3 class="mt-2 text-lg font-bold text-brand-ink">Journal Articles →</h3>
+          <p class="mt-2 text-sm text-brand-body">Peer-reviewed research from the Ophthalytics team.</p>
+        </a>
+        <a href="/resources/innovation-pipeline" class="bg-white border border-brand-line rounded-xl p-6 hover:shadow-lg transition-all">
+          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold">Resources</p>
+          <h3 class="mt-2 text-lg font-bold text-brand-ink">Innovation Pipeline →</h3>
+          <p class="mt-2 text-sm text-brand-body">What we're building next beyond the current product lineup.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

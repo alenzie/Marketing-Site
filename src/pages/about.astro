@@ -2,17 +2,57 @@
 import Layout from '../components/layout/Layout.astro';
 import PipeHeading from '../components/content/PipeHeading.astro';
 import TeamCard from '../components/content/TeamCard.astro';
+import Modal from '../components/interactive/Modal.astro';
+
+const scientificAdvisors = [
+  {
+    name: 'Nadia Waheed, MD, MPH',
+    role: 'Professor of Ophthalmology, Retina Specialist — Retinal & Macular Disease',
+    headshot: '/team/advisors/nadia-waheed.jpg',
+  },
+  {
+    name: 'Peter Kaiser, MD',
+    role: 'Professor of Ophthalmology, Director, Center for Ocular Research and Evaluation (CORE)',
+    headshot: '/team/advisors/peter-kaiser.jpg',
+  },
+  {
+    name: 'Justis Ehlers, MD',
+    role: 'Professor of Ophthalmology; Retina Specialist for detached retinas, cataracts & glaucoma',
+    headshot: '/team/advisors/justis-ehlers.jpg',
+  },
+  {
+    name: 'Arshad Khanani, MD',
+    role: 'Director of Clinical Research at Sierra Eye Associates',
+    headshot: '/team/advisors/arshad-khanani.jpg',
+  },
+];
+
+const businessAdvisors = [
+  {
+    name: 'Baz Khuti',
+    role: 'President US at Modak, Co-Founder QiO Technologies, Executive CTO Cloud at GE',
+    headshot: '/team/advisors/baz-khuti.jpg',
+  },
+  {
+    name: 'Scott Brands',
+    role: 'Financial Advisor, SVP Finance at Brightwell Payments, Inc',
+    headshot: '/team/advisors/scott-brands.jpg',
+  },
+  {
+    name: 'Joshua Freeman',
+    role: 'Medical Device Clinical and Regulatory Professional',
+    headshot: '/team/advisors/joshua-freeman.jpg',
+  },
+];
 ---
 
 <Layout
   title="About — Ophthalytics"
   description="Pioneering Human + AI to advance healthcare through retinal intelligence."
-  currentPath="/about"
 >
 
   <!-- SECTION 1 — HERO BAND -->
   <section class="relative overflow-hidden bg-gradient-to-b from-brand-surface-blue to-white">
-    <!-- Decorative network pattern -->
     <svg class="absolute inset-0 w-full h-full opacity-[0.12] pointer-events-none" aria-hidden="true">
       <defs>
         <pattern id="about-dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -56,25 +96,6 @@ import TeamCard from '../components/content/TeamCard.astro';
     </div>
   </section>
 
-  <!-- SECTION 2.5 — TEAM PHOTO -->
-  <section class="bg-white">
-    <div class="max-w-6xl mx-auto px-6 pb-20 md:pb-24">
-      <figure class="rounded-2xl overflow-hidden shadow-lg border border-brand-line">
-        <img
-          src="/team-photo.jpg"
-          alt="The Ophthalytics team"
-          width="1264"
-          height="790"
-          loading="lazy"
-          class="w-full h-auto block"
-        />
-        <figcaption class="bg-brand-surface-blue px-6 py-4 text-sm text-brand-body text-center">
-          The Ophthalytics team — building the future of retinal intelligence.
-        </figcaption>
-      </figure>
-    </div>
-  </section>
-
   <!-- SECTION 3 — FOUNDERS -->
   <section class="bg-brand-surface-blue">
     <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
@@ -85,12 +106,14 @@ import TeamCard from '../components/content/TeamCard.astro';
         <TeamCard
           name="Awais Bajwa"
           role="Co-Founder & CEO"
-          bioLink="#"
+          headshot="/team/awais-bajwa.jpg"
+          bioModal="bio-awais"
         />
         <TeamCard
           name="Neelam Nosheen, MD"
           role="Co-Founder & Chief Product Officer"
-          bioLink="#"
+          headshot="/team/neelam-nosheen.jpg"
+          bioModal="bio-neelam"
         />
       </div>
     </div>
@@ -102,27 +125,10 @@ import TeamCard from '../components/content/TeamCard.astro';
       <div class="text-center">
         <PipeHeading level="h2" class="justify-center">Scientific Advisory Board</PipeHeading>
       </div>
-      <div class="mt-12 grid gap-10 md:grid-cols-3 lg:grid-cols-4">
-        <TeamCard
-          size="sm"
-          name="Nadia Waheed, MD, MPH"
-          role="Professor of Ophthalmology, Retina Specialist — Retinal & Macular Disease"
-        />
-        <TeamCard
-          size="sm"
-          name="Peter Kaiser, MD"
-          role="Professor of Ophthalmology, Director, Center for Ocular Research and Evaluation (CORE)"
-        />
-        <TeamCard
-          size="sm"
-          name="Justis Ehlers, MD"
-          role="Professor of Ophthalmology; Retina Specialist for detached retinas, cataracts & glaucoma"
-        />
-        <TeamCard
-          size="sm"
-          name="Arshad Khanani, MD"
-          role="Director of Clinical Research at Sierra Eye Associates"
-        />
+      <div class="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+        {scientificAdvisors.map((a) => (
+          <TeamCard size="sm" name={a.name} role={a.role} headshot={a.headshot} />
+        ))}
       </div>
     </div>
   </section>
@@ -134,21 +140,9 @@ import TeamCard from '../components/content/TeamCard.astro';
         <PipeHeading level="h2" class="justify-center">Business Advisory Board</PipeHeading>
       </div>
       <div class="mt-12 grid gap-10 md:grid-cols-3 max-w-5xl mx-auto">
-        <TeamCard
-          size="sm"
-          name="Baz Khuti"
-          role="President US at Modak, Co-Founder QiO Technologies, Executive CTO Cloud at GE"
-        />
-        <TeamCard
-          size="sm"
-          name="Scott Brands"
-          role="Financial Advisor, SVP Finance at Brightwell Payments, Inc"
-        />
-        <TeamCard
-          size="sm"
-          name="Joshua Freeman"
-          role="Medical Device Clinical and Regulatory Professional"
-        />
+        {businessAdvisors.map((a) => (
+          <TeamCard size="sm" name={a.name} role={a.role} headshot={a.headshot} />
+        ))}
       </div>
     </div>
   </section>
@@ -179,5 +173,52 @@ import TeamCard from '../components/content/TeamCard.astro';
       </div>
     </div>
   </section>
+
+  <!-- BIO MODALS -->
+  <Modal name="bio-awais" labelledBy="bio-awais-title" size="lg">
+    <div class="flex flex-col items-center">
+      <img
+        src="/team/awais-bajwa.jpg"
+        alt="Awais Bajwa"
+        class="w-28 h-28 rounded-full object-cover border-4 border-white shadow-md"
+      />
+      <h2 id="bio-awais-title" class="mt-5 text-2xl md:text-3xl font-bold text-brand-ink text-center">
+        Awais Bajwa
+      </h2>
+      <p class="mt-1 text-brand-primary font-semibold">Co-Founder &amp; CEO</p>
+      <p class="mt-1 italic text-brand-primary text-sm">Machine Learning, Data Science Expert &amp; AI Junkie</p>
+    </div>
+    <div class="mt-6 space-y-4 text-base text-brand-body leading-relaxed">
+      <p>
+        Awais is a visionary healthcare innovator and data scientist. Blending innovation with compassion, he has used knowledge engineering—commonly called artificial intelligence, or AI—to greatly expand the access, accuracy, and efficiency of diagnosis. Under his leadership, the company has won accolades, such as the Health Equity Initiative award from Amazon Web Services, for its transformative impact.
+      </p>
+      <p>
+        With more than 15 years of experience in advanced data analytics, Awais also leads AI product development for GE Companies, contributing advances in deep learning, generative AI, computer vision, and enterprise architecture.
+      </p>
+    </div>
+  </Modal>
+
+  <Modal name="bio-neelam" labelledBy="bio-neelam-title" size="lg">
+    <div class="flex flex-col items-center">
+      <img
+        src="/team/neelam-nosheen.jpg"
+        alt="Neelam Nosheen, MD"
+        class="w-28 h-28 rounded-full object-cover border-4 border-white shadow-md"
+      />
+      <h2 id="bio-neelam-title" class="mt-5 text-2xl md:text-3xl font-bold text-brand-ink text-center">
+        Neelam Nosheen, MD
+      </h2>
+      <p class="mt-1 text-brand-primary font-semibold">Co-Founder &amp; Chief Product Officer</p>
+      <p class="mt-1 italic text-brand-primary text-sm">Researcher &amp; Distinguished Health Informatician</p>
+    </div>
+    <div class="mt-6 space-y-4 text-base text-brand-body leading-relaxed">
+      <p>
+        Neelam Nosheen, MD, is a physician, healthcare innovator, and founder of Ophthalytics. From her background in obstetrics and gynecology, Neelam expanded her scope to health information technologies, earning a Master's in Health Informatics and gaining valuable experience in clinical research.
+      </p>
+      <p>
+        Neelam is committed to making healthcare accessible and efficient through cutting-edge knowledge engineering, deep-learning AI, and computer vision technologies. Compassion and innovation are the foundations of her work.
+      </p>
+    </div>
+  </Modal>
 
 </Layout>

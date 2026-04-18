@@ -4,10 +4,11 @@ interface Props {
   role: string;
   headshot?: string;
   bioLink?: string;
+  bioModal?: string;
   size?: 'lg' | 'sm';
 }
 
-const { name, role, headshot, bioLink, size = 'lg' } = Astro.props;
+const { name, role, headshot, bioLink, bioModal, size = 'lg' } = Astro.props;
 
 const sizeClass =
   size === 'sm'
@@ -45,7 +46,15 @@ const initials = name
     {name}
   </h3>
   <p class="text-sm text-brand-primary mt-1">{role}</p>
-  {bioLink && (
+  {bioModal ? (
+    <button
+      type="button"
+      data-open-modal={bioModal}
+      class="inline-block mt-3 px-4 py-2 rounded-md border border-brand-primary text-brand-primary text-sm font-semibold hover:bg-brand-primary hover:text-white transition"
+    >
+      Read Bio
+    </button>
+  ) : bioLink && (
     <a
       href={bioLink}
       class="inline-block mt-3 px-4 py-2 rounded-md border border-brand-primary text-brand-primary text-sm font-semibold hover:bg-brand-primary hover:text-white transition"

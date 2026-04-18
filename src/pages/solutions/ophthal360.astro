@@ -1,0 +1,275 @@
+---
+// [DERIVED COPY — founder review needed before launch]
+import Layout from '../../components/layout/Layout.astro';
+import PipeHeading from '../../components/content/PipeHeading.astro';
+import CapabilityTile from '../../components/content/CapabilityTile.astro';
+import AudienceCard from '../../components/content/AudienceCard.astro';
+
+const capabilities = [
+  {
+    title: 'Autonomous Detection',
+    body: 'Performs retinal analysis and generates screening outputs without requiring manual interpretation at every image. Operates continuously, at scale.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  },
+  {
+    title: 'High-Throughput Screening',
+    body: 'Optimized for large-scale deployment across clinics, screening programs, and population health initiatives where volume makes manual review impossible.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>`,
+  },
+  {
+    title: 'Automated Referral Logic',
+    body: 'Identifies at-risk patients and supports timely, consistent referral decisions—reducing delays between screening and specialist care.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 14 20 9 15 4"/><path d="M4 20v-7a4 4 0 0 1 4-4h12"/></svg>`,
+  },
+];
+
+const audiences = [
+  { title: 'Healthcare Systems & Networks', body: 'Deploy autonomous screening across hospitals, clinics, and satellite locations—without adding specialist capacity.', icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M7 7v10M17 7v10"/></svg>` },
+  { title: 'Population Health Programs', body: 'Screen tens or hundreds of thousands of at-risk individuals as part of national, regional, or payer-driven public health initiatives.', icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>` },
+  { title: 'Remote & Underserved Regions', body: 'Bring retinal screening to geographies where specialist ophthalmology is unavailable or unaffordable.', icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>` },
+  { title: 'Pharmaceutical & Research Programs', body: 'Integrate large-scale retinal screening into epidemiological studies, population cohorts, and multi-site clinical programs.', icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/></svg>` },
+];
+
+const steps = [
+  { n: '01', title: 'Capture at the Source', body: 'Retinal images captured at any deployment location—rural clinic, mobile unit, community health center, home visit.' },
+  { n: '02', title: 'Automated Analysis', body: 'The Ophthal360 platform processes each image automatically—no queue for specialist review.' },
+  { n: '03', title: 'Triage & Routing', body: 'AI determines referral urgency and routes flagged patients to appropriate specialist care pathways.' },
+  { n: '04', title: 'Continuous Validation', body: 'Every deployment generates feedback data used to monitor real-world performance and refine the model.' },
+];
+
+const benefits = [
+  { title: 'Scales Beyond Specialist Supply', body: 'Remove the specialist bottleneck. Screening capacity is defined by deployment footprint, not ophthalmologist availability.' },
+  { title: 'Consistent Performance at Scale', body: 'Every image receives the same analysis, across every site, every day. Standardization is a feature, not an aspiration.' },
+  { title: 'Designed for Low-Resource Settings', body: 'Works with portable and handheld imaging. Designed for environments where infrastructure is limited.' },
+  { title: 'Real-World Validated', body: 'In active deployment across Asian markets. Performance grounded in real operating conditions, not just published benchmarks.' },
+];
+---
+
+<Layout
+  title="Ophthal360 — Autonomous Retinal AI at Scale — Ophthalytics"
+  description="An autonomous AI platform for health systems and population-scale retinal screening programs. In active deployment across Asian markets."
+>
+  <!-- SECTION 1 — HERO (dark) -->
+  <section class="relative bg-gradient-to-br from-brand-primary-dark to-brand-primary text-white overflow-hidden">
+    <div class="absolute inset-0 opacity-15" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <defs>
+          <pattern id="grid-ophthal" width="32" height="32" patternUnits="userSpaceOnUse">
+            <path d="M 32 0 L 0 0 0 32" fill="none" stroke="white" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid-ophthal)"/>
+      </svg>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-6 py-20 md:py-28 grid gap-12 md:grid-cols-2 items-center">
+      <div>
+        <span class="inline-block rounded-full bg-brand-secondary/20 text-brand-secondary text-xs uppercase tracking-widest font-semibold px-3 py-1">
+          Autonomous AI
+        </span>
+        <h1 class="mt-5 text-5xl md:text-6xl font-bold leading-tight">Ophthal360</h1>
+        <p class="mt-3 text-2xl md:text-3xl font-semibold text-brand-secondary">
+          Retinal screening at the scale of a population.
+        </p>
+        <p class="mt-6 text-lg text-white/90 leading-relaxed max-w-xl">
+          An autonomous AI platform built for health systems, population health programs, and large-scale screening deployments—delivering retinal analysis and referral decision support without manual image review.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-4">
+          <button
+            type="button"
+            data-open-modal="demo"
+            class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-6 py-3 rounded-md hover:bg-brand-surface transition"
+          >
+            Request a Demo
+          </button>
+          <a
+            href="#deployment-case"
+            class="inline-flex items-center justify-center border-2 border-white text-white font-semibold px-6 py-3 rounded-md hover:bg-white hover:text-brand-primary transition"
+          >
+            See Deployment Case
+          </a>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <svg viewBox="0 0 400 340" class="w-full max-w-[420px]" aria-hidden="true">
+          <circle cx="200" cy="170" r="40" fill="#0EA5E9" fill-opacity="0.3" stroke="#0EA5E9" stroke-width="1.5"/>
+          <circle cx="200" cy="170" r="20" fill="#0EA5E9"/>
+          <text x="200" y="174" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="Inter">AI</text>
+          {[
+            { x: 70, y: 80 },
+            { x: 330, y: 80 },
+            { x: 60, y: 260 },
+            { x: 340, y: 260 },
+            { x: 200, y: 40 },
+            { x: 200, y: 300 },
+          ].map((n) => (
+            <g>
+              <line x1="200" y1="170" x2={n.x} y2={n.y} stroke="#fff" stroke-opacity="0.3" stroke-dasharray="3 4"/>
+              <circle cx={n.x} cy={n.y} r="14" fill="#fff" fill-opacity="0.1" stroke="#fff" stroke-opacity="0.6" stroke-width="1"/>
+              <circle cx={n.x} cy={n.y} r="5" fill="#0EA5E9"/>
+            </g>
+          ))}
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2 — THE CHALLENGE -->
+  <section class="bg-brand-surface">
+    <div class="max-w-3xl mx-auto px-6 py-20">
+      <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary">
+        THE CHALLENGE
+      </PipeHeading>
+      <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">
+        Specialist-dependent screening doesn't scale.
+      </h2>
+      <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed">
+        <p>Preventable blindness remains one of the largest unaddressed public health challenges globally. The tools to detect diabetic retinopathy and other retinal conditions exist. The specialists to interpret every image do not.</p>
+        <p>Every screening model that requires expert image review hits the same ceiling: the supply of reading ophthalmologists. At national scale. At global scale. It's not enough.</p>
+        <p>Ophthal360 was built to move past that ceiling.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — WHAT IT DOES -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20 grid gap-12 md:grid-cols-5 items-start">
+      <div class="md:col-span-3">
+        <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary">
+          THE SOLUTION
+        </PipeHeading>
+        <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">
+          Autonomous retinal analysis at population scale.
+        </h2>
+        <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed">
+          <p>Ophthal360 performs retinal analysis and generates screening outputs without manual interpretation—combining automated disease detection, referral decision support, and integration pathways for large-volume deployment.</p>
+          <p>It is designed for environments where traditional specialist-dependent workflows are not feasible: rural regions, developing healthcare markets, national screening programs, and high-throughput clinical networks.</p>
+        </div>
+      </div>
+      <div class="md:col-span-2 bg-brand-ink text-white rounded-2xl p-8">
+        <p class="text-xs uppercase tracking-widest text-brand-secondary font-semibold">In Active Deployment</p>
+        <h3 class="mt-3 text-2xl font-bold">Currently deployed across Asian markets.</h3>
+        <p class="mt-4 text-white/80 leading-relaxed">
+          Ophthal360 is live today in healthcare programs across Asia, where access to specialist eye care is scarce and the need for scale is immediate. Every scan contributes to a validated body of real-world performance data.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 — CAPABILITIES -->
+  <section class="bg-brand-surface-blue">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <div class="text-center max-w-3xl mx-auto">
+        <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary" class="justify-center">
+          CAPABILITIES
+        </PipeHeading>
+        <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">Built for Autonomous Scale</h2>
+      </div>
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        {capabilities.map((c) => (
+          <CapabilityTile title={c.title} body={c.body}>
+            <span slot="icon" set:html={c.icon}></span>
+          </CapabilityTile>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5 — WHO IT'S FOR -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <div class="text-center max-w-3xl mx-auto">
+        <PipeHeading level="h2" color="text-brand-ink" class="justify-center">
+          Built for Systems and Programs at Scale
+        </PipeHeading>
+      </div>
+      <div class="mt-12 grid gap-6 md:grid-cols-2">
+        {audiences.map((a) => (
+          <AudienceCard title={a.title} body={a.body}>
+            <span slot="icon" set:html={a.icon}></span>
+          </AudienceCard>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6 — HOW IT WORKS -->
+  <section class="bg-brand-surface">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink text-center">Screening Without Bottlenecks</h2>
+      <div class="mt-12 grid gap-6 md:grid-cols-4">
+        {steps.map((s) => (
+          <div class="bg-white border border-brand-line rounded-xl p-6">
+            <span class="text-brand-primary font-bold text-4xl">{s.n}</span>
+            <h3 class="mt-3 text-lg font-semibold text-brand-ink">{s.title}</h3>
+            <p class="mt-2 text-sm text-brand-body leading-relaxed">{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7 — CASE IN PRACTICE -->
+  <section id="deployment-case" class="bg-brand-primary text-white">
+    <div class="max-w-7xl mx-auto px-6 py-20 grid gap-12 md:grid-cols-2 items-center">
+      <div class="aspect-[4/3] bg-gradient-to-br from-brand-primary-dark to-brand-primary-light rounded-2xl border border-white/10 flex items-center justify-center text-white/50">
+        <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+      </div>
+      <div>
+        <p class="text-sm uppercase tracking-widest text-brand-secondary font-semibold">Case in Practice</p>
+        <h2 class="mt-3 text-3xl md:text-4xl font-bold">
+          Transforming eye care access where specialists are scarce.
+        </h2>
+        <div class="mt-6 space-y-5 text-lg text-white/90 leading-relaxed">
+          <p>Across Asian markets, Ophthal360 is enabling eye screening for populations that historically have had limited or no access to specialist ophthalmology. From urban community clinics to rural home health programs, the platform supports screening decisions at a scale that would be impossible under a traditional expert-review model.</p>
+          <p>This is what autonomous AI makes possible: care that reaches the people who need it, where they are.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8 — WHY -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink text-center">
+        Designed for Real-World Operating Conditions
+      </h2>
+      <div class="mt-12 grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
+        {benefits.map((b) => (
+          <div class="bg-brand-surface border border-brand-line rounded-xl p-6">
+            <h3 class="text-xl font-bold text-brand-ink">{b.title}</h3>
+            <p class="mt-2 text-base text-brand-body leading-relaxed">{b.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9 — FINAL CTA -->
+  <section class="bg-brand-surface-blue">
+    <div class="max-w-4xl mx-auto px-6 py-20 md:py-24 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink">Ready to scale retinal screening?</h2>
+      <p class="mt-5 max-w-2xl mx-auto text-lg text-brand-body leading-relaxed">
+        Let's discuss what autonomous deployment looks like for your system, program, or market.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <button
+          type="button"
+          data-open-modal="demo"
+          class="inline-flex items-center justify-center bg-brand-primary text-white font-semibold px-6 py-3 rounded-md hover:bg-brand-primary-dark transition"
+        >
+          Request a Demo
+        </button>
+        <button
+          type="button"
+          data-open-modal="contact"
+          class="inline-flex items-center justify-center border-2 border-brand-primary text-brand-primary font-semibold px-6 py-3 rounded-md hover:bg-brand-primary hover:text-white transition"
+        >
+          Contact Us
+        </button>
+      </div>
+    </div>
+  </section>
+</Layout>

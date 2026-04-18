@@ -21,7 +21,7 @@ import ResourceCard from '../components/content/ResourceCard.astro';
     headline="Retinal Intelligence for Earlier Detection and Better Health"
     subheadline="Advancing eye care through AI, oculomics, and multimodal intelligence—transforming the retina into a gateway for early disease detection and broader health insights."
     primaryCta={{ label: 'Request a Demo', openModal: 'demo' }}
-    secondaryCta={{ label: 'Explore Our Solutions', href: '#products' }}
+    secondaryCta={{ label: 'Explore Our Solutions', href: '/solutions' }}
   >
     <!-- FINAL_ASSET_TBD — stylized retina with AI scan overlay -->
     <div slot="visual" class="relative aspect-square max-w-lg mx-auto">
@@ -156,6 +156,16 @@ import ResourceCard from '../components/content/ResourceCard.astro';
           <p class="mt-5 text-base text-brand-body leading-relaxed">
             Ocula360 is Ophthalytics' next-generation retinal AI platform designed to detect multiple retinal diseases from imaging data, including advanced DRSS scoring. Built as a foundational model architecture, it supports screening, clinical research, and future multimodal applications across eye care and broader wellness workflows.
           </p>
+          <a
+            href="/solutions/ocula360"
+            class="mt-6 inline-flex items-center gap-2 text-brand-primary font-semibold hover:gap-3 transition-all"
+          >
+            Learn more about Ocula360
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
         </div>
 
         <!-- Core Strengths Card -->
@@ -212,7 +222,7 @@ import ResourceCard from '../components/content/ResourceCard.astro';
     <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
       <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         <!-- Intro card -->
-        <div class="relative rounded-2xl p-6 md:p-7 overflow-hidden bg-gradient-to-br from-brand-primary to-[#0F3A5C] text-white h-full flex flex-col">
+        <a href="/solutions" class="relative rounded-2xl p-6 md:p-7 overflow-hidden bg-gradient-to-br from-brand-primary to-[#0F3A5C] text-white h-full flex flex-col hover:shadow-xl transition-shadow group">
           <p class="text-xs uppercase tracking-widest text-brand-secondary font-semibold">
             Product Ecosystem
           </p>
@@ -222,26 +232,35 @@ import ResourceCard from '../components/content/ResourceCard.astro';
           <p class="mt-4 text-sm text-white/80 leading-relaxed">
             Ophthalytics has built a differentiated portfolio to serve primary care, insurers, optometrists, eye care specialists, and high-volume autonomous screening markets.
           </p>
-        </div>
+          <span class="mt-auto pt-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-secondary">
+            View all solutions <span class="transition-transform group-hover:translate-x-1">→</span>
+          </span>
+        </a>
 
-        <ProductCard
-          eyebrow="HUMAN + AI"
-          name="NSight360"
-          tagline="Assistive retinal diagnostics for PCPs, health systems, and insurance companies."
-          capabilities={["Human-in-the-loop review","AI-assisted reports","Built for screening programs"]}
-        />
-        <ProductCard
-          eyebrow="EYE CARE MARKET"
-          name="2nd Opinion"
-          tagline="AI diagnostic support for optometrists and eye care professionals."
-          capabilities={["Lesion visualization","Diagnostic confidence support","Clinical workflow fit"]}
-        />
-        <ProductCard
-          eyebrow="AUTONOMOUS AI"
-          name="Ophthal360"
-          tagline="Autonomous retinal disease diagnostics product currently selling in Asian markets."
-          capabilities={["High-volume screening","Automated referral logic","Built for scalable deployment"]}
-        />
+        <a href="/solutions/nsight360" class="group hover:shadow-lg transition-shadow rounded-2xl">
+          <ProductCard
+            eyebrow="HUMAN + AI"
+            name="Nsight360"
+            tagline="Assistive retinal diagnostics for PCPs, health systems, and insurance companies."
+            capabilities={["Human-in-the-loop review","AI-assisted reports","Built for screening programs"]}
+          />
+        </a>
+        <a href="/solutions/2nd-opinion" class="group hover:shadow-lg transition-shadow rounded-2xl">
+          <ProductCard
+            eyebrow="EYE CARE MARKET"
+            name="2nd Opinion"
+            tagline="AI diagnostic support for optometrists and eye care professionals."
+            capabilities={["Lesion visualization","Diagnostic confidence support","Clinical workflow fit"]}
+          />
+        </a>
+        <a href="/solutions/ophthal360" class="group hover:shadow-lg transition-shadow rounded-2xl">
+          <ProductCard
+            eyebrow="AUTONOMOUS AI"
+            name="Ophthal360"
+            tagline="Autonomous retinal disease diagnostics product currently selling in Asian markets."
+            capabilities={["High-volume screening","Automated referral logic","Built for scalable deployment"]}
+          />
+        </a>
       </div>
 
       <div class="mt-10 flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-xs text-brand-muted">
@@ -315,7 +334,7 @@ import ResourceCard from '../components/content/ResourceCard.astro';
       </p>
       <div class="mt-12">
         <TestimonialFeature
-          quote="Using NSight360, we've screened over 250,000 patients and helped prevent thousands of cases of blindness."
+          quote="Using Nsight360, we've screened over 250,000 patients and helped prevent thousands of cases of blindness."
           author="The Diabetic Center, Pakistan"
         />
       </div>

@@ -1,0 +1,243 @@
+---
+// [DERIVED COPY — founder review needed before launch]
+import Layout from '../../components/layout/Layout.astro';
+import PipeHeading from '../../components/content/PipeHeading.astro';
+import CapabilityTile from '../../components/content/CapabilityTile.astro';
+import AudienceCard from '../../components/content/AudienceCard.astro';
+
+const capabilities = [
+  {
+    title: 'Lesion Visualization',
+    body: 'Clear visual overlays highlight suspicious regions and lesion-level features—so you see what the AI saw, and why it flagged it.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  },
+  {
+    title: 'Decision Support',
+    body: 'Confidence signals and standardized grading help reduce variability in interpretation across clinicians, clinics, and time.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
+  },
+  {
+    title: 'Workflow Integration',
+    body: 'Designed to fit into existing optometric workflows with minimal disruption. No new hardware required. No workflow rebuild required.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+  },
+];
+
+const audiences = [
+  { title: 'Optometrists', body: 'Add a confident second layer of AI-supported review to everyday exams, especially on subtle or borderline retinal findings.', icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="15" r="4"/><circle cx="18" cy="15" r="4"/><path d="M14 15a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M2.5 13 5 7c.7-1.3 1.4-2 3-2"/><path d="m21.5 13-2.5-6c-.7-1.3-1.5-2-3-2"/></svg>` },
+  { title: 'Eye Clinics & Optical Chains', body: 'Standardize retinal interpretation across locations and clinicians to deliver consistent patient experiences at every branch.', icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 21V9h6v12"/></svg>` },
+  { title: 'Ophthalmology Practices', body: 'Strengthen diagnostic confidence on high-volume days without expanding headcount. Every image gets a second look.', icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"/><line x1="6" y1="21" x2="18" y2="21"/><circle cx="12" cy="16" r="2"/></svg>` },
+  { title: 'Reading Centers', body: 'Reduce inter-reader variability and improve throughput on large-volume retinal image review projects.', icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="11.5" cy="14.5" r="2.5"/><path d="m13.27 16.27 2.23 2.23"/></svg>` },
+];
+
+const steps = [
+  { n: '01', title: 'Capture or Import', body: 'Use your existing retinal camera or import images from your current system. No new hardware. No workflow redesign.' },
+  { n: '02', title: 'AI-Assisted Review', body: '2nd Opinion analyzes each image and surfaces potential findings with visual overlays and confidence signals.' },
+  { n: '03', title: 'Clinician-Led Decision', body: 'You review the AI output alongside the original image and make the call. The clinical decision is always yours.' },
+];
+
+const benefits = [
+  { title: 'Reduce Diagnostic Variability', body: 'Standardized AI interpretation brings consistency to what is historically one of the most subjective areas of eye care.' },
+  { title: "Find What's Easy to Miss", body: 'Early-stage indicators and subtle lesions get surfaced automatically—supporting earlier intervention and better outcomes.' },
+  { title: 'Fits Your Existing Practice', body: 'Works with any retinal camera and integrates with standard clinical workflows. No tech-stack overhaul required.' },
+  { title: 'Your Clinical Judgment, Amplified', body: '2nd Opinion supports and standardizes your expertise—it does not substitute for it. Every decision stays with the clinician.' },
+];
+---
+
+<Layout
+  title="2nd Opinion — Diagnostic Support for Optometry — Ophthalytics"
+  description="AI-assisted retinal analysis built for optometrists and eye care professionals."
+>
+  <!-- SECTION 1 — HERO -->
+  <section class="bg-white border-b border-brand-line">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 grid gap-12 md:grid-cols-2 items-center">
+      <div>
+        <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Diagnostic Support Solution</p>
+        <h1 class="mt-4 text-5xl md:text-6xl font-bold text-brand-ink leading-tight">2nd Opinion</h1>
+        <p class="mt-3 text-2xl text-brand-primary">Greater confidence on the cases that matter most.</p>
+        <p class="mt-6 max-w-xl text-lg text-brand-body leading-relaxed">
+          AI-assisted retinal analysis built for optometrists and eye care professionals. 2nd Opinion highlights subtle findings, standardizes interpretation, and adds a trusted layer of review to every complex or borderline case.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-4">
+          <button
+            type="button"
+            data-open-modal="demo"
+            class="inline-flex items-center justify-center bg-brand-primary text-white font-semibold px-6 py-3 rounded-md hover:bg-brand-primary-dark transition"
+          >
+            Request a Demo
+          </button>
+          <a
+            href="#how-it-integrates"
+            class="inline-flex items-center justify-center border-2 border-brand-primary text-brand-primary font-semibold px-6 py-3 rounded-md hover:bg-brand-primary hover:text-white transition"
+          >
+            See How It Integrates
+          </a>
+        </div>
+      </div>
+      <div class="bg-brand-surface-blue rounded-2xl p-6">
+        <div class="grid grid-cols-2 gap-3">
+          <div class="rounded-xl overflow-hidden border border-brand-line bg-white">
+            <div class="aspect-square relative bg-gradient-to-br from-[#450a0a] via-[#991b1b] to-[#dc2626]">
+              <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full" aria-hidden="true">
+                <circle cx="50" cy="50" r="8" fill="#0EA5E9" fill-opacity="0.7"/>
+              </svg>
+            </div>
+            <p class="p-2 text-xs text-brand-muted text-center font-medium">Original</p>
+          </div>
+          <div class="rounded-xl overflow-hidden border border-brand-primary bg-white">
+            <div class="aspect-square relative bg-gradient-to-br from-[#450a0a] via-[#991b1b] to-[#dc2626]">
+              <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full" aria-hidden="true">
+                <circle cx="50" cy="50" r="8" fill="#0EA5E9" fill-opacity="0.7"/>
+                <circle cx="30" cy="35" r="6" fill="none" stroke="#0EA5E9" stroke-width="1.5"/>
+                <circle cx="70" cy="40" r="4" fill="none" stroke="#0EA5E9" stroke-width="1.5"/>
+                <circle cx="65" cy="70" r="5" fill="none" stroke="#0EA5E9" stroke-width="1.5"/>
+                <circle cx="35" cy="72" r="3" fill="none" stroke="#0EA5E9" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <p class="p-2 text-xs text-brand-primary text-center font-semibold">AI-annotated</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2 — THE CHALLENGE -->
+  <section class="bg-brand-surface">
+    <div class="max-w-3xl mx-auto px-6 py-20">
+      <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary">
+        THE CHALLENGE
+      </PipeHeading>
+      <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">
+        In everyday practice, not every case is clear-cut.
+      </h2>
+      <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed">
+        <p>Subtle lesions. Early-stage disease. Borderline findings that could go either way. Every optometrist knows the cases that demand a second look—and the weight of interpretation that comes with them.</p>
+        <p>Variability in retinal image interpretation is well-documented across the industry. Even experienced clinicians can reach different conclusions on the same image. The cost of missing something small is sometimes a patient's sight.</p>
+        <p>2nd Opinion exists to make those moments easier—by surfacing what the eye can miss and standardizing what trained AI can see.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — THE SOLUTION -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20 grid gap-12 md:grid-cols-5 items-start">
+      <div class="md:col-span-3">
+        <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary">
+          THE SOLUTION
+        </PipeHeading>
+        <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">
+          AI-supported interpretation, built for optometry.
+        </h2>
+        <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed">
+          <p>2nd Opinion analyzes retinal images alongside your clinical review, highlighting regions of interest, flagging potential lesions, and offering confidence signals that inform—but never replace—your clinical judgment.</p>
+          <p>It acts as a second set of expert eyes on every case, without slowing your workflow or complicating your tech stack.</p>
+        </div>
+      </div>
+      <div class="md:col-span-2 bg-brand-primary text-white rounded-2xl p-8">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        <h3 class="mt-5 text-2xl font-bold">Not a replacement. A second pair of eyes.</h3>
+        <p class="mt-3 text-white/80 leading-relaxed">
+          2nd Opinion informs your clinical decisions. It does not make them. Every output is explainable, every finding is reviewable, and every case stays yours to interpret.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 — CAPABILITIES -->
+  <section class="bg-brand-surface-blue">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <div class="text-center max-w-3xl mx-auto">
+        <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary" class="justify-center">
+          CAPABILITIES
+        </PipeHeading>
+        <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">Three Layers of Insight</h2>
+      </div>
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        {capabilities.map((c) => (
+          <CapabilityTile title={c.title} body={c.body}>
+            <span slot="icon" set:html={c.icon}></span>
+          </CapabilityTile>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5 — WHO IT'S FOR -->
+  <section id="who-its-for" class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <div class="text-center max-w-3xl mx-auto">
+        <PipeHeading level="h2" color="text-brand-ink" class="justify-center">
+          Built for the Eye Care Market
+        </PipeHeading>
+      </div>
+      <div class="mt-12 grid gap-6 md:grid-cols-2">
+        {audiences.map((a) => (
+          <AudienceCard title={a.title} body={a.body}>
+            <span slot="icon" set:html={a.icon}></span>
+          </AudienceCard>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6 — HOW IT INTEGRATES -->
+  <section id="how-it-integrates" class="bg-brand-surface">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink text-center">
+        Fits Your Workflow, Not the Other Way Around
+      </h2>
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        {steps.map((s) => (
+          <div class="bg-white border border-brand-line rounded-xl p-6">
+            <span class="text-brand-primary font-bold text-4xl">{s.n}</span>
+            <h3 class="mt-3 text-lg font-semibold text-brand-ink">{s.title}</h3>
+            <p class="mt-2 text-sm text-brand-body leading-relaxed">{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7 — WHY -->
+  <section class="bg-brand-primary text-white">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-center">Confidence. Consistency. Control.</h2>
+      <div class="mt-12 grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
+        {benefits.map((b) => (
+          <div>
+            <h3 class="text-xl font-bold">{b.title}</h3>
+            <p class="mt-2 text-base text-white/90 leading-relaxed">{b.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8 — FINAL CTA -->
+  <section class="bg-white">
+    <div class="max-w-4xl mx-auto px-6 py-20 md:py-24 text-center bg-brand-surface-blue rounded-2xl my-10">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink">
+        Give every case a second set of expert eyes.
+      </h2>
+      <p class="mt-5 max-w-2xl mx-auto text-lg text-brand-body leading-relaxed">
+        See how 2nd Opinion fits into your optometric practice with a personalized demo.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <button
+          type="button"
+          data-open-modal="demo"
+          class="inline-flex items-center justify-center bg-brand-primary text-white font-semibold px-6 py-3 rounded-md hover:bg-brand-primary-dark transition"
+        >
+          Request a Demo
+        </button>
+        <button
+          type="button"
+          data-open-modal="contact"
+          class="inline-flex items-center justify-center border-2 border-brand-primary text-brand-primary font-semibold px-6 py-3 rounded-md hover:bg-brand-primary hover:text-white transition"
+        >
+          Contact Us
+        </button>
+      </div>
+    </div>
+  </section>
+</Layout>

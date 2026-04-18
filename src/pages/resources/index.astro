@@ -1,0 +1,113 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+import PipeHeading from '../../components/content/PipeHeading.astro';
+
+const categories = [
+  {
+    href: '/resources/journal-articles',
+    title: 'Journal Articles',
+    body: 'Peer-reviewed research authored by the Ophthalytics team, exploring the clinical and technical foundations of our AI platforms.',
+    cta: 'Browse journal articles',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+  },
+  {
+    href: '/resources/newsroom',
+    title: 'Newsroom',
+    body: 'Press releases, company news, conference appearances, and announcements from the Ophthalytics team.',
+    cta: 'Read the latest',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>`,
+  },
+  {
+    href: '/resources/innovation-pipeline',
+    title: 'Innovation Pipeline',
+    body: 'The next generation of AI-powered diagnostics—4Front360, cardiovascular risk assessment, and the "Windows to 270 Diseases" initiative.',
+    cta: "Explore what's next",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2v7.5L3 20h18L15 9.5V2"/><line x1="9" y1="2" x2="15" y2="2"/><path d="M7 16h10"/></svg>`,
+  },
+];
+---
+
+<Layout
+  title="Resources — Ophthalytics"
+  description="Ophthalytics resources, news, testimonies, and more."
+>
+  <!-- SECTION 1 — HERO -->
+  <section class="bg-brand-surface-blue">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-28">
+      <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Resources</p>
+      <h1 class="mt-3 text-5xl md:text-6xl font-bold text-brand-ink leading-tight">
+        Resources
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg md:text-xl text-brand-body leading-relaxed">
+        Ophthalytics resources, news, testimonies, and more.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 2 — CATEGORY CARDS -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <div class="grid gap-6 md:grid-cols-3" data-reveal-group>
+        {categories.map((cat) => (
+          <a
+            href={cat.href}
+            class="group bg-white border border-brand-line rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col"
+          >
+            <div class="text-brand-primary mb-5" set:html={cat.icon}></div>
+            <h2 class="text-2xl font-bold text-brand-ink mb-3">{cat.title}</h2>
+            <p class="text-base text-brand-body leading-relaxed flex-1">{cat.body}</p>
+            <span class="mt-6 inline-flex items-center gap-1 text-brand-primary font-semibold">
+              {cat.cta}
+              <span class="transition-transform group-hover:translate-x-1">→</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — FEATURED RESEARCH -->
+  <section class="bg-brand-surface">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary">
+        FEATURED RESEARCH
+      </PipeHeading>
+      <div class="mt-8 grid gap-8 md:grid-cols-5 items-center bg-white rounded-2xl border border-brand-line overflow-hidden">
+        <div class="md:col-span-2">
+          <img
+            src="/resources/journal-cover.png"
+            alt="Journal article cover"
+            class="w-full h-full object-cover aspect-[3/4] md:aspect-auto"
+            loading="lazy"
+          />
+        </div>
+        <div class="md:col-span-3 p-6 md:p-10">
+          <span class="inline-block rounded-full bg-brand-primary/10 text-brand-primary text-xs uppercase tracking-widest font-semibold px-3 py-1">
+            Journal Article
+          </span>
+          <h3 class="mt-4 text-2xl md:text-3xl font-bold text-brand-ink leading-snug">
+            A Prospective Study on Diabetic Retinopathy Detection Based on a Modified Convolutional Neural Network Using Fundus Images at Sindh Institute of Ophthalmology &amp; Visual Sciences
+          </h3>
+          <p class="mt-3 text-sm text-brand-muted">
+            Authored by Ophthalytics co-founders and clinical partners
+          </p>
+          <p class="mt-4 text-base text-brand-body leading-relaxed">
+            Published peer-reviewed research documenting the performance of our early deep-learning models on diabetic retinopathy detection using standard fundus imaging.
+          </p>
+          <a
+            href="https://www.mdpi.com/2075-4418/13/3/393"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-6 inline-flex items-center gap-2 text-brand-primary font-semibold hover:gap-3 transition-all"
+          >
+            Read the Article
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
