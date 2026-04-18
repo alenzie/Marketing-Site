@@ -1,0 +1,908 @@
+---
+---
+
+<canvas class="retinal-intelligence-canvas w-full h-full block" aria-hidden="true"></canvas>
+
+<script>
+  type Particle = {
+    angle: number;
+    radius: number;
+    baseRadius: number;
+    speed: number;
+    size: number;
+    phase: number;
+    brightness: number;
+    trail: { x: number; y: number }[];
+    trailIndex: number;
+  };
+
+  type Ring = {
+    radius: number;
+    particles: Particle[];
+    ringIndex: number;
+  };
+
+  type Node = {
+    x: number;
+    y: number;
+    type: 'brain' | 'heart' | 'metabolic' | 'lungs';
+    phase: number;
+    lastPulse: number;
+  };
+
+  type Pulse = {
+    active: boolean;
+    nodeIndex: number;
+    progress: number;
+    duration: number;
+    direction: number;
+    intensity: number;
+  };
+
+  function initRetinalIntelligence(canvas: HTMLCanvasElement) {
+    if (canvas.dataset.canvasInit === 'true') return;
+    canvas.dataset.canvasInit = 'true';
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const PALETTE = {
+      bgDeep: '#06122A',
+      bgNavy: '#0A1A3A',
+      irisCore: '#0E2552',
+      irisEdge: '#152F66',
+    };
+
+    const state = {
+      w: 0,
+      h: 0,
+      cx: 0,
+      cy: 0,
+      dpr: 1,
+      baseR: 0,
+      irisR: 0,
+      pupilR: 0,
+      lensRx: 0,
+      lensRy: 0,
+      rings: [] as Ring[],
+      nodes: [] as Node[],
+      pulses: [] as Pulse[],
+      arc: {
+        angle: -Math.PI / 2,
+        duration: 7.2,
+        elapsed: 0,
+        direction: 1,
+        width: 0.35,
+        cooling: false,
+        coolTime: 0,
+      },
+      time: 0,
+      last: 0,
+    };
+
+    function resize() {
+      const parent = canvas.parentElement;
+      if (!parent) return;
+      const rect = parent.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+      if (w <= 0 || h <= 0) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      state.dpr = dpr;
+      state.w = w;
+      state.h = h;
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      state.cx = w / 2;
+      state.cy = h / 2;
+      state.baseR = Math.min(w, h) * 0.22;
+      state.irisR = state.baseR;
+      state.pupilR = state.baseR * 0.22;
+      state.lensRx = state.baseR * 1.9;
+      state.lensRy = state.baseR * 1.15;
+
+      layoutRings();
+      layoutNodes();
+    }
+
+    function layoutRings() {
+      const R = state.baseR;
+      const defs = [
+        { radius: R * 1.35, count: 14, speed: 0.18, size: 1.2, trail: 8 },
+        { radius: R * 1.7, count: 18, speed: 0.12, size: 1.3, trail: 9 },
+        { radius: R * 2.15, count: 22, speed: 0.07, size: 1.1, trail: 10 },
+        { radius: R * 2.7, count: 28, speed: 0.035, size: 1.0, trail: 12 },
+      ];
+
+      if (state.rings.length === 0) {
+        defs.forEach((d, ri) => {
+          const particles: Particle[] = [];
+          for (let i = 0; i < d.count; i++) {
+            const angle = (i / d.count) * Math.PI * 2 + Math.random() * 0.15;
+            const radialJitter = (Math.random() - 0.5) * 6;
+            const trail = new Array(d.trail)
+              .fill(null)
+              .map(() => ({ x: 0, y: 0 }));
+            particles.push({
+              angle,
+              radius: d.radius + radialJitter,
+              baseRadius: d.radius + radialJitter,
+              speed: d.speed * (0.85 + Math.random() * 0.3),
+              size: d.size * (0.8 + Math.random() * 0.5),
+              phase: Math.random() * Math.PI * 2,
+              brightness: 0,
+              trail,
+              trailIndex: 0,
+            });
+          }
+          state.rings.push({ radius: d.radius, particles, ringIndex: ri });
+        });
+      } else {
+        state.rings.forEach((ring, ri) => {
+          const d = defs[ri];
+          ring.radius = d.radius;
+          ring.particles.forEach((p) => {
+            const radialJitter = (Math.random() - 0.5) * 6;
+            p.baseRadius = d.radius + radialJitter;
+            p.radius = p.baseRadius;
+          });
+        });
+      }
+    }
+
+    function layoutNodes() {
+      const w = state.w;
+      const h = state.h;
+      const marginX = Math.max(w * 0.14, 90);
+      const marginY = Math.max(h * 0.18, 90);
+
+      const positions: { x: number; y: number; type: Node['type'] }[] = [
+        { x: marginX, y: marginY, type: 'brain' },
+        { x: w - marginX, y: marginY, type: 'heart' },
+        { x: marginX, y: h - marginY, type: 'metabolic' },
+        { x: w - marginX, y: h - marginY, type: 'lungs' },
+      ];
+
+      if (state.nodes.length === 0) {
+        positions.forEach((p, i) => {
+          state.nodes.push({
+            x: p.x,
+            y: p.y,
+            type: p.type,
+            phase: Math.random() * Math.PI * 2,
+            lastPulse: -i * 1.6,
+          });
+        });
+        for (let i = 0; i < 12; i++) {
+          state.pulses.push({
+            active: false,
+            nodeIndex: 0,
+            progress: 0,
+            duration: 0,
+            direction: 1,
+            intensity: 1,
+          });
+        }
+      } else {
+        state.nodes.forEach((n, i) => {
+          n.x = positions[i].x;
+          n.y = positions[i].y;
+        });
+      }
+    }
+
+    function spawnPulse(nodeIndex: number, direction: number) {
+      for (let i = 0; i < state.pulses.length; i++) {
+        const p = state.pulses[i];
+        if (!p.active) {
+          p.active = true;
+          p.nodeIndex = nodeIndex;
+          p.progress = 0;
+          p.duration = 2.6 + Math.random() * 1.2;
+          p.direction = direction;
+          p.intensity = 0.75 + Math.random() * 0.35;
+          return;
+        }
+      }
+    }
+
+    function updatePulses(dt: number) {
+      for (let i = 0; i < state.nodes.length; i++) {
+        const node = state.nodes[i];
+        node.lastPulse += dt;
+        const interval = 3.6 + i * 0.9;
+        if (node.lastPulse > interval) {
+          node.lastPulse = 0;
+          spawnPulse(i, -1);
+        }
+      }
+      for (let i = 0; i < state.pulses.length; i++) {
+        const p = state.pulses[i];
+        if (!p.active) continue;
+        p.progress += dt / p.duration;
+        if (p.progress >= 1) p.active = false;
+      }
+    }
+
+    function updateArc(dt: number) {
+      const a = state.arc;
+      const rotationPeriod = 9;
+      a.angle += ((Math.PI * 2) / rotationPeriod) * dt;
+      if (a.angle > Math.PI * 2) a.angle -= Math.PI * 2;
+    }
+
+    function updateParticles(dt: number) {
+      const a = state.arc;
+      const arcWidth = a.width;
+
+      for (let r = 0; r < state.rings.length; r++) {
+        const ring = state.rings[r];
+        const particles = ring.particles;
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.angle += p.speed * dt;
+          if (p.angle > Math.PI * 2) p.angle -= Math.PI * 2;
+          if (p.angle < 0) p.angle += Math.PI * 2;
+
+          p.radius =
+            p.baseRadius + Math.sin(state.time * 0.4 + p.phase) * 1.4;
+
+          const x = state.cx + Math.cos(p.angle) * p.radius;
+          const y = state.cy + Math.sin(p.angle) * p.radius * 0.78;
+
+          p.trail[p.trailIndex].x = x;
+          p.trail[p.trailIndex].y = y;
+          p.trailIndex = (p.trailIndex + 1) % p.trail.length;
+
+          let delta = p.angle - a.angle;
+          while (delta > Math.PI) delta -= Math.PI * 2;
+          while (delta < -Math.PI) delta += Math.PI * 2;
+          if (Math.abs(delta) < arcWidth) {
+            const near = 1 - Math.abs(delta) / arcWidth;
+            if (near > p.brightness) p.brightness = near;
+          }
+          p.brightness *= Math.pow(0.12, dt);
+        }
+      }
+    }
+
+    function drawBackground() {
+      const g = ctx!.createRadialGradient(
+        state.cx,
+        state.cy,
+        0,
+        state.cx,
+        state.cy,
+        Math.max(state.w, state.h) * 0.75
+      );
+      g.addColorStop(0, '#0C1F47');
+      g.addColorStop(0.55, PALETTE.bgNavy);
+      g.addColorStop(1, PALETTE.bgDeep);
+      ctx!.fillStyle = g;
+      ctx!.fillRect(0, 0, state.w, state.h);
+    }
+
+    function drawConnections() {
+      const gap = Math.max(state.baseR * 0.18, 22);
+      ctx!.save();
+      ctx!.lineWidth = 1;
+      ctx!.setLineDash([1, 6]);
+      ctx!.strokeStyle = 'rgba(136, 184, 224, 0.18)';
+      for (let i = 0; i < state.nodes.length; i++) {
+        const n = state.nodes[i];
+        const dx = n.x - state.cx;
+        const dy = n.y - state.cy;
+        const d = Math.hypot(dx, dy);
+        const ex = n.x - (dx / d) * gap;
+        const ey = n.y - (dy / d) * gap;
+        ctx!.beginPath();
+        ctx!.moveTo(state.cx, state.cy);
+        ctx!.lineTo(ex, ey);
+        ctx!.stroke();
+      }
+      ctx!.restore();
+    }
+
+    function drawPulses() {
+      ctx!.save();
+      ctx!.globalCompositeOperation = 'lighter';
+      for (let i = 0; i < state.pulses.length; i++) {
+        const p = state.pulses[i];
+        if (!p.active) continue;
+        const node = state.nodes[p.nodeIndex];
+        const t = p.direction === 1 ? p.progress : 1 - p.progress;
+        const x = state.cx + (node.x - state.cx) * t;
+        const y = state.cy + (node.y - state.cy) * t;
+
+        const fade = Math.sin(p.progress * Math.PI);
+        const radius = 2.6 * p.intensity * fade + 0.8;
+
+        const grad = ctx!.createRadialGradient(x, y, 0, x, y, radius * 6);
+        grad.addColorStop(0, `rgba(180, 210, 240, ${0.55 * fade})`);
+        grad.addColorStop(0.4, `rgba(136, 184, 224, ${0.22 * fade})`);
+        grad.addColorStop(1, 'rgba(136, 184, 224, 0)');
+        ctx!.fillStyle = grad;
+        ctx!.beginPath();
+        ctx!.arc(x, y, radius * 6, 0, Math.PI * 2);
+        ctx!.fill();
+
+        ctx!.fillStyle = `rgba(234, 243, 255, ${0.8 * fade})`;
+        ctx!.beginPath();
+        ctx!.arc(x, y, radius, 0, Math.PI * 2);
+        ctx!.fill();
+      }
+      ctx!.restore();
+    }
+
+    function drawNodes() {
+      for (let i = 0; i < state.nodes.length; i++) {
+        const n = state.nodes[i];
+        const breath = 0.75 + Math.sin(state.time * 0.9 + n.phase) * 0.12;
+        drawNodeGlyph(n, breath);
+      }
+    }
+
+    function drawNodeGlyph(n: Node, breath: number) {
+      const size = Math.max(state.baseR * 0.16, 20);
+      ctx!.save();
+      ctx!.translate(n.x, n.y);
+
+      ctx!.globalCompositeOperation = 'lighter';
+      const glow = ctx!.createRadialGradient(0, 0, 0, 0, 0, size * 2.2);
+      glow.addColorStop(0, `rgba(136, 184, 224, ${0.18 * breath})`);
+      glow.addColorStop(1, 'rgba(136, 184, 224, 0)');
+      ctx!.fillStyle = glow;
+      ctx!.beginPath();
+      ctx!.arc(0, 0, size * 2.2, 0, Math.PI * 2);
+      ctx!.fill();
+      ctx!.globalCompositeOperation = 'source-over';
+
+      const strokeMain = `rgba(170, 205, 235, ${0.7 + breath * 0.2})`;
+      const strokeSoft = `rgba(136, 184, 224, ${0.35 + breath * 0.15})`;
+      ctx!.strokeStyle = strokeMain;
+      ctx!.fillStyle = strokeMain;
+      ctx!.lineWidth = 1.1;
+      ctx!.lineCap = 'round';
+      ctx!.lineJoin = 'round';
+
+      if (n.type === 'heart') {
+        const w = size * 1.6;
+        const h = size * 0.55;
+        ctx!.beginPath();
+        ctx!.moveTo(-w * 0.5, 0);
+        ctx!.lineTo(-w * 0.22, 0);
+        ctx!.lineTo(-w * 0.15, -h * 0.25);
+        ctx!.lineTo(-w * 0.08, h * 0.15);
+        ctx!.lineTo(-w * 0.02, -h);
+        ctx!.lineTo(w * 0.04, h * 0.55);
+        ctx!.lineTo(w * 0.12, 0);
+        ctx!.lineTo(w * 0.22, 0);
+        ctx!.lineTo(w * 0.28, -h * 0.2);
+        ctx!.lineTo(w * 0.34, 0);
+        ctx!.lineTo(w * 0.5, 0);
+        ctx!.stroke();
+        ctx!.save();
+        ctx!.strokeStyle = strokeSoft;
+        ctx!.beginPath();
+        ctx!.moveTo(-w * 0.5, 0);
+        ctx!.lineTo(w * 0.5, 0);
+        ctx!.stroke();
+        ctx!.restore();
+      } else if (n.type === 'brain') {
+        const s = size * 1.05;
+        ctx!.beginPath();
+        ctx!.moveTo(0, -s * 0.78);
+        ctx!.bezierCurveTo(s * 0.55, -s * 0.85, s * 0.95, -s * 0.45, s * 0.92, -s * 0.05);
+        ctx!.bezierCurveTo(s * 1.02, s * 0.3, s * 0.7, s * 0.72, s * 0.25, s * 0.7);
+        ctx!.bezierCurveTo(s * 0.15, s * 0.92, -s * 0.15, s * 0.92, -s * 0.25, s * 0.7);
+        ctx!.bezierCurveTo(-s * 0.7, s * 0.72, -s * 1.02, s * 0.3, -s * 0.92, -s * 0.05);
+        ctx!.bezierCurveTo(-s * 0.95, -s * 0.45, -s * 0.55, -s * 0.85, 0, -s * 0.78);
+        ctx!.closePath();
+        ctx!.stroke();
+
+        ctx!.save();
+        ctx!.strokeStyle = strokeSoft;
+
+        ctx!.beginPath();
+        ctx!.moveTo(0, -s * 0.78);
+        ctx!.bezierCurveTo(-s * 0.05, -s * 0.4, s * 0.05, s * 0.2, 0, s * 0.7);
+        ctx!.stroke();
+
+        ctx!.beginPath();
+        ctx!.moveTo(-s * 0.55, -s * 0.55);
+        ctx!.bezierCurveTo(-s * 0.3, -s * 0.3, -s * 0.35, s * 0.05, -s * 0.55, s * 0.2);
+        ctx!.stroke();
+
+        ctx!.beginPath();
+        ctx!.moveTo(s * 0.55, -s * 0.55);
+        ctx!.bezierCurveTo(s * 0.3, -s * 0.3, s * 0.35, s * 0.05, s * 0.55, s * 0.2);
+        ctx!.stroke();
+
+        ctx!.beginPath();
+        ctx!.moveTo(-s * 0.75, s * 0.15);
+        ctx!.bezierCurveTo(-s * 0.5, s * 0.3, -s * 0.25, s * 0.35, -s * 0.1, s * 0.55);
+        ctx!.stroke();
+
+        ctx!.beginPath();
+        ctx!.moveTo(s * 0.75, s * 0.15);
+        ctx!.bezierCurveTo(s * 0.5, s * 0.3, s * 0.25, s * 0.35, s * 0.1, s * 0.55);
+        ctx!.stroke();
+
+        ctx!.restore();
+      } else if (n.type === 'lungs') {
+        const s = size * 1.05;
+
+        ctx!.beginPath();
+        ctx!.moveTo(0, -s * 0.9);
+        ctx!.lineTo(0, -s * 0.25);
+        ctx!.stroke();
+
+        ctx!.beginPath();
+        ctx!.moveTo(-s * 0.22, -s * 0.95);
+        ctx!.lineTo(s * 0.22, -s * 0.95);
+        ctx!.stroke();
+
+        ctx!.beginPath();
+        ctx!.moveTo(0, -s * 0.25);
+        ctx!.lineTo(-s * 0.35, -s * 0.05);
+        ctx!.stroke();
+        ctx!.beginPath();
+        ctx!.moveTo(0, -s * 0.25);
+        ctx!.lineTo(s * 0.35, -s * 0.05);
+        ctx!.stroke();
+
+        ctx!.beginPath();
+        ctx!.moveTo(-s * 0.35, -s * 0.05);
+        ctx!.bezierCurveTo(-s * 1.05, s * 0.05, -s * 1.05, s * 0.75, -s * 0.5, s * 0.9);
+        ctx!.bezierCurveTo(-s * 0.2, s * 0.95, -s * 0.15, s * 0.5, -s * 0.18, s * 0.1);
+        ctx!.lineTo(-s * 0.35, -s * 0.05);
+        ctx!.closePath();
+        ctx!.stroke();
+
+        ctx!.beginPath();
+        ctx!.moveTo(s * 0.35, -s * 0.05);
+        ctx!.bezierCurveTo(s * 1.05, s * 0.05, s * 1.05, s * 0.75, s * 0.5, s * 0.9);
+        ctx!.bezierCurveTo(s * 0.2, s * 0.95, s * 0.15, s * 0.5, s * 0.18, s * 0.1);
+        ctx!.lineTo(s * 0.35, -s * 0.05);
+        ctx!.closePath();
+        ctx!.stroke();
+
+        ctx!.save();
+        ctx!.strokeStyle = strokeSoft;
+
+        ctx!.beginPath();
+        ctx!.moveTo(-s * 0.35, -s * 0.05);
+        ctx!.lineTo(-s * 0.6, s * 0.25);
+        ctx!.stroke();
+        ctx!.beginPath();
+        ctx!.moveTo(-s * 0.35, -s * 0.05);
+        ctx!.lineTo(-s * 0.55, s * 0.55);
+        ctx!.stroke();
+        ctx!.beginPath();
+        ctx!.moveTo(-s * 0.6, s * 0.25);
+        ctx!.lineTo(-s * 0.8, s * 0.45);
+        ctx!.stroke();
+
+        ctx!.beginPath();
+        ctx!.moveTo(s * 0.35, -s * 0.05);
+        ctx!.lineTo(s * 0.6, s * 0.25);
+        ctx!.stroke();
+        ctx!.beginPath();
+        ctx!.moveTo(s * 0.35, -s * 0.05);
+        ctx!.lineTo(s * 0.55, s * 0.55);
+        ctx!.stroke();
+        ctx!.beginPath();
+        ctx!.moveTo(s * 0.6, s * 0.25);
+        ctx!.lineTo(s * 0.8, s * 0.45);
+        ctx!.stroke();
+
+        ctx!.restore();
+      } else if (n.type === 'metabolic') {
+        const h = size * 1.2;
+        const w = size * 0.75;
+        ctx!.beginPath();
+        ctx!.moveTo(0, -h * 0.55);
+        ctx!.bezierCurveTo(w * 0.95, -h * 0.1, w * 0.85, h * 0.5, 0, h * 0.55);
+        ctx!.bezierCurveTo(-w * 0.85, h * 0.5, -w * 0.95, -h * 0.1, 0, -h * 0.55);
+        ctx!.closePath();
+        ctx!.stroke();
+        ctx!.save();
+        ctx!.strokeStyle = strokeSoft;
+        ctx!.beginPath();
+        ctx!.moveTo(-w * 0.35, h * 0.2);
+        ctx!.quadraticCurveTo(-w * 0.55, -h * 0.1, -w * 0.2, -h * 0.35);
+        ctx!.stroke();
+        ctx!.restore();
+        ctx!.fillStyle = strokeMain;
+        ctx!.beginPath();
+        ctx!.arc(0, h * 0.1, 1.4, 0, Math.PI * 2);
+        ctx!.fill();
+      }
+
+      ctx!.restore();
+    }
+
+    function drawLens() {
+      ctx!.save();
+      ctx!.translate(state.cx, state.cy);
+      ctx!.strokeStyle = 'rgba(122, 90, 199, 0.38)';
+      ctx!.lineWidth = 1.1;
+      ctx!.beginPath();
+      ctx!.ellipse(0, 0, state.lensRx, state.lensRy, 0, 0, Math.PI * 2);
+      ctx!.stroke();
+
+      ctx!.strokeStyle = 'rgba(122, 90, 199, 0.18)';
+      ctx!.lineWidth = 1;
+      ctx!.beginPath();
+      ctx!.ellipse(0, 0, state.lensRx * 0.86, state.lensRy * 0.86, 0, 0, Math.PI * 2);
+      ctx!.stroke();
+
+      ctx!.restore();
+    }
+
+    function drawIrisSphere() {
+      const cx = state.cx;
+      const cy = state.cy;
+      const R = state.irisR;
+
+      ctx!.save();
+      ctx!.globalCompositeOperation = 'lighter';
+      const outer = ctx!.createRadialGradient(cx, cy, R * 0.95, cx, cy, R * 1.6);
+      outer.addColorStop(0, 'rgba(30, 70, 140, 0.35)');
+      outer.addColorStop(1, 'rgba(30, 70, 140, 0)');
+      ctx!.fillStyle = outer;
+      ctx!.beginPath();
+      ctx!.arc(cx, cy, R * 1.6, 0, Math.PI * 2);
+      ctx!.fill();
+      ctx!.restore();
+
+      const g = ctx!.createRadialGradient(cx - R * 0.15, cy - R * 0.2, R * 0.05, cx, cy, R);
+      g.addColorStop(0, '#1B3A78');
+      g.addColorStop(0.45, PALETTE.irisEdge);
+      g.addColorStop(1, PALETTE.irisCore);
+      ctx!.fillStyle = g;
+      ctx!.beginPath();
+      ctx!.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx!.fill();
+
+      ctx!.save();
+      ctx!.beginPath();
+      ctx!.arc(cx, cy, R * 0.995, 0, Math.PI * 2);
+      ctx!.clip();
+      drawIrisGrid();
+      ctx!.restore();
+
+      ctx!.save();
+      ctx!.globalCompositeOperation = 'lighter';
+      const rim = ctx!.createRadialGradient(cx, cy, R * 0.8, cx, cy, R);
+      rim.addColorStop(0, 'rgba(136, 184, 224, 0)');
+      rim.addColorStop(0.85, 'rgba(136, 184, 224, 0.07)');
+      rim.addColorStop(1, 'rgba(136, 184, 224, 0.18)');
+      ctx!.fillStyle = rim;
+      ctx!.beginPath();
+      ctx!.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx!.fill();
+      ctx!.restore();
+    }
+
+    function drawIrisGrid() {
+      const cx = state.cx;
+      const cy = state.cy;
+      const R = state.irisR;
+      const a = state.arc;
+
+      ctx!.lineWidth = 1;
+
+      for (let i = 1; i < 6; i++) {
+        const r = (i / 6) * R * 0.95;
+        ctx!.strokeStyle = `rgba(136, 184, 224, ${0.08 + (6 - i) * 0.01})`;
+        ctx!.beginPath();
+        ctx!.ellipse(cx, cy, r, r * 0.96, 0, 0, Math.PI * 2);
+        ctx!.stroke();
+      }
+
+      const meridians = 12;
+      for (let i = 0; i < meridians; i++) {
+        const ang = (i / meridians) * Math.PI * 2;
+        let boost = 0;
+        let delta = ang - a.angle;
+        while (delta > Math.PI) delta -= Math.PI * 2;
+        while (delta < -Math.PI) delta += Math.PI * 2;
+        if (Math.abs(delta) < a.width) {
+          boost = (1 - Math.abs(delta) / a.width) * 0.25;
+        }
+        ctx!.strokeStyle = `rgba(136, 184, 224, ${0.09 + boost})`;
+        ctx!.beginPath();
+        for (let t = 0; t <= 1; t += 0.05) {
+          const rr = t * R * 0.95;
+          const xFlat = Math.cos(ang) * rr;
+          const yFlat = Math.sin(ang) * rr;
+          const curve = 1 - t * t * 0.08;
+          const x = cx + xFlat * curve;
+          const y = cy + yFlat * curve;
+          if (t === 0) ctx!.moveTo(x, y);
+          else ctx!.lineTo(x, y);
+        }
+        ctx!.stroke();
+      }
+
+      ctx!.strokeStyle = 'rgba(136, 184, 224, 0.22)';
+      ctx!.lineWidth = 1;
+      ctx!.beginPath();
+      ctx!.moveTo(cx - R * 0.92, cy);
+      ctx!.lineTo(cx + R * 0.92, cy);
+      ctx!.moveTo(cx, cy - R * 0.92);
+      ctx!.lineTo(cx, cy + R * 0.92);
+      ctx!.stroke();
+
+      const tickCount = 24;
+      ctx!.strokeStyle = 'rgba(136, 184, 224, 0.18)';
+      for (let i = 0; i < tickCount; i++) {
+        const ang = (i / tickCount) * Math.PI * 2;
+        const r1 = R * 0.88;
+        const r2 = R * (i % 6 === 0 ? 0.78 : 0.84);
+        ctx!.beginPath();
+        ctx!.moveTo(cx + Math.cos(ang) * r1, cy + Math.sin(ang) * r1);
+        ctx!.lineTo(cx + Math.cos(ang) * r2, cy + Math.sin(ang) * r2);
+        ctx!.stroke();
+      }
+    }
+
+    function drawScanningArc() {
+      const a = state.arc;
+      const cx = state.cx;
+      const cy = state.cy;
+      const R = state.irisR * 0.97;
+
+      ctx!.save();
+      ctx!.beginPath();
+      ctx!.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx!.clip();
+
+      const x0 = cx + Math.cos(a.angle) * -R * 1.5;
+      const y0 = cy + Math.sin(a.angle) * -R * 1.5;
+      const x1 = cx + Math.cos(a.angle) * R * 1.5;
+      const y1 = cy + Math.sin(a.angle) * R * 1.5;
+
+      const nx = -Math.sin(a.angle);
+      const ny = Math.cos(a.angle);
+      const halfW = R * 0.18;
+
+      const grad = ctx!.createLinearGradient(
+        cx + nx * -halfW,
+        cy + ny * -halfW,
+        cx + nx * halfW,
+        cy + ny * halfW
+      );
+      grad.addColorStop(0, 'rgba(234, 243, 255, 0)');
+      grad.addColorStop(0.45, 'rgba(180, 210, 245, 0.08)');
+      grad.addColorStop(0.5, 'rgba(234, 243, 255, 0.32)');
+      grad.addColorStop(0.55, 'rgba(180, 210, 245, 0.08)');
+      grad.addColorStop(1, 'rgba(234, 243, 255, 0)');
+
+      ctx!.globalCompositeOperation = 'lighter';
+      ctx!.strokeStyle = grad;
+      ctx!.lineWidth = halfW * 2;
+      ctx!.beginPath();
+      ctx!.moveTo(x0, y0);
+      ctx!.lineTo(x1, y1);
+      ctx!.stroke();
+
+      ctx!.strokeStyle = 'rgba(234, 243, 255, 0.55)';
+      ctx!.lineWidth = 1;
+      ctx!.beginPath();
+      ctx!.moveTo(x0, y0);
+      ctx!.lineTo(x1, y1);
+      ctx!.stroke();
+
+      ctx!.restore();
+    }
+
+    function drawOrbits() {
+      ctx!.save();
+      for (let r = 0; r < state.rings.length; r++) {
+        const ring = state.rings[r];
+        ctx!.strokeStyle = `rgba(136, 184, 224, ${0.05 - r * 0.008})`;
+        ctx!.lineWidth = 1;
+        ctx!.beginPath();
+        ctx!.ellipse(state.cx, state.cy, ring.radius, ring.radius * 0.78, 0, 0, Math.PI * 2);
+        ctx!.stroke();
+      }
+      ctx!.restore();
+    }
+
+    function drawParticles() {
+      ctx!.save();
+      ctx!.globalCompositeOperation = 'lighter';
+
+      for (let r = 0; r < state.rings.length; r++) {
+        const ring = state.rings[r];
+        const particles = ring.particles;
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          const len = p.trail.length;
+          const startIdx = p.trailIndex;
+
+          ctx!.lineCap = 'round';
+          ctx!.lineWidth = p.size * 0.9;
+          for (let t = 0; t < len - 1; t++) {
+            const idxA = (startIdx + t) % len;
+            const idxB = (startIdx + t + 1) % len;
+            const a = p.trail[idxA];
+            const b = p.trail[idxB];
+            if (!a || !b) continue;
+            const alpha = (t / (len - 1)) * 0.35 * (0.7 + p.brightness * 0.6);
+            ctx!.strokeStyle = `rgba(136, 184, 224, ${alpha})`;
+            ctx!.beginPath();
+            ctx!.moveTo(a.x, a.y);
+            ctx!.lineTo(b.x, b.y);
+            ctx!.stroke();
+          }
+
+          const headIdx = (startIdx + len - 1) % len;
+          const head = p.trail[headIdx];
+          const baseA = 0.65 + p.brightness * 0.35;
+          const glowR = p.size * (2.8 + p.brightness * 2);
+
+          const g = ctx!.createRadialGradient(head.x, head.y, 0, head.x, head.y, glowR);
+          g.addColorStop(0, `rgba(210, 230, 250, ${0.55 * baseA})`);
+          g.addColorStop(0.4, `rgba(136, 184, 224, ${0.25 * baseA})`);
+          g.addColorStop(1, 'rgba(136, 184, 224, 0)');
+          ctx!.fillStyle = g;
+          ctx!.beginPath();
+          ctx!.arc(head.x, head.y, glowR, 0, Math.PI * 2);
+          ctx!.fill();
+
+          ctx!.fillStyle = `rgba(234, 243, 255, ${0.85 * baseA})`;
+          ctx!.beginPath();
+          ctx!.arc(head.x, head.y, p.size * 0.9, 0, Math.PI * 2);
+          ctx!.fill();
+        }
+      }
+      ctx!.restore();
+    }
+
+    function drawPupil() {
+      const cx = state.cx;
+      const cy = state.cy;
+      const base = state.pupilR;
+      const breath = 0.5 + 0.5 * Math.sin(state.time * ((Math.PI * 2) / 4));
+      const pulse = 1 + breath * 0.08;
+      const r = base * pulse;
+
+      ctx!.save();
+      ctx!.globalCompositeOperation = 'lighter';
+      const glowR = r * (5.5 + breath * 1.5);
+      const glow = ctx!.createRadialGradient(cx, cy, 0, cx, cy, glowR);
+      glow.addColorStop(0, `rgba(90, 140, 200, ${0.22 + breath * 0.16})`);
+      glow.addColorStop(0.35, `rgba(50, 90, 160, ${0.12 + breath * 0.08})`);
+      glow.addColorStop(1, 'rgba(30, 60, 120, 0)');
+      ctx!.fillStyle = glow;
+      ctx!.beginPath();
+      ctx!.arc(cx, cy, glowR, 0, Math.PI * 2);
+      ctx!.fill();
+      ctx!.restore();
+
+      const core = ctx!.createRadialGradient(cx, cy, 0, cx, cy, r);
+      core.addColorStop(0, '#0A1024');
+      core.addColorStop(0.5, '#060B1A');
+      core.addColorStop(1, '#030612');
+      ctx!.fillStyle = core;
+      ctx!.beginPath();
+      ctx!.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx!.fill();
+
+      ctx!.save();
+      ctx!.globalCompositeOperation = 'lighter';
+      ctx!.fillStyle = `rgba(200, 220, 245, ${0.28 + breath * 0.18})`;
+      ctx!.beginPath();
+      ctx!.arc(cx - r * 0.3, cy - r * 0.35, r * 0.22, 0, Math.PI * 2);
+      ctx!.fill();
+      ctx!.restore();
+    }
+
+    let rafId = 0;
+
+    function frame(now: number) {
+      if (!state.last) state.last = now;
+      let dt = (now - state.last) / 1000;
+      state.last = now;
+      if (dt > 0.1) dt = 0.1;
+      state.time += dt;
+
+      updateArc(dt);
+      updatePulses(dt);
+      updateParticles(dt);
+
+      drawBackground();
+      drawConnections();
+      drawPulses();
+      drawNodes();
+      drawLens();
+      drawIrisSphere();
+      drawScanningArc();
+      drawOrbits();
+      drawParticles();
+      drawPupil();
+
+      rafId = requestAnimationFrame(frame);
+    }
+
+    function primeTrails() {
+      for (let r = 0; r < state.rings.length; r++) {
+        const ring = state.rings[r];
+        for (let i = 0; i < ring.particles.length; i++) {
+          const p = ring.particles[i];
+          for (let t = 0; t < p.trail.length; t++) {
+            const ang = p.angle - p.speed * (p.trail.length - t) * 0.05;
+            p.trail[t].x = state.cx + Math.cos(ang) * p.radius;
+            p.trail[t].y = state.cy + Math.sin(ang) * p.radius * 0.78;
+          }
+        }
+      }
+    }
+
+    resize();
+    if (state.w <= 0 || state.h <= 0) {
+      const parent = canvas.parentElement;
+      if (parent) {
+        const ro = new ResizeObserver(() => {
+          resize();
+          if (state.w > 0 && state.h > 0) {
+            ro.disconnect();
+            primeTrails();
+            startLoop();
+            attachResizeObserver();
+          }
+        });
+        ro.observe(parent);
+      }
+      return;
+    }
+    primeTrails();
+    startLoop();
+    attachResizeObserver();
+
+    function startLoop() {
+      const prefersReduced = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReduced) {
+        state.time = 4.0;
+        state.arc.angle = -Math.PI / 2 + ((Math.PI * 2) / 9) * 4.0;
+        for (let k = 0; k < 180; k++) updateParticles(1 / 60);
+        frame(performance.now());
+        cancelAnimationFrame(rafId);
+        return;
+      }
+      rafId = requestAnimationFrame(frame);
+    }
+
+    function attachResizeObserver() {
+      const parent = canvas.parentElement;
+      if (!parent) return;
+      const ro = new ResizeObserver(() => {
+        resize();
+        primeTrails();
+      });
+      ro.observe(parent);
+    }
+  }
+
+  function boot() {
+    document
+      .querySelectorAll<HTMLCanvasElement>('.retinal-intelligence-canvas')
+      .forEach((c) => initRetinalIntelligence(c));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+</script>
