@@ -7,6 +7,8 @@ import ProductCard from '../components/content/ProductCard.astro';
 import AudienceCard from '../components/content/AudienceCard.astro';
 import TestimonialFeature from '../components/content/TestimonialFeature.astro';
 import ResourceCard from '../components/content/ResourceCard.astro';
+import CanvasHero from '../components/canvas/CanvasHero.astro';
+import RetinalIntelligenceCanvas from '../components/canvas/RetinalIntelligenceCanvas.astro';
 ---
 
 <Layout
@@ -23,43 +25,15 @@ import ResourceCard from '../components/content/ResourceCard.astro';
     primaryCta={{ label: 'Request a Demo', openModal: 'demo' }}
     secondaryCta={{ label: 'Explore Our Solutions', href: '/solutions' }}
   >
-    <!-- FINAL_ASSET_TBD — stylized retina with AI scan overlay -->
-    <div slot="visual" class="relative aspect-square max-w-lg mx-auto">
-      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-[0_20px_50px_rgba(30,58,138,0.25)]" aria-hidden="true">
-        <defs>
-          <radialGradient id="retina-core" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#EFF6FF" />
-            <stop offset="40%" stop-color="#3B5BBF" />
-            <stop offset="100%" stop-color="#152B66" />
-          </radialGradient>
-          <radialGradient id="fovea" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#7C3AED" />
-            <stop offset="100%" stop-color="#1E3A8A" />
-          </radialGradient>
-          <pattern id="scan-grid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#0EA5E9" stroke-width="0.5" opacity="0.4" />
-          </pattern>
-        </defs>
-        <circle cx="200" cy="200" r="180" fill="url(#retina-core)" />
-        <circle cx="200" cy="200" r="180" fill="url(#scan-grid)" />
-        <g stroke="#C4B5FD" stroke-width="1.5" fill="none" opacity="0.7">
-          <path d="M200 80 Q 260 140 280 200" />
-          <path d="M200 80 Q 140 140 120 200" />
-          <path d="M200 320 Q 260 260 280 200" />
-          <path d="M200 320 Q 140 260 120 200" />
-          <path d="M120 200 Q 170 180 200 200" />
-          <path d="M280 200 Q 230 220 200 200" />
-        </g>
-        <circle cx="200" cy="200" r="32" fill="url(#fovea)" />
-        <circle cx="200" cy="200" r="32" fill="none" stroke="#0EA5E9" stroke-width="1" opacity="0.6">
-          <animate attributeName="r" values="32;48;32" dur="3s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.6;0;0.6" dur="3s" repeatCount="indefinite" />
-        </circle>
-        <g stroke="#0EA5E9" stroke-width="1" opacity="0.5">
-          <line x1="40" y1="200" x2="360" y2="200" stroke-dasharray="4 6" />
-          <line x1="200" y1="40" x2="200" y2="360" stroke-dasharray="4 6" />
-        </g>
-      </svg>
+    <div slot="visual">
+      <CanvasHero
+        staticFallbackSrc="/images/hero/retinal-intelligence-static.jpg"
+        staticFallbackAlt="Visualization of Ophthalytics retinal AI analyzing imaging and detecting signals across brain, heart, metabolic, and respiratory systems"
+        aspectClass="aspect-[4/3]"
+        ariaLabel="Live retinal AI visualization: a central eye with orbiting data particles linking to brain, heart, metabolic, and respiratory icons."
+      >
+        <RetinalIntelligenceCanvas />
+      </CanvasHero>
     </div>
   </Hero>
 
