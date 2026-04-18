@@ -2,6 +2,8 @@
 import Layout from '../../components/layout/Layout.astro';
 import PipeHeading from '../../components/content/PipeHeading.astro';
 import CapabilityTile from '../../components/content/CapabilityTile.astro';
+import CanvasHero from '../../components/canvas/CanvasHero.astro';
+import OrbRingCanvas from '../../components/canvas/OrbRingCanvas.astro';
 
 const capabilities = [
   {
@@ -104,29 +106,15 @@ const benefits = [
         </div>
       </div>
       <div class="relative">
-        <div class="aspect-square max-w-[420px] mx-auto rounded-full bg-gradient-to-br from-brand-secondary/30 to-brand-primary-light/10 border border-white/10 relative overflow-hidden">
-          <svg viewBox="0 0 400 400" class="w-full h-full" aria-hidden="true">
-            <defs>
-              <radialGradient id="retina" cx="50%" cy="50%">
-                <stop offset="0%" stop-color="#fca5a5" stop-opacity="0.6"/>
-                <stop offset="60%" stop-color="#dc2626" stop-opacity="0.3"/>
-                <stop offset="100%" stop-color="#450a0a" stop-opacity="0.1"/>
-              </radialGradient>
-            </defs>
-            <circle cx="200" cy="200" r="170" fill="url(#retina)"/>
-            <circle cx="200" cy="200" r="20" fill="#0EA5E9" fill-opacity="0.8"/>
-            {[
-              { x: 120, y: 110, label: 'DR – Moderate' },
-              { x: 280, y: 150, label: 'Microaneurysm' },
-              { x: 250, y: 290, label: 'AMD Risk' },
-            ].map((box) => (
-              <g>
-                <rect x={box.x} y={box.y} width="80" height="26" rx="3" fill="none" stroke="#0EA5E9" stroke-width="1.5"/>
-                <text x={box.x + 40} y={box.y + 17} text-anchor="middle" fill="#fff" font-size="10" font-weight="600" font-family="Inter">{box.label}</text>
-              </g>
-            ))}
-          </svg>
-        </div>
+        <CanvasHero
+          staticFallbackSrc="/images/hero/orb-ring-static.png"
+          staticFallbackAlt="Visualization of Ocula360 foundational retinal AI analyzing imaging data"
+          aspectClass="aspect-square"
+          maxWidthClass="max-w-[420px]"
+          ariaLabel="Ocula360 flagship AI visualization: orbs forming an ethereal ring gate around a central luminous core."
+        >
+          <OrbRingCanvas />
+        </CanvasHero>
       </div>
     </div>
   </section>
