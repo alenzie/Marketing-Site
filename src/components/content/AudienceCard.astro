@@ -1,0 +1,16 @@
+---
+interface Props {
+  title: string;
+  body: string;
+}
+
+const { title, body } = Astro.props;
+---
+
+<div class="bg-white rounded-lg p-6 text-center md:text-left">
+  <div class="w-12 h-12 rounded-lg bg-brand-surface-blue flex items-center justify-center mb-4 mx-auto md:mx-0 text-brand-primary">
+    <slot name="icon" />
+  </div>
+  <h3 class="text-lg font-semibold text-brand-ink mb-2">{title}</h3>
+  <p class="text-sm text-brand-body leading-relaxed">{body}</p>
+</div>

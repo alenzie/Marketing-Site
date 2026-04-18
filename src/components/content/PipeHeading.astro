@@ -1,0 +1,24 @@
+---
+interface Props {
+  level?: 'h1' | 'h2' | 'h3';
+  size?: string;
+  color?: string;
+  barColor?: string;
+  class?: string;
+}
+
+const {
+  level = 'h2',
+  size = 'text-3xl md:text-4xl',
+  color = 'text-brand-ink',
+  barColor = 'bg-brand-primary',
+  class: className = '',
+} = Astro.props;
+
+const Tag = level;
+---
+
+<Tag class:list={['flex items-baseline gap-3 font-bold leading-tight', size, color, className]}>
+  <span class:list={['block w-1 h-[0.8em] rounded-full flex-shrink-0', barColor]}></span>
+  <span><slot /></span>
+</Tag>

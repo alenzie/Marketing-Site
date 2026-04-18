@@ -1,0 +1,14 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div class="flex items-center gap-3 p-3 rounded-lg border border-brand-line bg-white">
+  <div class="w-8 h-8 rounded-full bg-brand-surface-blue flex items-center justify-center text-brand-primary flex-shrink-0">
+    <slot name="icon" />
+  </div>
+  <span class="text-sm font-medium text-brand-ink">{label}</span>
+</div>

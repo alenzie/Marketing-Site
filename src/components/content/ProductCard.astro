@@ -1,0 +1,26 @@
+---
+interface Props {
+  eyebrow: string;
+  name: string;
+  tagline: string;
+  capabilities: string[];
+}
+
+const { eyebrow, name, tagline, capabilities } = Astro.props;
+---
+
+<div class="bg-white border border-brand-line rounded-2xl p-6 md:p-7 h-full flex flex-col">
+  <span class="inline-block self-start rounded-full bg-brand-surface-blue text-brand-primary text-xs font-semibold uppercase tracking-wider px-3 py-1 mb-4">
+    {eyebrow}
+  </span>
+  <h3 class="text-2xl font-bold text-brand-ink mb-2">{name}</h3>
+  <p class="text-sm text-brand-body mb-5">{tagline}</p>
+  <ul class="space-y-2 text-sm text-brand-body mt-auto">
+    {capabilities.map((cap) => (
+      <li class="flex items-start gap-2">
+        <span class="text-brand-primary mt-1" aria-hidden="true">•</span>
+        <span>{cap}</span>
+      </li>
+    ))}
+  </ul>
+</div>

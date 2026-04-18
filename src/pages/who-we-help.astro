@@ -1,0 +1,289 @@
+---
+import Layout from '../components/layout/Layout.astro';
+import PipeHeading from '../components/content/PipeHeading.astro';
+import AudiencePill from '../components/content/AudiencePill.astro';
+---
+
+<Layout
+  title="Who We Help — Ophthalytics"
+  description="Advancing eye care across every stage of the patient journey."
+  currentPath="/who-we-help"
+>
+
+  <!-- SECTION 1 — HERO BAND -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-brand-surface-blue to-white">
+    <svg class="absolute inset-0 w-full h-full opacity-[0.12] pointer-events-none" aria-hidden="true">
+      <defs>
+        <pattern id="wwh-dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.5" fill="#1E3A8A" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#wwh-dots)" />
+    </svg>
+    <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Who We Help</p>
+      <h1 class="mt-4 text-5xl md:text-6xl font-bold text-brand-ink leading-tight max-w-4xl">
+        Advancing Eye Care Across Every Stage of the Patient Journey
+      </h1>
+    </div>
+  </section>
+
+  <!-- SECTION 2 — INTRO STATEMENT -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 py-20 text-center space-y-6">
+      <p class="text-lg md:text-xl text-brand-body leading-relaxed">
+        Ophthalytics supports healthcare providers, researchers, and organizations through AI-powered solutions designed for screening, diagnosis, and clinical research.
+      </p>
+      <p class="text-lg md:text-xl text-brand-body leading-relaxed">
+        From primary care to optometry to pharmaceutical trials, our products are built to address real-world gaps in detection, decision-making, and patient access.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — NSIGHT360 BLOCK -->
+  <section class="bg-brand-surface">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-6">
+        <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">NSight360</p>
+        <p class="text-sm text-brand-body italic">For Primary Care, Population Health, and Screening Programs</p>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink leading-tight max-w-3xl">
+        Bringing retinal screening to the frontlines of care
+      </h2>
+      <p class="mt-6 max-w-3xl text-lg text-brand-body leading-relaxed">
+        NSight360 is designed for healthcare providers who want to deliver accessible, efficient retinal screening at the point of care. By enabling non-specialists to perform eye exams, it expands access and helps close critical care gaps.
+      </p>
+
+      <div class="mt-10 grid gap-10 md:grid-cols-2">
+        <div>
+          <h3 class="text-xl font-semibold text-brand-ink mb-4">Who it's for</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <AudiencePill label="Primary Care Physicians">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/>
+              </svg>
+            </AudiencePill>
+            <AudiencePill label="Endocrinologists & Diabetologists">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </AudiencePill>
+            <AudiencePill label="Nurses & Care Teams">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>
+            </AudiencePill>
+            <AudiencePill label="Home Health Agencies">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </AudiencePill>
+            <AudiencePill label="Community Health Centers">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+            </AudiencePill>
+            <AudiencePill label="Remote & Rural Clinics">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </AudiencePill>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-brand-ink mb-4">How it helps</h3>
+          <ul class="space-y-3 text-base text-brand-body leading-relaxed">
+            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Enables retinal screening without requiring an on-site eye specialist</span></li>
+            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Expands access to underserved populations</span></li>
+            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Supports early detection of diabetic retinopathy</span></li>
+            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Improves workflow efficiency and patient throughput</span></li>
+            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Helps close care gaps and improve quality measures</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="mt-10 italic text-brand-body max-w-3xl">
+        NSight360 makes it possible to identify at-risk patients earlier—where they already receive care.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 4 — 2ND OPINION BLOCK -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-6">
+        <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">2nd Opinion</p>
+        <p class="text-sm text-brand-body italic">For Optometrists and Eye Care Professionals</p>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink leading-tight max-w-3xl">
+        Enhancing confidence in retinal assessments
+      </h2>
+      <p class="mt-6 max-w-3xl text-lg text-brand-body leading-relaxed">
+        2nd Opinion is built for optometrists and eye care providers who want additional support in interpreting retinal images, especially in complex or borderline cases.
+      </p>
+
+      <div class="mt-10 grid gap-10 md:grid-cols-2">
+        <div>
+          <h3 class="text-xl font-semibold text-brand-ink mb-4">Who it's for</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <AudiencePill label="Optometrists">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            </AudiencePill>
+            <AudiencePill label="Eye Clinics & Optical Chains">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="15" r="4"/><circle cx="18" cy="15" r="4"/><path d="M10 15h4"/><path d="M3 11 2 7l2-1"/><path d="m21 11 1-4-2-1"/></svg>
+            </AudiencePill>
+            <AudiencePill label="Ophthalmology Practices">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M8 6h4"/><path d="M13 10V6.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2.5a.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V14"/></svg>
+            </AudiencePill>
+            <AudiencePill label="Reading Centers">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="11.5" cy="14.5" r="2.5"/><path d="M13.3 16.3 15 18"/></svg>
+            </AudiencePill>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-brand-ink mb-4">How it helps</h3>
+          <ul class="space-y-3 text-base text-brand-body leading-relaxed">
+            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Highlights suspicious regions and potential lesions</span></li>
+            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Supports clinical decision-making in uncertain cases</span></li>
+            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Reduces variability in retinal interpretation</span></li>
+            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Integrates seamlessly into existing workflows</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="mt-10 italic text-brand-body max-w-3xl">
+        In everyday practice, not every case is clear-cut. 2nd Opinion provides an added layer of insight—helping clinicians see more and decide with greater confidence.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 5 — OPHTHAL360 BLOCK -->
+  <section class="bg-brand-surface">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-6">
+        <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Ophthal360</p>
+        <p class="text-sm text-brand-body italic">For High-Volume Screening and Autonomous Deployment</p>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink leading-tight max-w-3xl">
+        Autonomous AI for scale and reach
+      </h2>
+      <p class="mt-6 max-w-3xl text-lg text-brand-body leading-relaxed">
+        Ophthal360 is designed for organizations delivering retinal screening at scale—healthcare systems, large screening programs, and partners serving high-volume markets. Currently in active deployment in Asian markets, Ophthal360 enables rapid, consistent detection with minimal manual intervention.
+      </p>
+
+      <div class="mt-10 grid gap-10 md:grid-cols-2">
+        <div>
+          <h3 class="text-xl font-semibold text-brand-ink mb-4">Who it's for</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <AudiencePill label="Healthcare Systems">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v4"/><path d="M14 14h-4"/><path d="M14 18h-4"/><path d="M14 8h-4"/><path d="M18 12h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><path d="M18 22V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v18"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/></svg>
+            </AudiencePill>
+            <AudiencePill label="Population Health Programs">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </AudiencePill>
+            <AudiencePill label="Pharmaceutical Companies">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.58 16.5h12.85"/></svg>
+            </AudiencePill>
+            <AudiencePill label="Clinical Research Organizations">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>
+            </AudiencePill>
+            <AudiencePill label="Imaging Centers">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 8h8"/><path d="M7 12h10"/><path d="M7 16h6"/></svg>
+            </AudiencePill>
+            <AudiencePill label="Academic & Research Institutions">
+              <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </AudiencePill>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-brand-ink mb-4">How it helps</h3>
+          <ul class="space-y-3 text-base text-brand-body leading-relaxed">
+            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Performs retinal analysis and generates screening outputs without manual interpretation</span></li>
+            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Optimized for large-scale deployment in clinics, screening programs, and population health initiatives</span></li>
+            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Identifies at-risk patients and supports timely referral decisions</span></li>
+            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Accelerates recruitment and enrollment timelines for trials</span></li>
+            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Supports consistent evaluation across sites and geographies</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="mt-10 italic text-brand-body max-w-3xl">
+        Ophthal360 makes it possible to deliver screening coverage at a scale no specialist-dependent model can match.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 6 — CONTINUUM OF CARE -->
+  <section class="bg-white">
+    <div class="max-w-4xl mx-auto px-6 py-20 md:py-24 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink leading-tight">
+        From Screening to Diagnosis to Discovery
+      </h2>
+      <p class="mt-6 text-lg text-brand-body max-w-3xl mx-auto leading-relaxed">
+        Together, our products support the full continuum of eye care:
+      </p>
+
+      <div class="mt-12 grid gap-8 md:grid-cols-3 relative">
+        <!-- Step 1 -->
+        <div class="flex flex-col items-center text-center">
+          <div class="w-16 h-16 rounded-full bg-brand-surface-blue text-brand-primary flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/><path d="M11 8v6"/></svg>
+          </div>
+          <p class="mt-4 text-sm uppercase tracking-widest text-brand-muted font-semibold">Screening</p>
+          <p class="mt-1 text-lg font-bold text-brand-primary">NSight360</p>
+          <p class="mt-3 text-sm text-brand-body leading-relaxed">Bring retinal screening to the frontlines of care.</p>
+        </div>
+        <!-- Step 2 -->
+        <div class="flex flex-col items-center text-center">
+          <div class="w-16 h-16 rounded-full bg-brand-surface-blue text-brand-primary flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </div>
+          <p class="mt-4 text-sm uppercase tracking-widest text-brand-muted font-semibold">Diagnostic Support</p>
+          <p class="mt-1 text-lg font-bold text-brand-primary">2nd Opinion</p>
+          <p class="mt-3 text-sm text-brand-body leading-relaxed">Enhance clinical confidence in complex cases.</p>
+        </div>
+        <!-- Step 3 -->
+        <div class="flex flex-col items-center text-center">
+          <div class="w-16 h-16 rounded-full bg-brand-surface-blue text-brand-primary flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <p class="mt-4 text-sm uppercase tracking-widest text-brand-muted font-semibold">Scale & Discovery</p>
+          <p class="mt-1 text-lg font-bold text-brand-primary">Ophthal360</p>
+          <p class="mt-3 text-sm text-brand-body leading-relaxed">Autonomous screening for high-volume programs.</p>
+        </div>
+      </div>
+
+      <p class="mt-12 text-lg text-brand-body leading-relaxed">
+        This integrated approach enables earlier detection, better decisions, and faster advancements in eye health.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 7 — REGIONAL IMPACT -->
+  <section class="bg-brand-surface-blue">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 grid gap-12 md:grid-cols-2 items-center">
+      <!-- FINAL_ASSET_TBD — per PDF revision: "White House" and "Speaking Engagement" photos -->
+      <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-brand-primary via-brand-primary-light to-brand-accent flex items-center justify-center text-white/80 text-sm font-medium shadow-lg">
+        FINAL_ASSET_TBD — Pakistan impact imagery
+      </div>
+      <div>
+        <PipeHeading level="h2">Regional Impact</PipeHeading>
+        <h3 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink leading-tight">
+          Transforming Diabetic Eye Care in Pakistan
+        </h3>
+        <p class="mt-6 text-base md:text-lg text-brand-body leading-relaxed">
+          Recognizing the crucial need to reach underserved communities, we have forged powerful partnerships to amplify our impact. Through dynamic collaborations with The Diabetes Centre and the Layton Rahmatulla Benevolent Trust, we are bringing our services to rural and marginalized populations in Pakistan. By harnessing NSight360, we are breaking down barriers to access, ensuring that individuals in these communities receive the essential diabetic eye exams they deserve.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8 — FINAL CTA -->
+  <section class="bg-brand-primary">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight">
+        Find the Right Solution for Your Practice
+      </h2>
+      <p class="mt-6 max-w-2xl mx-auto text-lg text-white/90 leading-relaxed">
+        Whether you are delivering care, supporting diagnosis, or advancing research, Ophthalytics provides AI-powered tools designed for your needs.
+      </p>
+      <div class="mt-8">
+        <button
+          type="button"
+          data-open-modal="demo"
+          class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-8 py-3 rounded-md hover:bg-brand-surface transition"
+        >
+          Schedule a Demo
+        </button>
+      </div>
+    </div>
+  </section>
+
+</Layout>

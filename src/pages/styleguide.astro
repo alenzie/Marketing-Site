@@ -1,0 +1,148 @@
+---
+import Layout from '../components/layout/Layout.astro';
+import PipeHeading from '../components/content/PipeHeading.astro';
+import CapabilityTile from '../components/content/CapabilityTile.astro';
+import AudienceCard from '../components/content/AudienceCard.astro';
+import AudiencePill from '../components/content/AudiencePill.astro';
+import TeamCard from '../components/content/TeamCard.astro';
+import ProductCard from '../components/content/ProductCard.astro';
+import TestimonialFeature from '../components/content/TestimonialFeature.astro';
+import ResourceCard from '../components/content/ResourceCard.astro';
+import Hero from '../components/content/Hero.astro';
+---
+
+<Layout title="Styleguide — Ophthalytics" description="Internal component catalog.">
+  <div class="max-w-7xl mx-auto px-6 py-16 space-y-20">
+
+    <header>
+      <p class="text-xs uppercase tracking-widest text-brand-muted">Internal</p>
+      <h1 class="mt-2 text-4xl font-bold text-brand-ink">Component Styleguide</h1>
+      <p class="mt-2 text-brand-body">Visual catalog of all Phase 2 content components.</p>
+    </header>
+
+    <section>
+      <p class="text-xs uppercase tracking-widest text-brand-muted mb-4">PipeHeading</p>
+      <div class="space-y-4">
+        <PipeHeading level="h1" size="text-5xl">About Us: Pioneering Human + AI to Advance Healthcare</PipeHeading>
+        <PipeHeading level="h2">Who We Help: Empowering Healthcare</PipeHeading>
+        <PipeHeading level="h3" size="text-2xl" barColor="bg-brand-accent">Insights &amp; Innovations</PipeHeading>
+      </div>
+    </section>
+
+    <section>
+      <p class="text-xs uppercase tracking-widest text-brand-muted mb-4">CapabilityTile ×3</p>
+      <div class="grid gap-5 md:grid-cols-3">
+        <CapabilityTile title="Multi-Disease Detection" body="Supports diabetic retinopathy, AMD, glaucoma indicators, vascular abnormalities, hemorrhages, microaneurysms, and exudates.">
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2a2.5 2.5 0 0 0-2.5 2.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>
+        </CapabilityTile>
+        <CapabilityTile title="DRSS Scoring" body="Automated severity grading support for identifying disease stage and enabling patient stratification.">
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16V9"/><path d="M12 16v-5"/><path d="M17 16v-3"/></svg>
+        </CapabilityTile>
+        <CapabilityTile title="Explainable &amp; Multimodal" body="Lesion overlays, confidence signals, and future-ready architecture for fundus, UWF, metadata, and patient history.">
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </CapabilityTile>
+      </div>
+    </section>
+
+    <section>
+      <p class="text-xs uppercase tracking-widest text-brand-muted mb-4">AudienceCard ×4</p>
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4 bg-brand-surface p-6 rounded-lg">
+        <AudienceCard title="Primary Care Providers" body="Bring retinal screening directly into primary care—enabling earlier detection without specialist dependency.">
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg>
+        </AudienceCard>
+        <AudienceCard title="Optometrists &amp; Eye Care" body="Enhance diagnostic confidence with AI-supported interpretation and better visibility into subtle retinal findings.">
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+        </AudienceCard>
+        <AudienceCard title="Insurance &amp; Population Health" body="Close care gaps, improve screening rates, and support value-based care initiatives.">
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+        </AudienceCard>
+        <AudienceCard title="Pharma &amp; Research" body="Accelerate patient identification and clinical trial recruitment with advanced retinal intelligence.">
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.58 16.5h12.85"/></svg>
+        </AudienceCard>
+      </div>
+    </section>
+
+    <section>
+      <p class="text-xs uppercase tracking-widest text-brand-muted mb-4">AudiencePill ×6</p>
+      <div class="grid gap-3 grid-cols-2 md:grid-cols-3 max-w-2xl">
+        {['Primary Care Physicians','Endocrinologists','Nurses & Care Teams','Home Health','Community Centers','Rural Clinics'].map((label) => (
+          <AudiencePill label={label}>
+            <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+          </AudiencePill>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <p class="text-xs uppercase tracking-widest text-brand-muted mb-4">TeamCard — lg (with bio) and sm (no bio)</p>
+      <div class="grid gap-8 md:grid-cols-4">
+        <TeamCard name="Awais Bajwa" role="Co-Founder &amp; CEO" bioLink="#" />
+        <TeamCard name="Neelam Nosheen, MD" role="Co-Founder &amp; Chief Product Officer" bioLink="#" />
+        <TeamCard size="sm" name="Nadia Waheed, MD, MPH" role="Professor of Ophthalmology, Retina Specialist" />
+        <TeamCard size="sm" name="Peter Kaiser, MD" role="Professor of Ophthalmology, Director, CORE" />
+      </div>
+    </section>
+
+    <section>
+      <p class="text-xs uppercase tracking-widest text-brand-muted mb-4">ProductCard ×3</p>
+      <div class="grid gap-5 md:grid-cols-3">
+        <ProductCard
+          eyebrow="HUMAN + AI"
+          name="NSight360"
+          tagline="Assistive retinal diagnostics for PCPs, health systems, and insurance companies."
+          capabilities={["Human-in-the-loop review","AI-assisted reports","Built for screening programs"]}
+        />
+        <ProductCard
+          eyebrow="EYE CARE MARKET"
+          name="2nd Opinion"
+          tagline="AI diagnostic support for optometrists and eye care professionals."
+          capabilities={["Lesion visualization","Diagnostic confidence support","Clinical workflow fit"]}
+        />
+        <ProductCard
+          eyebrow="AUTONOMOUS AI"
+          name="Ophthal360"
+          tagline="Autonomous retinal disease diagnostics product currently selling in Asian markets."
+          capabilities={["High-volume screening","Automated referral logic","Built for scalable deployment"]}
+        />
+      </div>
+    </section>
+
+    <section>
+      <p class="text-xs uppercase tracking-widest text-brand-muted mb-4">TestimonialFeature</p>
+      <div class="bg-brand-primary rounded-2xl py-16 px-6">
+        <TestimonialFeature
+          quote="Using NSight360, we've screened over 250,000 patients and helped prevent thousands of cases of blindness."
+          author="The Diabetic Center, Pakistan"
+        />
+      </div>
+    </section>
+
+    <section>
+      <p class="text-xs uppercase tracking-widest text-brand-muted mb-4">ResourceCard ×4 (color variants)</p>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <ResourceCard categoryColor="primary" category="News" title="Star Community Health Is Protecting Patients' Vision" excerpt="One routine visit at a time — how frontline clinics are catching disease earlier." link="#" />
+        <ResourceCard categoryColor="accent" category="Insights" title="The Windows to 270 Diseases" excerpt="Retinal scans have emerged as an effective, non-invasive window into full-body health." link="#" />
+        <ResourceCard categoryColor="secondary" category="Journal Article" title="A Prospective Study on Diabetic Retinopathy Detection" excerpt="Peer-reviewed research authored by our founders." link="#" />
+        <ResourceCard categoryColor="warn" category="Awareness" title="Diabetes Awareness Month 2025" excerpt="Ways to participate as a healthcare provider." link="#" />
+      </div>
+    </section>
+
+    <section>
+      <p class="text-xs uppercase tracking-widest text-brand-muted mb-4">Hero</p>
+      <div class="rounded-2xl overflow-hidden border border-brand-line">
+        <Hero
+          eyebrow="Ophthalytics — Wellness Through the Eyes™"
+          headline="Retinal Intelligence for Earlier Detection and Better Health"
+          subheadline="Advancing eye care through AI, oculomics, and multimodal intelligence—transforming the retina into a gateway for early disease detection and broader health insights."
+          primaryCta={{ label: 'Request a Demo', openModal: 'demo' }}
+          secondaryCta={{ label: 'Explore Our Solutions', href: '#products' }}
+        >
+          <div slot="visual" class="aspect-square rounded-2xl bg-gradient-to-br from-brand-surface-blue to-brand-accent-soft flex items-center justify-center text-brand-primary/70 text-sm font-medium">
+            FINAL_ASSET_TBD — retina SVG
+          </div>
+        </Hero>
+      </div>
+    </section>
+
+  </div>
+</Layout>

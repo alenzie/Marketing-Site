@@ -1,0 +1,94 @@
+---
+interface Props {
+  logPrefix: string;
+  successMessage?: string;
+  variant?: 'light' | 'dark';
+  id?: string;
+  class?: string;
+}
+
+const {
+  logPrefix,
+  successMessage = "Thanks! We'll be in touch shortly.",
+  variant = 'light',
+  id,
+  class: className = 'space-y-4',
+} = Astro.props;
+---
+
+<div data-form-block-root>
+  <form
+    id={id}
+    data-form-block
+    data-log-prefix={logPrefix}
+    novalidate
+    class={className}
+  >
+    <slot />
+  </form>
+  <div
+    data-form-success
+    hidden
+    class="text-center py-8"
+    role="status"
+    aria-live="polite"
+  >
+    <div
+      class:list={[
+        'w-14 h-14 mx-auto rounded-full flex items-center justify-center',
+        variant === 'dark'
+          ? 'bg-white/20 text-white'
+          : 'bg-status-success/10 text-status-success',
+      ]}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+    <p class:list={['mt-4 text-lg font-semibold', variant === 'dark' ? 'text-white' : 'text-brand-ink']}>
+      {successMessage}
+    </p>
+  </div>
+</div>
+
+<script>
+  const bindForm = (form: HTMLFormElement) => {
+    if (form.dataset.bound === 'true') return;
+    form.dataset.bound = 'true';
+    const root = form.closest<HTMLElement>('[data-form-block-root]');
+    const success = root?.querySelector<HTMLElement>('[data-form-success]');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      const data = Object.fromEntries(new FormData(form).entries());
+      const prefix = form.dataset.logPrefix ?? 'FORM';
+      // TODO: Wire to Resend endpoint — see 06b-forms-future.txt
+      console.log(`[${prefix}_STUB]`, data);
+      form.hidden = true;
+      if (success) success.hidden = false;
+    });
+  };
+
+  document
+    .querySelectorAll<HTMLFormElement>('form[data-form-block]')
+    .forEach(bindForm);
+
+  // Reset hook — dispatching 'form-block:reset' on the root resets the UI.
+  document.addEventListener('form-block:reset', (event) => {
+    const root = (event.target as HTMLElement | null)?.closest<HTMLElement>(
+      '[data-form-block-root]'
+    );
+    if (!root) return;
+    const form = root.querySelector<HTMLFormElement>('form[data-form-block]');
+    const success = root.querySelector<HTMLElement>('[data-form-success]');
+    if (form) {
+      form.reset();
+      form.hidden = false;
+    }
+    if (success) success.hidden = true;
+  });
+</script>

@@ -1,0 +1,127 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const navLinks = [
+  { href: '/', label: 'Ophthalytics' },
+  { href: '/who-we-help', label: 'Who We Help' },
+  { href: '/resources', label: 'Resources' },
+  { href: '/about', label: 'About' },
+] as const;
+
+const isActive = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+
+<header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-brand-line">
+  <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-bold text-xl text-brand-primary" aria-label="Ophthalytics home">
+      Ophthalytics
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class:list={[
+              'text-sm font-medium transition-colors',
+              isActive(link.href)
+                ? 'text-brand-primary'
+                : 'text-brand-body hover:text-brand-primary',
+            ]}
+            aria-current={isActive(link.href) ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+      <li>
+        <button
+          type="button"
+          data-open-modal="contact"
+          class="text-sm font-semibold text-brand-primary border-2 border-brand-primary rounded-md px-4 py-2 hover:bg-brand-primary hover:text-white transition"
+        >
+          Contact
+        </button>
+      </li>
+    </ul>
+
+    <button
+      type="button"
+      data-mobile-toggle
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="mobile-drawer"
+      class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-md text-brand-ink hover:bg-brand-surface"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="4" y1="6" x2="20" y2="6"></line>
+        <line x1="4" y1="12" x2="20" y2="12"></line>
+        <line x1="4" y1="18" x2="20" y2="18"></line>
+      </svg>
+    </button>
+  </nav>
+
+  <div
+    id="mobile-drawer"
+    data-mobile-drawer
+    hidden
+    class="md:hidden border-t border-brand-line bg-white"
+  >
+    <ul class="px-6 py-4 flex flex-col gap-1">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class:list={[
+              'block px-3 py-3 rounded-md text-base font-medium',
+              isActive(link.href)
+                ? 'bg-brand-surface-blue text-brand-primary'
+                : 'text-brand-body hover:bg-brand-surface',
+            ]}
+            aria-current={isActive(link.href) ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+      <li class="pt-2">
+        <button
+          type="button"
+          data-open-modal="contact"
+          class="w-full text-left block px-3 py-3 rounded-md text-base font-semibold text-brand-primary border-2 border-brand-primary hover:bg-brand-primary hover:text-white transition"
+        >
+          Contact
+        </button>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-mobile-toggle]');
+  const drawer = document.querySelector<HTMLElement>('[data-mobile-drawer]');
+
+  const setOpen = (open: boolean) => {
+    if (!toggle || !drawer) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+    drawer.hidden = !open;
+  };
+
+  toggle?.addEventListener('click', () => {
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+
+  drawer?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setOpen(false));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setOpen(false);
+  });
+</script>

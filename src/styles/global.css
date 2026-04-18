@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+/* Ophthalytics design tokens — see instructions/01-design-tokens.txt */
+@theme {
+  /* Brand palette */
+  --color-brand-primary: #1E3A8A;
+  --color-brand-primary-dark: #152B66;
+  --color-brand-primary-light: #3B5BBF;
+  --color-brand-secondary: #0EA5E9;
+  --color-brand-accent: #7C3AED;
+  --color-brand-accent-soft: #C4B5FD;
+
+  /* Neutrals */
+  --color-brand-ink: #0F172A;
+  --color-brand-body: #334155;
+  --color-brand-muted: #64748B;
+  --color-brand-line: #E2E8F0;
+  --color-brand-surface: #F8FAFC;
+  --color-brand-surface-blue: #EFF6FF;
+  --color-brand-white: #FFFFFF;
+
+  /* Status */
+  --color-status-success: #16A34A;
+  --color-status-error: #DC2626;
+  --color-status-warn: #D97706;
+
+  /* Typography */
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}
+
+/* Base layer */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: var(--font-body);
+    color: var(--color-brand-ink);
+    background-color: var(--color-brand-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}

@@ -1,0 +1,137 @@
+---
+interface Props {
+  name: 'demo' | 'contact';
+  labelledBy: string;
+  describedBy?: string;
+  size?: 'md' | 'lg';
+}
+
+const { name, labelledBy, describedBy, size = 'lg' } = Astro.props;
+
+const panelMax = size === 'lg' ? 'max-w-2xl' : 'max-w-md';
+---
+
+<div
+  data-modal={name}
+  hidden
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby={labelledBy}
+  aria-describedby={describedBy}
+  class="fixed inset-0 z-50"
+>
+  <div
+    data-modal-backdrop
+    class="absolute inset-0 bg-brand-ink/60 backdrop-blur-sm"
+  ></div>
+  <div class="relative h-full w-full flex items-start md:items-center justify-center overflow-y-auto p-4 md:p-8">
+    <div class:list={[
+      'relative bg-white rounded-2xl shadow-xl w-full my-4 md:my-0',
+      panelMax,
+    ]}>
+      <button
+        type="button"
+        data-modal-close
+        aria-label="Close dialog"
+        class="absolute top-4 right-4 w-10 h-10 rounded-full text-brand-muted hover:text-brand-ink hover:bg-brand-surface flex items-center justify-center transition"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="p-6 md:p-8">
+        <slot />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const FOCUSABLE = [
+    'a[href]',
+    'button:not([disabled])',
+    'input:not([disabled]):not([type="hidden"])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])',
+  ].join(',');
+
+  type ModalName = string;
+  let openModalEl: HTMLElement | null = null;
+  let previouslyFocused: HTMLElement | null = null;
+
+  const getFocusable = (el: HTMLElement) =>
+    Array.from(el.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+      (node) => !node.hasAttribute('hidden') && node.offsetParent !== null
+    );
+
+  const openModal = (name: ModalName) => {
+    const el = document.querySelector<HTMLElement>(`[data-modal="${name}"]`);
+    if (!el || openModalEl === el) return;
+    if (openModalEl) closeModal();
+    previouslyFocused = document.activeElement as HTMLElement | null;
+    el.hidden = false;
+    openModalEl = el;
+    document.body.style.overflow = 'hidden';
+    // Reset any success state on forms inside.
+    el.querySelectorAll<HTMLElement>('[data-form-block-root]').forEach((root) => {
+      root.dispatchEvent(new CustomEvent('form-block:reset', { bubbles: true }));
+    });
+    const focusables = getFocusable(el);
+    const first = focusables.find((n) => !n.hasAttribute('data-modal-close')) ?? focusables[0];
+    first?.focus();
+  };
+
+  const closeModal = () => {
+    if (!openModalEl) return;
+    openModalEl.hidden = true;
+    openModalEl = null;
+    document.body.style.overflow = '';
+    previouslyFocused?.focus?.();
+    previouslyFocused = null;
+  };
+
+  // Delegated trigger click: [data-open-modal="demo|contact"]
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement | null;
+    const trigger = target?.closest<HTMLElement>('[data-open-modal]');
+    if (trigger) {
+      event.preventDefault();
+      const name = trigger.dataset.openModal;
+      if (name) openModal(name);
+      return;
+    }
+    if (!openModalEl) return;
+    if (target?.closest('[data-modal-close]')) {
+      closeModal();
+      return;
+    }
+    if (target?.closest('[data-modal-backdrop]')) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (!openModalEl) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeModal();
+      return;
+    }
+    if (event.key === 'Tab') {
+      const focusables = getFocusable(openModalEl);
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  });
+</script>

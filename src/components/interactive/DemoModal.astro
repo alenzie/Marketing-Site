@@ -1,0 +1,134 @@
+---
+import Modal from './Modal.astro';
+import FormBlock from './FormBlock.astro';
+---
+
+<Modal name="demo" labelledBy="demo-modal-title" describedBy="demo-modal-desc">
+  <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold">
+    Ophthalytics
+  </p>
+  <h2 id="demo-modal-title" class="mt-2 text-2xl md:text-3xl font-bold text-brand-ink">
+    Request a Product Demo
+  </h2>
+  <p id="demo-modal-desc" class="mt-2 text-brand-body">
+    Submit the form, and a member of our team will follow up with you shortly.
+  </p>
+
+  <FormBlock logPrefix="DEMO" successMessage="Thanks! We'll be in touch shortly." class="mt-6 space-y-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label for="demo-first-name" class="block text-sm font-medium text-brand-ink mb-1">
+          First Name <span class="text-status-error">*</span>
+        </label>
+        <input
+          id="demo-first-name"
+          name="firstName"
+          type="text"
+          required
+          class="w-full px-4 py-3 rounded-md border border-brand-line focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition"
+        />
+      </div>
+      <div>
+        <label for="demo-last-name" class="block text-sm font-medium text-brand-ink mb-1">
+          Last Name <span class="text-status-error">*</span>
+        </label>
+        <input
+          id="demo-last-name"
+          name="lastName"
+          type="text"
+          required
+          class="w-full px-4 py-3 rounded-md border border-brand-line focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition"
+        />
+      </div>
+    </div>
+
+    <div>
+      <label for="demo-email" class="block text-sm font-medium text-brand-ink mb-1">
+        Work Email <span class="text-status-error">*</span>
+      </label>
+      <input
+        id="demo-email"
+        name="email"
+        type="email"
+        required
+        class="w-full px-4 py-3 rounded-md border border-brand-line focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition"
+      />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label for="demo-phone" class="block text-sm font-medium text-brand-ink mb-1">
+          Phone
+        </label>
+        <input
+          id="demo-phone"
+          name="phone"
+          type="tel"
+          class="w-full px-4 py-3 rounded-md border border-brand-line focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition"
+        />
+      </div>
+      <div>
+        <label for="demo-org" class="block text-sm font-medium text-brand-ink mb-1">
+          Organization <span class="text-status-error">*</span>
+        </label>
+        <input
+          id="demo-org"
+          name="organization"
+          type="text"
+          required
+          class="w-full px-4 py-3 rounded-md border border-brand-line focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label for="demo-role" class="block text-sm font-medium text-brand-ink mb-1">
+          Role <span class="text-status-error">*</span>
+        </label>
+        <input
+          id="demo-role"
+          name="role"
+          type="text"
+          required
+          class="w-full px-4 py-3 rounded-md border border-brand-line focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition"
+        />
+      </div>
+      <div>
+        <label for="demo-product" class="block text-sm font-medium text-brand-ink mb-1">
+          Product of Interest
+        </label>
+        <select
+          id="demo-product"
+          name="product"
+          class="w-full px-4 py-3 rounded-md border border-brand-line bg-white focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition"
+        >
+          <option value="not-sure">Not Sure</option>
+          <option value="nsight360">NSight360</option>
+          <option value="2nd-opinion">2nd Opinion</option>
+          <option value="ophthal360">Ophthal360</option>
+          <option value="ocula360">Ocula360</option>
+        </select>
+      </div>
+    </div>
+
+    <div>
+      <label for="demo-message" class="block text-sm font-medium text-brand-ink mb-1">
+        Message
+      </label>
+      <textarea
+        id="demo-message"
+        name="message"
+        rows="4"
+        class="w-full px-4 py-3 rounded-md border border-brand-line focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition resize-y"
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      class="w-full bg-brand-primary text-white font-semibold px-6 py-3 rounded-md hover:bg-brand-primary-dark transition"
+    >
+      Request a Demo
+    </button>
+  </FormBlock>
+</Modal>

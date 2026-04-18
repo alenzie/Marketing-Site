@@ -1,0 +1,164 @@
+---
+import Layout from '../components/layout/Layout.astro';
+import PipeHeading from '../components/content/PipeHeading.astro';
+import TeamCard from '../components/content/TeamCard.astro';
+---
+
+<Layout
+  title="About — Ophthalytics"
+  description="Pioneering Human + AI to advance healthcare through retinal intelligence."
+  currentPath="/about"
+>
+
+  <!-- SECTION 1 — HERO BAND -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-brand-surface-blue to-white">
+    <!-- Decorative network pattern -->
+    <svg class="absolute inset-0 w-full h-full opacity-[0.12] pointer-events-none" aria-hidden="true">
+      <defs>
+        <pattern id="about-dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.5" fill="#1E3A8A" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#about-dots)" />
+    </svg>
+    <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <PipeHeading level="h1" size="text-5xl md:text-6xl">
+        About Us: Pioneering Human + AI to Advance Healthcare
+      </PipeHeading>
+    </div>
+  </section>
+
+  <!-- SECTION 2 — OUR STORY / MISSION / VISION -->
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 py-20 md:py-24 space-y-16">
+      <div>
+        <PipeHeading level="h2" size="text-2xl md:text-3xl">Our Story</PipeHeading>
+        <div class="mt-5 space-y-5 text-lg text-brand-body leading-relaxed">
+          <p>Ophthalytics was founded with a simple but urgent mission: prevent avoidable blindness through early detection.</p>
+          <p>We saw how specialist shortages, long wait times, and unequal access to care left millions undiagnosed until it was too late.</p>
+          <p>By combining AI with clinical expertise, we empower frontline healthcare providers to deliver sight-saving screenings—when and where patients need them most.</p>
+        </div>
+      </div>
+
+      <div>
+        <PipeHeading level="h2" size="text-2xl md:text-3xl">Our Mission</PipeHeading>
+        <p class="mt-5 text-lg text-brand-body leading-relaxed">
+          To amplify the expertise of real doctors with AI-assisted diagnostic tools, delivering faster and more affordable retinal screenings to clinics that need them most.
+        </p>
+      </div>
+
+      <div>
+        <PipeHeading level="h2" size="text-2xl md:text-3xl">Our Vision</PipeHeading>
+        <p class="mt-5 text-lg text-brand-body leading-relaxed">
+          AI-driven predictive health through non-invasive, accessible eye scans—enabling earlier disease detection and better outcomes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — FOUNDERS -->
+  <section class="bg-brand-surface-blue">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <div class="text-center">
+        <PipeHeading level="h2" class="justify-center">Founders</PipeHeading>
+      </div>
+      <div class="mt-12 grid gap-10 md:grid-cols-2 max-w-4xl mx-auto">
+        <TeamCard
+          name="Awais Bajwa"
+          role="Co-Founder & CEO"
+          bioLink="#"
+        />
+        <TeamCard
+          name="Neelam Nosheen, MD"
+          role="Co-Founder & Chief Product Officer"
+          bioLink="#"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 — SCIENTIFIC ADVISORY BOARD -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <div class="text-center">
+        <PipeHeading level="h2" class="justify-center">Scientific Advisory Board</PipeHeading>
+      </div>
+      <div class="mt-12 grid gap-10 md:grid-cols-3 lg:grid-cols-4">
+        <TeamCard
+          size="sm"
+          name="Nadia Waheed, MD, MPH"
+          role="Professor of Ophthalmology, Retina Specialist — Retinal & Macular Disease"
+        />
+        <TeamCard
+          size="sm"
+          name="Peter Kaiser, MD"
+          role="Professor of Ophthalmology, Director, Center for Ocular Research and Evaluation (CORE)"
+        />
+        <TeamCard
+          size="sm"
+          name="Justis Ehlers, MD"
+          role="Professor of Ophthalmology; Retina Specialist for detached retinas, cataracts & glaucoma"
+        />
+        <TeamCard
+          size="sm"
+          name="Arshad Khanani, MD"
+          role="Director of Clinical Research at Sierra Eye Associates"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5 — BUSINESS ADVISORY BOARD -->
+  <section class="bg-brand-surface">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <div class="text-center">
+        <PipeHeading level="h2" class="justify-center">Business Advisory Board</PipeHeading>
+      </div>
+      <div class="mt-12 grid gap-10 md:grid-cols-3 max-w-5xl mx-auto">
+        <TeamCard
+          size="sm"
+          name="Baz Khuti"
+          role="President US at Modak, Co-Founder QiO Technologies, Executive CTO Cloud at GE"
+        />
+        <TeamCard
+          size="sm"
+          name="Scott Brands"
+          role="Financial Advisor, SVP Finance at Brightwell Payments, Inc"
+        />
+        <TeamCard
+          size="sm"
+          name="Joshua Freeman"
+          role="Medical Device Clinical and Regulatory Professional"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6 — JOIN US -->
+  <section class="relative overflow-hidden bg-brand-primary">
+    <svg class="absolute inset-0 w-full h-full opacity-[0.08] pointer-events-none" aria-hidden="true">
+      <defs>
+        <pattern id="join-dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.5" fill="#ffffff" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#join-dots)" />
+    </svg>
+    <div class="relative max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <PipeHeading level="h2" color="text-white" barColor="bg-brand-secondary">Join Us</PipeHeading>
+      <p class="mt-6 max-w-2xl text-lg text-white/90 leading-relaxed">
+        Take the first step toward an exciting career with Ophthalytics. Join our team and be a part of our mission to advance wellbeing through deep-learning AI. We are looking for driven and passionate individuals who share our vision and want to make a meaningful impact. Don't wait — start your journey with us today.
+      </p>
+      <div class="mt-8">
+        <button
+          type="button"
+          data-open-modal="contact"
+          class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-8 py-3 rounded-md hover:bg-brand-surface transition"
+        >
+          Contact Us
+        </button>
+      </div>
+    </div>
+  </section>
+
+</Layout>

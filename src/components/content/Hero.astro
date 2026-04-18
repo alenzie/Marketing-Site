@@ -1,0 +1,87 @@
+---
+interface HeroCta {
+  label: string;
+  href?: string;
+  openModal?: 'demo' | 'contact';
+}
+
+interface Props {
+  eyebrow?: string;
+  headline: string;
+  subheadline?: string;
+  primaryCta?: HeroCta;
+  secondaryCta?: HeroCta;
+}
+
+const { eyebrow, headline, subheadline, primaryCta, secondaryCta } = Astro.props;
+
+const hasVisual = Astro.slots.has('visual');
+---
+
+<section class="relative overflow-hidden bg-gradient-to-b from-brand-surface-blue to-white">
+  <div class:list={[
+    'max-w-7xl mx-auto px-6 py-20 md:py-28 grid gap-12 items-center',
+    hasVisual ? 'md:grid-cols-2' : 'md:grid-cols-1',
+  ]}>
+    <div>
+      {eyebrow && (
+        <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">
+          {eyebrow}
+        </p>
+      )}
+      <h1 class="mt-4 text-5xl md:text-6xl font-bold text-brand-ink leading-tight">
+        {headline}
+      </h1>
+      {subheadline && (
+        <p class="mt-6 max-w-2xl text-lg md:text-xl text-brand-body leading-relaxed">
+          {subheadline}
+        </p>
+      )}
+      {(primaryCta || secondaryCta) && (
+        <div class="mt-8 flex flex-col sm:flex-row gap-4">
+          {primaryCta && (
+            primaryCta.openModal ? (
+              <button
+                type="button"
+                data-open-modal={primaryCta.openModal}
+                class="inline-flex items-center justify-center bg-brand-primary text-white font-semibold px-6 py-3 rounded-md hover:bg-brand-primary-dark transition"
+              >
+                {primaryCta.label}
+              </button>
+            ) : (
+              <a
+                href={primaryCta.href ?? '#'}
+                class="inline-flex items-center justify-center bg-brand-primary text-white font-semibold px-6 py-3 rounded-md hover:bg-brand-primary-dark transition"
+              >
+                {primaryCta.label}
+              </a>
+            )
+          )}
+          {secondaryCta && (
+            secondaryCta.openModal ? (
+              <button
+                type="button"
+                data-open-modal={secondaryCta.openModal}
+                class="inline-flex items-center justify-center border-2 border-brand-primary text-brand-primary font-semibold px-6 py-3 rounded-md hover:bg-brand-primary hover:text-white transition"
+              >
+                {secondaryCta.label}
+              </button>
+            ) : (
+              <a
+                href={secondaryCta.href ?? '#'}
+                class="inline-flex items-center justify-center border-2 border-brand-primary text-brand-primary font-semibold px-6 py-3 rounded-md hover:bg-brand-primary hover:text-white transition"
+              >
+                {secondaryCta.label}
+              </a>
+            )
+          )}
+        </div>
+      )}
+    </div>
+    {hasVisual && (
+      <div class="relative">
+        <slot name="visual" />
+      </div>
+    )}
+  </div>
+</section>

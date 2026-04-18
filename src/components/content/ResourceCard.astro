@@ -1,0 +1,52 @@
+---
+interface Props {
+  category: string;
+  title: string;
+  excerpt: string;
+  link: string;
+  thumbnail?: string;
+  categoryColor?: 'primary' | 'accent' | 'secondary' | 'warn';
+}
+
+const {
+  category,
+  title,
+  excerpt,
+  link,
+  thumbnail,
+  categoryColor = 'primary',
+} = Astro.props;
+
+const badgeClass = {
+  primary: 'bg-brand-primary text-white',
+  accent: 'bg-brand-accent text-white',
+  secondary: 'bg-brand-secondary text-white',
+  warn: 'bg-status-warn text-white',
+}[categoryColor];
+
+const gradientClass = {
+  primary: 'bg-gradient-to-br from-brand-primary to-brand-primary-light',
+  accent: 'bg-gradient-to-br from-brand-accent to-brand-accent-soft',
+  secondary: 'bg-gradient-to-br from-brand-secondary to-brand-primary-light',
+  warn: 'bg-gradient-to-br from-status-warn to-brand-accent',
+}[categoryColor];
+---
+
+<a
+  href={link}
+  class="block bg-white rounded-lg overflow-hidden border border-brand-line hover:shadow-lg transition-shadow h-full flex flex-col"
+>
+  <div class:list={['aspect-video relative', !thumbnail && gradientClass]}>
+    {thumbnail && (
+      <img src={thumbnail} alt="" class="w-full h-full object-cover" loading="lazy" />
+    )}
+    <span class:list={['absolute top-3 left-3 rounded-full text-xs font-semibold uppercase tracking-wider px-3 py-1', badgeClass]}>
+      {category}
+    </span>
+  </div>
+  <div class="p-5 flex-1 flex flex-col">
+    <h3 class="text-lg font-semibold text-brand-ink line-clamp-2">{title}</h3>
+    <p class="mt-2 text-sm text-brand-body line-clamp-3">{excerpt}</p>
+    <span class="mt-4 inline-block text-brand-primary text-sm font-semibold">Read more →</span>
+  </div>
+</a>

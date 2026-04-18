@@ -1,0 +1,418 @@
+---
+import Layout from '../components/layout/Layout.astro';
+import Hero from '../components/content/Hero.astro';
+import PipeHeading from '../components/content/PipeHeading.astro';
+import CapabilityTile from '../components/content/CapabilityTile.astro';
+import ProductCard from '../components/content/ProductCard.astro';
+import AudienceCard from '../components/content/AudienceCard.astro';
+import TestimonialFeature from '../components/content/TestimonialFeature.astro';
+import ResourceCard from '../components/content/ResourceCard.astro';
+---
+
+<Layout
+  title="Ophthalytics — Wellness Through the Eyes™"
+  description="AI-Powered Retinal Intelligence for earlier detection and better health."
+  currentPath="/"
+>
+
+  <!-- SECTION 1 — HERO -->
+  <Hero
+    eyebrow="Ophthalytics — Wellness Through the Eyes™"
+    headline="Retinal Intelligence for Earlier Detection and Better Health"
+    subheadline="Advancing eye care through AI, oculomics, and multimodal intelligence—transforming the retina into a gateway for early disease detection and broader health insights."
+    primaryCta={{ label: 'Request a Demo', openModal: 'demo' }}
+    secondaryCta={{ label: 'Explore Our Solutions', href: '#products' }}
+  >
+    <!-- FINAL_ASSET_TBD — stylized retina with AI scan overlay -->
+    <div slot="visual" class="relative aspect-square max-w-lg mx-auto">
+      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-[0_20px_50px_rgba(30,58,138,0.25)]" aria-hidden="true">
+        <defs>
+          <radialGradient id="retina-core" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#EFF6FF" />
+            <stop offset="40%" stop-color="#3B5BBF" />
+            <stop offset="100%" stop-color="#152B66" />
+          </radialGradient>
+          <radialGradient id="fovea" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#7C3AED" />
+            <stop offset="100%" stop-color="#1E3A8A" />
+          </radialGradient>
+          <pattern id="scan-grid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#0EA5E9" stroke-width="0.5" opacity="0.4" />
+          </pattern>
+        </defs>
+        <circle cx="200" cy="200" r="180" fill="url(#retina-core)" />
+        <circle cx="200" cy="200" r="180" fill="url(#scan-grid)" />
+        <g stroke="#C4B5FD" stroke-width="1.5" fill="none" opacity="0.7">
+          <path d="M200 80 Q 260 140 280 200" />
+          <path d="M200 80 Q 140 140 120 200" />
+          <path d="M200 320 Q 260 260 280 200" />
+          <path d="M200 320 Q 140 260 120 200" />
+          <path d="M120 200 Q 170 180 200 200" />
+          <path d="M280 200 Q 230 220 200 200" />
+        </g>
+        <circle cx="200" cy="200" r="32" fill="url(#fovea)" />
+        <circle cx="200" cy="200" r="32" fill="none" stroke="#0EA5E9" stroke-width="1" opacity="0.6">
+          <animate attributeName="r" values="32;48;32" dur="3s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.6;0;0.6" dur="3s" repeatCount="indefinite" />
+        </circle>
+        <g stroke="#0EA5E9" stroke-width="1" opacity="0.5">
+          <line x1="40" y1="200" x2="360" y2="200" stroke-dasharray="4 6" />
+          <line x1="200" y1="40" x2="200" y2="360" stroke-dasharray="4 6" />
+        </g>
+      </svg>
+    </div>
+  </Hero>
+
+  <!-- SECTION 2 — VISION ("Beyond the Eye") -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 grid gap-12 md:grid-cols-2 items-center">
+      <div>
+        <PipeHeading level="h2">Beyond the Eye: A New Frontier in Detection</PipeHeading>
+        <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed">
+          <p>The retina is one of the only places in the body where microvascular and neural structures can be observed directly and noninvasively.</p>
+          <p>At Ophthalytics, we are advancing the field of oculomics—where retinal imaging extends beyond eye disease to reveal early indicators of systemic health.</p>
+          <p>By combining AI with multimodal data, we enable earlier risk detection, deeper clinical insights, and more connected care.</p>
+          <p>This is the future of preventive healthcare—starting with the eye.</p>
+        </div>
+      </div>
+
+      <!-- FINAL_ASSET_TBD — oculomics diagram (retina → organs) -->
+      <div class="relative aspect-square max-w-md mx-auto">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-full" aria-hidden="true">
+          <defs>
+            <radialGradient id="retina-center" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#3B5BBF" />
+              <stop offset="100%" stop-color="#1E3A8A" />
+            </radialGradient>
+          </defs>
+          <g stroke="#C4B5FD" stroke-width="1.5" stroke-dasharray="4 4" fill="none" opacity="0.6">
+            <line x1="200" y1="200" x2="70" y2="70" />
+            <line x1="200" y1="200" x2="330" y2="70" />
+            <line x1="200" y1="200" x2="70" y2="330" />
+            <line x1="200" y1="200" x2="330" y2="330" />
+          </g>
+          <circle cx="200" cy="200" r="60" fill="url(#retina-center)" />
+          <circle cx="200" cy="200" r="14" fill="#7C3AED" />
+          <text x="200" y="285" text-anchor="middle" font-size="13" font-weight="600" fill="#0F172A" font-family="Inter, sans-serif">Retina</text>
+
+          <!-- Heart, top-left -->
+          <g transform="translate(30 30)">
+            <circle cx="40" cy="40" r="38" fill="#EFF6FF" stroke="#1E3A8A" stroke-width="1.5" />
+            <path d="M40 58 C 22 45 22 28 31 24 C 36 22 40 25 40 30 C 40 25 44 22 49 24 C 58 28 58 45 40 58 Z" fill="#1E3A8A" />
+            <text x="40" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A" font-family="Inter, sans-serif">Heart</text>
+          </g>
+          <!-- Brain, top-right -->
+          <g transform="translate(290 30)">
+            <circle cx="40" cy="40" r="38" fill="#EFF6FF" stroke="#1E3A8A" stroke-width="1.5" />
+            <path d="M30 30 Q 25 35 28 42 Q 25 50 32 54 Q 33 60 40 58 Q 47 60 48 54 Q 55 50 52 42 Q 55 35 50 30 Q 48 22 40 24 Q 32 22 30 30 Z" fill="none" stroke="#1E3A8A" stroke-width="1.5" />
+            <path d="M40 26 V 58" stroke="#1E3A8A" stroke-width="1" />
+            <text x="40" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A" font-family="Inter, sans-serif">Brain</text>
+          </g>
+          <!-- Kidney, bottom-left -->
+          <g transform="translate(30 290)">
+            <circle cx="40" cy="40" r="38" fill="#EFF6FF" stroke="#1E3A8A" stroke-width="1.5" />
+            <path d="M32 24 Q 18 32 22 48 Q 28 60 40 58 Q 54 60 56 48 Q 58 32 48 24 Q 40 20 32 24 Z" fill="#1E3A8A" />
+            <text x="40" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A" font-family="Inter, sans-serif">Kidneys</text>
+          </g>
+          <!-- Vascular, bottom-right -->
+          <g transform="translate(290 290)">
+            <circle cx="40" cy="40" r="38" fill="#EFF6FF" stroke="#1E3A8A" stroke-width="1.5" />
+            <path d="M20 40 Q 30 30 40 40 T 60 40" stroke="#1E3A8A" stroke-width="2" fill="none" />
+            <path d="M22 50 Q 32 42 42 50 T 62 50" stroke="#3B5BBF" stroke-width="1.5" fill="none" />
+            <path d="M24 30 Q 34 22 44 30 T 64 30" stroke="#3B5BBF" stroke-width="1.5" fill="none" />
+            <text x="40" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A" font-family="Inter, sans-serif">Vascular</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — FLAGSHIP (Ocula360 + Core Strengths) -->
+  <section class="bg-brand-surface">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+        <div>
+          <p class="text-xs uppercase tracking-widest text-brand-muted font-semibold">
+            Ophthalytics Inc — Product Portfolio
+          </p>
+          <p class="mt-1 text-sm text-brand-body">AI-Powered Retinal Intelligence</p>
+        </div>
+        <span class="self-start md:self-auto inline-block rounded-full bg-brand-primary text-white px-4 py-1.5 text-sm font-medium">
+          Wellness Through the Eyes™
+        </span>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        <!-- Flagship Card -->
+        <div class="bg-white border border-brand-line rounded-2xl p-8 md:p-10 shadow-md">
+          <p class="text-xs uppercase tracking-widest text-brand-primary-light font-semibold">
+            Flagship Innovation
+          </p>
+          <h2 class="mt-3 text-4xl font-bold text-brand-ink">Ocula360</h2>
+          <p class="mt-4 text-3xl font-bold text-brand-primary leading-tight">
+            Foundational Models
+          </p>
+          <p class="mt-5 text-base text-brand-body leading-relaxed">
+            Ocula360 is Ophthalytics' next-generation retinal AI platform designed to detect multiple retinal diseases from imaging data, including advanced DRSS scoring. Built as a foundational model architecture, it supports screening, clinical research, and future multimodal applications across eye care and broader wellness workflows.
+          </p>
+        </div>
+
+        <!-- Core Strengths Card -->
+        <div class="relative rounded-2xl p-8 md:p-10 overflow-hidden bg-gradient-to-br from-[#0F2C5C] via-[#123F6E] to-[#0F6F7D] text-white">
+          <p class="text-xs uppercase tracking-widest text-brand-secondary font-semibold">
+            Core Strengths
+          </p>
+          <p class="mt-3 text-3xl font-bold leading-tight">
+            From one retinal image to scalable diagnostic intelligence.
+          </p>
+          <p class="mt-5 text-base text-white/80 leading-relaxed">
+            Multi-disease detection, explainable AI outputs, DR severity support, and flexible deployment models for providers, payers, eye care, and global screening markets.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-6 grid gap-5 md:grid-cols-3">
+        <CapabilityTile
+          title="Multi-Disease Detection"
+          body="Supports diabetic retinopathy, AMD, glaucoma indicators, vascular abnormalities, hemorrhages, microaneurysms, and exudates."
+        >
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/>
+            <path d="M14.5 2a2.5 2.5 0 0 0-2.5 2.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/>
+          </svg>
+        </CapabilityTile>
+        <CapabilityTile
+          title="DRSS Scoring"
+          body="Automated severity grading support for identifying disease stage and enabling patient stratification for screening and research."
+        >
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18"/>
+            <path d="M7 16V9"/>
+            <path d="M12 16v-5"/>
+            <path d="M17 16v-3"/>
+          </svg>
+        </CapabilityTile>
+        <CapabilityTile
+          title="Explainable & Multimodal"
+          body="Lesion overlays, confidence signals, and future-ready architecture for fundus, UWF, metadata, and patient history inputs."
+        >
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+            <polyline points="2 17 12 22 22 17"/>
+            <polyline points="2 12 12 17 22 12"/>
+          </svg>
+        </CapabilityTile>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 — PRODUCT ECOSYSTEM -->
+  <section id="products" class="bg-white scroll-mt-24">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <!-- Intro card -->
+        <div class="relative rounded-2xl p-6 md:p-7 overflow-hidden bg-gradient-to-br from-brand-primary to-[#0F3A5C] text-white h-full flex flex-col">
+          <p class="text-xs uppercase tracking-widest text-brand-secondary font-semibold">
+            Product Ecosystem
+          </p>
+          <p class="mt-3 text-2xl font-bold leading-tight">
+            One company. Four retinal AI solutions.
+          </p>
+          <p class="mt-4 text-sm text-white/80 leading-relaxed">
+            Ophthalytics has built a differentiated portfolio to serve primary care, insurers, optometrists, eye care specialists, and high-volume autonomous screening markets.
+          </p>
+        </div>
+
+        <ProductCard
+          eyebrow="HUMAN + AI"
+          name="NSight360"
+          tagline="Assistive retinal diagnostics for PCPs, health systems, and insurance companies."
+          capabilities={["Human-in-the-loop review","AI-assisted reports","Built for screening programs"]}
+        />
+        <ProductCard
+          eyebrow="EYE CARE MARKET"
+          name="2nd Opinion"
+          tagline="AI diagnostic support for optometrists and eye care professionals."
+          capabilities={["Lesion visualization","Diagnostic confidence support","Clinical workflow fit"]}
+        />
+        <ProductCard
+          eyebrow="AUTONOMOUS AI"
+          name="Ophthal360"
+          tagline="Autonomous retinal disease diagnostics product currently selling in Asian markets."
+          capabilities={["High-volume screening","Automated referral logic","Built for scalable deployment"]}
+        />
+      </div>
+
+      <div class="mt-10 flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-xs text-brand-muted">
+        <span>Atlanta, Georgia, USA</span>
+        <span>Retinal Intelligence for Earlier Detection and Better Health</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5 — WHO WE HELP -->
+  <section class="bg-brand-surface">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <PipeHeading level="h2">Who We Help</PipeHeading>
+      <p class="mt-4 max-w-3xl text-lg text-brand-body leading-relaxed">
+        Supporting providers, systems, and researchers across the care continuum.
+      </p>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <AudienceCard
+          title="Primary Care Providers & Health Systems"
+          body="Bring retinal screening directly into primary care—enabling earlier detection without specialist dependency."
+        >
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/>
+            <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/>
+            <circle cx="20" cy="10" r="2"/>
+          </svg>
+        </AudienceCard>
+        <AudienceCard
+          title="Optometrists & Eye Care Professionals"
+          body="Enhance diagnostic confidence with AI-supported interpretation and better visibility into subtle retinal findings."
+        >
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </AudienceCard>
+        <AudienceCard
+          title="Insurance Providers & Population Health Programs"
+          body="Close care gaps, improve screening rates, and support value-based care initiatives."
+        >
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </AudienceCard>
+        <AudienceCard
+          title="Pharmaceutical & Clinical Research Organizations"
+          body="Accelerate patient identification and clinical trial recruitment with advanced retinal intelligence."
+        >
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 2v7.31"/>
+            <path d="M14 9.3V1.99"/>
+            <path d="M8.5 2h7"/>
+            <path d="M14 9.3a6.5 6.5 0 1 1-4 0"/>
+            <path d="M5.58 16.5h12.85"/>
+          </svg>
+        </AudienceCard>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6 — TESTIMONIALS -->
+  <section class="bg-brand-primary">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white">
+        Proven Impact in Real-World Care
+      </h2>
+      <p class="mt-4 max-w-3xl mx-auto text-lg text-white/80 leading-relaxed">
+        Our solutions are used by healthcare providers globally to expand access to screening, improve early detection, and prevent vision loss.
+      </p>
+      <div class="mt-12">
+        <TestimonialFeature
+          quote="Using NSight360, we've screened over 250,000 patients and helped prevent thousands of cases of blindness."
+          author="The Diabetic Center, Pakistan"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7 — LATEST RESOURCES -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <PipeHeading level="h2">Insights & Innovations</PipeHeading>
+      <p class="mt-4 max-w-3xl text-lg text-brand-body leading-relaxed">
+        Stay informed on the latest in AI, eye care, and early detection.
+      </p>
+
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        <ResourceCard
+          categoryColor="accent"
+          category="AI & Detection"
+          title="The Role of AI in Early Disease Detection"
+          excerpt="How foundation models are reshaping what frontline clinics can catch before symptoms ever appear."
+          link="/resources"
+        />
+        <ResourceCard
+          categoryColor="primary"
+          category="Oculomics"
+          title="Understanding Oculomics"
+          excerpt="Why the retina is emerging as a window into cardiovascular, metabolic, and neurological health."
+          link="/resources"
+        />
+        <ResourceCard
+          categoryColor="secondary"
+          category="Care Access"
+          title="Closing the Diabetic Eye Care Gap"
+          excerpt="Bringing retinal screening to populations that have historically been left out of specialist-driven care."
+          link="/resources"
+        />
+      </div>
+
+      <div class="mt-10 text-center">
+        <a
+          href="/resources"
+          class="inline-flex items-center gap-2 text-brand-primary font-semibold hover:underline"
+        >
+          View All Resources
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8 — CLOSING -->
+  <section class="bg-brand-surface-blue">
+    <div class="max-w-3xl mx-auto px-6 py-24 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink leading-tight">
+        From Eye Exams to Health Intelligence
+      </h2>
+      <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed">
+        <p>Ophthalytics is building a connected ecosystem of retinal AI solutions—designed to improve early detection, expand access to care, and unlock deeper health insights.</p>
+        <p>Because the future of healthcare starts with seeing risk earlier.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9 — FINAL CTA -->
+  <section class="bg-brand-primary">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 text-center">
+      <h2 class="text-4xl md:text-5xl font-bold text-white leading-tight">
+        Transform Early Detection with Retinal AI
+      </h2>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <button
+          type="button"
+          data-open-modal="demo"
+          class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-8 py-3 rounded-md hover:bg-brand-surface transition"
+        >
+          Request a Demo
+        </button>
+        <button
+          type="button"
+          data-open-modal="contact"
+          class="inline-flex items-center justify-center border-2 border-white text-white font-semibold px-8 py-3 rounded-md hover:bg-white hover:text-brand-primary transition"
+        >
+          Contact Us
+        </button>
+      </div>
+      <p class="mt-8 text-sm text-white/80">
+        For inquiries, connect with us on
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="underline hover:text-white">LinkedIn</a>
+        or reach out at
+        <a href="tel:+18622226880" class="underline hover:text-white">+1 862 222 6880</a>
+        |
+        <a href="mailto:info@ophthalytics.com" class="underline hover:text-white">info@ophthalytics.com</a>
+      </p>
+    </div>
+  </section>
+
+</Layout>
