@@ -26,7 +26,10 @@
     let h = 0;
     let cx = 0;
     let cy = 0;
-    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // Cap DPR at 1.5: shadowBlur cost scales with pixel count. Dropping
+    // from 2 -> 1.5 removes ~44% of per-frame pixel work and is visually
+    // indistinguishable on this soft, glow-heavy composition.
+    let dpr = Math.min(window.devicePixelRatio || 1, 1.5);
 
     function resize() {
       const parent = canvas.parentElement;
@@ -35,7 +38,7 @@
       w = rect.width;
       h = rect.height;
       if (w <= 0 || h <= 0) return;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       cx = w * 0.5;
       cy = h * 0.5;
       canvas.width = Math.floor(w * dpr);
@@ -105,7 +108,7 @@
         this.phaseA = Math.random() * TAU;
         this.phaseB = Math.random() * TAU;
         this.trail = [];
-        this.maxTrail = 18;
+        this.maxTrail = 10;
         this.x = cx;
         this.y = cy;
       }
@@ -157,37 +160,39 @@
         ctx!.strokeStyle = this.color;
         ctx!.globalAlpha = 0.045;
         ctx!.lineWidth = this.size * 1.2;
-        ctx!.shadowBlur = 12;
-        ctx!.shadowColor = this.color;
+        // shadowBlur intentionally omitted here — the trail already uses
+        // globalCompositeOperation: 'lighter' and 0.045 alpha, so the blur
+        // is barely perceptible but was the single largest per-frame cost.
         ctx!.stroke();
       }
 
       draw(pulse: number) {
         const s = 1 + pulse * 0.9;
-        ctx!.beginPath();
-        ctx!.arc(this.x, this.y, this.size * 2.3 * s, 0, TAU);
-        ctx!.fillStyle = this.color;
-        ctx!.globalAlpha = 0.06;
-        ctx!.shadowBlur = 20;
-        ctx!.shadowColor = this.color;
-        ctx!.fill();
-
+        // Outer soft glow — biggest contributor to the halo look. Single
+        // shadow pass is enough; the previous 3-arc draw dropped the
+        // outermost large arc because two arcs + shadowBlur already give
+        // the full glow at a fraction of the cost.
         ctx!.beginPath();
         ctx!.arc(this.x, this.y, this.size * 0.9 * s, 0, TAU);
         ctx!.fillStyle = this.color;
-        ctx!.globalAlpha = 0.18;
+        ctx!.globalAlpha = 0.22;
+        ctx!.shadowBlur = 14;
+        ctx!.shadowColor = this.color;
         ctx!.fill();
 
+        // Bright white core
         ctx!.beginPath();
         ctx!.arc(this.x, this.y, this.size * 0.42 * s, 0, TAU);
         ctx!.fillStyle = 'rgba(255,255,255,0.95)';
-        ctx!.globalAlpha = 0.7;
-        ctx!.shadowBlur = 8;
+        ctx!.globalAlpha = 0.75;
+        ctx!.shadowBlur = 0;
         ctx!.fill();
       }
     }
 
-    const orbCount = 54;
+    // Reduced from 54. Each orb costs ~2 fill() calls + a trail stroke.
+    // 28 keeps the ring visually full without starving the GPU.
+    const orbCount = 28;
     const orbs = Array.from({ length: orbCount }, (_, i) => new Orb(i, orbCount));
 
     function getTimeline(t: number) {
@@ -354,6 +359,8 @@
       ctx!.shadowBlur = 0;
     }
 
+    let isVisible = true;
+
     function start() {
       ctx!.fillStyle = '#03050a';
       ctx!.fillRect(0, 0, w, h);
@@ -366,6 +373,25 @@
         drawStaticFrame();
         return;
       }
+
+      // Pause the RAF loop whenever the canvas is not intersecting the
+      // viewport. Costly off-screen work was the other big lag source.
+      const io = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          if (!entry) return;
+          if (entry.isIntersecting && !isVisible) {
+            isVisible = true;
+            rafId = requestAnimationFrame(animate);
+          } else if (!entry.isIntersecting && isVisible) {
+            isVisible = false;
+            cancelAnimationFrame(rafId);
+          }
+        },
+        { threshold: 0 }
+      );
+      io.observe(canvas);
+
       rafId = requestAnimationFrame(animate);
     }
 
