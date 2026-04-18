@@ -81,13 +81,17 @@ const mobileNav = [
 
 <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-brand-line">
   <nav class="max-w-7xl mx-auto px-8 lg:px-12 py-4 flex items-center justify-between" aria-label="Primary">
-    <a href="/" class="flex items-center" aria-label="Ophthalytics home">
+    <a href="/" class="relative flex items-center" aria-label="Ophthalytics home">
+      <div
+        aria-hidden="true"
+        class="absolute inset-0 -z-10 pointer-events-none scale-[1.8] [background:radial-gradient(ellipse_at_center,rgba(255,255,255,0.7)_0%,rgba(255,255,255,0)_65%)]"
+      ></div>
       <img
         src="/logo/ophthalytics-horizontal.png"
         alt="Ophthalytics"
         width="300"
         height="55"
-        class="h-9 w-auto"
+        class="relative h-9 w-auto"
       />
     </a>
 
