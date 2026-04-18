@@ -1,5 +1,7 @@
 ---
-interface Props {
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'h2'> {
   level?: 'h1' | 'h2' | 'h3';
   size?: string;
   color?: string;
@@ -13,12 +15,16 @@ const {
   color = 'text-brand-ink',
   barColor = 'bg-brand-primary',
   class: className = '',
+  ...rest
 } = Astro.props;
 
 const Tag = level;
 ---
 
-<Tag class:list={['flex items-baseline gap-3 font-bold leading-tight', size, color, className]}>
+<Tag
+  class:list={['flex items-baseline gap-3 font-bold leading-tight', size, color, className]}
+  {...rest}
+>
   <span class:list={['block w-1 h-[0.8em] rounded-full flex-shrink-0', barColor]}></span>
   <span><slot /></span>
 </Tag>

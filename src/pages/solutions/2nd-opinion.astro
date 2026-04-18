@@ -54,8 +54,8 @@ const benefits = [
       <div>
         <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Diagnostic Support Solution</p>
         <h1 class="mt-4 text-5xl md:text-6xl font-bold text-brand-ink leading-tight">2nd Opinion</h1>
-        <p class="mt-3 text-2xl text-brand-primary">Greater confidence on the cases that matter most.</p>
-        <p class="mt-6 max-w-xl text-lg text-brand-body leading-relaxed">
+        <p class="mt-3 text-2xl text-brand-primary" data-reveal>Greater confidence on the cases that matter most.</p>
+        <p class="mt-6 max-w-xl text-lg text-brand-body leading-relaxed" data-reveal>
           AI-assisted retinal analysis built for optometrists and eye care professionals. 2nd Opinion highlights subtle findings, standardizes interpretation, and adds a trusted layer of review to every complex or borderline case.
         </p>
         <div class="mt-8 flex flex-col sm:flex-row gap-4">
@@ -104,13 +104,13 @@ const benefits = [
   <!-- SECTION 2 — THE CHALLENGE -->
   <section class="bg-brand-surface">
     <div class="max-w-3xl mx-auto px-6 md:px-8 lg:px-12 py-20">
-      <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary">
+      <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary" data-reveal>
         THE CHALLENGE
       </PipeHeading>
-      <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">
+      <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>
         In everyday practice, not every case is clear-cut.
       </h2>
-      <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed">
+      <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed" data-reveal>
         <p>Subtle lesions. Early-stage disease. Borderline findings that could go either way. Every optometrist knows the cases that demand a second look—and the weight of interpretation that comes with them.</p>
         <p>Variability in retinal image interpretation is well-documented across the industry. Even experienced clinicians can reach different conclusions on the same image. The cost of missing something small is sometimes a patient's sight.</p>
         <p>2nd Opinion exists to make those moments easier—by surfacing what the eye can miss and standardizing what trained AI can see.</p>
@@ -122,13 +122,13 @@ const benefits = [
   <section class="bg-white">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 grid gap-12 md:grid-cols-5 items-start">
       <div class="md:col-span-3">
-        <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary">
+        <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary" data-reveal>
           THE SOLUTION
         </PipeHeading>
-        <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">
+        <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>
           AI-supported interpretation, built for optometry.
         </h2>
-        <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed">
+        <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed" data-reveal>
           <p>2nd Opinion analyzes retinal images alongside your clinical review, highlighting regions of interest, flagging potential lesions, and offering confidence signals that inform—but never replace—your clinical judgment.</p>
           <p>It acts as a second set of expert eyes on every case, without slowing your workflow or complicating your tech stack.</p>
         </div>
@@ -147,12 +147,12 @@ const benefits = [
   <section class="bg-brand-surface-blue">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
       <div class="text-center max-w-3xl mx-auto">
-        <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary" class="justify-center">
+        <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary" class="justify-center" data-reveal>
           CAPABILITIES
         </PipeHeading>
-        <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">Three Layers of Insight</h2>
+        <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>Three Layers of Insight</h2>
       </div>
-      <div class="mt-12 grid gap-6 md:grid-cols-3">
+      <div class="mt-12 grid gap-6 md:grid-cols-3" data-reveal-group>
         {capabilities.map((c) => (
           <CapabilityTile title={c.title} body={c.body}>
             <span slot="icon" set:html={c.icon}></span>
@@ -166,11 +166,11 @@ const benefits = [
   <section id="who-its-for" class="bg-white">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
       <div class="text-center max-w-3xl mx-auto">
-        <PipeHeading level="h2" color="text-brand-ink" class="justify-center">
+        <PipeHeading level="h2" color="text-brand-ink" class="justify-center" data-reveal>
           Built for the Eye Care Market
         </PipeHeading>
       </div>
-      <div class="mt-12 grid gap-6 md:grid-cols-2">
+      <div class="mt-12 grid gap-6 md:grid-cols-2" data-reveal-group>
         {audiences.map((a) => (
           <AudienceCard title={a.title} body={a.body}>
             <span slot="icon" set:html={a.icon}></span>
@@ -183,10 +183,10 @@ const benefits = [
   <!-- SECTION 6 — HOW IT INTEGRATES -->
   <section id="how-it-integrates" class="bg-brand-surface">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink text-center" data-reveal>
         Fits Your Workflow, Not the Other Way Around
       </h2>
-      <div class="mt-12 grid gap-6 md:grid-cols-3">
+      <div class="mt-12 grid gap-6 md:grid-cols-3" data-reveal-group>
         {steps.map((s) => (
           <div class="bg-white border border-brand-line rounded-xl p-6">
             <span class="text-brand-primary font-bold text-4xl">{s.n}</span>
@@ -201,8 +201,8 @@ const benefits = [
   <!-- SECTION 7 — WHY -->
   <section class="bg-brand-primary text-white">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
-      <h2 class="text-3xl md:text-4xl font-bold text-center">Confidence. Consistency. Control.</h2>
-      <div class="mt-12 grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center" data-reveal>Confidence. Consistency. Control.</h2>
+      <div class="mt-12 grid gap-8 md:grid-cols-2 max-w-5xl mx-auto" data-reveal-group>
         {benefits.map((b) => (
           <div>
             <h3 class="text-xl font-bold">{b.title}</h3>
@@ -216,13 +216,13 @@ const benefits = [
   <!-- SECTION 8 — FINAL CTA -->
   <section class="bg-white">
     <div class="max-w-4xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 text-center bg-brand-surface-blue rounded-2xl my-10">
-      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>
         Give every case a second set of expert eyes.
       </h2>
-      <p class="mt-5 max-w-2xl mx-auto text-lg text-brand-body leading-relaxed">
+      <p class="mt-5 max-w-2xl mx-auto text-lg text-brand-body leading-relaxed" data-reveal>
         See how 2nd Opinion fits into your optometric practice with a personalized demo.
       </p>
-      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center" data-reveal>
         <button
           type="button"
           data-open-modal="demo"

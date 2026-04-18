@@ -67,10 +67,10 @@ const benefits = [
           Autonomous AI
         </span>
         <h1 class="mt-5 text-5xl md:text-6xl font-bold leading-tight">Ophthal360</h1>
-        <p class="mt-3 text-2xl md:text-3xl font-semibold text-brand-secondary">
+        <p class="mt-3 text-2xl md:text-3xl font-semibold text-brand-secondary" data-reveal>
           Retinal screening at the scale of a population.
         </p>
-        <p class="mt-6 text-lg text-white/90 leading-relaxed max-w-xl">
+        <p class="mt-6 text-lg text-white/90 leading-relaxed max-w-xl" data-reveal>
           An autonomous AI platform built for health systems, population health programs, and large-scale screening deployments—delivering retinal analysis and referral decision support without manual image review.
         </p>
         <div class="mt-8 flex flex-col sm:flex-row gap-4">
@@ -116,13 +116,13 @@ const benefits = [
   <!-- SECTION 2 — THE CHALLENGE -->
   <section class="bg-brand-surface">
     <div class="max-w-3xl mx-auto px-6 md:px-8 lg:px-12 py-20">
-      <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary">
+      <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary" data-reveal>
         THE CHALLENGE
       </PipeHeading>
-      <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">
+      <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>
         Specialist-dependent screening doesn't scale.
       </h2>
-      <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed">
+      <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed" data-reveal>
         <p>Preventable blindness remains one of the largest unaddressed public health challenges globally. The tools to detect diabetic retinopathy and other retinal conditions exist. The specialists to interpret every image do not.</p>
         <p>Every screening model that requires expert image review hits the same ceiling: the supply of reading ophthalmologists. At national scale. At global scale. It's not enough.</p>
         <p>Ophthal360 was built to move past that ceiling.</p>
@@ -134,13 +134,13 @@ const benefits = [
   <section class="bg-white">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 grid gap-12 md:grid-cols-5 items-start">
       <div class="md:col-span-3">
-        <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary">
+        <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary" data-reveal>
           THE SOLUTION
         </PipeHeading>
-        <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">
+        <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>
           Autonomous retinal analysis at population scale.
         </h2>
-        <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed">
+        <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed" data-reveal>
           <p>Ophthal360 performs retinal analysis and generates screening outputs without manual interpretation—combining automated disease detection, referral decision support, and integration pathways for large-volume deployment.</p>
           <p>It is designed for environments where traditional specialist-dependent workflows are not feasible: rural regions, developing healthcare markets, national screening programs, and high-throughput clinical networks.</p>
         </div>
@@ -159,12 +159,12 @@ const benefits = [
   <section class="bg-brand-surface-blue">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
       <div class="text-center max-w-3xl mx-auto">
-        <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary" class="justify-center">
+        <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary" class="justify-center" data-reveal>
           CAPABILITIES
         </PipeHeading>
-        <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">Built for Autonomous Scale</h2>
+        <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>Built for Autonomous Scale</h2>
       </div>
-      <div class="mt-12 grid gap-6 md:grid-cols-3">
+      <div class="mt-12 grid gap-6 md:grid-cols-3" data-reveal-group>
         {capabilities.map((c) => (
           <CapabilityTile title={c.title} body={c.body}>
             <span slot="icon" set:html={c.icon}></span>
@@ -178,11 +178,11 @@ const benefits = [
   <section class="bg-white">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
       <div class="text-center max-w-3xl mx-auto">
-        <PipeHeading level="h2" color="text-brand-ink" class="justify-center">
+        <PipeHeading level="h2" color="text-brand-ink" class="justify-center" data-reveal>
           Built for Systems and Programs at Scale
         </PipeHeading>
       </div>
-      <div class="mt-12 grid gap-6 md:grid-cols-2">
+      <div class="mt-12 grid gap-6 md:grid-cols-2" data-reveal-group>
         {audiences.map((a) => (
           <AudienceCard title={a.title} body={a.body}>
             <span slot="icon" set:html={a.icon}></span>
@@ -195,8 +195,8 @@ const benefits = [
   <!-- SECTION 6 — HOW IT WORKS -->
   <section class="bg-brand-surface">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink text-center">Screening Without Bottlenecks</h2>
-      <div class="mt-12 grid gap-6 md:grid-cols-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink text-center" data-reveal>Screening Without Bottlenecks</h2>
+      <div class="mt-12 grid gap-6 md:grid-cols-4" data-reveal-group>
         {steps.map((s) => (
           <div class="bg-white border border-brand-line rounded-xl p-6">
             <span class="text-brand-primary font-bold text-4xl">{s.n}</span>
@@ -218,11 +218,11 @@ const benefits = [
         </svg>
       </div>
       <div>
-        <p class="text-sm uppercase tracking-widest text-brand-secondary font-semibold">Case in Practice</p>
-        <h2 class="mt-3 text-3xl md:text-4xl font-bold">
+        <p class="text-sm uppercase tracking-widest text-brand-secondary font-semibold" data-reveal>Case in Practice</p>
+        <h2 class="mt-3 text-3xl md:text-4xl font-bold" data-reveal>
           Transforming eye care access where specialists are scarce.
         </h2>
-        <div class="mt-6 space-y-5 text-lg text-white/90 leading-relaxed">
+        <div class="mt-6 space-y-5 text-lg text-white/90 leading-relaxed" data-reveal>
           <p>Across Asian markets, Ophthal360 is enabling eye screening for populations that historically have had limited or no access to specialist ophthalmology. From urban community clinics to rural home health programs, the platform supports screening decisions at a scale that would be impossible under a traditional expert-review model.</p>
           <p>This is what autonomous AI makes possible: care that reaches the people who need it, where they are.</p>
         </div>
@@ -233,10 +233,10 @@ const benefits = [
   <!-- SECTION 8 — WHY -->
   <section class="bg-white">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink text-center" data-reveal>
         Designed for Real-World Operating Conditions
       </h2>
-      <div class="mt-12 grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
+      <div class="mt-12 grid gap-8 md:grid-cols-2 max-w-5xl mx-auto" data-reveal-group>
         {benefits.map((b) => (
           <div class="bg-brand-surface border border-brand-line rounded-xl p-6">
             <h3 class="text-xl font-bold text-brand-ink">{b.title}</h3>
@@ -250,11 +250,11 @@ const benefits = [
   <!-- SECTION 9 — FINAL CTA -->
   <section class="bg-brand-surface-blue">
     <div class="max-w-4xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink">Ready to scale retinal screening?</h2>
-      <p class="mt-5 max-w-2xl mx-auto text-lg text-brand-body leading-relaxed">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>Ready to scale retinal screening?</h2>
+      <p class="mt-5 max-w-2xl mx-auto text-lg text-brand-body leading-relaxed" data-reveal>
         Let's discuss what autonomous deployment looks like for your system, program, or market.
       </p>
-      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center" data-reveal>
         <button
           type="button"
           data-open-modal="demo"

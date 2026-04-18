@@ -62,7 +62,7 @@ const articles = [
       <h1 class="mt-4 text-4xl md:text-5xl font-bold text-brand-ink leading-tight">
         Newsroom
       </h1>
-      <p class="mt-5 max-w-2xl text-lg text-brand-body leading-relaxed">
+      <p class="mt-5 max-w-2xl text-lg text-brand-body leading-relaxed" data-reveal>
         The latest from Ophthalytics—press, announcements, and conference appearances.
       </p>
     </div>
@@ -71,7 +71,7 @@ const articles = [
   <!-- SECTION 2 — NEWS GRID -->
   <section class="bg-white">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-reveal-group>
         {articles.map((a) => (
           <div class:list={['relative h-full', a.placeholder && 'opacity-80']}>
             {a.placeholder && (
@@ -97,8 +97,8 @@ const articles = [
   <!-- SECTION 3 — RELATED RESOURCES -->
   <section class="bg-brand-surface">
     <div class="max-w-5xl mx-auto px-6 md:px-8 lg:px-12 py-16">
-      <h2 class="text-xl font-semibold text-brand-ink text-center">Related Resources</h2>
-      <div class="mt-8 grid gap-6 md:grid-cols-2">
+      <h2 class="text-xl font-semibold text-brand-ink text-center" data-reveal>Related Resources</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-2" data-reveal-group>
         <a href="/resources/journal-articles" class="bg-white border border-brand-line rounded-xl p-6 hover:shadow-lg transition-all">
           <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold">Resources</p>
           <h3 class="mt-2 text-lg font-bold text-brand-ink">Journal Articles →</h3>
