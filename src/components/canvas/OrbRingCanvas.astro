@@ -1,0 +1,412 @@
+---
+---
+
+<canvas class="orb-ring-canvas w-full h-full block" aria-hidden="true"></canvas>
+
+<style>
+  .orb-ring-canvas {
+    background: radial-gradient(
+      circle at center,
+      rgba(24, 42, 68, 0.1) 0%,
+      rgba(5, 7, 12, 0.96) 48%,
+      rgba(2, 3, 7, 1) 100%
+    );
+  }
+</style>
+
+<script>
+  function initOrbRing(canvas: HTMLCanvasElement) {
+    if (canvas.dataset.canvasInit === 'true') return;
+    canvas.dataset.canvasInit = 'true';
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let w = 0;
+    let h = 0;
+    let cx = 0;
+    let cy = 0;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    function resize() {
+      const parent = canvas.parentElement;
+      if (!parent) return;
+      const rect = parent.getBoundingClientRect();
+      w = rect.width;
+      h = rect.height;
+      if (w <= 0 || h <= 0) return;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cx = w * 0.5;
+      cy = h * 0.5;
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    const TAU = Math.PI * 2;
+
+    function clamp(v: number, min: number, max: number) {
+      return Math.max(min, Math.min(max, v));
+    }
+
+    function lerp(a: number, b: number, t: number) {
+      return a + (b - a) * t;
+    }
+
+    function smoothstep(a: number, b: number, x: number) {
+      const t = clamp((x - a) / (b - a), 0, 1);
+      return t * t * (3 - 2 * t);
+    }
+
+    function easeInOutSine(t: number) {
+      return -(Math.cos(Math.PI * t) - 1) / 2;
+    }
+
+    const palette = [
+      'rgba(110,235,255,1)',
+      'rgba(163,199,255,1)',
+      'rgba(152,255,226,1)',
+      'rgba(124, 58, 237, 0.85)',
+    ];
+
+    class Orb {
+      i: number;
+      total: number;
+      color: string;
+      size: number;
+      baseAngle: number;
+      ringRadius: number;
+      orbitSpeed: number;
+      chaosRadiusX: number;
+      chaosRadiusY: number;
+      chaosSpeedA: number;
+      chaosSpeedB: number;
+      phaseA: number;
+      phaseB: number;
+      trail: { x: number; y: number }[];
+      maxTrail: number;
+      x: number;
+      y: number;
+
+      constructor(i: number, total: number) {
+        this.i = i;
+        this.total = total;
+        this.color = palette[i % palette.length];
+        this.size = 1.8 + Math.random() * 2.2;
+        this.baseAngle = (i / total) * TAU;
+        this.ringRadius = 170 + Math.sin(i * 0.7) * 4 + Math.random() * 6;
+        this.orbitSpeed = 0.16 + Math.random() * 0.08;
+        this.chaosRadiusX = 55 + Math.random() * 70;
+        this.chaosRadiusY = 40 + Math.random() * 55;
+        this.chaosSpeedA = 0.45 + Math.random() * 0.35;
+        this.chaosSpeedB = 0.5 + Math.random() * 0.35;
+        this.phaseA = Math.random() * TAU;
+        this.phaseB = Math.random() * TAU;
+        this.trail = [];
+        this.maxTrail = 18;
+        this.x = cx;
+        this.y = cy;
+      }
+
+      getChaos(t: number) {
+        return {
+          x:
+            cx +
+            Math.sin(t * this.chaosSpeedA + this.phaseA) * this.chaosRadiusX +
+            Math.sin(t * 0.35 + this.i * 0.21) * 16,
+          y:
+            cy +
+            Math.cos(t * this.chaosSpeedB + this.phaseB) * this.chaosRadiusY +
+            Math.cos(t * 0.32 + this.i * 0.19) * 12,
+        };
+      }
+
+      getRing(t: number) {
+        const angle = this.baseAngle + t * this.orbitSpeed;
+        const radius =
+          this.ringRadius + Math.sin(t * 0.45 + this.i * 0.2) * 1.5;
+        return {
+          x: cx + Math.cos(angle) * radius,
+          y: cy + Math.sin(angle) * radius * 0.48,
+        };
+      }
+
+      update(t: number, ringAmount: number, collapseAmount: number) {
+        const chaos = this.getChaos(t);
+        const ring = this.getRing(t);
+        let x = lerp(chaos.x, ring.x, ringAmount);
+        let y = lerp(chaos.y, ring.y, ringAmount);
+        x = lerp(x, cx, collapseAmount);
+        y = lerp(y, cy, collapseAmount);
+        this.x = x;
+        this.y = y;
+        this.trail.push({ x, y });
+        if (this.trail.length > this.maxTrail) this.trail.shift();
+      }
+
+      drawTrail() {
+        if (this.trail.length < 2) return;
+        ctx!.beginPath();
+        for (let i = 0; i < this.trail.length; i++) {
+          const p = this.trail[i];
+          if (i === 0) ctx!.moveTo(p.x, p.y);
+          else ctx!.lineTo(p.x, p.y);
+        }
+        ctx!.strokeStyle = this.color;
+        ctx!.globalAlpha = 0.045;
+        ctx!.lineWidth = this.size * 1.2;
+        ctx!.shadowBlur = 12;
+        ctx!.shadowColor = this.color;
+        ctx!.stroke();
+      }
+
+      draw(pulse: number) {
+        const s = 1 + pulse * 0.9;
+        ctx!.beginPath();
+        ctx!.arc(this.x, this.y, this.size * 2.3 * s, 0, TAU);
+        ctx!.fillStyle = this.color;
+        ctx!.globalAlpha = 0.06;
+        ctx!.shadowBlur = 20;
+        ctx!.shadowColor = this.color;
+        ctx!.fill();
+
+        ctx!.beginPath();
+        ctx!.arc(this.x, this.y, this.size * 0.9 * s, 0, TAU);
+        ctx!.fillStyle = this.color;
+        ctx!.globalAlpha = 0.18;
+        ctx!.fill();
+
+        ctx!.beginPath();
+        ctx!.arc(this.x, this.y, this.size * 0.42 * s, 0, TAU);
+        ctx!.fillStyle = 'rgba(255,255,255,0.95)';
+        ctx!.globalAlpha = 0.7;
+        ctx!.shadowBlur = 8;
+        ctx!.fill();
+      }
+    }
+
+    const orbCount = 54;
+    const orbs = Array.from({ length: orbCount }, (_, i) => new Orb(i, orbCount));
+
+    function getTimeline(t: number) {
+      const duration = 20;
+      const raw = (t / duration) % 2;
+      const phase = raw < 1 ? raw : 2 - raw;
+      const ringAmount = smoothstep(0.08, 0.38, phase);
+      const collapseAmount = smoothstep(0.78, 0.92, phase);
+      const pulse = 1 - smoothstep(0.9, 1.0, phase);
+      return { phase, ringAmount, collapseAmount, pulse };
+    }
+
+    function drawAtmosphere(ringAmount: number, pulse: number) {
+      const g = ctx!.createRadialGradient(cx, cy, 0, cx, cy, Math.min(w, h) * 0.42);
+      g.addColorStop(0, `rgba(120,220,255,${0.03 + pulse * 0.05})`);
+      g.addColorStop(0.45, `rgba(90,140,255,${0.02 + ringAmount * 0.04})`);
+      g.addColorStop(1, `rgba(0,0,0,0)`);
+      ctx!.fillStyle = g;
+      ctx!.globalAlpha = 1;
+      ctx!.fillRect(0, 0, w, h);
+    }
+
+    function drawRingStructure(t: number, ringAmount: number, collapseAmount: number) {
+      const a = ringAmount * (1 - collapseAmount);
+      if (a <= 0.001) return;
+
+      ctx!.save();
+      ctx!.translate(cx, cy);
+
+      ctx!.beginPath();
+      ctx!.ellipse(0, 0, 176, 82, 0, 0, TAU);
+      ctx!.strokeStyle = 'rgba(145,225,255,0.22)';
+      ctx!.lineWidth = 1.5;
+      ctx!.globalAlpha = a * 0.8;
+      ctx!.shadowBlur = 16;
+      ctx!.shadowColor = 'rgba(120,230,255,1)';
+      ctx!.stroke();
+
+      ctx!.beginPath();
+      ctx!.ellipse(0, 0, 158, 72, 0, 0, TAU);
+      ctx!.strokeStyle = 'rgba(180,200,255,0.10)';
+      ctx!.lineWidth = 1;
+      ctx!.globalAlpha = a * 0.55;
+      ctx!.shadowBlur = 8;
+      ctx!.shadowColor = 'rgba(180,200,255,1)';
+      ctx!.stroke();
+
+      const beamCount = 14;
+      for (let i = 0; i < beamCount; i++) {
+        const ang = (i / beamCount) * TAU + t * 0.06;
+        const x = Math.cos(ang) * 170;
+        const y = Math.sin(ang) * 80 * 0.48;
+        const beamH = 18 + Math.sin(t * 1.6 + i * 0.8) * 5 + 10;
+
+        ctx!.beginPath();
+        ctx!.moveTo(x, y + 2);
+        ctx!.lineTo(x, y - beamH);
+        ctx!.strokeStyle =
+          i % 3 === 0 ? 'rgba(190,180,255,0.30)' : 'rgba(130,235,255,0.30)';
+        ctx!.lineWidth = 1;
+        ctx!.globalAlpha = a * 0.45;
+        ctx!.shadowBlur = 8;
+        ctx!.stroke();
+      }
+
+      ctx!.restore();
+    }
+
+    function drawPulse(pulse: number) {
+      if (pulse <= 0.001) return;
+      const p = easeInOutSine(pulse);
+
+      ctx!.beginPath();
+      ctx!.arc(cx, cy, 12 + p * 70, 0, TAU);
+      ctx!.strokeStyle = 'rgba(255,255,255,0.18)';
+      ctx!.lineWidth = 1.5 + p * 4;
+      ctx!.globalAlpha = 0.5;
+      ctx!.shadowBlur = 18;
+      ctx!.shadowColor = 'rgba(150,240,255,1)';
+      ctx!.stroke();
+
+      ctx!.beginPath();
+      ctx!.arc(cx, cy, 10 + p * 20, 0, TAU);
+      ctx!.fillStyle = 'rgba(180,245,255,0.10)';
+      ctx!.globalAlpha = 0.4;
+      ctx!.shadowBlur = 25;
+      ctx!.fill();
+    }
+
+    let rafId = 0;
+
+    function animate(ms: number) {
+      const cycleOffset = 18.2;
+      const t = ms * 0.001 + cycleOffset;
+      const { ringAmount, collapseAmount, pulse } = getTimeline(t);
+
+      ctx!.globalCompositeOperation = 'source-over';
+      ctx!.fillStyle = `rgba(3,5,10,${0.12 + collapseAmount * 0.03})`;
+      ctx!.fillRect(0, 0, w, h);
+
+      drawAtmosphere(ringAmount, pulse);
+      drawRingStructure(t, ringAmount, collapseAmount);
+
+      for (const orb of orbs) {
+        orb.update(t, ringAmount, collapseAmount);
+      }
+
+      ctx!.globalCompositeOperation = 'lighter';
+
+      for (const orb of orbs) orb.drawTrail();
+      for (const orb of orbs) orb.draw(pulse * 0.6);
+
+      ctx!.beginPath();
+      ctx!.arc(cx, cy, 8 + ringAmount * 8 - collapseAmount * 4, 0, TAU);
+      ctx!.fillStyle = 'rgba(150,235,255,0.14)';
+      ctx!.globalAlpha = 0.3;
+      ctx!.shadowBlur = 20;
+      ctx!.shadowColor = 'rgba(140,235,255,1)';
+      ctx!.fill();
+
+      drawPulse(pulse);
+
+      ctx!.globalCompositeOperation = 'source-over';
+      ctx!.globalAlpha = 1;
+      ctx!.shadowBlur = 0;
+
+      rafId = requestAnimationFrame(animate);
+    }
+
+    function drawStaticFrame() {
+      const t = 4.0;
+      const { ringAmount, collapseAmount, pulse } = getTimeline(t);
+
+      ctx!.globalCompositeOperation = 'source-over';
+      ctx!.fillStyle = 'rgba(3,5,10,1)';
+      ctx!.fillRect(0, 0, w, h);
+
+      drawAtmosphere(ringAmount, pulse);
+      drawRingStructure(t, ringAmount, collapseAmount);
+
+      for (const orb of orbs) {
+        for (let k = 0; k < orb.maxTrail; k++) {
+          const ts = t - (orb.maxTrail - k) * 0.05;
+          orb.update(ts, ringAmount, collapseAmount);
+        }
+      }
+
+      ctx!.globalCompositeOperation = 'lighter';
+      for (const orb of orbs) orb.drawTrail();
+      for (const orb of orbs) orb.draw(pulse * 0.6);
+
+      ctx!.beginPath();
+      ctx!.arc(cx, cy, 8 + ringAmount * 8 - collapseAmount * 4, 0, TAU);
+      ctx!.fillStyle = 'rgba(150,235,255,0.14)';
+      ctx!.globalAlpha = 0.3;
+      ctx!.shadowBlur = 20;
+      ctx!.shadowColor = 'rgba(140,235,255,1)';
+      ctx!.fill();
+
+      drawPulse(pulse);
+
+      ctx!.globalCompositeOperation = 'source-over';
+      ctx!.globalAlpha = 1;
+      ctx!.shadowBlur = 0;
+    }
+
+    function start() {
+      ctx!.fillStyle = '#03050a';
+      ctx!.fillRect(0, 0, w, h);
+
+      const prefersReduced = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      if (prefersReduced) {
+        drawStaticFrame();
+        return;
+      }
+      rafId = requestAnimationFrame(animate);
+    }
+
+    function attachResizeObserver() {
+      const parent = canvas.parentElement;
+      if (!parent) return;
+      const ro = new ResizeObserver(() => {
+        resize();
+      });
+      ro.observe(parent);
+    }
+
+    resize();
+    if (w <= 0 || h <= 0) {
+      const parent = canvas.parentElement;
+      if (parent) {
+        const ro = new ResizeObserver(() => {
+          resize();
+          if (w > 0 && h > 0) {
+            ro.disconnect();
+            start();
+            attachResizeObserver();
+          }
+        });
+        ro.observe(parent);
+      }
+      return;
+    }
+    start();
+    attachResizeObserver();
+  }
+
+  function boot() {
+    document
+      .querySelectorAll<HTMLCanvasElement>('.orb-ring-canvas')
+      .forEach((c) => initOrbRing(c));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+</script>
