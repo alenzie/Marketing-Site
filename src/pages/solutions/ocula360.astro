@@ -2,6 +2,7 @@
 import Layout from '../../components/layout/Layout.astro';
 import PipeHeading from '../../components/content/PipeHeading.astro';
 import CapabilityTile from '../../components/content/CapabilityTile.astro';
+import CanvasHero from '../../components/canvas/CanvasHero.astro';
 import OrbRingCanvas from '../../components/canvas/OrbRingCanvas.astro';
 
 const capabilities = [
@@ -65,9 +66,8 @@ const benefits = [
   description="Ocula360 is our flagship retinal AI platform—turning a single retinal image into actionable diagnostic intelligence across screening, clinical care, and research."
 >
   <!-- SECTION 1 — HERO (dark) -->
-  <section class="relative bg-[#000505] text-white overflow-hidden">
-    <!-- Grid overlay kept but hidden so it can be restored quickly if desired -->
-    <div class="absolute inset-0 opacity-0 pointer-events-none" aria-hidden="true">
+  <section class="relative bg-gradient-to-br from-brand-primary-dark to-brand-primary text-white overflow-hidden">
+    <div class="absolute inset-0 opacity-20" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
         <defs>
           <pattern id="grid-ocula" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -77,24 +77,6 @@ const benefits = [
         <rect width="100%" height="100%" fill="url(#grid-ocula)"/>
       </svg>
     </div>
-
-    <!-- Full-bleed ring animation as the hero background (desktop only) -->
-    <div
-      class="hidden md:block absolute top-0 bottom-0 right-0 w-[70%] pointer-events-none"
-      aria-hidden="true"
-    >
-      <OrbRingCanvas />
-    </div>
-
-    <!-- Mobile static fallback -->
-    <img
-      src="/images/hero/orb-ring-static.png"
-      alt=""
-      class="md:hidden absolute inset-0 w-full h-full object-cover opacity-60 pointer-events-none"
-      loading="lazy"
-      decoding="async"
-    />
-
     <div class="relative max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid gap-12 md:grid-cols-2 items-center">
       <div>
         <span class="inline-block rounded-full bg-white/10 text-white text-xs uppercase tracking-widest font-semibold px-3 py-1">
@@ -123,11 +105,17 @@ const benefits = [
           </a>
         </div>
       </div>
-      <div
-        class="relative"
-        role="img"
-        aria-label="Ocula360 flagship AI visualization: orbs forming an ethereal ring gate around a central luminous core."
-      ></div>
+      <div class="relative">
+        <CanvasHero
+          staticFallbackSrc="/images/hero/orb-ring-static.png"
+          staticFallbackAlt="Visualization of Ocula360 foundational retinal AI analyzing imaging data"
+          aspectClass="aspect-square"
+          maxWidthClass="max-w-[420px]"
+          ariaLabel="Ocula360 flagship AI visualization: orbs forming an ethereal ring gate around a central luminous core."
+        >
+          <OrbRingCanvas />
+        </CanvasHero>
+      </div>
     </div>
   </section>
 

@@ -4,14 +4,13 @@
 <canvas class="orb-ring-canvas w-full h-full block" aria-hidden="true"></canvas>
 
 <style>
-  /*
-   * Canvas intentionally transparent: the component now lives as a
-   * full-bleed layer over a solid dark hero, so any CSS backdrop would
-   * create a visible seam. The animation's own per-frame dark fill is
-   * sufficient to ground the orbs.
-   */
   .orb-ring-canvas {
-    background: transparent;
+    background: radial-gradient(
+      circle at center,
+      rgba(24, 42, 68, 0.1) 0%,
+      rgba(5, 7, 12, 0.96) 48%,
+      rgba(2, 3, 7, 1) 100%
+    );
   }
 </style>
 
@@ -286,7 +285,7 @@
       const { ringAmount, collapseAmount, pulse } = getTimeline(t);
 
       ctx!.globalCompositeOperation = 'source-over';
-      ctx!.fillStyle = `rgba(0,5,5,${0.12 + collapseAmount * 0.03})`;
+      ctx!.fillStyle = `rgba(3,5,10,${0.12 + collapseAmount * 0.03})`;
       ctx!.fillRect(0, 0, w, h);
 
       drawAtmosphere(ringAmount, pulse);
@@ -323,7 +322,7 @@
       const { ringAmount, collapseAmount, pulse } = getTimeline(t);
 
       ctx!.globalCompositeOperation = 'source-over';
-      ctx!.fillStyle = 'rgba(0,5,5,1)';
+      ctx!.fillStyle = 'rgba(3,5,10,1)';
       ctx!.fillRect(0, 0, w, h);
 
       drawAtmosphere(ringAmount, pulse);
@@ -356,7 +355,7 @@
     }
 
     function start() {
-      ctx!.fillStyle = '#000505';
+      ctx!.fillStyle = '#03050a';
       ctx!.fillRect(0, 0, w, h);
 
       const prefersReduced = window.matchMedia(
