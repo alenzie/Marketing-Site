@@ -4,13 +4,13 @@
 <canvas class="orb-ring-canvas w-full h-full block" aria-hidden="true"></canvas>
 
 <style>
+  /*
+   * Solid #000505 backdrop matches the Ocula360 hero section exactly,
+   * so the canvas sits seamlessly in the dark hero without a visible
+   * panel edge. The animation's per-frame fills sit on top.
+   */
   .orb-ring-canvas {
-    background: radial-gradient(
-      circle at center,
-      rgba(24, 42, 68, 0.1) 0%,
-      rgba(5, 7, 12, 0.96) 48%,
-      rgba(2, 3, 7, 1) 100%
-    );
+    background: #000505;
   }
 </style>
 

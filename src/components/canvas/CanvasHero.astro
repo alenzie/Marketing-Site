@@ -5,6 +5,7 @@ interface Props {
   aspectClass?: string;
   maxWidthClass?: string;
   ariaLabel: string;
+  frameless?: boolean;
 }
 
 const {
@@ -13,11 +14,14 @@ const {
   aspectClass = 'aspect-square',
   maxWidthClass = 'max-w-xl',
   ariaLabel,
+  frameless = false,
 } = Astro.props;
+
+const frameClasses = frameless ? 'overflow-hidden' : 'rounded-2xl overflow-hidden';
 ---
 
 <div
-  class={`relative ${aspectClass} ${maxWidthClass} rounded-2xl overflow-hidden mx-auto`}
+  class={`relative ${aspectClass} ${maxWidthClass} ${frameClasses} mx-auto`}
   role="img"
   aria-label={ariaLabel}
 >
