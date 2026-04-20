@@ -58,58 +58,59 @@ const resources = {
   footerLink: { label: 'View all resources', href: '/resources' },
 };
 
+const company = {
+  label: 'Company',
+  href: '/about',
+  eyebrow: 'Company',
+  items: [
+    {
+      name: 'About',
+      href: '/about',
+      tagline: 'Our mission and story',
+    },
+  ],
+  footerLink: { label: 'Contact us', href: '/about#contact' },
+};
+
 const isActive = (href: string) =>
   href === '/' ? currentPath === '/' : currentPath === href || currentPath.startsWith(href + '/');
 
 const isSolutionsActive = isActive(solutions.href) || solutions.items.some((i) => isActive(i.href));
 const isResourcesActive = isActive(resources.href) || resources.items.some((i) => isActive(i.href));
-
-const simpleLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/who-we-help', label: 'Who We Help' },
-  { href: '/about', label: 'About' },
-];
+const isCompanyActive = isActive(company.href) || company.items.some((i) => isActive(i.href));
+// "Science" links to innovation pipeline (closest existing route)
+const scienceHref = '/resources/innovation-pipeline';
+const isScienceActive = isActive(scienceHref);
+const isWhoWeHelpActive = isActive('/who-we-help');
 
 const mobileNav = [
-  { type: 'link' as const, href: '/', label: 'Home' },
   { type: 'group' as const, href: solutions.href, label: 'Solutions', items: solutions.items },
   { type: 'link' as const, href: '/who-we-help', label: 'Who We Help' },
+  { type: 'link' as const, href: scienceHref, label: 'Science' },
   { type: 'group' as const, href: resources.href, label: 'Resources', items: resources.items },
-  { type: 'link' as const, href: '/about', label: 'About' },
+  { type: 'group' as const, href: company.href, label: 'Company', items: company.items },
 ];
 ---
 
-<header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-brand-line">
-  <nav class="max-w-7xl mx-auto px-8 lg:px-12 py-4 flex items-center justify-between" aria-label="Primary">
-    <a href="/" class="relative flex items-center" aria-label="Ophthalytics home">
-      <div
-        aria-hidden="true"
-        class="absolute inset-0 -z-10 pointer-events-none scale-[1.8] [background:radial-gradient(ellipse_at_center,rgba(255,255,255,0.7)_0%,rgba(255,255,255,0)_65%)]"
-      ></div>
+<header
+  data-site-header
+  class="sticky top-0 z-40 bg-white/80 backdrop-blur-[12px] backdrop-saturate-[140%] border-b border-brand-line transition-[background-color,border-color,box-shadow] duration-200"
+>
+  <nav
+    class="max-w-7xl mx-auto px-6 lg:px-8 py-3.5 flex items-center justify-between gap-8"
+    aria-label="Primary"
+  >
+    <a href="/" class="flex items-center shrink-0" aria-label="Ophthalytics home">
       <img
-        src="/logo/ophthalytics-horizontal.png"
+        src="/logo/ophthalytics-logo.svg"
         alt="Ophthalytics"
         width="300"
-        height="55"
-        class="relative h-9 w-auto"
+        height="34"
+        class="h-[34px] w-auto block"
       />
     </a>
 
-    <ul class="hidden md:flex items-center gap-7">
-      <li>
-        <a
-          href="/"
-          class:list={[
-            'text-sm font-medium transition-colors',
-            isActive('/')
-              ? 'text-brand-primary'
-              : 'text-brand-body hover:text-brand-primary',
-          ]}
-          aria-current={isActive('/') ? 'page' : undefined}
-        >
-          Home
-        </a>
-      </li>
+    <ul class="hidden md:flex items-center gap-6 lg:gap-7">
       <li>
         <DropdownMenu
           label={solutions.label}
@@ -124,14 +125,28 @@ const mobileNav = [
         <a
           href="/who-we-help"
           class:list={[
-            'text-sm font-medium transition-colors',
-            isActive('/who-we-help')
-              ? 'text-brand-primary'
-              : 'text-brand-body hover:text-brand-primary',
+            'relative text-[13.5px] font-medium tracking-[-0.005em] transition-colors py-2',
+            isWhoWeHelpActive
+              ? 'text-brand-primary after:absolute after:left-0 after:right-3 after:bottom-0 after:h-[2px] after:bg-brand-primary after:rounded-sm'
+              : 'text-brand-body hover:text-brand-navy',
           ]}
-          aria-current={isActive('/who-we-help') ? 'page' : undefined}
+          aria-current={isWhoWeHelpActive ? 'page' : undefined}
         >
           Who We Help
+        </a>
+      </li>
+      <li>
+        <a
+          href={scienceHref}
+          class:list={[
+            'relative text-[13.5px] font-medium tracking-[-0.005em] transition-colors py-2',
+            isScienceActive
+              ? 'text-brand-primary after:absolute after:left-0 after:right-3 after:bottom-0 after:h-[2px] after:bg-brand-primary after:rounded-sm'
+              : 'text-brand-body hover:text-brand-navy',
+          ]}
+          aria-current={isScienceActive ? 'page' : undefined}
+        >
+          Science
         </a>
       </li>
       <li>
@@ -145,29 +160,27 @@ const mobileNav = [
         />
       </li>
       <li>
-        <a
-          href="/about"
-          class:list={[
-            'text-sm font-medium transition-colors',
-            isActive('/about')
-              ? 'text-brand-primary'
-              : 'text-brand-body hover:text-brand-primary',
-          ]}
-          aria-current={isActive('/about') ? 'page' : undefined}
-        >
-          About
-        </a>
-      </li>
-      <li>
-        <button
-          type="button"
-          data-open-modal="contact"
-          class="text-sm font-semibold text-brand-primary border-2 border-brand-primary rounded-md px-4 py-2 hover:bg-brand-primary hover:text-white transition"
-        >
-          Contact
-        </button>
+        <DropdownMenu
+          label={company.label}
+          href={company.href}
+          isActive={isCompanyActive}
+          items={company.items}
+          footerLink={company.footerLink}
+          eyebrow={company.eyebrow}
+        />
       </li>
     </ul>
+
+    <div class="hidden md:flex items-center">
+      <button
+        type="button"
+        data-open-modal="demo"
+        class="inline-flex items-center gap-2 rounded-full bg-brand-cyan text-white font-semibold text-[13.5px] tracking-[-0.005em] px-[18px] py-[10px] transition-colors hover:bg-brand-cyan-ink shadow-[0_1px_0_rgba(255,255,255,0.5)_inset,0_6px_16px_-8px_rgba(39,170,225,0.55)] group"
+      >
+        Book a demo
+        <span class="transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">→</span>
+      </button>
+    </div>
 
     <button
       type="button"
@@ -187,3 +200,21 @@ const mobileNav = [
 </header>
 
 <MobileDrawer nav={mobileNav} currentPath={currentPath} />
+
+<script>
+  // Solid white background after 40px scroll, translucent before
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+  if (header) {
+    const update = () => {
+      if (window.scrollY > 40) {
+        header.classList.remove('bg-white/80');
+        header.classList.add('bg-white', 'shadow-[0_1px_0_rgba(15,35,80,0.04)]');
+      } else {
+        header.classList.add('bg-white/80');
+        header.classList.remove('bg-white', 'shadow-[0_1px_0_rgba(15,35,80,0.04)]');
+      }
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  }
+</script>

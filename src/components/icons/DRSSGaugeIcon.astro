@@ -1,0 +1,51 @@
+---
+interface Props {
+  class?: string;
+  size?: number | string;
+  tone?: "cyan" | "white" | "navy" | "current";
+}
+
+const { class: className = "", size = 24, tone = "cyan" } = Astro.props;
+
+const toneClass =
+  tone === "cyan"
+    ? "text-brand-cyan"
+    : tone === "white"
+    ? "text-white"
+    : tone === "navy"
+    ? "text-brand-navy"
+    : "";
+---
+
+{/*
+  DRSS severity gauge. The short tick marks around the arc are rendered as
+  radial lines perpendicular to the arc tangent at each tick position, so
+  they read as a calibrated instrument rather than cardinal marks.
+*/}
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox="0 0 32 32"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.75"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+  class={`${toneClass} ${className}`.trim()}
+>
+  {/* arc from 180deg to 360deg, centered at (16,22), r=12 */}
+  <path d="M4 22 A 12 12 0 0 1 28 22" />
+  {/* radial ticks perpendicular to the arc — each points toward the center (16,22) */}
+  <line x1="4" y1="22" x2="7" y2="22" />
+  <line x1="7.51" y1="13.51" x2="9.63" y2="15.63" />
+  <line x1="16" y1="10" x2="16" y2="13" />
+  <line x1="24.49" y1="13.51" x2="22.37" y2="15.63" />
+  <line x1="28" y1="22" x2="25" y2="22" />
+  {/* needle pointing into the upper-right severity zone */}
+  <path d="M16 22 L 22 10.5" />
+  {/* aperture / pivot dot */}
+  <circle cx="16" cy="22" r="1.6" fill="currentColor" stroke="none" />
+</svg>

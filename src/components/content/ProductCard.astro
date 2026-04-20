@@ -1,26 +1,153 @@
 ---
+type Signal = 'sparkline' | 'bars' | 'dots' | 'rings';
+
 interface Props {
   eyebrow: string;
   name: string;
   tagline: string;
   capabilities: string[];
+  slug?: string;
+  signal?: Signal;
 }
 
-const { eyebrow, name, tagline, capabilities } = Astro.props;
+const { eyebrow, name, tagline, capabilities, slug, signal } = Astro.props;
+
+// Derive signal variant from slug/name when not explicitly provided
+function deriveSignal(): Signal {
+  if (signal) return signal;
+  const key = (slug ?? name ?? '').toString().toLowerCase();
+  if (key.includes('ocula')) return 'sparkline';
+  if (key.includes('nsight')) return 'bars';
+  if (key.includes('2nd') || key.includes('opinion') || key.includes('second')) return 'dots';
+  if (key.includes('ophthal')) return 'rings';
+  return 'sparkline';
+}
+
+const variant = deriveSignal();
+
+// Theme tokens per variant — uses brand-* Tailwind classes (no banned hexes)
+const themes: Record<Signal, { band: string; eyeBg: string; eyeText: string }> = {
+  sparkline: {
+    band: 'bg-gradient-to-br from-brand-navy-900 to-brand-navy',
+    eyeBg: 'bg-white/15',
+    eyeText: 'text-brand-cyan-soft',
+  },
+  bars: {
+    band: 'bg-gradient-to-br from-brand-surface-blue to-brand-cyan-soft/30',
+    eyeBg: 'bg-brand-surface-blue',
+    eyeText: 'text-brand-primary',
+  },
+  dots: {
+    band: 'bg-gradient-to-br from-brand-navy-700 to-brand-cyan',
+    eyeBg: 'bg-white/20',
+    eyeText: 'text-brand-cyan-soft',
+  },
+  rings: {
+    band: 'bg-gradient-to-br from-brand-indigo to-brand-navy',
+    eyeBg: 'bg-white/15',
+    eyeText: 'text-brand-cyan-soft',
+  },
+};
+
+const t = themes[variant];
 ---
 
-<div class="bg-white border border-brand-line rounded-2xl p-6 md:p-7 h-full flex flex-col">
-  <span class="inline-block self-start rounded-full bg-brand-surface-blue text-brand-primary text-xs font-semibold uppercase tracking-wider px-3 py-1 mb-4">
-    {eyebrow}
-  </span>
-  <h3 class="text-2xl font-bold text-brand-ink mb-2">{name}</h3>
-  <p class="text-sm text-brand-body mb-5">{tagline}</p>
-  <ul class="space-y-2 text-sm text-brand-body mt-auto">
-    {capabilities.map((cap) => (
-      <li class="flex items-start gap-2">
-        <span class="text-brand-primary mt-1" aria-hidden="true">•</span>
-        <span>{cap}</span>
-      </li>
-    ))}
-  </ul>
+<div class="bg-white border border-brand-line rounded-2xl overflow-hidden h-full flex flex-col">
+  <!-- SIGNAL HEADER STRIP -->
+  <div class={`relative h-[120px] overflow-hidden ${t.band}`} aria-hidden="true">
+    {variant === 'sparkline' && (
+      <svg viewBox="0 0 400 120" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 w-full h-full">
+        <g fill="none" stroke="currentColor" stroke-opacity="0.25" stroke-width="1" class="text-brand-cyan-soft">
+          <path d="M0 80 L40 75 L80 82 L120 70 L160 78 L200 60 L240 65 L280 45 L320 55 L360 30 L400 40" />
+          <path d="M0 95 L50 90 L100 93 L150 85 L200 88 L250 78 L300 82 L350 70 L400 75" stroke-opacity="0.15" />
+        </g>
+        <g stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" class="text-brand-cyan-soft">
+          <path d="M0 70 L40 65 L80 72 L120 55 L160 68 L200 45 L240 52 L280 28 L320 40 L360 18 L400 28" />
+        </g>
+        <g fill="currentColor" class="text-brand-cyan">
+          <circle cx="200" cy="45" r="3" />
+          <circle cx="280" cy="28" r="3" />
+          <circle cx="360" cy="18" r="3.5" />
+        </g>
+      </svg>
+    )}
+
+    {variant === 'bars' && (
+      <svg viewBox="0 0 400 120" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 w-full h-full">
+        <g fill="currentColor" fill-opacity="0.35" class="text-brand-primary">
+          <rect x="20"  y="70" width="14" height="40" rx="2"/>
+          <rect x="50"  y="55" width="14" height="55" rx="2"/>
+          <rect x="80"  y="62" width="14" height="48" rx="2"/>
+          <rect x="110" y="40" width="14" height="70" rx="2"/>
+          <rect x="140" y="50" width="14" height="60" rx="2"/>
+          <rect x="170" y="30" width="14" height="80" rx="2"/>
+          <rect x="200" y="45" width="14" height="65" rx="2"/>
+          <rect x="230" y="25" width="14" height="85" rx="2"/>
+          <rect x="260" y="35" width="14" height="75" rx="2"/>
+          <rect x="290" y="20" width="14" height="90" rx="2"/>
+          <rect x="320" y="32" width="14" height="78" rx="2"/>
+          <rect x="350" y="15" width="14" height="95" rx="2"/>
+        </g>
+        <g fill="currentColor" class="text-brand-primary">
+          <rect x="230" y="25" width="14" height="85" rx="2"/>
+          <rect x="290" y="20" width="14" height="90" rx="2"/>
+          <rect x="350" y="15" width="14" height="95" rx="2"/>
+        </g>
+      </svg>
+    )}
+
+    {variant === 'dots' && (
+      <svg viewBox="0 0 400 120" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 w-full h-full">
+        <g fill="currentColor" class="text-brand-cyan-soft" fill-opacity="0.5">
+          {Array.from({ length: 8 }).map((_, row) => (
+            Array.from({ length: 20 }).map((_, col) => (
+              <circle cx={col * 22 + 10} cy={row * 14 + 8} r={((row + col) % 5 === 0) ? 2.6 : 1.4} />
+            ))
+          ))}
+        </g>
+        <g fill="currentColor" class="text-white">
+          <circle cx="186" cy="60" r="3.5" />
+          <circle cx="208" cy="60" r="3.5" />
+          <circle cx="230" cy="60" r="3.5" />
+        </g>
+        <circle cx="208" cy="60" r="18" fill="none" stroke="currentColor" stroke-width="1.3" class="text-white" stroke-opacity="0.6" />
+      </svg>
+    )}
+
+    {variant === 'rings' && (
+      <svg viewBox="0 0 400 120" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 w-full h-full">
+        <g fill="none" stroke="currentColor" stroke-width="1" class="text-brand-cyan-soft" stroke-opacity="0.45">
+          <circle cx="200" cy="60" r="95" stroke-dasharray="2 4"/>
+          <circle cx="200" cy="60" r="70"/>
+          <circle cx="200" cy="60" r="45" stroke-dasharray="3 3"/>
+          <circle cx="200" cy="60" r="22"/>
+        </g>
+        <g fill="currentColor" class="text-brand-cyan-soft">
+          <circle cx="200" cy="15" r="3"/>
+          <circle cx="295" cy="60" r="3"/>
+          <circle cx="200" cy="105" r="3"/>
+          <circle cx="105" cy="60" r="3"/>
+        </g>
+        <circle cx="200" cy="60" r="7" fill="currentColor" class="text-brand-cyan" />
+        <circle cx="200" cy="60" r="2.5" fill="currentColor" class="text-white" />
+      </svg>
+    )}
+  </div>
+
+  <!-- CONTENT -->
+  <div class="p-5 md:p-6 flex-1 flex flex-col">
+    <span class={`inline-block self-start rounded-full ${t.eyeBg} ${t.eyeText} text-[10px] font-bold uppercase tracking-widest px-3 py-1 mb-3`}>
+      {eyebrow}
+    </span>
+    <h3 class="text-xl md:text-2xl font-bold text-brand-ink mb-2 tracking-tight">{name}</h3>
+    <p class="text-sm text-brand-body leading-relaxed mb-4">{tagline}</p>
+    <ul class="mt-auto space-y-1.5 text-xs text-brand-body">
+      {capabilities.map((cap) => (
+        <li class="flex items-start gap-2">
+          <span class="w-1 h-1 rounded-full bg-brand-primary mt-2 flex-none" aria-hidden="true"></span>
+          <span>{cap}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
 </div>

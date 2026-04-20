@@ -64,12 +64,12 @@ const products = [
           <svg viewBox="0 0 300 300" class="w-full max-w-[300px]" aria-hidden="true">
             <defs>
               <radialGradient id="core" cx="50%" cy="50%">
-                <stop offset="0%" stop-color="#0EA5E9" stop-opacity="0.8"/>
-                <stop offset="100%" stop-color="#0EA5E9" stop-opacity="0.1"/>
+                <stop offset="0%" stop-color="#27AAE1" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="#27AAE1" stop-opacity="0.1"/>
               </radialGradient>
             </defs>
             <circle cx="150" cy="150" r="60" fill="url(#core)"/>
-            <circle cx="150" cy="150" r="40" fill="#0EA5E9" fill-opacity="0.3" stroke="#fff" stroke-width="1.5"/>
+            <circle cx="150" cy="150" r="40" fill="#27AAE1" fill-opacity="0.3" stroke="#fff" stroke-width="1.5"/>
             <text x="150" y="155" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter">Ocula360</text>
             {[
               { x: 150, y: 50, label: 'Nsight360' },
@@ -150,7 +150,7 @@ const products = [
       </p>
       <div class="mt-12 flex justify-center">
         <svg viewBox="0 0 500 340" class="w-full max-w-[500px]" aria-hidden="true">
-          <circle cx="250" cy="170" r="60" fill="#1E3A8A"/>
+          <circle cx="250" cy="170" r="60" fill="#0F2350"/>
           <text x="250" y="170" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Inter">Ocula360</text>
           <text x="250" y="190" text-anchor="middle" fill="#fff" fill-opacity="0.8" font-size="10" font-family="Inter">Foundation</text>
           {[
@@ -159,8 +159,8 @@ const products = [
             { x: 430, y: 280, label: 'Ophthal360', sub: 'Autonomous / scale' },
           ].map((n) => (
             <g>
-              <line x1="250" y1="170" x2={n.x} y2={n.y} stroke="#3B5BBF" stroke-width="1.5" stroke-dasharray="4 4"/>
-              <circle cx={n.x} cy={n.y} r="42" fill="#EFF6FF" stroke="#1E3A8A" stroke-width="1.5"/>
+              <line x1="250" y1="170" x2={n.x} y2={n.y} stroke="#1C75BC" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <circle cx={n.x} cy={n.y} r="42" fill="#E8F4FB" stroke="#0F2350" stroke-width="1.5"/>
               <text x={n.x} y={n.y - 2} text-anchor="middle" fill="#0F172A" font-size="12" font-weight="700" font-family="Inter">{n.label}</text>
               <text x={n.x} y={n.y + 14} text-anchor="middle" fill="#64748B" font-size="10" font-family="Inter">{n.sub}</text>
             </g>

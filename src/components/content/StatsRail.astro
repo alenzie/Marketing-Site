@@ -1,0 +1,316 @@
+---
+/**
+ * StatsRail
+ *
+ * Horizontal proof rail on navy. Four borderless columns separated by
+ * hairline verticals — no cards. Huge 64px tabular numerals, cyan unit
+ * chips, mono index labels ("01 PATIENTS"), and a thin cyan rail under
+ * each metric showing relative fill.
+ *
+ * Ported from handoff reference:
+ *   handoff/picked/07-stats__PICKED_v2-horizontal-rail.html (Variation V2)
+ */
+export interface StatItem {
+  /** The big number. Use a formatted string like "53,214" or "94". */
+  value: string;
+  /** Optional unit chip rendered in cyan right after the value (e.g. "%"). */
+  unit?: string;
+  /**
+   * Optional muted sub-value, rendered after the unit.
+   * Useful for pairs like "94% / 91%" — pass " / 91%" as sub.
+   */
+  sub?: string;
+  /** Descriptive label. May contain a <b> via `labelBold` + `labelRest`. */
+  label: string;
+  /** Optional bold lead word/phrase for the label. */
+  labelBold?: string;
+  /** Short kbd chip text (e.g. "Patients"). */
+  kbd: string;
+  /** Rail fill 0-1 (clamped). */
+  fill?: number;
+}
+
+export interface Props {
+  items: StatItem[];
+  /** Small cyan badge text top-left. Default "Validated at scale". */
+  badge?: string;
+  /** Editorial headline. Use <em> in-string for cyan accent. */
+  title?: string;
+  /** Right-aligned metadata paragraph. */
+  meta?: string;
+}
+
+const {
+  items,
+  badge = "Validated at scale",
+  title = "Retinal AI that's already doing the work — <em>across 4 care settings.</em>",
+  meta = "Metrics reflect production deployments only. No pilots, no synthetic data. Updated continuously.",
+} = Astro.props;
+
+const clamp = (n: number) => Math.max(0, Math.min(1, n));
+const pad2 = (n: number) => String(n + 1).padStart(2, "0");
+---
+
+<section class="stats-rail">
+  <div class="stats-rail__inner">
+    <header class="stats-rail__header">
+      <div>
+        <span class="stats-rail__badge">{badge}</span>
+        <h3 class="stats-rail__title" set:html={title} />
+      </div>
+      {meta && <p class="stats-rail__meta">{meta}</p>}
+    </header>
+
+    <div class="stats-rail__row">
+      {items.slice(0, 4).map((item, i) => (
+        <div class="stats-rail__cell">
+          <div class="stats-rail__kbd">
+            <span class="stats-rail__kbd-num">{pad2(i)}</span>
+            <span>{item.kbd}</span>
+          </div>
+          <div class="stats-rail__num">
+            {item.value}
+            {item.unit && <span class="stats-rail__unit">{item.unit}</span>}
+            {item.sub && <span class="stats-rail__sub">{item.sub}</span>}
+          </div>
+          <div class="stats-rail__lab">
+            {item.labelBold && <b>{item.labelBold}</b>}
+            {item.labelBold ? " " : ""}{item.label}
+          </div>
+          <div class="stats-rail__track">
+            <div
+              class="stats-rail__fill"
+              style={`width:${(clamp(item.fill ?? 0.5) * 100).toFixed(1)}%;`}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats-rail {
+    position: relative;
+    overflow: hidden;
+    background: #0F2350; /* brand-navy */
+    color: #fff;
+    padding: 64px 24px;
+  }
+  @media (min-width: 768px) {
+    .stats-rail { padding: 64px 56px; }
+  }
+  .stats-rail::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -40%;
+    transform: translateX(-50%);
+    width: 1200px;
+    height: 600px;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at 50% 100%,
+      rgba(39, 170, 225, 0.18),
+      transparent 60%
+    );
+  }
+  .stats-rail::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(39, 170, 225, 0.4),
+      transparent
+    );
+  }
+
+  .stats-rail__inner {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .stats-rail__header {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    align-items: end;
+    margin-bottom: 40px;
+  }
+  @media (min-width: 768px) {
+    .stats-rail__header {
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+    }
+  }
+
+  .stats-rail__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background: rgba(39, 170, 225, 0.14);
+    color: #27AAE1; /* brand-cyan */
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .stats-rail__badge::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #27AAE1;
+    box-shadow: 0 0 0 4px rgba(39, 170, 225, 0.2);
+  }
+
+  .stats-rail__title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 8px 0 0;
+    color: #fff;
+    line-height: 1.2;
+    max-width: 640px;
+  }
+  @media (min-width: 768px) {
+    .stats-rail__title { font-size: 30px; }
+  }
+  .stats-rail__title :global(em) {
+    font-style: normal;
+    color: #27AAE1;
+  }
+
+  .stats-rail__meta {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: 280px;
+    margin: 0;
+    line-height: 1.5;
+  }
+  @media (min-width: 768px) {
+    .stats-rail__meta { text-align: right; }
+  }
+
+  .stats-rail__row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+  }
+  @media (min-width: 1000px) {
+    .stats-rail__row { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .stats-rail__cell {
+    padding: 14px 24px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  @media (min-width: 768px) {
+    .stats-rail__cell { padding: 14px 36px; }
+  }
+
+  /* hairline verticals between cells — only on wide layout */
+  .stats-rail__cell + .stats-rail__cell::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba(255, 255, 255, 0.18) 20%,
+      rgba(255, 255, 255, 0.18) 80%,
+      transparent
+    );
+  }
+  /* reset the "third" cell divider when wrapping to 2-col */
+  @media (max-width: 999.98px) {
+    .stats-rail__cell:nth-child(3)::before {
+      display: none;
+    }
+  }
+  @media (min-width: 1000px) {
+    .stats-rail__cell:first-child { padding-left: 0; }
+    .stats-rail__cell:last-child { padding-right: 0; }
+  }
+
+  .stats-rail__kbd {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: #27AAE1;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stats-rail__kbd-num {
+    color: rgba(255, 255, 255, 0.35);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stats-rail__num {
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+  }
+  @media (min-width: 768px) {
+    .stats-rail__num { font-size: 64px; }
+  }
+  .stats-rail__unit {
+    font-size: 28px;
+    color: #27AAE1;
+    font-weight: 700;
+    margin-left: 2px;
+  }
+  .stats-rail__sub {
+    font-size: 22px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.4);
+    margin-left: 1px;
+  }
+
+  .stats-rail__lab {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.45;
+  }
+  .stats-rail__lab b {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .stats-rail__track {
+    height: 2px;
+    border-radius: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    position: relative;
+    margin-top: 2px;
+    overflow: hidden;
+  }
+  .stats-rail__fill {
+    position: absolute;
+    inset: 0;
+    right: auto;
+    background: #27AAE1;
+    border-radius: 1px;
+    box-shadow: 0 0 8px rgba(39, 170, 225, 0.5);
+  }
+</style>

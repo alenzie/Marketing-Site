@@ -1,0 +1,38 @@
+---
+interface Props {
+  class?: string;
+  size?: number | string;
+  tone?: "cyan" | "white" | "navy" | "current";
+}
+
+const { class: className = "", size = 24, tone = "cyan" } = Astro.props;
+
+const toneClass =
+  tone === "cyan"
+    ? "text-brand-cyan"
+    : tone === "white"
+    ? "text-white"
+    : tone === "navy"
+    ? "text-brand-navy"
+    : "";
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox="0 0 32 32"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.75"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+  class={`${toneClass} ${className}`.trim()}
+>
+  <line x1="12" y1="4" x2="20" y2="4" />
+  <path d="M13 4 V 13 L 7 25 A 2 2 0 0 0 9 28 H 23 A 2 2 0 0 0 25 25 L 19 13 V 4" />
+  <line x1="10" y1="20" x2="22" y2="20" />
+  <circle cx="16" cy="24" r="1.6" fill="currentColor" stroke="none" />
+</svg>

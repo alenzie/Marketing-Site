@@ -1,0 +1,82 @@
+---
+/**
+ * MetricTile — typographic metric display.
+ *
+ * Design: Hairline rule above, 2-digit mono index chip, huge tabular numeral,
+ * optional unit in mono, UPPERCASE mono label below. No box, no shadow —
+ * the letterform is the graphic.
+ *
+ * On narrow widths the index chip sits ABOVE the value. On wider widths the
+ * hairline + index sit on the same top row as the value begins beneath them.
+ */
+interface Props {
+  /** The primary numeral — e.g. "53", "92.4", 87. Rendered with tabular figures. */
+  value: string | number;
+  /** Optional unit — e.g. "%", "K", "ms". Rendered in mono at a smaller size. */
+  unit?: string;
+  /** Short UPPERCASE label rendered in mono beneath the value. */
+  label: string;
+  /** Optional secondary readout line (e.g. "n = 4,812"). Appears below label. */
+  subvalue?: string;
+  /** Optional 2-digit index chip — "01", "02". Accepts number (zero-padded) or string. */
+  index?: string | number;
+  /** Additional classes for layout-level positioning. */
+  class?: string;
+}
+
+const {
+  value,
+  unit,
+  label,
+  subvalue,
+  index,
+  class: className = "",
+} = Astro.props;
+
+const indexLabel =
+  index === undefined || index === null
+    ? undefined
+    : typeof index === "number"
+    ? String(index).padStart(2, "0")
+    : index;
+---
+
+<div
+  class={`group relative pt-5 border-t border-brand-ink/90 ${className}`.trim()}
+>
+  {
+    indexLabel && (
+      <span class="block font-mono text-[9.5px] tracking-[0.14em] text-brand-muted mb-2.5 sm:mb-3">
+        {indexLabel}
+      </span>
+    )
+  }
+
+  <div
+    class="flex items-baseline gap-1 font-mono font-semibold text-brand-primary tabular-nums tracking-[-0.03em] leading-[0.95] text-4xl sm:text-5xl"
+    style="font-variant-numeric: tabular-nums;"
+  >
+    <span>{value}</span>
+    {
+      unit && (
+        <span class="font-mono font-medium text-brand-muted text-base sm:text-lg">
+          {unit}
+        </span>
+      )
+    }
+  </div>
+
+  <div
+    class="mt-3 font-mono text-[10px] tracking-[0.16em] uppercase text-brand-muted leading-[1.5]"
+  >
+    {label}
+  </div>
+
+  {
+    subvalue && (
+      <div class="mt-1 font-mono text-[10px] tracking-[0.14em] text-brand-body/80">
+        {subvalue}
+      </div>
+    )
+  }
+</div>

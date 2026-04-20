@@ -106,15 +106,15 @@ import Layout from '../../components/layout/Layout.astro';
       <div class="grid gap-10 md:grid-cols-2 items-center">
         <div class="rounded-2xl aspect-[4/3] bg-gradient-to-br from-brand-surface-blue to-brand-primary/20 flex items-center justify-center border border-brand-line">
           <svg viewBox="0 0 200 200" class="w-3/4 h-3/4" aria-hidden="true">
-            <circle cx="100" cy="100" r="24" fill="none" stroke="#1E3A8A" stroke-width="2"/>
-            <circle cx="100" cy="100" r="10" fill="#1E3A8A"/>
+            <circle cx="100" cy="100" r="24" fill="none" stroke="#0F2350" stroke-width="2"/>
+            <circle cx="100" cy="100" r="10" fill="#0F2350"/>
             {[0, 60, 120, 180, 240, 300].map((a) => (
               <line
                 x1="100"
                 y1="100"
                 x2={100 + 70 * Math.cos((a * Math.PI) / 180)}
                 y2={100 + 70 * Math.sin((a * Math.PI) / 180)}
-                stroke="#3B5BBF"
+                stroke="#1C75BC"
                 stroke-width="1.5"
                 stroke-dasharray="4 4"
               />
@@ -124,8 +124,8 @@ import Layout from '../../components/layout/Layout.astro';
                 cx={100 + 80 * Math.cos((a * Math.PI) / 180)}
                 cy={100 + 80 * Math.sin((a * Math.PI) / 180)}
                 r="10"
-                fill="#EFF6FF"
-                stroke="#1E3A8A"
+                fill="#E8F4FB"
+                stroke="#0F2350"
                 stroke-width="1.5"
               />
             ))}

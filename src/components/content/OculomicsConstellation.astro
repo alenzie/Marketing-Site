@@ -1,0 +1,256 @@
+---
+/**
+ * OculomicsConstellation
+ *
+ * Dark-navy "constellation" diagram showing the retina as a map of the body.
+ * Ported from handoff reference:
+ *   handoff/picked/01-oculomics-diagram__PICKED_option-b-constellation.html
+ *
+ * Self-contained SVG. A central iris/fovea sits over a faint almond eye
+ * silhouette (intentional — subtle, not a graphic frame), surrounded by a
+ * stylized vessel tree. Four typographic endpoint nodes label the systemic
+ * domains (neural, cardio, metabolic, vascular).
+ */
+export interface Props {
+  /** Optional CSS width (e.g. "100%", "600px"). Default: "100%". */
+  width?: string;
+  /** Optional CSS height. Default: "auto". */
+  height?: string;
+  /** Optional extra classes for the wrapping element. */
+  class?: string;
+}
+
+const { width = "100%", height = "auto", class: className = "" } = Astro.props;
+---
+
+<div
+  class={`oculomics-constellation ${className}`}
+  style={`width:${width};height:${height};`}
+>
+  <svg
+    viewBox="0 0 600 600"
+    width="100%"
+    height="100%"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label="The retina as a map of the body: a central fovea connected by stylized retinal vessels to four systemic endpoints — neural (cognitive decline), cardio (heart risk), metabolic (diabetic retinopathy), and vascular (microvascular damage)."
+  >
+    <defs>
+      <radialGradient id="oc-bg" cx="50%" cy="55%" r="70%">
+        <stop offset="0%" stop-color="#0F2350" />
+        <stop offset="60%" stop-color="#0A1A3A" />
+        <stop offset="100%" stop-color="#050D20" />
+      </radialGradient>
+      <radialGradient id="oc-retina" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#5E7BE0" />
+        <stop offset="40%" stop-color="#203080" />
+        <stop offset="100%" stop-color="#0A1A3A" stop-opacity="0" />
+      </radialGradient>
+      <radialGradient id="oc-fovea" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#7DD3FC" />
+        <stop offset="60%" stop-color="#20A0E0" />
+        <stop offset="100%" stop-color="#0C4A6E" />
+      </radialGradient>
+    </defs>
+
+    <rect width="600" height="600" fill="url(#oc-bg)" rx="16" />
+
+    {/* Faint almond eye silhouette behind everything */}
+    <g opacity=".22">
+      <path
+        d="M 90 310 Q 300 140 510 310 Q 300 480 90 310 Z"
+        fill="none"
+        stroke="#7DD3FC"
+        stroke-width="1.4"
+      />
+      <path
+        d="M 130 310 Q 300 180 470 310 Q 300 440 130 310 Z"
+        fill="none"
+        stroke="#7DD3FC"
+        stroke-width="1"
+        opacity=".7"
+      />
+    </g>
+
+    {/* Corner frame ticks */}
+    <g stroke="#7DD3FC" stroke-width="1" fill="none" opacity=".5">
+      <path d="M24 40 V24 H40" />
+      <path d="M576 40 V24 H560" />
+      <path d="M24 560 V576 H40" />
+      <path d="M576 560 V576 H560" />
+    </g>
+
+    {/* Tiny stars / oculomics particles */}
+    <g fill="#7DD3FC">
+      <circle cx="80" cy="120" r="1" />
+      <circle cx="140" cy="80" r="1" />
+      <circle cx="520" cy="90" r="1.2" />
+      <circle cx="470" cy="50" r="1" />
+      <circle cx="560" cy="220" r="1" />
+      <circle cx="60" cy="300" r="1" />
+      <circle cx="555" cy="420" r="1" />
+      <circle cx="90" cy="500" r="1" />
+      <circle cx="500" cy="540" r="1.2" />
+      <circle cx="220" cy="530" r="1" />
+      <circle cx="350" cy="70" r="1" />
+    </g>
+    <g fill="#20A0E0" opacity=".7">
+      <circle cx="165" cy="220" r="1.2" />
+      <circle cx="435" cy="180" r="1" />
+      <circle cx="440" cy="430" r="1.2" />
+      <circle cx="180" cy="440" r="1" />
+    </g>
+
+    {/* Retinal glow */}
+    <circle cx="300" cy="310" r="220" fill="url(#oc-retina)" opacity=".55" />
+
+    {/* Vessel tree (stylized) */}
+    <g
+      stroke="#7DD3FC"
+      stroke-width="1.4"
+      fill="none"
+      opacity=".85"
+      stroke-linecap="round"
+    >
+      <path d="M300 310 Q 260 240 200 210 Q 150 195 110 200" />
+      <path d="M200 210 Q 185 190 155 175" />
+      <path d="M230 225 Q 215 200 195 185" />
+      <path d="M300 310 Q 345 240 405 215 Q 455 200 495 205" />
+      <path d="M405 215 Q 420 195 445 180" />
+      <path d="M370 235 Q 385 210 405 195" />
+      <path d="M300 310 Q 255 385 195 415 Q 150 435 115 430" />
+      <path d="M195 415 Q 180 440 155 455" />
+      <path d="M300 310 Q 350 385 410 410 Q 460 430 495 425" />
+      <path d="M410 410 Q 430 435 460 450" />
+    </g>
+    <g
+      stroke="#1070B0"
+      stroke-width=".9"
+      fill="none"
+      opacity=".7"
+      stroke-linecap="round"
+    >
+      <path d="M110 200 Q 90 190 70 195" />
+      <path d="M495 205 Q 515 195 535 200" />
+      <path d="M115 430 Q 90 440 70 445" />
+      <path d="M495 425 Q 520 430 540 435" />
+      <path d="M155 175 Q 150 160 140 150" />
+      <path d="M445 180 Q 455 165 465 150" />
+      <path d="M155 455 Q 145 470 135 480" />
+      <path d="M460 450 Q 475 465 485 475" />
+    </g>
+
+    {/* Fovea center */}
+    <circle cx="300" cy="310" r="28" fill="url(#oc-fovea)" />
+    <circle cx="300" cy="310" r="10" fill="#7DD3FC" />
+
+    {/* Endpoint nodes + labels */}
+    <g font-family="Inter, system-ui, sans-serif">
+      {/* upper-left — Neural */}
+      <circle cx="110" cy="200" r="5" fill="#20A0E0" />
+      <circle cx="110" cy="200" r="10" fill="#20A0E0" opacity=".18" />
+      <text
+        x="90"
+        y="170"
+        font-size="11"
+        font-family="'JetBrains Mono', ui-monospace, monospace"
+        fill="#7DD3FC"
+        letter-spacing=".15em"
+      >NEURAL</text>
+      <text
+        x="90"
+        y="152"
+        font-size="19"
+        font-weight="700"
+        fill="#fff"
+      >Cognitive decline</text>
+
+      {/* upper-right — Cardio */}
+      <circle cx="495" cy="205" r="5" fill="#20A0E0" />
+      <circle cx="495" cy="205" r="10" fill="#20A0E0" opacity=".18" />
+      <text
+        x="510"
+        y="175"
+        font-size="11"
+        font-family="'JetBrains Mono', ui-monospace, monospace"
+        fill="#7DD3FC"
+        letter-spacing=".15em"
+        text-anchor="end"
+      >CARDIO</text>
+      <text
+        x="510"
+        y="157"
+        font-size="19"
+        font-weight="700"
+        fill="#fff"
+        text-anchor="end"
+      >Heart risk</text>
+
+      {/* lower-left — Metabolic */}
+      <circle cx="115" cy="430" r="5" fill="#20A0E0" />
+      <circle cx="115" cy="430" r="10" fill="#20A0E0" opacity=".18" />
+      <text
+        x="95"
+        y="468"
+        font-size="11"
+        font-family="'JetBrains Mono', ui-monospace, monospace"
+        fill="#7DD3FC"
+        letter-spacing=".15em"
+      >METABOLIC</text>
+      <text
+        x="95"
+        y="490"
+        font-size="19"
+        font-weight="700"
+        fill="#fff"
+      >Diabetic retinopathy</text>
+
+      {/* lower-right — Vascular */}
+      <circle cx="495" cy="425" r="5" fill="#20A0E0" />
+      <circle cx="495" cy="425" r="10" fill="#20A0E0" opacity=".18" />
+      <text
+        x="510"
+        y="463"
+        font-size="11"
+        font-family="'JetBrains Mono', ui-monospace, monospace"
+        fill="#7DD3FC"
+        letter-spacing=".15em"
+        text-anchor="end"
+      >VASCULAR</text>
+      <text
+        x="510"
+        y="485"
+        font-size="19"
+        font-weight="700"
+        fill="#fff"
+        text-anchor="end"
+      >Microvascular damage</text>
+    </g>
+
+    {/* Center label */}
+    <g font-family="'JetBrains Mono', ui-monospace, monospace">
+      <text
+        x="300"
+        y="555"
+        text-anchor="middle"
+        font-size="11"
+        fill="#7DD3FC"
+        letter-spacing=".4em"
+      >THE RETINA · A MAP OF THE BODY</text>
+    </g>
+  </svg>
+</div>
+
+<style>
+  .oculomics-constellation {
+    display: block;
+    border-radius: 16px;
+    overflow: hidden;
+    line-height: 0;
+  }
+  .oculomics-constellation svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>

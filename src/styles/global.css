@@ -1,32 +1,48 @@
 @import "tailwindcss";
 
-/* Ophthalytics design tokens — see instructions/01-design-tokens.txt */
+/* Ophthalytics brand palette — logo-sourced (handoff 2026-04-19) */
 @theme {
-  /* Brand palette */
-  --color-brand-primary: #1E3A8A;
-  --color-brand-primary-dark: #152B66;
-  --color-brand-primary-light: #3B5BBF;
-  --color-brand-secondary: #0EA5E9;
-  --color-brand-accent: #7C3AED;
-  --color-brand-accent-soft: #C4B5FD;
+  /* Navy + indigo */
+  --color-brand-navy:       #0F2350;
+  --color-brand-navy-700:   #1C2F5F;
+  --color-brand-navy-900:   #081636;
+  --color-brand-indigo:     #303F95;
 
-  /* Neutrals */
-  --color-brand-ink: #0F172A;
-  --color-brand-body: #334155;
-  --color-brand-muted: #64748B;
-  --color-brand-line: #E2E8F0;
-  --color-brand-surface: #F8FAFC;
-  --color-brand-surface-blue: #EFF6FF;
-  --color-brand-white: #FFFFFF;
+  /* Primary blue + cyan accent */
+  --color-brand-primary:      #1C75BC;
+  --color-brand-primary-dark: #0F2350;   /* -> navy */
+  --color-brand-primary-light:#27AAE1;   /* -> cyan */
+  --color-brand-cyan:         #27AAE1;
+  --color-brand-cyan-ink:     #0E7FB0;
+  --color-brand-cyan-soft:    #E8F4FB;
+
+  /* Legacy aliases (keep mapping to new palette so existing components don't break) */
+  --color-brand-secondary:    #27AAE1;   /* was #0EA5E9 -> cyan */
+  --color-brand-accent:       #27AAE1;   /* was #7C3AED -> cyan */
+  --color-brand-accent-soft:  #E8F4FB;   /* was #C4B5FD -> cyan-soft */
+  --color-brand-surface-blue: #E8F4FB;   /* -> cyan-soft */
+
+  /* Neutrals (both naming conventions — brand-prefixed and short) */
+  --color-ink:              #0F172A;
+  --color-body:             #475569;
+  --color-muted:            #64748B;
+  --color-line:             #E2E8F0;
+  --color-surface:          #F8FAFC;
+  --color-brand-ink:        #0F172A;
+  --color-brand-body:       #475569;
+  --color-brand-muted:      #64748B;
+  --color-brand-line:       #E2E8F0;
+  --color-brand-surface:    #F8FAFC;
+  --color-brand-white:      #FFFFFF;
 
   /* Status */
   --color-status-success: #16A34A;
-  --color-status-error: #DC2626;
-  --color-status-warn: #D97706;
+  --color-status-error:   #DC2626;
+  --color-status-warn:    #D97706;
 
   /* Typography */
   --font-display: "Inter", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
+  --font-body:    "Inter", system-ui, sans-serif;
 }
 
 /* Base layer */
