@@ -10,6 +10,12 @@
   --color-brand-accent: #7C3AED;
   --color-brand-accent-soft: #C4B5FD;
 
+  /* Additive tokens for footer + announcement bar (design handoff 2026-04-19) */
+  --color-brand-navy: #0F2350;
+  --color-brand-cyan: #27AAE1;
+  --color-brand-cyan-ink: #0E7FB0;
+  --color-brand-cyan-soft: #E8F4FB;
+
   /* Neutrals */
   --color-brand-ink: #0F172A;
   --color-brand-body: #334155;

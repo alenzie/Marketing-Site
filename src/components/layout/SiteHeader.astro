@@ -1,4 +1,5 @@
 ---
+import AnnouncementBar from './AnnouncementBar.astro';
 import DropdownMenu from './DropdownMenu.astro';
 import MobileDrawer from './MobileDrawer.astro';
 
@@ -79,6 +80,14 @@ const mobileNav = [
 ];
 ---
 
+<AnnouncementBar
+  message="<b>Peer-reviewed research</b> — Ophthalytics DR detection, validated on real-world fundus images"
+  linkText="Read the study"
+  linkHref="https://www.mdpi.com/2075-4418/13/3/393"
+  linkExternal
+  storageKey="ophlx-announcement-mdpi-dr"
+/>
+
 <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-brand-line">
   <nav class="max-w-7xl mx-auto px-8 lg:px-12 py-4 flex items-center justify-between" aria-label="Primary">
     <a href="/" class="relative flex items-center" aria-label="Ophthalytics home">
@@ -87,10 +96,10 @@ const mobileNav = [
         class="absolute inset-0 -z-10 pointer-events-none scale-[1.8] [background:radial-gradient(ellipse_at_center,rgba(255,255,255,0.7)_0%,rgba(255,255,255,0)_65%)]"
       ></div>
       <img
-        src="/logo/ophthalytics-horizontal.png"
+        src="/ophthalytics-logo.svg"
         alt="Ophthalytics"
         width="300"
-        height="55"
+        height="34"
         class="relative h-9 w-auto"
       />
     </a>

@@ -1,0 +1,125 @@
+---
+interface Props {
+  message: string;
+  linkText?: string;
+  linkHref: string;
+  linkExternal?: boolean;
+  storageKey?: string;
+}
+
+const {
+  message,
+  linkText = "Read more",
+  linkHref,
+  linkExternal = false,
+  storageKey = "ophlx-announcement",
+} = Astro.props;
+---
+
+<div class="announcement-bar" data-storage-key={storageKey}>
+  <div class="msg">
+    <span class="dot" aria-hidden="true"></span>
+    <span class="txt" set:html={message}></span>
+    <span class="sep" aria-hidden="true">·</span>
+    <a
+      href={linkHref}
+      target={linkExternal ? "_blank" : undefined}
+      rel={linkExternal ? "noopener noreferrer" : undefined}
+    >
+      {linkText}<span class="arw"> →</span>
+    </a>
+  </div>
+  <button type="button" class="close" aria-label="Dismiss announcement">
+    <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.75">
+      <path d="M2 2l10 10M12 2L2 12"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('.announcement-bar');
+  if (bar) {
+    const key = bar.dataset.storageKey || 'ophlx-announcement';
+    if (sessionStorage.getItem(key) === '1') bar.style.display = 'none';
+    bar.querySelector('.close')?.addEventListener('click', () => {
+      sessionStorage.setItem(key, '1');
+      bar.style.display = 'none';
+    });
+  }
+</script>
+
+<style>
+  .announcement-bar {
+    position: relative;
+    background: #0F2350;
+    color: #fff;
+    padding: 8px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+  .announcement-bar::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(39,170,225,0.5), transparent);
+  }
+  .announcement-bar .msg {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .announcement-bar .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #27AAE1;
+    box-shadow: 0 0 0 4px rgba(39,170,225,0.2);
+    flex-shrink: 0;
+  }
+  .announcement-bar .txt {
+    color: rgba(255,255,255,0.9);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .announcement-bar .txt :global(b),
+  .announcement-bar .txt :global(strong) {
+    color: #fff;
+    font-weight: 600;
+  }
+  .announcement-bar .sep { color: rgba(255,255,255,0.3); }
+  .announcement-bar a {
+    color: #27AAE1;
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: color 0.15s;
+  }
+  .announcement-bar a:hover { color: #fff; }
+  .announcement-bar .arw { display: inline-block; }
+  .announcement-bar .close {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    color: rgba(255,255,255,0.5);
+    transition: color 0.15s;
+  }
+  .announcement-bar .close:hover { color: #fff; }
+  @media (max-width: 820px) {
+    .announcement-bar .txt { white-space: normal; }
+  }
+</style>
