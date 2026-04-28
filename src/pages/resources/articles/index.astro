@@ -1,0 +1,83 @@
+---
+import Layout from '../../../components/layout/Layout.astro';
+import ResourceCard from '../../../components/content/ResourceCard.astro';
+
+const articles = [
+  {
+    category: 'Industry Insight',
+    categoryColor: 'primary' as const,
+    date: 'March 18, 2025',
+    title: 'Bridging the Gap in Eye Care: How AI-Assisted Technology Enables Early Detection & Prevents Blindness',
+    excerpt:
+      'Ophthalytics CEO Awais Bajwa on the U.S. eye care specialist shortage, the rising burden of diabetic retinopathy, and how AI-assisted retinal screening is bringing early detection into primary care.',
+    link: '/resources/articles/bridging-the-gap-eye-care',
+    placeholder: false,
+  },
+];
+---
+
+<Layout
+  title="Articles — Resources — Ophthalytics"
+  description="Industry insights from the Ophthalytics team on early detection, AI-assisted screening, and the future of preventive eye care."
+>
+  <!-- SECTION 1 — HERO -->
+  <section class="bg-brand-surface-blue">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-16 md:py-20">
+      <nav aria-label="Breadcrumb" class="text-sm text-brand-muted">
+        <a href="/resources" class="hover:text-brand-primary">Resources</a>
+        <span class="mx-2">/</span>
+        <span class="text-brand-ink">Articles</span>
+      </nav>
+      <h1 class="mt-4 text-4xl md:text-5xl font-bold text-brand-ink leading-tight">
+        Articles
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-brand-body leading-relaxed" data-reveal>
+        Industry insights from the Ophthalytics team on early detection, AI-assisted screening, and the future of preventive eye care.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 2 — ARTICLES GRID -->
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+        {articles.map((a) => (
+          <div class="relative h-full">
+            <ResourceCard
+              category={a.category}
+              categoryColor={a.categoryColor}
+              title={a.title}
+              excerpt={a.excerpt}
+              link={a.link}
+            />
+            <p class="absolute bottom-4 right-5 text-xs text-brand-muted">{a.date}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — RELATED RESOURCES -->
+  <section class="bg-brand-surface">
+    <div class="max-w-5xl mx-auto px-6 md:px-8 lg:px-12 py-16">
+      <h2 class="text-xl font-semibold text-brand-ink text-center" data-reveal>Related Resources</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-3" data-reveal-group>
+        <a href="/resources/journal-articles" class="bg-white border border-brand-line rounded-xl p-6 hover:shadow-lg transition-all">
+          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold">Resources</p>
+          <h3 class="mt-2 text-lg font-bold text-brand-ink">Journal Articles →</h3>
+          <p class="mt-2 text-sm text-brand-body">Peer-reviewed research from the Ophthalytics team.</p>
+        </a>
+        <a href="/resources/newsroom" class="bg-white border border-brand-line rounded-xl p-6 hover:shadow-lg transition-all">
+          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold">Resources</p>
+          <h3 class="mt-2 text-lg font-bold text-brand-ink">Newsroom →</h3>
+          <p class="mt-2 text-sm text-brand-body">Press releases, announcements, and conference appearances.</p>
+        </a>
+        <a href="/resources/innovation-pipeline" class="bg-white border border-brand-line rounded-xl p-6 hover:shadow-lg transition-all">
+          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold">Resources</p>
+          <h3 class="mt-2 text-lg font-bold text-brand-ink">Innovation Pipeline →</h3>
+          <p class="mt-2 text-sm text-brand-body">What we're building next beyond the current product lineup.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -36,10 +36,38 @@ import RetinalIntelligenceCanvas from '../components/canvas/RetinalIntelligenceC
     </div>
   </Hero>
 
+  <!-- SECTION 1.5 — EYE-SCAN BANNER (transition under hero) -->
+  <section class="relative overflow-hidden">
+    <div class="relative h-44 md:h-56 lg:h-64">
+      <img
+        src="/images/sections/eye-scan-banner.jpg"
+        alt=""
+        aria-hidden="true"
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+      />
+      <!-- Top + bottom gradient blend so the banner fades into white above and below -->
+      <div class="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white pointer-events-none"></div>
+      <div class="absolute inset-0 bg-brand-primary/10 pointer-events-none"></div>
+    </div>
+  </section>
+
   <!-- SECTION 2 — VISION ("Beyond the Eye") -->
-  <section class="bg-white">
-    <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 grid gap-12 md:grid-cols-2 items-center">
-      <div>
+  <section class="relative bg-white overflow-hidden">
+    <!-- Right-side hero photo, gradient-faded into the left -->
+    <div class="absolute inset-y-0 right-0 w-full md:w-3/5 lg:w-1/2" aria-hidden="true">
+      <img
+        src="/images/sections/dr-ai-computer-screen.jpg"
+        alt=""
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+      />
+      <!-- Gradient veil: solid white on the left, transparent on the right -->
+      <div class="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/0 md:from-white md:via-white/60 md:to-transparent"></div>
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid md:grid-cols-2 items-center">
+      <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-8 md:p-10 shadow-sm ring-1 ring-brand-line/60">
         <PipeHeading level="h2" data-reveal>Beyond the Eye: A New Frontier in Detection</PipeHeading>
         <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed" data-reveal>
           <p>The retina is one of the only places in the body where microvascular and neural structures can be observed directly and noninvasively.</p>
@@ -48,55 +76,8 @@ import RetinalIntelligenceCanvas from '../components/canvas/RetinalIntelligenceC
           <p>This is the future of preventive healthcare—starting with the eye.</p>
         </div>
       </div>
-
-      <!-- FINAL_ASSET_TBD — oculomics diagram (retina → organs) -->
-      <div class="relative aspect-square max-w-md mx-auto">
-        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-full" aria-hidden="true">
-          <defs>
-            <radialGradient id="retina-center" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#3B5BBF" />
-              <stop offset="100%" stop-color="#1E3A8A" />
-            </radialGradient>
-          </defs>
-          <g stroke="#C4B5FD" stroke-width="1.5" stroke-dasharray="4 4" fill="none" opacity="0.6">
-            <line x1="200" y1="200" x2="70" y2="70" />
-            <line x1="200" y1="200" x2="330" y2="70" />
-            <line x1="200" y1="200" x2="70" y2="330" />
-            <line x1="200" y1="200" x2="330" y2="330" />
-          </g>
-          <circle cx="200" cy="200" r="60" fill="url(#retina-center)" />
-          <circle cx="200" cy="200" r="14" fill="#7C3AED" />
-          <text x="200" y="285" text-anchor="middle" font-size="13" font-weight="600" fill="#0F172A" font-family="Inter, sans-serif">Retina</text>
-
-          <!-- Heart, top-left -->
-          <g transform="translate(30 30)">
-            <circle cx="40" cy="40" r="38" fill="#EFF6FF" stroke="#1E3A8A" stroke-width="1.5" />
-            <path d="M40 58 C 22 45 22 28 31 24 C 36 22 40 25 40 30 C 40 25 44 22 49 24 C 58 28 58 45 40 58 Z" fill="#1E3A8A" />
-            <text x="40" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A" font-family="Inter, sans-serif">Heart</text>
-          </g>
-          <!-- Brain, top-right -->
-          <g transform="translate(290 30)">
-            <circle cx="40" cy="40" r="38" fill="#EFF6FF" stroke="#1E3A8A" stroke-width="1.5" />
-            <path d="M30 30 Q 25 35 28 42 Q 25 50 32 54 Q 33 60 40 58 Q 47 60 48 54 Q 55 50 52 42 Q 55 35 50 30 Q 48 22 40 24 Q 32 22 30 30 Z" fill="none" stroke="#1E3A8A" stroke-width="1.5" />
-            <path d="M40 26 V 58" stroke="#1E3A8A" stroke-width="1" />
-            <text x="40" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A" font-family="Inter, sans-serif">Brain</text>
-          </g>
-          <!-- Kidney, bottom-left -->
-          <g transform="translate(30 290)">
-            <circle cx="40" cy="40" r="38" fill="#EFF6FF" stroke="#1E3A8A" stroke-width="1.5" />
-            <path d="M32 24 Q 18 32 22 48 Q 28 60 40 58 Q 54 60 56 48 Q 58 32 48 24 Q 40 20 32 24 Z" fill="#1E3A8A" />
-            <text x="40" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A" font-family="Inter, sans-serif">Kidneys</text>
-          </g>
-          <!-- Vascular, bottom-right -->
-          <g transform="translate(290 290)">
-            <circle cx="40" cy="40" r="38" fill="#EFF6FF" stroke="#1E3A8A" stroke-width="1.5" />
-            <path d="M20 40 Q 30 30 40 40 T 60 40" stroke="#1E3A8A" stroke-width="2" fill="none" />
-            <path d="M22 50 Q 32 42 42 50 T 62 50" stroke="#3B5BBF" stroke-width="1.5" fill="none" />
-            <path d="M24 30 Q 34 22 44 30 T 64 30" stroke="#3B5BBF" stroke-width="1.5" fill="none" />
-            <text x="40" y="95" text-anchor="middle" font-size="11" font-weight="600" fill="#0F172A" font-family="Inter, sans-serif">Vascular</text>
-          </g>
-        </svg>
-      </div>
+      <!-- Empty spacer column so the photo on the right has visual breathing room -->
+      <div class="hidden md:block"></div>
     </div>
   </section>
 
@@ -193,7 +174,7 @@ import RetinalIntelligenceCanvas from '../components/canvas/RetinalIntelligenceC
     </div>
   </section>
 
-  <!-- SECTION 4 — PRODUCT ECOSYSTEM -->
+  <!-- SECTION 4 — PRODUCT ECOSYSTEM (2x2 grid w/ product imagery) -->
   <section id="products" class="bg-white scroll-mt-24">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
       <div class="text-center max-w-3xl mx-auto mb-14" data-reveal>
@@ -203,116 +184,152 @@ import RetinalIntelligenceCanvas from '../components/canvas/RetinalIntelligenceC
         </p>
       </div>
 
-      <div class="grid gap-8 lg:grid-cols-3" data-reveal-group>
-        <!-- Nsight360 -->
-        <article class="bg-white border border-brand-line rounded-2xl p-8 shadow-sm flex flex-col">
-          <h3 class="text-2xl font-bold text-brand-ink">Nsight360</h3>
-          <p class="mt-2 text-base font-semibold text-brand-primary">
-            AI-Assisted Retinal Screening for Primary Care
-          </p>
-          <div class="mt-5 space-y-4 text-sm text-brand-body leading-relaxed">
-            <p>Nsight360 is designed to bring retinal screening directly into primary care settings, enabling early detection of eye disease without requiring immediate specialist involvement. Built for accessibility and scale, it allows non-specialists to capture retinal images and receive AI-assisted reports with expert review.</p>
-            <p>By integrating seamlessly into clinical workflows, Nsight360 improves screening rates, reduces care gaps, and helps identify at-risk patients earlier—before vision loss occurs.</p>
+      <div class="grid gap-8 md:grid-cols-2" data-reveal-group>
+        <!-- Ocula360 (flagship) -->
+        <article class="group bg-white border border-brand-line rounded-2xl shadow-sm overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
+          <div class="relative aspect-[16/10] bg-brand-surface-blue overflow-hidden">
+            <img
+              src="/images/products/ocula360-product.png"
+              alt="Ocula360 retinal AI dashboard"
+              class="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+            />
+            <span class="absolute top-3 left-3 inline-block rounded-full bg-brand-primary text-white text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 shadow">
+              Flagship
+            </span>
           </div>
-          <p class="mt-6 text-xs uppercase tracking-widest text-brand-muted font-semibold">Key Capabilities</p>
-          <dl class="mt-3 space-y-4 text-sm">
-            <div>
-              <dt class="font-semibold text-brand-ink">Primary Care Integration</dt>
-              <dd class="text-brand-body">Enables retinal screening within primary care clinics without the need for on-site specialists.</dd>
-            </div>
-            <div>
-              <dt class="font-semibold text-brand-ink">Human + AI Workflow</dt>
-              <dd class="text-brand-body">Combines AI analysis with expert review to deliver reliable, clinically actionable reports.</dd>
-            </div>
-            <div>
-              <dt class="font-semibold text-brand-ink">Scalable Screening</dt>
-              <dd class="text-brand-body">Designed to support high-volume screening programs and expand access to preventive care.</dd>
-            </div>
-          </dl>
-          <a
-            href="/solutions/nsight360"
-            class="mt-auto pt-6 inline-flex items-center gap-2 text-brand-primary font-semibold hover:gap-3 transition-all"
-          >
-            Learn more
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
+          <div class="p-7 flex flex-col flex-1">
+            <h3 class="text-2xl font-bold text-brand-ink">Ocula360</h3>
+            <p class="mt-2 text-sm font-semibold text-brand-primary">
+              Foundational Retinal AI Engine
+            </p>
+            <p class="mt-3 text-sm text-brand-body leading-relaxed">
+              The platform behind every Ophthalytics solution. Built on a foundational model architecture, Ocula360 detects multiple retinal diseases from a single image and powers DRSS scoring, explainable outputs, and future-ready multimodal applications.
+            </p>
+            <ul class="mt-4 space-y-1.5 text-sm text-brand-body">
+              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Multi-disease detection</span></li>
+              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>DRSS severity grading</span></li>
+              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Explainable &amp; multimodal outputs</span></li>
+            </ul>
+            <a
+              href="/solutions/ocula360"
+              class="mt-auto pt-5 inline-flex items-center gap-2 text-brand-primary font-semibold group-hover:gap-3 transition-all"
+            >
+              Learn more
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Nsight360 -->
+        <article class="group bg-white border border-brand-line rounded-2xl shadow-sm overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
+          <div class="relative aspect-[16/10] bg-brand-surface-blue overflow-hidden">
+            <img
+              src="/images/products/nsight360-product.png"
+              alt="Nsight360 AI-assisted retinal screening on a laptop"
+              class="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-7 flex flex-col flex-1">
+            <h3 class="text-2xl font-bold text-brand-ink">Nsight360</h3>
+            <p class="mt-2 text-sm font-semibold text-brand-primary">
+              AI-Assisted Retinal Screening for Primary Care
+            </p>
+            <p class="mt-3 text-sm text-brand-body leading-relaxed">
+              Brings retinal screening directly into primary care settings, enabling non-specialists to capture retinal images and receive AI-assisted reports with expert review—closing care gaps and identifying at-risk patients before vision loss occurs.
+            </p>
+            <ul class="mt-4 space-y-1.5 text-sm text-brand-body">
+              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Primary care integration</span></li>
+              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Human + AI workflow</span></li>
+              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Scalable screening programs</span></li>
+            </ul>
+            <a
+              href="/solutions/nsight360"
+              class="mt-auto pt-5 inline-flex items-center gap-2 text-brand-primary font-semibold group-hover:gap-3 transition-all"
+            >
+              Learn more
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
         </article>
 
         <!-- 2nd Opinion -->
-        <article class="bg-white border border-brand-line rounded-2xl p-8 shadow-sm flex flex-col">
-          <h3 class="text-2xl font-bold text-brand-ink">2nd Opinion</h3>
-          <p class="mt-2 text-base font-semibold text-brand-primary">
-            AI-Enhanced Diagnostic Support for Optometry
-          </p>
-          <div class="mt-5 space-y-4 text-sm text-brand-body leading-relaxed">
-            <p>2nd Opinion is built for optometrists and eye care professionals seeking greater confidence and consistency in retinal assessments. It enhances clinical decision-making by providing AI-supported analysis that highlights subtle findings and supports more standardized interpretation.</p>
-            <p>By acting as a second layer of review, 2nd Opinion helps reduce diagnostic uncertainty, improve early detection, and strengthen clinical workflows without disrupting existing practices.</p>
+        <article class="group bg-white border border-brand-line rounded-2xl shadow-sm overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
+          <div class="relative aspect-[16/10] bg-brand-surface-blue overflow-hidden">
+            <img
+              src="/images/products/2nd-opinion-product.png"
+              alt="2nd Opinion AI diagnostic comparison view"
+              class="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+            />
           </div>
-          <p class="mt-6 text-xs uppercase tracking-widest text-brand-muted font-semibold">Key Capabilities</p>
-          <dl class="mt-3 space-y-4 text-sm">
-            <div>
-              <dt class="font-semibold text-brand-ink">Lesion Visualization</dt>
-              <dd class="text-brand-body">Highlights suspicious regions and lesion-level features to support more accurate interpretation.</dd>
-            </div>
-            <div>
-              <dt class="font-semibold text-brand-ink">Decision Support</dt>
-              <dd class="text-brand-body">Provides AI-assisted insights to enhance clinical judgment and reduce variability.</dd>
-            </div>
-            <div>
-              <dt class="font-semibold text-brand-ink">Workflow Integration</dt>
-              <dd class="text-brand-body">Designed to fit seamlessly into optometric workflows with minimal disruption.</dd>
-            </div>
-          </dl>
-          <a
-            href="/solutions/2nd-opinion"
-            class="mt-auto pt-6 inline-flex items-center gap-2 text-brand-primary font-semibold hover:gap-3 transition-all"
-          >
-            Learn more
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
+          <div class="p-7 flex flex-col flex-1">
+            <h3 class="text-2xl font-bold text-brand-ink">2nd Opinion</h3>
+            <p class="mt-2 text-sm font-semibold text-brand-primary">
+              AI-Enhanced Diagnostic Support for Optometry
+            </p>
+            <p class="mt-3 text-sm text-brand-body leading-relaxed">
+              Built for optometrists and eye care professionals seeking greater confidence in retinal assessments. Provides AI-supported analysis that highlights subtle findings and reduces diagnostic uncertainty without disrupting existing practice workflows.
+            </p>
+            <ul class="mt-4 space-y-1.5 text-sm text-brand-body">
+              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Lesion-level visualization</span></li>
+              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Decision support</span></li>
+              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Workflow integration</span></li>
+            </ul>
+            <a
+              href="/solutions/2nd-opinion"
+              class="mt-auto pt-5 inline-flex items-center gap-2 text-brand-primary font-semibold group-hover:gap-3 transition-all"
+            >
+              Learn more
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
         </article>
 
         <!-- Ophthal360 -->
-        <article class="bg-white border border-brand-line rounded-2xl p-8 shadow-sm flex flex-col">
-          <h3 class="text-2xl font-bold text-brand-ink">Ophthal360</h3>
-          <p class="mt-2 text-base font-semibold text-brand-primary">
-            Autonomous AI for Scalable Retinal Screening
-          </p>
-          <div class="mt-5 space-y-4 text-sm text-brand-body leading-relaxed">
-            <p>Ophthal360 is an autonomous AI solution designed for high-volume retinal screening across healthcare systems and large-scale programs. Built for efficiency and consistency, it enables rapid detection and referral decision support with minimal manual intervention.</p>
-            <p>By standardizing screening processes, Ophthal360 helps expand access to care, particularly in underserved or resource-limited settings, while maintaining reliable diagnostic performance at scale.</p>
+        <article class="group bg-white border border-brand-line rounded-2xl shadow-sm overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
+          <div class="relative aspect-[16/10] bg-brand-surface-blue overflow-hidden">
+            <img
+              src="/images/products/ophthal360-product.jpg"
+              alt="Ophthal360 autonomous retinal AI in clinical use"
+              class="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+            />
           </div>
-          <p class="mt-6 text-xs uppercase tracking-widest text-brand-muted font-semibold">Key Capabilities</p>
-          <dl class="mt-3 space-y-4 text-sm">
-            <div>
-              <dt class="font-semibold text-brand-ink">Autonomous Detection</dt>
-              <dd class="text-brand-body">Performs retinal analysis and generates screening outputs without manual interpretation.</dd>
-            </div>
-            <div>
-              <dt class="font-semibold text-brand-ink">High-Throughput Screening</dt>
-              <dd class="text-brand-body">Optimized for large-scale deployment in clinics, screening programs, and population health initiatives.</dd>
-            </div>
-            <div>
-              <dt class="font-semibold text-brand-ink">Automated Referral Support</dt>
-              <dd class="text-brand-body">Identifies at-risk patients and supports timely referral decisions for further care.</dd>
-            </div>
-          </dl>
-          <a
-            href="/solutions/ophthal360"
-            class="mt-auto pt-6 inline-flex items-center gap-2 text-brand-primary font-semibold hover:gap-3 transition-all"
-          >
-            Learn more
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
+          <div class="p-7 flex flex-col flex-1">
+            <h3 class="text-2xl font-bold text-brand-ink">Ophthal360</h3>
+            <p class="mt-2 text-sm font-semibold text-brand-primary">
+              Autonomous AI for Scalable Retinal Screening
+            </p>
+            <p class="mt-3 text-sm text-brand-body leading-relaxed">
+              Designed for high-volume retinal screening across healthcare systems and large-scale programs. Standardizes screening processes and supports timely referral decisions with minimal manual intervention—built for reach in underserved and resource-limited settings.
+            </p>
+            <ul class="mt-4 space-y-1.5 text-sm text-brand-body">
+              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Autonomous detection</span></li>
+              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>High-throughput screening</span></li>
+              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Automated referral logic</span></li>
+            </ul>
+            <a
+              href="/solutions/ophthal360"
+              class="mt-auto pt-5 inline-flex items-center gap-2 text-brand-primary font-semibold group-hover:gap-3 transition-all"
+            >
+              Learn more
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
         </article>
       </div>
 
