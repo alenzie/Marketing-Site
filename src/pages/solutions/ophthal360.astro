@@ -4,6 +4,8 @@ import Layout from '../../components/layout/Layout.astro';
 import PipeHeading from '../../components/content/PipeHeading.astro';
 import CapabilityTile from '../../components/content/CapabilityTile.astro';
 import AudienceCard from '../../components/content/AudienceCard.astro';
+import CtaBand from '../../components/content/CtaBand.astro';
+import OrbCloudCanvas from '../../components/canvas/OrbCloudCanvas.astro';
 
 const capabilities = [
   {
@@ -90,25 +92,7 @@ const benefits = [
         </div>
       </div>
       <div class="flex justify-center">
-        <svg viewBox="0 0 400 340" class="w-full max-w-[420px]" aria-hidden="true">
-          <circle cx="200" cy="170" r="40" fill="#0EA5E9" fill-opacity="0.3" stroke="#0EA5E9" stroke-width="1.5"/>
-          <circle cx="200" cy="170" r="20" fill="#0EA5E9"/>
-          <text x="200" y="174" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="Inter">AI</text>
-          {[
-            { x: 70, y: 80 },
-            { x: 330, y: 80 },
-            { x: 60, y: 260 },
-            { x: 340, y: 260 },
-            { x: 200, y: 40 },
-            { x: 200, y: 300 },
-          ].map((n) => (
-            <g>
-              <line x1="200" y1="170" x2={n.x} y2={n.y} stroke="#fff" stroke-opacity="0.3" stroke-dasharray="3 4"/>
-              <circle cx={n.x} cy={n.y} r="14" fill="#fff" fill-opacity="0.1" stroke="#fff" stroke-opacity="0.6" stroke-width="1"/>
-              <circle cx={n.x} cy={n.y} r="5" fill="#0EA5E9"/>
-            </g>
-          ))}
-        </svg>
+        <OrbCloudCanvas class="max-w-[480px]" ariaLabel="Floating orb network — Ophthal360 autonomous AI" />
       </div>
     </div>
   </section>
@@ -209,13 +193,15 @@ const benefits = [
   </section>
 
   <!-- SECTION 7 — CASE IN PRACTICE -->
-  <section id="deployment-case" class="bg-brand-primary text-white">
+  <CtaBand id="deployment-case">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 grid gap-12 md:grid-cols-2 items-center">
-      <div class="aspect-[4/3] bg-gradient-to-br from-brand-primary-dark to-brand-primary-light rounded-2xl border border-white/10 flex items-center justify-center text-white/50">
-        <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-          <circle cx="12" cy="10" r="3"/>
-        </svg>
+      <div class="aspect-[4/3] rounded-2xl overflow-hidden border border-white/10">
+        <img
+          src="/images/audiences/Remote-and-Rural-Eye-Clinics.png"
+          alt="Remote and rural eye clinic deployment"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
       </div>
       <div>
         <p class="text-sm uppercase tracking-widest text-brand-secondary font-semibold" data-reveal>Case in Practice</p>
@@ -228,7 +214,7 @@ const benefits = [
         </div>
       </div>
     </div>
-  </section>
+  </CtaBand>
 
   <!-- SECTION 8 — WHY -->
   <section class="bg-white">

@@ -1,0 +1,26 @@
+---
+interface Props {
+  image?: string;
+  id?: string;
+  class?: string;
+}
+const {
+  image = '/images/sections/ai-geometrcicdesign.jpg',
+  id,
+  class: className = '',
+} = Astro.props;
+---
+<section id={id} class:list={['relative text-white overflow-hidden', className]}>
+  <img
+    src={image}
+    alt=""
+    aria-hidden="true"
+    class="absolute inset-0 w-full h-full object-cover"
+    loading="lazy"
+  />
+  <div class="absolute inset-0 bg-brand-primary/85 mix-blend-multiply pointer-events-none"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-brand-primary/80 via-brand-primary/50 to-brand-primary/80 pointer-events-none"></div>
+  <div class="relative">
+    <slot />
+  </div>
+</section>

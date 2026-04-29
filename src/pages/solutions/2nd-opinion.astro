@@ -4,6 +4,7 @@ import Layout from '../../components/layout/Layout.astro';
 import PipeHeading from '../../components/content/PipeHeading.astro';
 import CapabilityTile from '../../components/content/CapabilityTile.astro';
 import AudienceCard from '../../components/content/AudienceCard.astro';
+import CtaBand from '../../components/content/CtaBand.astro';
 
 const capabilities = [
   {
@@ -199,7 +200,7 @@ const benefits = [
   </section>
 
   <!-- SECTION 7 — WHY -->
-  <section class="bg-brand-primary text-white">
+  <CtaBand>
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
       <h2 class="text-3xl md:text-4xl font-bold text-center" data-reveal>Confidence. Consistency. Control.</h2>
       <div class="mt-12 grid gap-8 md:grid-cols-2 max-w-5xl mx-auto" data-reveal-group>
@@ -211,7 +212,7 @@ const benefits = [
         ))}
       </div>
     </div>
-  </section>
+  </CtaBand>
 
   <!-- SECTION 8 — FINAL CTA -->
   <section class="bg-white">

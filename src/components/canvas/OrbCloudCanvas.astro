@@ -1,0 +1,212 @@
+---
+interface Props {
+  class?: string;
+  ariaLabel?: string;
+}
+const { class: className = '', ariaLabel } = Astro.props;
+---
+
+<div
+  class:list={['orbcloud relative w-full aspect-square rounded-2xl overflow-hidden ring-1 ring-white/5', className]}
+  role={ariaLabel ? 'img' : undefined}
+  aria-label={ariaLabel}
+>
+  <canvas class="absolute inset-0 w-full h-full block" data-orbcloud aria-hidden="true"></canvas>
+</div>
+
+<style>
+  .orbcloud {
+    background:
+      radial-gradient(circle at 50% 45%, rgba(24,42,68,0.30) 0%, rgba(5,7,12,0.98) 55%, rgba(2,3,7,1) 100%);
+  }
+</style>
+
+<script>
+  type Orb = {
+    i: number;
+    spriteIdx: number;
+    size: number;
+    chaosRX: number;
+    chaosRY: number;
+    sa: number;
+    sb: number;
+    pa: number;
+    pb: number;
+    attraction: number;
+    x: number;
+    y: number;
+  };
+
+  function initOrbCloud(canvas: HTMLCanvasElement) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+
+    let w = 0, h = 0, cx = 0, cy = 0;
+    let targetMX = 0, targetMY = 0;
+    let smX = 0, smY = 0;
+    let visible = true;
+
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      w = rect.width;
+      h = rect.height;
+      if (w <= 0 || h <= 0) return;
+      cx = w * 0.5;
+      cy = h * 0.5;
+      canvas.width = Math.max(1, Math.floor(w * dpr));
+      canvas.height = Math.max(1, Math.floor(h * dpr));
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+
+    const ro = new ResizeObserver(resize);
+    ro.observe(canvas);
+
+    // Pause when offscreen so it doesn't burn CPU on long pages
+    const io = new IntersectionObserver((entries) => {
+      visible = entries[0]?.isIntersecting ?? true;
+    }, { threshold: 0.01 });
+    io.observe(canvas);
+
+    document.addEventListener('visibilitychange', () => {
+      visible = !document.hidden;
+    });
+
+    // Pre-rendered glow sprites — drawing these via drawImage is far cheaper
+    // than per-frame shadowBlur, which is the #1 cause of canvas slowdown.
+    const palette = [
+      [110, 235, 255],
+      [163, 199, 255],
+      [152, 255, 226],
+      [202, 180, 255],
+    ];
+    function makeSprite(rgb: number[]): HTMLCanvasElement {
+      const size = 96;
+      const c = document.createElement('canvas');
+      c.width = c.height = size;
+      const g = c.getContext('2d')!;
+      const [r, gC, b] = rgb;
+      const grd = g.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+      grd.addColorStop(0.0, 'rgba(255,255,255,0.95)');
+      grd.addColorStop(0.18, `rgba(${r},${gC},${b},0.55)`);
+      grd.addColorStop(0.55, `rgba(${r},${gC},${b},0.16)`);
+      grd.addColorStop(1.0, `rgba(${r},${gC},${b},0)`);
+      g.fillStyle = grd;
+      g.fillRect(0, 0, size, size);
+      return c;
+    }
+    const sprites = palette.map(makeSprite);
+
+    const TAU = Math.PI * 2;
+    const orbCount = 24;
+    const orbs: Orb[] = Array.from({ length: orbCount }, (_, i) => ({
+      i,
+      spriteIdx: i % palette.length,
+      size: 14 + Math.random() * 14,
+      chaosRX: 0.22 + Math.random() * 0.18,
+      chaosRY: 0.18 + Math.random() * 0.18,
+      sa: 0.30 + Math.random() * 0.28,
+      sb: 0.32 + Math.random() * 0.28,
+      pa: Math.random() * TAU,
+      pb: Math.random() * TAU,
+      attraction: 0.10 + Math.random() * 0.22,
+      x: 0,
+      y: 0,
+    }));
+
+    function onPointer(e: PointerEvent) {
+      const r = canvas.getBoundingClientRect();
+      targetMX = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      targetMY = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      // clamp for safety
+      if (targetMX < -1) targetMX = -1;
+      if (targetMX >  1) targetMX =  1;
+      if (targetMY < -1) targetMY = -1;
+      if (targetMY >  1) targetMY =  1;
+    }
+    window.addEventListener('pointermove', onPointer, { passive: true });
+    document.addEventListener('pointerleave', () => { targetMX = 0; targetMY = 0; });
+
+    function frame(ms: number) {
+      if (!visible || w <= 0 || h <= 0) {
+        requestAnimationFrame(frame);
+        return;
+      }
+
+      const t = ms * 0.001;
+      smX += (targetMX - smX) * 0.06;
+      smY += (targetMY - smY) * 0.06;
+
+      // Soft fade trail — cheap motion blur substitute
+      ctx!.globalCompositeOperation = 'source-over';
+      ctx!.globalAlpha = 1;
+      ctx!.fillStyle = 'rgba(3,5,10,0.22)';
+      ctx!.fillRect(0, 0, w, h);
+
+      const minDim = Math.min(w, h);
+      const attractRange = minDim * 0.18;
+
+      // Compute positions once
+      for (const o of orbs) {
+        const ox = Math.sin(t * o.sa + o.pa) * (o.chaosRX * minDim);
+        const oy = Math.cos(t * o.sb + o.pb) * (o.chaosRY * minDim);
+        o.x = cx + ox + smX * attractRange * o.attraction;
+        o.y = cy + oy + smY * attractRange * o.attraction;
+      }
+
+      // Additive glow pass
+      ctx!.globalCompositeOperation = 'lighter';
+      for (const o of orbs) {
+        const sprite = sprites[o.spriteIdx];
+        const pulse = 0.85 + Math.sin(t * 1.1 + o.i * 0.7) * 0.15;
+        const ds = o.size * 2 * pulse;
+        ctx!.drawImage(sprite, o.x - ds / 2, o.y - ds / 2, ds, ds);
+      }
+
+      // Bright cores
+      for (const o of orbs) {
+        ctx!.beginPath();
+        ctx!.arc(o.x, o.y, 1.2, 0, TAU);
+        ctx!.fillStyle = 'rgba(255,255,255,0.9)';
+        ctx!.fill();
+      }
+
+      ctx!.globalCompositeOperation = 'source-over';
+      ctx!.globalAlpha = 1;
+
+      requestAnimationFrame(frame);
+    }
+
+    if (reduce) {
+      // Static frame, no loop
+      ctx!.fillStyle = '#03050a';
+      ctx!.fillRect(0, 0, w, h);
+      ctx!.globalCompositeOperation = 'lighter';
+      const minDim = Math.min(w, h);
+      for (const o of orbs) {
+        const ox = Math.sin(o.pa) * (o.chaosRX * minDim);
+        const oy = Math.cos(o.pb) * (o.chaosRY * minDim);
+        const sprite = sprites[o.spriteIdx];
+        const ds = o.size * 2;
+        ctx!.drawImage(sprite, cx + ox - ds / 2, cy + oy - ds / 2, ds, ds);
+      }
+      ctx!.globalCompositeOperation = 'source-over';
+    } else {
+      requestAnimationFrame(frame);
+    }
+  }
+
+  function start() {
+    const els = document.querySelectorAll<HTMLCanvasElement>('canvas[data-orbcloud]');
+    els.forEach((el) => initOrbCloud(el));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start, { once: true });
+  } else {
+    start();
+  }
+</script>

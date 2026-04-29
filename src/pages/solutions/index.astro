@@ -125,49 +125,283 @@ const products = [
     </div>
   </section>
 
-  <!-- SECTION 3.5 — AI MONTAGE BANNER (transition) -->
-  <section class="relative overflow-hidden">
-    <div class="relative h-48 md:h-64 lg:h-72">
+  <!-- SECTION 3.5 — PLATFORM TRANSITION (locked: D2 · photo + duotone + stat) -->
+  <section>
+    <div class="am-band">
       <img
+        class="am-bg"
         src="/images/sections/ai-montage-with-dr-on-pad-LIGHTER-scaled.jpg"
         alt=""
         aria-hidden="true"
-        class="absolute inset-0 w-full h-full object-cover"
-        loading="lazy"
+        style="filter: grayscale(0.7) contrast(1.05);"
       />
-      <!-- Top + bottom fade so the banner blends into the surrounding sections -->
-      <div class="absolute inset-0 bg-gradient-to-b from-brand-surface via-transparent to-white pointer-events-none"></div>
-    </div>
-  </section>
-
-  <!-- SECTION 4 — WORK TOGETHER -->
-  <section class="bg-white">
-    <div class="max-w-5xl mx-auto px-6 md:px-8 lg:px-12 py-20 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>One Platform. Four Deployments.</h2>
-      <p class="mt-5 text-lg text-brand-body leading-relaxed max-w-3xl mx-auto" data-reveal>
-        Ocula360 is the foundation. Nsight360, 2nd Opinion, and Ophthal360 are purpose-built deployments of that foundation, each tuned for the workflows, decision points, and volume of a specific care setting.
-      </p>
-      <div class="mt-12 flex justify-center">
-        <svg viewBox="0 0 500 340" class="w-full max-w-[500px]" aria-hidden="true">
-          <circle cx="250" cy="170" r="60" fill="#1E3A8A"/>
-          <text x="250" y="170" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Inter">Ocula360</text>
-          <text x="250" y="190" text-anchor="middle" fill="#fff" fill-opacity="0.8" font-size="10" font-family="Inter">Foundation</text>
-          {[
-            { x: 250, y: 40, label: 'Nsight360', sub: 'Primary care' },
-            { x: 70, y: 280, label: '2nd Opinion', sub: 'Optometry' },
-            { x: 430, y: 280, label: 'Ophthal360', sub: 'Autonomous / scale' },
-          ].map((n) => (
-            <g>
-              <line x1="250" y1="170" x2={n.x} y2={n.y} stroke="#3B5BBF" stroke-width="1.5" stroke-dasharray="4 4"/>
-              <circle cx={n.x} cy={n.y} r="42" fill="#EFF6FF" stroke="#1E3A8A" stroke-width="1.5"/>
-              <text x={n.x} y={n.y - 2} text-anchor="middle" fill="#0F172A" font-size="12" font-weight="700" font-family="Inter">{n.label}</text>
-              <text x={n.x} y={n.y + 14} text-anchor="middle" fill="#64748B" font-size="10" font-family="Inter">{n.sub}</text>
-            </g>
-          ))}
-        </svg>
+      <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(15,35,80,0.85) 0%, rgba(30,58,138,0.78) 50%, rgba(14,127,176,0.65) 100%);"></div>
+      <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(39,170,225,0.25) 0%, rgba(15,35,80,0) 70%);"></div>
+      <div class="absolute inset-x-0 top-0 h-40 pointer-events-none" style="background: linear-gradient(to bottom, #ffffff 0%, rgba(255,255,255,0.92) 18%, rgba(255,255,255,0.7) 38%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0.15) 80%, rgba(255,255,255,0) 100%);"></div>
+      <div class="absolute inset-x-0 bottom-0 h-40 pointer-events-none" style="background: linear-gradient(to top, #ffffff 0%, rgba(255,255,255,0.92) 18%, rgba(255,255,255,0.7) 38%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0.15) 80%, rgba(255,255,255,0) 100%);"></div>
+      <div class="am-content">
+        <p class="am-eyebrow" style="color:#27AAE1;">Built on Ocula360</p>
+        <p class="am-quote" style="color:#fff;">One foundation. Four purpose-built deployments.</p>
+        <div class="mt-7 grid grid-cols-3 gap-8 md:gap-12 text-center">
+          <div>
+            <p class="text-2xl md:text-3xl font-bold text-white">4+</p>
+            <p class="text-xs uppercase tracking-wider text-white/70 mt-1">Diseases detected</p>
+          </div>
+          <div>
+            <p class="text-2xl md:text-3xl font-bold text-white">250K+</p>
+            <p class="text-xs uppercase tracking-wider text-white/70 mt-1">Patients screened</p>
+          </div>
+          <div>
+            <p class="text-2xl md:text-3xl font-bold text-white">&lt;2s</p>
+            <p class="text-xs uppercase tracking-wider text-white/70 mt-1">Per-image inference</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <style is:global>
+    .am-band { position: relative; overflow: hidden; height: 380px; }
+    @media (min-width: 768px) { .am-band { height: 460px; } }
+    .am-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .am-content {
+      position: relative; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 0 24px;
+    }
+    .am-eyebrow { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; font-weight: 700; margin-bottom: 14px; }
+    .am-quote { font-size: 28px; font-weight: 700; line-height: 1.2; max-width: 820px; letter-spacing: -0.01em; }
+    @media (min-width: 768px) { .am-quote { font-size: 36px; } }
+  </style>
+
+  <!-- SECTION 4 — ONE PLATFORM. FOUR DEPLOYMENTS — locked: Variant A · Animated Orbit -->
+  <section class="relative bg-white overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
+      <div class="text-center max-w-3xl mx-auto">
+        <span class="inline-block text-xs uppercase tracking-[0.2em] font-bold text-brand-secondary">The Platform</span>
+        <h2 class="mt-4 text-3xl md:text-5xl font-bold text-brand-ink tracking-tight" data-reveal>One Platform. Four Deployments.</h2>
+        <p class="mt-5 text-lg text-brand-body leading-relaxed" data-reveal>
+          Ocula360 is the foundation. Nsight360, 2nd Opinion, and Ophthal360 are purpose-built deployments of that foundation — each tuned for the workflows, decision points, and volume of a specific care setting.
+        </p>
+      </div>
+
+      <div class="mt-16 flex justify-center">
+        <div id="opfdA-stage" class="relative w-full max-w-[640px] aspect-square">
+          <svg id="opfdA-beams" viewBox="0 0 600 600" class="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
+            <defs>
+              <filter id="opfdA-glowf"><feGaussianBlur stdDeviation="2.2"/></filter>
+            </defs>
+            <line class="opfdA-beam" data-from="300,60"  data-to="300,300" data-from-r="50" data-to-r="30" stroke="#1E3A8A" stroke-opacity="0.22" stroke-width="1"/>
+            <line class="opfdA-beam" data-from="90,510"  data-to="300,300" data-from-r="50" data-to-r="30" stroke="#1E3A8A" stroke-opacity="0.22" stroke-width="1"/>
+            <line class="opfdA-beam" data-from="510,510" data-to="300,300" data-from-r="50" data-to-r="30" stroke="#1E3A8A" stroke-opacity="0.22" stroke-width="1"/>
+            <circle class="opfdA-packet" r="3.5" fill="#27AAE1" filter="url(#opfdA-glowf)" data-line="0" data-dur="2600" data-phase="0"></circle>
+            <circle class="opfdA-packet" r="2"   fill="#27AAE1" opacity="0.55"            data-line="0" data-dur="2600" data-phase="0.5"></circle>
+            <circle class="opfdA-packet" r="3.5" fill="#27AAE1" filter="url(#opfdA-glowf)" data-line="1" data-dur="3000" data-phase="0.13"></circle>
+            <circle class="opfdA-packet" r="2"   fill="#27AAE1" opacity="0.55"            data-line="1" data-dur="3000" data-phase="0.63"></circle>
+            <circle class="opfdA-packet" r="3.5" fill="#27AAE1" filter="url(#opfdA-glowf)" data-line="2" data-dur="3000" data-phase="0.27"></circle>
+            <circle class="opfdA-packet" r="2"   fill="#27AAE1" opacity="0.55"            data-line="2" data-dur="3000" data-phase="0.77"></circle>
+          </svg>
+
+          <div id="opfdA-scene" class="absolute inset-0 will-change-transform" style="transition: transform 600ms cubic-bezier(.22,.61,.36,1);">
+            <svg viewBox="0 0 600 600" class="absolute inset-0 w-full h-full" aria-hidden="true">
+              <defs>
+                <radialGradient id="opfdA-glow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#27AAE1" stop-opacity="0.18"/>
+                  <stop offset="60%" stop-color="#27AAE1" stop-opacity="0.04"/>
+                  <stop offset="100%" stop-color="#27AAE1" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="opfdA-ring" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#27AAE1" stop-opacity="0.6"/>
+                  <stop offset="100%" stop-color="#1E3A8A" stop-opacity="0.2"/>
+                </linearGradient>
+              </defs>
+              <circle cx="300" cy="300" r="280" fill="url(#opfdA-glow)"/>
+              <circle cx="300" cy="300" r="240" fill="none" stroke="url(#opfdA-ring)" stroke-width="1" stroke-dasharray="2 6"/>
+              <circle cx="300" cy="300" r="180" fill="none" stroke="#1E3A8A" stroke-opacity="0.12" stroke-width="1"/>
+            </svg>
+
+            <div class="absolute z-10" style="left:50%; top:50%; transform: translate(-50%,-50%);">
+              <div class="opfdA-layer" data-depth="0">
+                <a href="/solutions/ocula360" class="opfdA-foundation group block relative outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
+                  <div class="absolute inset-0 rounded-full bg-brand-secondary/40 blur-2xl scale-125 transition-all duration-300 group-hover:bg-brand-secondary/60 group-hover:scale-[1.4]"></div>
+                  <div class="relative w-40 h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-br from-brand-primary-dark via-brand-primary to-[#2B4FB8] shadow-2xl shadow-brand-primary/40 flex flex-col items-center justify-center text-white border border-white/20 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_25px_60px_-15px_rgba(39,170,225,0.6)] group-hover:border-brand-secondary/60">
+                    <span class="text-[10px] uppercase tracking-[0.18em] font-semibold text-brand-secondary">Foundation</span>
+                    <span class="mt-1 text-2xl md:text-3xl font-bold">Ocula360</span>
+                    <span class="mt-1 text-xs text-white/70">Retinal AI Platform</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div class="absolute z-20" style="left:50%; top:10%; transform: translate(-50%,-50%);">
+              <div class="opfdA-layer" data-depth="0">
+                <a href="/solutions/nsight360" class="group block outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
+                  <div class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-white border-2 border-brand-primary/15 shadow-lg shadow-brand-primary/10 flex flex-col items-center justify-center text-center px-3 transition-all hover:border-brand-secondary hover:shadow-xl hover:-translate-y-1">
+                    <span class="text-sm md:text-base font-bold text-brand-ink">Nsight360</span>
+                    <span class="mt-1 text-[10px] uppercase tracking-wider font-semibold text-brand-secondary">Primary care</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div class="absolute z-20" style="left:15%; top:85%; transform: translate(-50%,-50%);">
+              <div class="opfdA-layer" data-depth="0">
+                <a href="/solutions/2nd-opinion" class="group block outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
+                  <div class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-white border-2 border-brand-primary/15 shadow-lg shadow-brand-primary/10 flex flex-col items-center justify-center text-center px-3 transition-all hover:border-brand-secondary hover:shadow-xl hover:-translate-y-1">
+                    <span class="text-sm md:text-base font-bold text-brand-ink">2nd Opinion</span>
+                    <span class="mt-1 text-[10px] uppercase tracking-wider font-semibold text-brand-secondary">Optometry</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div class="absolute z-20" style="left:85%; top:85%; transform: translate(-50%,-50%);">
+              <div class="opfdA-layer" data-depth="0">
+                <a href="/solutions/ophthal360" class="group block outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
+                  <div class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-white border-2 border-brand-primary/15 shadow-lg shadow-brand-primary/10 flex flex-col items-center justify-center text-center px-3 transition-all hover:border-brand-secondary hover:shadow-xl hover:-translate-y-1">
+                    <span class="text-sm md:text-base font-bold text-brand-ink">Ophthal360</span>
+                    <span class="mt-1 text-[10px] uppercase tracking-wider font-semibold text-brand-secondary">Autonomous</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function () {
+      var stage = document.getElementById('opfdA-stage');
+      var scene = document.getElementById('opfdA-scene');
+      if (!stage || !scene) return;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) return;
+
+      var layers = scene.querySelectorAll('.opfdA-layer');
+      var beamSvg = document.getElementById('opfdA-beams');
+      var beams = beamSvg ? beamSvg.querySelectorAll('.opfdA-beam') : [];
+      var packets = beamSvg ? beamSvg.querySelectorAll('.opfdA-packet') : [];
+      var tx = 0, ty = 0, cx = 0, cy = 0;
+      var raf = null;
+      var MAX = 14;
+      var FROM_DEPTH = 0;
+      var TO_DEPTH = 0;
+
+      function pxToVb() {
+        var w = stage.clientWidth || 1;
+        return 600 / w;
+      }
+
+      function updateBeams() {
+        var k = pxToVb();
+        var sx = cx * k, sy = cy * k;
+        var fromOff = { x: cx * FROM_DEPTH * k, y: cy * FROM_DEPTH * k };
+        var toOff = { x: cx * TO_DEPTH * k, y: cy * TO_DEPTH * k };
+
+        beams.forEach(function (line) {
+          var f = line.getAttribute('data-from').split(',').map(Number);
+          var t = line.getAttribute('data-to').split(',').map(Number);
+          var fr = parseFloat(line.getAttribute('data-from-r') || '0');
+          var tr = parseFloat(line.getAttribute('data-to-r') || '0');
+
+          var fx = f[0] + sx + fromOff.x;
+          var fy = f[1] + sy + fromOff.y;
+          var tx2 = t[0] + sx + toOff.x;
+          var ty2 = t[1] + sy + toOff.y;
+
+          var dx = tx2 - fx, dy = ty2 - fy;
+          var L = Math.hypot(dx, dy) || 1;
+          var ux = dx / L, uy = dy / L;
+          var x1 = fx + ux * fr;
+          var y1 = fy + uy * fr;
+          var x2 = tx2 - ux * tr;
+          var y2 = ty2 - uy * tr;
+
+          line.setAttribute('x1', x1.toFixed(1));
+          line.setAttribute('y1', y1.toFixed(1));
+          line.setAttribute('x2', x2.toFixed(1));
+          line.setAttribute('y2', y2.toFixed(1));
+          line._x1 = x1; line._y1 = y1; line._x2 = x2; line._y2 = y2;
+        });
+      }
+
+      function updatePackets(now) {
+        packets.forEach(function (p) {
+          var li = parseInt(p.getAttribute('data-line'), 10);
+          var dur = parseFloat(p.getAttribute('data-dur'));
+          var phase = parseFloat(p.getAttribute('data-phase'));
+          var line = beams[li];
+          if (!line) return;
+          var prog = ((now / dur) + phase) % 1;
+          var x = line._x1 + (line._x2 - line._x1) * prog;
+          var y = line._y1 + (line._y2 - line._y1) * prog;
+          p.setAttribute('cx', x.toFixed(1));
+          p.setAttribute('cy', y.toFixed(1));
+          var op = prog < 0.12 ? prog / 0.12 : prog > 0.88 ? (1 - prog) / 0.12 : 1;
+          if (!p._base) p._base = (p.getAttribute('r') === '2') ? 0.55 : 0.9;
+          p.setAttribute('opacity', (op * p._base).toFixed(3));
+        });
+      }
+
+      function tick() {
+        cx += (tx - cx) * 0.08;
+        cy += (ty - cy) * 0.08;
+        scene.style.transform = 'translate(' + cx.toFixed(2) + 'px,' + cy.toFixed(2) + 'px)';
+        layers.forEach(function (el) {
+          var d = parseFloat(el.getAttribute('data-depth') || '0');
+          el.style.transform = 'translate(' + (cx * d).toFixed(2) + 'px,' + (cy * d).toFixed(2) + 'px)';
+        });
+        updateBeams();
+        updatePackets(performance.now());
+        if (Math.abs(tx - cx) > 0.05 || Math.abs(ty - cy) > 0.05) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          raf = null;
+        }
+      }
+      function setTarget(nx, ny) {
+        tx = nx; ty = ny;
+        if (!raf) raf = requestAnimationFrame(tick);
+      }
+
+      var RANGE = 1500;
+      function onMouse(e) {
+        var r = stage.getBoundingClientRect();
+        var ccx = r.left + r.width / 2;
+        var ccy = r.top + r.height / 2;
+        var dx = e.clientX - ccx;
+        var dy = e.clientY - ccy;
+        var nx = Math.max(-1, Math.min(1, dx / RANGE));
+        var ny = Math.max(-1, Math.min(1, dy / RANGE));
+        setTarget(nx * MAX, ny * MAX);
+      }
+      window.addEventListener('mousemove', onMouse, { passive: true });
+      document.addEventListener('mouseleave', function () { setTarget(0, 0); });
+
+      var t0 = performance.now();
+      function drift() {
+        var t = (performance.now() - t0) / 1000;
+        if (Math.abs(tx) < 0.01 && Math.abs(ty) < 0.01) {
+          var dx = Math.sin(t * 0.5) * 3;
+          var dy = Math.sin(t * 0.35) * Math.cos(t * 0.25) * 2.5;
+          cx += (dx - cx) * 0.04;
+          cy += (dy - cy) * 0.04;
+          scene.style.transform = 'translate(' + cx.toFixed(2) + 'px,' + cy.toFixed(2) + 'px)';
+          layers.forEach(function (el) {
+            var d = parseFloat(el.getAttribute('data-depth') || '0');
+            el.style.transform = 'translate(' + (cx * d).toFixed(2) + 'px,' + (cy * d).toFixed(2) + 'px)';
+          });
+        }
+        updateBeams();
+        updatePackets(performance.now());
+        requestAnimationFrame(drift);
+      }
+      updateBeams();
+      updatePackets(performance.now());
+      requestAnimationFrame(drift);
+    })();
+  </script>
 
   <!-- SECTION 5 — FINAL CTA -->
   <section class="relative text-white overflow-hidden">

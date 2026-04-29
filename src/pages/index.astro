@@ -1,13 +1,11 @@
 ---
 import Layout from '../components/layout/Layout.astro';
-import Hero from '../components/content/Hero.astro';
 import PipeHeading from '../components/content/PipeHeading.astro';
 import CapabilityTile from '../components/content/CapabilityTile.astro';
 import AudienceCard from '../components/content/AudienceCard.astro';
 import TestimonialFeature from '../components/content/TestimonialFeature.astro';
 import ResourceCard from '../components/content/ResourceCard.astro';
-import CanvasHero from '../components/canvas/CanvasHero.astro';
-import RetinalIntelligenceCanvas from '../components/canvas/RetinalIntelligenceCanvas.astro';
+import CtaBand from '../components/content/CtaBand.astro';
 ---
 
 <Layout
@@ -16,58 +14,145 @@ import RetinalIntelligenceCanvas from '../components/canvas/RetinalIntelligenceC
   currentPath="/"
 >
 
-  <!-- SECTION 1 — HERO -->
-  <Hero
-    eyebrow="Ophthalytics — Wellness Through the Eyes™"
-    headline="Retinal Intelligence for Earlier Detection and Better Health"
-    subheadline="Advancing eye care through AI, oculomics, and multimodal intelligence—transforming the retina into a gateway for early disease detection and broader health insights."
-    primaryCta={{ label: 'Request a Demo', openModal: 'demo' }}
-    secondaryCta={{ label: 'Explore Our Solutions', href: '/solutions' }}
-  >
-    <div slot="visual">
-      <CanvasHero
-        staticFallbackSrc="/images/hero/retinal-intelligence-static.jpg"
-        staticFallbackAlt="Visualization of Ophthalytics retinal AI analyzing imaging and detecting signals across brain, heart, metabolic, and respiratory systems"
-        aspectClass="aspect-[4/3]"
-        ariaLabel="Live retinal AI visualization: a central eye with orbiting data particles linking to brain, heart, metabolic, and respiratory icons."
-      >
-        <RetinalIntelligenceCanvas />
-      </CanvasHero>
-    </div>
-  </Hero>
-
-  <!-- SECTION 1.5 — EYE-SCAN BANNER (transition under hero) -->
-  <section class="relative overflow-hidden">
-    <div class="relative h-44 md:h-56 lg:h-64">
+  <!-- SECTION 1 — HERO (image-backed, full-bleed with bottom feather) -->
+  <section class="relative bg-white overflow-hidden isolate">
+    <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
       <img
-        src="/images/sections/eye-scan-banner.jpg"
+        src="/images/sections/dr-tablet-ai-graphics.jpg"
         alt=""
-        aria-hidden="true"
-        class="absolute inset-0 w-full h-full object-cover"
-        loading="lazy"
+        class="absolute inset-0 w-full h-full object-cover object-center md:object-right"
+        loading="eager"
+        style="-webkit-mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 100%); mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 100%);"
       />
-      <!-- Top + bottom gradient blend so the banner fades into white above and below -->
-      <div class="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white pointer-events-none"></div>
-      <div class="absolute inset-0 bg-brand-primary/10 pointer-events-none"></div>
+    </div>
+    <div
+      class="absolute inset-0 z-[1] pointer-events-none"
+      aria-hidden="true"
+      style="background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.82) 30%, rgba(255,255,255,0.40) 55%, rgba(255,255,255,0.10) 75%, rgba(255,255,255,0) 100%);"
+    ></div>
+    <div class="relative z-[2] max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-32 grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">
+          Ophthalytics — Wellness Through the Eyes™
+        </p>
+        <h1 class="mt-4 text-5xl md:text-6xl font-bold text-brand-ink leading-tight">
+          Retinal Intelligence for Earlier Detection and Better Health
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg md:text-xl text-brand-body leading-relaxed" data-reveal>
+          Advancing eye care through AI, oculomics, and multimodal intelligence—transforming the retina into a gateway for early disease detection and broader health insights.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-4">
+          <button
+            type="button"
+            data-open-modal="demo"
+            class="inline-flex items-center justify-center bg-brand-primary text-white font-semibold px-6 py-3 rounded-md hover:bg-brand-primary-dark transition"
+          >
+            Request a Demo
+          </button>
+          <a
+            href="/solutions"
+            class="inline-flex items-center justify-center border-2 border-brand-primary text-brand-primary font-semibold px-6 py-3 rounded-md hover:bg-brand-primary hover:text-white transition"
+          >
+            Explore Our Solutions
+          </a>
+        </div>
+      </div>
+      <div class="hidden md:block"></div>
     </div>
   </section>
 
-  <!-- SECTION 2 — VISION ("Beyond the Eye") -->
-  <section class="relative bg-white overflow-hidden">
-    <!-- Right-side hero photo, gradient-faded into the left -->
-    <div class="absolute inset-y-0 right-0 w-full md:w-3/5 lg:w-1/2" aria-hidden="true">
+  <!-- SECTION 1.5 — TRUSTED PARTNERS MARQUEE (white background, compact) -->
+  <section class="relative overflow-hidden bg-white">
+    <div class="tp-band">
+      <div class="tp-stack">
+        <p class="tp-eyebrow">Trusted by leading clinicians, researchers &amp; health systems</p>
+        <div class="tp-marquee" data-tp-track></div>
+      </div>
+    </div>
+  </section>
+
+  <style is:global>
+    .tp-band { position: relative; overflow: hidden; height: 150px; }
+    @media (min-width: 768px) { .tp-band { height: 170px; } }
+    .tp-stack { position: relative; height: 100%; display: flex; flex-direction: column; }
+    .tp-eyebrow {
+      flex: 0 0 auto;
+      text-align: center; padding-top: 18px; padding-bottom: 6px;
+      font-size: 14px; letter-spacing: .18em; text-transform: uppercase;
+      color: #0F2350; font-weight: 700;
+    }
+    @media (min-width: 768px) { .tp-eyebrow { font-size: 15px; padding-top: 22px; } }
+    .tp-marquee {
+      flex: 1 1 auto;
+      display: flex; align-items: center;
+      position: relative;
+      --gap: 64px; --duration: 42s;
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+    }
+    .tp-track { display: flex; align-items: center; gap: var(--gap); width: max-content; animation: tp-scroll var(--duration) linear infinite; }
+    @keyframes tp-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .tp-logo {
+      flex-shrink: 0; height: 72px; display: flex; align-items: center; gap: 14px; padding: 0 8px;
+      color: #0F2350;
+    }
+    .tp-logo .tp-mark {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(15,35,80,0.12);
+      display: grid; place-items: center;
+      box-shadow: 0 6px 22px -10px rgba(15,35,80,0.3);
+    }
+    .tp-logo .tp-name { font-weight: 700; font-size: 18px; letter-spacing: -0.01em; white-space: nowrap; }
+    .tp-logo .tp-name small {
+      display: block; font-weight: 500; font-size: 11px; color: #64748B;
+      letter-spacing: .04em; text-transform: uppercase; margin-top: 2px;
+    }
+    @media (prefers-reduced-motion: reduce) { .tp-track { animation: none; } }
+  </style>
+
+  <script is:inline>
+    (function () {
+      var partners = [
+        { name: 'Cleveland Vision Institute', tag: 'Research partner', icon: '<path d="M3 12h4l3-9 4 18 3-9h4"/>' },
+        { name: 'Global Eye Foundation',      tag: 'Screening network', icon: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>' },
+        { name: 'Northridge Health System',   tag: 'Enterprise deployment', icon: '<path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-7h6v7"/>' },
+        { name: 'ARVO 2023',                  tag: 'Featured presenter', icon: '<path d="M12 2v6M12 22v-6M2 12h6M22 12h-6M5 5l4 4M19 5l-4 4M5 19l4-4M19 19l-4-4"/>' },
+        { name: 'Diagnostics Journal',        tag: 'Peer-reviewed', icon: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h10M7 17h6"/>' },
+        { name: 'Pakistan Diabetic Center',   tag: '250K+ patients screened', icon: '<path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6z"/>' }
+      ];
+      function buildLogo(p) {
+        return '<div class="tp-logo">' +
+          '<span class="tp-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E3A8A" stroke-width="2">' + p.icon + '</svg></span>' +
+          '<span class="tp-name">' + p.name + '<small>' + p.tag + '</small></span>' +
+        '</div>';
+      }
+      document.querySelectorAll('[data-tp-track]').forEach(function (el) {
+        var half = partners.map(buildLogo).join('');
+        el.innerHTML = '<div class="tp-track">' + half + half + '</div>';
+      });
+    })();
+  </script>
+
+  <!-- SECTION 2 — VISION ("Beyond the Eye") — locked: hybrid full-bleed + multi-feather + soft wash + translucent panel -->
+  <section class="relative bg-white overflow-hidden isolate py-10">
+    <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
       <img
         src="/images/sections/dr-ai-computer-screen.jpg"
         alt=""
-        class="absolute inset-0 w-full h-full object-cover"
+        class="absolute inset-0 w-full h-full object-cover object-center md:object-right"
         loading="lazy"
+        style="-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);"
       />
-      <!-- Gradient veil: solid white on the left, transparent on the right -->
-      <div class="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/0 md:from-white md:via-white/60 md:to-transparent"></div>
     </div>
-
-    <div class="relative max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid md:grid-cols-2 items-center">
-      <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-8 md:p-10 shadow-sm ring-1 ring-brand-line/60">
+    <div
+      class="absolute inset-0 z-[1] pointer-events-none"
+      aria-hidden="true"
+      style="background: linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.78) 30%, rgba(255,255,255,0.35) 55%, rgba(255,255,255,0.10) 75%, rgba(255,255,255,0) 100%);"
+    ></div>
+    <div class="relative z-[2] max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center">
+      <div class="bg-white/[0.78] backdrop-blur-md border border-brand-line/70 rounded-2xl p-8 md:p-10 shadow-[0_10px_30px_-12px_rgba(15,44,92,0.12)]">
         <PipeHeading level="h2" data-reveal>Beyond the Eye: A New Frontier in Detection</PipeHeading>
         <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed" data-reveal>
           <p>The retina is one of the only places in the body where microvascular and neural structures can be observed directly and noninvasively.</p>
@@ -76,7 +161,6 @@ import RetinalIntelligenceCanvas from '../components/canvas/RetinalIntelligenceC
           <p>This is the future of preventive healthcare—starting with the eye.</p>
         </div>
       </div>
-      <!-- Empty spacer column so the photo on the right has visual breathing room -->
       <div class="hidden md:block"></div>
     </div>
   </section>
@@ -394,7 +478,7 @@ import RetinalIntelligenceCanvas from '../components/canvas/RetinalIntelligenceC
   </section>
 
   <!-- SECTION 6 — TESTIMONIALS -->
-  <section class="bg-brand-primary">
+  <CtaBand>
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 text-center">
       <h2 class="text-3xl md:text-4xl font-bold text-white" data-reveal>
         Proven Impact in Real-World Care
@@ -409,7 +493,7 @@ import RetinalIntelligenceCanvas from '../components/canvas/RetinalIntelligenceC
         />
       </div>
     </div>
-  </section>
+  </CtaBand>
 
   <!-- SECTION 7 — LATEST RESOURCES -->
   <section class="bg-white">
@@ -472,7 +556,7 @@ import RetinalIntelligenceCanvas from '../components/canvas/RetinalIntelligenceC
   </section>
 
   <!-- SECTION 9 — FINAL CTA -->
-  <section class="bg-brand-primary">
+  <CtaBand>
     <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 text-center">
       <h2 class="text-4xl md:text-5xl font-bold text-white leading-tight" data-reveal>
         Transform Early Detection with Retinal AI
@@ -502,6 +586,6 @@ import RetinalIntelligenceCanvas from '../components/canvas/RetinalIntelligenceC
         <a href="mailto:info@ophthalytics.com" class="underline hover:text-white">info@ophthalytics.com</a>
       </p>
     </div>
-  </section>
+  </CtaBand>
 
 </Layout>
