@@ -1,0 +1,1807 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ophthalytics — Current Site Preview</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { sans: ['Inter','system-ui','sans-serif'] },
+      colors: {
+        brand: {
+          primary: '#1E3A8A',
+          'primary-dark': '#152B66',
+          'primary-light': '#3B5BBF',
+          secondary: '#0EA5E9',
+          accent: '#7C3AED',
+          'accent-soft': '#C4B5FD',
+          navy: '#0F2350',
+          cyan: '#27AAE1',
+          'cyan-ink': '#0E7FB0',
+          'cyan-soft': '#E8F4FB',
+          ink: '#0F172A',
+          body: '#334155',
+          muted: '#64748B',
+          line: '#E2E8F0',
+          surface: '#F8FAFC',
+          'surface-blue': '#EFF6FF',
+          white: '#FFFFFF',
+        },
+        status: { success:'#16A34A', error:'#DC2626', warn:'#D97706' }
+      }
+    }
+  }
+}
+</script>
+<style>
+  body { font-family: 'Inter', system-ui, sans-serif; }
+  .img-base { background: #0F2350; color: rgba(255,255,255,0.5); display:flex; align-items:center; justify-content:center; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+  /* Image paths resolve relative to /public via the absolute paths below */
+  /* Page-section spacers between the two pages */
+  .page-divider {
+    height: 60px;
+    background: repeating-linear-gradient(135deg, #fee2e2 0 12px, #fecaca 12px 24px);
+    color: #991b1b;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 2px solid #b91c1c;
+    border-bottom: 2px solid #b91c1c;
+  }
+  /* Tiny page-jumper bar */
+  .jumper {
+    position: fixed;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background: rgba(15,35,80,0.96);
+    color: #fff;
+    border-radius: 999px;
+    padding: 6px;
+    display: flex;
+    gap: 4px;
+    box-shadow: 0 10px 30px rgba(15,35,80,0.35);
+    font-size: 12px;
+  }
+  .jumper a {
+    padding: 6px 14px;
+    border-radius: 999px;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .jumper a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+  .jumper a.active { background: #27AAE1; color: #fff; }
+</style>
+</head>
+<body class="bg-white">
+
+<!-- Floating page jumper -->
+<nav class="jumper">
+  <a href="#page-home">Home</a>
+  <a href="#page-solutions">Solutions</a>
+  <a href="#page-ocula360">Ocula360</a>
+  <a href="#page-nsight360">Nsight360</a>
+  <a href="#page-2nd-opinion">2nd Opinion</a>
+  <a href="#page-ophthal360">Ophthal360</a>
+</nav>
+
+<!-- =============================================================
+     SHARED HEADER (announcement bar + nav) — rendered once at top
+============================================================= -->
+<div class="announcement-bar bg-[#0F2350] text-white py-2 px-6 text-center text-[12.5px] font-medium relative">
+  <span class="inline-flex items-center gap-2">
+    <span class="w-1.5 h-1.5 rounded-full bg-brand-cyan" style="box-shadow:0 0 0 4px rgba(39,170,225,0.2);"></span>
+    <span>New: <b>Ocula360</b> foundational retinal AI is now in early-access deployments</span>
+    <span class="text-white/30">·</span>
+    <a href="#" class="text-brand-cyan font-semibold">Read more →</a>
+  </span>
+</div>
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-brand-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">
+    <a href="#page-home" class="flex items-center gap-2">
+      <img src="../public/ophthalytics-logo.svg" alt="Ophthalytics" class="h-7 w-auto" onerror="this.outerHTML='<span class=\'text-xl font-bold text-brand-primary\'>Ophthalytics</span>'"/>
+    </a>
+    <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-brand-body">
+      <a href="#page-solutions" class="hover:text-brand-primary">Solutions ▾</a>
+      <a href="#" class="hover:text-brand-primary">Who We Help</a>
+      <a href="#" class="hover:text-brand-primary">Resources ▾</a>
+      <a href="#" class="hover:text-brand-primary">About</a>
+    </nav>
+    <button class="bg-brand-primary text-white text-sm font-semibold px-4 py-2 rounded-md">Request a Demo</button>
+  </div>
+</header>
+
+
+<!-- =============================================================
+     PAGE 1 — HOMEPAGE
+============================================================= -->
+<a id="page-home"></a>
+
+<!-- SECTION 1 — HERO -->
+<section class="relative overflow-hidden bg-gradient-to-b from-brand-surface-blue to-white">
+  <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid gap-12 items-center md:grid-cols-2">
+    <div>
+      <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">
+        Ophthalytics — Wellness Through the Eyes™
+      </p>
+      <h1 class="mt-4 text-5xl md:text-6xl font-bold text-brand-ink leading-tight">
+        Retinal Intelligence for Earlier Detection and Better Health
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg md:text-xl text-brand-body leading-relaxed">
+        Advancing eye care through AI, oculomics, and multimodal intelligence—transforming the retina into a gateway for early disease detection and broader health insights.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4">
+        <button class="inline-flex items-center justify-center bg-brand-primary text-white font-semibold px-6 py-3 rounded-md">Request a Demo</button>
+        <a href="#page-solutions" class="inline-flex items-center justify-center border-2 border-brand-primary text-brand-primary font-semibold px-6 py-3 rounded-md">Explore Our Solutions</a>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="relative aspect-[4/3] max-w-xl rounded-2xl overflow-hidden mx-auto">
+        <img src="../public/images/hero/retinal-intelligence-static.jpg" alt="Retinal AI visualization" class="absolute inset-0 w-full h-full object-cover" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1.5 — TRUSTED PARTNERS MARQUEE — VARIATIONS LAB -->
+<style>
+  /* Marquee primitives */
+  .tp-band { position:relative; overflow:hidden; height:300px; }
+  @media (min-width: 768px) { .tp-band { height:340px; } }
+  .tp-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .tp-stack {
+    position: relative; height: 100%;
+    display: flex; flex-direction: column;
+  }
+  .tp-eyebrow {
+    flex: 0 0 auto;
+    text-align: center; padding-top: 28px; padding-bottom: 8px;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    color: #0F2350; font-weight: 700;
+  }
+  .tp-eyebrow.light { color:#fff; text-shadow: 0 1px 2px rgba(15,35,80,.4); }
+  .tp-marquee {
+    flex: 1 1 auto;
+    display: flex; align-items: center;
+    position:relative;
+    --gap:64px; --duration:42s;
+    overflow:hidden;
+    mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+  }
+  .tp-track { display:flex; align-items:center; gap:var(--gap); width:max-content; animation: tp-scroll var(--duration) linear infinite; }
+  .tp-marquee:hover .tp-track { animation-play-state: paused; }
+  @keyframes tp-scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .tp-logo {
+    flex-shrink:0; height:72px; display:flex; align-items:center; gap:14px; padding:0 8px;
+    color:#0F2350;
+  }
+  .tp-logo.light { color:#fff; }
+  .tp-logo .tp-mark {
+    width:48px; height:48px; border-radius:12px;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(15,35,80,0.12);
+    display:grid; place-items:center;
+    box-shadow: 0 6px 22px -10px rgba(15,35,80,0.3);
+  }
+  .tp-logo.light .tp-mark { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.3); backdrop-filter: blur(8px); }
+  .tp-logo .tp-name { font-weight:700; font-size:18px; letter-spacing:-0.01em; white-space:nowrap; }
+  .tp-logo .tp-name small {
+    display:block; font-weight:500; font-size:11px; color:#64748B;
+    letter-spacing:.04em; text-transform:uppercase; margin-top:2px;
+  }
+  .tp-logo.light .tp-name small { color:rgba(255,255,255,0.75); }
+  @media (prefers-reduced-motion: reduce) { .tp-track { animation: none; } }
+
+  /* Variation switcher */
+  .tp-section { display:none; }
+  .tp-section.is-active { display:block; }
+  .tp-picker {
+    position: sticky; top: 64px; z-index: 35;
+    background: #fff; border-top: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0;
+    padding: 10px 24px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 12.5px;
+  }
+  .tp-picker b { color:#0F2350; font-weight:700; letter-spacing:.04em; text-transform:uppercase; font-size:11px; }
+  .tp-picker button {
+    border:1px solid #E2E8F0; background:#fff; color:#334155;
+    padding:6px 12px; border-radius:999px; font-weight:600; cursor:pointer; transition:all .15s;
+  }
+  .tp-picker button:hover { border-color:#1E3A8A; color:#1E3A8A; }
+  .tp-picker button.is-active { background:#1E3A8A; color:#fff; border-color:#1E3A8A; }
+</style>
+
+<div class="tp-picker">
+  <b>Trusted Partners — try a treatment:</b>
+  <button data-tp="1" class="is-active">1 · Eye-scan, vignette</button>
+  <button data-tp="2">2 · Retinal-intelligence dark</button>
+  <button data-tp="3">3 · DR-AI screen, light wash</button>
+  <button data-tp="4">4 · AI geometric, navy duotone</button>
+  <button data-tp="5">5 · Orb-ring, dark cinematic</button>
+</div>
+
+<!-- Reusable inner block via template macros (inlined per variation) -->
+
+<!-- ===== V1 · Eye-scan + center radial vignette to brighten the middle ===== -->
+<section class="tp-section is-active" data-tp-section="1">
+  <div class="tp-band">
+    <img class="tp-bg" src="../public/images/sections/eye-scan-banner.jpg" alt="" aria-hidden="true" />
+    <!-- Base wash + center radial highlight to fix the dead center -->
+    <div class="absolute inset-0" style="background: rgba(255,255,255,0.5);"></div>
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 55% 70% at 50% 55%, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.2) 60%, rgba(255,255,255,0) 100%);"></div>
+    <!-- Side vignettes to tame the eye on the right + edge -->
+    <div class="absolute inset-y-0 right-0 w-1/3" style="background: linear-gradient(to left, rgba(255,255,255,0.85), rgba(255,255,255,0));"></div>
+    <div class="absolute inset-y-0 left-0 w-1/3" style="background: linear-gradient(to right, rgba(255,255,255,0.85), rgba(255,255,255,0));"></div>
+    <div class="absolute inset-x-0 top-0 h-16" style="background: linear-gradient(to bottom, #fff, rgba(255,255,255,0));"></div>
+    <div class="absolute inset-x-0 bottom-0 h-16" style="background: linear-gradient(to top, #fff, rgba(255,255,255,0));"></div>
+    <div class="tp-stack">
+      <p class="tp-eyebrow">Trusted by leading clinicians, researchers &amp; health systems</p>
+      <div class="tp-marquee" data-tp-track></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== V2 · Retinal-intelligence (dark navy starfield) — light logos ===== -->
+<section class="tp-section" data-tp-section="2">
+  <div class="tp-band">
+    <img class="tp-bg" src="../public/images/hero/retinal-intelligence-static.jpg" alt="" aria-hidden="true" />
+    <!-- Darken edges, lift center -->
+    <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(15,35,80,0.55), rgba(15,35,80,0.7));"></div>
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 80% at 50% 55%, rgba(39,170,225,0.28) 0%, rgba(15,35,80,0) 70%);"></div>
+    <!-- Top + bottom feather to white -->
+    <div class="absolute inset-x-0 top-0 h-20" style="background: linear-gradient(to bottom, #fff, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0));"></div>
+    <div class="absolute inset-x-0 bottom-0 h-20" style="background: linear-gradient(to top, #fff, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0));"></div>
+    <div class="tp-stack">
+      <p class="tp-eyebrow light">Trusted by leading clinicians, researchers &amp; health systems</p>
+      <div class="tp-marquee" data-tp-track data-tp-light></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== V3 · DR-AI computer-screen photo, soft light wash ===== -->
+<section class="tp-section" data-tp-section="3">
+  <div class="tp-band">
+    <img class="tp-bg" src="../public/images/sections/dr-ai-computer-screen.jpg" alt="" aria-hidden="true" style="object-position: 50% 40%;" />
+    <div class="absolute inset-0" style="background: rgba(255,255,255,0.62);"></div>
+    <!-- Subtle navy highlight in center -->
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 50% 60% at 50% 55%, rgba(30,58,138,0.08) 0%, rgba(255,255,255,0) 70%);"></div>
+    <div class="absolute inset-x-0 top-0 h-16" style="background: linear-gradient(to bottom, #fff, rgba(255,255,255,0));"></div>
+    <div class="absolute inset-x-0 bottom-0 h-16" style="background: linear-gradient(to top, #fff, rgba(255,255,255,0));"></div>
+    <div class="tp-stack">
+      <p class="tp-eyebrow">Trusted by leading clinicians, researchers &amp; health systems</p>
+      <div class="tp-marquee" data-tp-track></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== V4 · AI geometric design, navy duotone, light logos ===== -->
+<section class="tp-section" data-tp-section="4">
+  <div class="tp-band">
+    <img class="tp-bg" src="../public/images/sections/ai-geometrcicdesign.jpg" alt="" aria-hidden="true" style="filter: grayscale(1) contrast(1.05);" />
+    <!-- Navy → cyan duotone wash -->
+    <div class="absolute inset-0" style="background: linear-gradient(135deg, #0F2350 0%, #1E3A8A 55%, #27AAE1 100%); mix-blend-mode: multiply;"></div>
+    <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(15,35,80,0.55), rgba(39,170,225,0.2));"></div>
+    <!-- Center cyan highlight -->
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 55% 70% at 50% 55%, rgba(39,170,225,0.35) 0%, rgba(15,35,80,0) 70%);"></div>
+    <div class="absolute inset-x-0 top-0 h-20" style="background: linear-gradient(to bottom, #fff, rgba(255,255,255,0));"></div>
+    <div class="absolute inset-x-0 bottom-0 h-20" style="background: linear-gradient(to top, #fff, rgba(255,255,255,0));"></div>
+    <div class="tp-stack">
+      <p class="tp-eyebrow light">Trusted by leading clinicians, researchers &amp; health systems</p>
+      <div class="tp-marquee" data-tp-track data-tp-light></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== V5 · Orb-ring, full dark cinematic ===== -->
+<section class="tp-section" data-tp-section="5">
+  <div class="tp-band" style="background:#0A1A3A;">
+    <img class="tp-bg" src="../public/images/hero/orb-ring-static.png" alt="" aria-hidden="true" style="object-fit:cover; object-position:center; opacity:0.55; transform: scale(1.4);" />
+    <!-- Heavy dark wash -->
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 90% at 50% 55%, rgba(15,35,80,0.3) 0%, rgba(10,26,58,0.85) 70%, rgba(10,26,58,0.95) 100%);"></div>
+    <!-- Cyan center accent -->
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 40% 50% at 50% 55%, rgba(39,170,225,0.18) 0%, rgba(15,35,80,0) 70%);"></div>
+    <div class="absolute inset-x-0 top-0 h-20" style="background: linear-gradient(to bottom, #fff, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0));"></div>
+    <div class="absolute inset-x-0 bottom-0 h-20" style="background: linear-gradient(to top, #fff, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0));"></div>
+    <div class="tp-stack">
+      <p class="tp-eyebrow light">Trusted by leading clinicians, researchers &amp; health systems</p>
+      <div class="tp-marquee" data-tp-track data-tp-light></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function(){
+    const partners = [
+      { name:'Cleveland Vision Institute', tag:'Research partner', icon:'<path d="M3 12h4l3-9 4 18 3-9h4"/>' },
+      { name:'Global Eye Foundation',      tag:'Screening network', icon:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>' },
+      { name:'Northridge Health System',   tag:'Enterprise deployment', icon:'<path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-7h6v7"/>' },
+      { name:'ARVO 2023',                  tag:'Featured presenter', icon:'<path d="M12 2v6M12 22v-6M2 12h6M22 12h-6M5 5l4 4M19 5l-4 4M5 19l4-4M19 19l-4-4"/>' },
+      { name:'Diagnostics Journal',        tag:'Peer-reviewed', icon:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h10M7 17h6"/>' },
+      { name:'Pakistan Diabetic Center',   tag:'250K+ patients screened', icon:'<path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6z"/>' },
+    ];
+    const buildLogo = (p, light) => {
+      const stroke = light ? '#fff' : '#1E3A8A';
+      return `<div class="tp-logo${light?' light':''}">
+        <span class="tp-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2">${p.icon}</svg></span>
+        <span class="tp-name">${p.name}<small>${p.tag}</small></span>
+      </div>`;
+    };
+    document.querySelectorAll('[data-tp-track]').forEach(el => {
+      const light = el.hasAttribute('data-tp-light');
+      const half = partners.map(p => buildLogo(p, light)).join('');
+      el.innerHTML = `<div class="tp-track">${half}${half}</div>`;
+    });
+    const buttons = document.querySelectorAll('.tp-picker button[data-tp]');
+    const sections = document.querySelectorAll('.tp-section');
+    buttons.forEach(btn => btn.addEventListener('click', () => {
+      const k = btn.dataset.tp;
+      buttons.forEach(b => b.classList.toggle('is-active', b === btn));
+      sections.forEach(s => s.classList.toggle('is-active', s.dataset.tpSection === k));
+    }));
+  })();
+</script>
+
+<!-- SECTION 2 — VISION ("Beyond the Eye") — VARIATIONS LAB -->
+<style>
+  /* Shared inner content + variation switcher styles */
+  .bte-card-inner {
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(6px);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+    box-shadow: 0 1px 0 rgba(15,35,80,0.04), 0 30px 60px -30px rgba(15,35,80,0.18);
+    ring: 1px solid rgba(226,232,240,0.6);
+  }
+  @media (min-width: 768px) { .bte-card-inner { padding: 2.5rem; } }
+  .bte-h2 { display:flex; align-items:baseline; gap:.75rem; font-weight:700; line-height:1.1; font-size:1.875rem; color:#0F172A; }
+  @media(min-width:768px){ .bte-h2 { font-size:2.25rem; } }
+  .bte-h2 .pipe { display:block; width:.25rem; height:.8em; border-radius:9999px; flex-shrink:0; background:#1E3A8A; }
+  .bte-prose { margin-top:1.5rem; display:flex; flex-direction:column; gap:1.25rem; font-size:1.125rem; line-height:1.6; color:#334155; }
+  .bte-section { display:none; }
+  .bte-section.is-active { display:block; }
+  .bte-picker {
+    position: sticky; top: 84px; z-index: 30;
+    background: #fff;
+    border-top: 1px solid #E2E8F0;
+    border-bottom: 1px solid #E2E8F0;
+    padding: 10px 24px;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    font-size: 12.5px;
+  }
+  .bte-picker b { color:#0F2350; font-weight:700; letter-spacing:.04em; text-transform:uppercase; font-size:11px; }
+  .bte-picker button {
+    border: 1px solid #E2E8F0;
+    background: #fff;
+    color: #334155;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .bte-picker button:hover { border-color:#1E3A8A; color:#1E3A8A; }
+  .bte-picker button.is-active { background:#1E3A8A; color:#fff; border-color:#1E3A8A; }
+  .bte-tag { font-size:10px; color:#64748B; margin-left:auto; font-weight:500; }
+</style>
+
+<div id="bte-anchor" class="bte-picker">
+  <b>Beyond&nbsp;the&nbsp;Eye — try a treatment:</b>
+  <button data-bte="0" class="is-active">0 · Current</button>
+  <button data-bte="1">1 · Wider gradient (under card)</button>
+  <button data-bte="2">2 · Full-bleed + radial vignette</button>
+  <button data-bte="3">3 · Top/bottom feather</button>
+  <button data-bte="4">4 · Duotone wash</button>
+  <button data-bte="5">5 · Frosted bleed</button>
+  <span class="bte-tag">scroll back to this section after switching</span>
+</div>
+
+<!-- ============ V0 · CURRENT (baseline) ============ -->
+<section class="bte-section is-active" data-bte-section="0">
+  <div class="relative bg-white overflow-hidden">
+    <div class="absolute inset-y-0 right-0 w-full md:w-3/5 lg:w-1/2" aria-hidden="true">
+      <img src="../public/images/sections/dr-ai-computer-screen.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+      <div class="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/0 md:from-white md:via-white/60 md:to-transparent"></div>
+    </div>
+    <div class="relative max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid md:grid-cols-2 items-center">
+      <div class="bte-card-inner ring-1 ring-brand-line/60">
+        <h2 class="bte-h2"><span class="pipe"></span><span>Beyond the Eye: A New Frontier in Detection</span></h2>
+        <div class="bte-prose">
+          <p>The retina is one of the only places in the body where microvascular and neural structures can be observed directly and noninvasively.</p>
+          <p>At Ophthalytics, we are advancing the field of oculomics—where retinal imaging extends beyond eye disease to reveal early indicators of systemic health.</p>
+          <p>By combining AI with multimodal data, we enable earlier risk detection, deeper clinical insights, and more connected care.</p>
+          <p>This is the future of preventive healthcare—starting with the eye.</p>
+        </div>
+      </div>
+      <div class="hidden md:block"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ V1 · WIDER GRADIENT — image travels behind the card ============ -->
+<section class="bte-section" data-bte-section="1">
+  <div class="relative bg-white overflow-hidden">
+    <!-- Image now spans 85% of width starting from right; gradient pushed past the card column -->
+    <div class="absolute inset-y-0 right-0 w-full md:w-[88%] lg:w-[82%]" aria-hidden="true">
+      <img src="../public/images/sections/dr-ai-computer-screen.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" />
+      <!-- Gradient: solid white only on the far left ~12%, then fade through the card area, fully clear past it -->
+      <div class="absolute inset-0" style="background: linear-gradient(to right, #fff 0%, rgba(255,255,255,0.94) 18%, rgba(255,255,255,0.55) 38%, rgba(255,255,255,0.15) 58%, rgba(255,255,255,0) 75%);"></div>
+    </div>
+    <div class="relative max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid md:grid-cols-2 items-center">
+      <div class="bte-card-inner ring-1 ring-brand-line/60">
+        <h2 class="bte-h2"><span class="pipe"></span><span>Beyond the Eye: A New Frontier in Detection</span></h2>
+        <div class="bte-prose">
+          <p>The retina is one of the only places in the body where microvascular and neural structures can be observed directly and noninvasively.</p>
+          <p>At Ophthalytics, we are advancing the field of oculomics—where retinal imaging extends beyond eye disease to reveal early indicators of systemic health.</p>
+          <p>By combining AI with multimodal data, we enable earlier risk detection, deeper clinical insights, and more connected care.</p>
+          <p>This is the future of preventive healthcare—starting with the eye.</p>
+        </div>
+      </div>
+      <div class="hidden md:block"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ V2 · FULL-BLEED + RADIAL VIGNETTE around the card ============ -->
+<section class="bte-section" data-bte-section="2">
+  <div class="relative bg-white overflow-hidden">
+    <div class="absolute inset-0" aria-hidden="true">
+      <img src="../public/images/sections/dr-ai-computer-screen.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" />
+      <!-- White radial centered roughly over the card (left third) -->
+      <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 80% at 25% 50%, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.85) 35%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0) 90%);"></div>
+      <!-- Top + bottom feather to kill the hard edges -->
+      <div class="absolute inset-x-0 top-0 h-24" style="background: linear-gradient(to bottom, #fff, rgba(255,255,255,0));"></div>
+      <div class="absolute inset-x-0 bottom-0 h-24" style="background: linear-gradient(to top, #fff, rgba(255,255,255,0));"></div>
+    </div>
+    <div class="relative max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid md:grid-cols-2 items-center">
+      <div class="bte-card-inner ring-1 ring-brand-line/60">
+        <h2 class="bte-h2"><span class="pipe"></span><span>Beyond the Eye: A New Frontier in Detection</span></h2>
+        <div class="bte-prose">
+          <p>The retina is one of the only places in the body where microvascular and neural structures can be observed directly and noninvasively.</p>
+          <p>At Ophthalytics, we are advancing the field of oculomics—where retinal imaging extends beyond eye disease to reveal early indicators of systemic health.</p>
+          <p>By combining AI with multimodal data, we enable earlier risk detection, deeper clinical insights, and more connected care.</p>
+          <p>This is the future of preventive healthcare—starting with the eye.</p>
+        </div>
+      </div>
+      <div class="hidden md:block"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ V3 · TOP/BOTTOM FEATHER (current horizontal logic + soften vertical edges) ============ -->
+<section class="bte-section" data-bte-section="3">
+  <div class="relative bg-white overflow-hidden">
+    <div class="absolute inset-y-0 right-0 w-full md:w-3/5 lg:w-1/2" aria-hidden="true">
+      <img src="../public/images/sections/dr-ai-computer-screen.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/0 md:from-white md:via-white/60 md:to-transparent"></div>
+      <!-- New: vertical feathers eat the top + bottom band of the photo into white -->
+      <div class="absolute inset-x-0 top-0 h-32" style="background: linear-gradient(to bottom, #fff 0%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0) 100%);"></div>
+      <div class="absolute inset-x-0 bottom-0 h-32" style="background: linear-gradient(to top, #fff 0%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0) 100%);"></div>
+    </div>
+    <div class="relative max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid md:grid-cols-2 items-center">
+      <div class="bte-card-inner ring-1 ring-brand-line/60">
+        <h2 class="bte-h2"><span class="pipe"></span><span>Beyond the Eye: A New Frontier in Detection</span></h2>
+        <div class="bte-prose">
+          <p>The retina is one of the only places in the body where microvascular and neural structures can be observed directly and noninvasively.</p>
+          <p>At Ophthalytics, we are advancing the field of oculomics—where retinal imaging extends beyond eye disease to reveal early indicators of systemic health.</p>
+          <p>By combining AI with multimodal data, we enable earlier risk detection, deeper clinical insights, and more connected care.</p>
+          <p>This is the future of preventive healthcare—starting with the eye.</p>
+        </div>
+      </div>
+      <div class="hidden md:block"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ V4 · DUOTONE BRAND WASH (image tinted navy/cyan, branded) ============ -->
+<section class="bte-section" data-bte-section="4">
+  <div class="relative bg-white overflow-hidden">
+    <div class="absolute inset-0" aria-hidden="true">
+      <!-- Image desaturated + tinted -->
+      <img src="../public/images/sections/dr-ai-computer-screen.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" style="filter: grayscale(1) contrast(1.05);" />
+      <!-- Navy → cyan duotone wash on top of the desaturated photo -->
+      <div class="absolute inset-0" style="background: linear-gradient(135deg, #0F2350 0%, #1E3A8A 50%, #27AAE1 100%); mix-blend-mode: multiply;"></div>
+      <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(15,35,80,0.5), rgba(39,170,225,0.25));"></div>
+      <!-- Soft white card-side fade so text stays legible -->
+      <div class="absolute inset-y-0 left-0 w-3/5" style="background: linear-gradient(to right, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);"></div>
+      <!-- Top + bottom feather to white -->
+      <div class="absolute inset-x-0 top-0 h-24" style="background: linear-gradient(to bottom, #fff, rgba(255,255,255,0));"></div>
+      <div class="absolute inset-x-0 bottom-0 h-24" style="background: linear-gradient(to top, #fff, rgba(255,255,255,0));"></div>
+    </div>
+    <div class="relative max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid md:grid-cols-2 items-center">
+      <div class="bte-card-inner ring-1 ring-brand-line/60">
+        <h2 class="bte-h2"><span class="pipe"></span><span>Beyond the Eye: A New Frontier in Detection</span></h2>
+        <div class="bte-prose">
+          <p>The retina is one of the only places in the body where microvascular and neural structures can be observed directly and noninvasively.</p>
+          <p>At Ophthalytics, we are advancing the field of oculomics—where retinal imaging extends beyond eye disease to reveal early indicators of systemic health.</p>
+          <p>By combining AI with multimodal data, we enable earlier risk detection, deeper clinical insights, and more connected care.</p>
+          <p>This is the future of preventive healthcare—starting with the eye.</p>
+        </div>
+      </div>
+      <div class="hidden md:block"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ V5 · FROSTED BLEED (image becomes abstract texture) ============ -->
+<section class="bte-section" data-bte-section="5">
+  <div class="relative bg-white overflow-hidden">
+    <div class="absolute inset-0" aria-hidden="true">
+      <img src="../public/images/sections/dr-ai-computer-screen.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" style="filter: blur(28px) saturate(1.2); transform: scale(1.1);" />
+      <!-- Soft white wash overall + stronger over the card -->
+      <div class="absolute inset-0 bg-white/40"></div>
+      <div class="absolute inset-y-0 left-0 w-3/5" style="background: linear-gradient(to right, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0) 100%);"></div>
+      <div class="absolute inset-x-0 top-0 h-24" style="background: linear-gradient(to bottom, #fff, rgba(255,255,255,0));"></div>
+      <div class="absolute inset-x-0 bottom-0 h-24" style="background: linear-gradient(to top, #fff, rgba(255,255,255,0));"></div>
+    </div>
+    <div class="relative max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid md:grid-cols-2 items-center">
+      <div class="bte-card-inner ring-1 ring-brand-line/60">
+        <h2 class="bte-h2"><span class="pipe"></span><span>Beyond the Eye: A New Frontier in Detection</span></h2>
+        <div class="bte-prose">
+          <p>The retina is one of the only places in the body where microvascular and neural structures can be observed directly and noninvasively.</p>
+          <p>At Ophthalytics, we are advancing the field of oculomics—where retinal imaging extends beyond eye disease to reveal early indicators of systemic health.</p>
+          <p>By combining AI with multimodal data, we enable earlier risk detection, deeper clinical insights, and more connected care.</p>
+          <p>This is the future of preventive healthcare—starting with the eye.</p>
+        </div>
+      </div>
+      <div class="hidden md:block"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function(){
+    const buttons = document.querySelectorAll('.bte-picker button[data-bte]');
+    const sections = document.querySelectorAll('.bte-section');
+    buttons.forEach(btn => btn.addEventListener('click', () => {
+      const k = btn.dataset.bte;
+      buttons.forEach(b => b.classList.toggle('is-active', b === btn));
+      sections.forEach(s => s.classList.toggle('is-active', s.dataset.bteSection === k));
+    }));
+  })();
+</script>
+
+<!-- SECTION 3 — FLAGSHIP (Ocula360 + Core Strengths) -->
+<section class="bg-brand-surface">
+  <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+      <div>
+        <p class="text-xs uppercase tracking-widest text-brand-muted font-semibold">Ophthalytics Inc — Product Portfolio</p>
+        <p class="mt-1 text-sm text-brand-body">AI-Powered Retinal Intelligence</p>
+      </div>
+      <span class="self-start md:self-auto inline-block rounded-full bg-brand-primary text-white px-4 py-1.5 text-sm font-medium">Wellness Through the Eyes™</span>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      <div class="bg-white border border-brand-line rounded-2xl p-8 md:p-10 shadow-md">
+        <p class="text-xs uppercase tracking-widest text-brand-primary-light font-semibold">Flagship Innovation</p>
+        <h2 class="mt-3 text-4xl font-bold text-brand-ink">Ocula360</h2>
+        <p class="mt-4 text-3xl font-bold text-brand-primary leading-tight">Foundational Retinal AI</p>
+        <p class="mt-5 text-base text-brand-body leading-relaxed">Ocula360 is our flagship AI engine designed to detect multiple retinal diseases from a single image. Built on a foundational model architecture, it enables scalable screening, advanced DRSS scoring, and future-ready multimodal applications.</p>
+        <p class="mt-4 text-base text-brand-body leading-relaxed">From clinical workflows to research environments, Ocula360 transforms retinal imaging into actionable diagnostic intelligence.</p>
+        <a href="#page-ocula360" class="mt-6 inline-flex items-center gap-2 text-brand-primary font-semibold">Learn more about Ocula360 →</a>
+      </div>
+
+      <div class="relative rounded-2xl p-8 md:p-10 overflow-hidden bg-gradient-to-br from-[#0F2C5C] via-[#123F6E] to-[#0F6F7D] text-white">
+        <p class="text-xs uppercase tracking-widest text-brand-secondary font-semibold">Core Strengths</p>
+        <p class="mt-3 text-3xl font-bold leading-tight">From one retinal image to scalable diagnostic intelligence.</p>
+        <p class="mt-5 text-base text-white/80 leading-relaxed">Multi-disease detection, explainable AI outputs, DR severity support, and flexible deployment models for providers, payers, eye care, and global screening markets.</p>
+      </div>
+    </div>
+
+    <div class="mt-6 grid gap-5 md:grid-cols-3">
+      <div class="bg-white border border-brand-line rounded-lg p-6">
+        <div class="text-brand-primary mb-3"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2a2.5 2.5 0 0 0-2.5 2.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg></div>
+        <h3 class="text-lg font-semibold text-brand-ink mb-2">Multi-Disease Detection</h3>
+        <p class="text-sm text-brand-body leading-relaxed">Detects diabetic retinopathy, AMD, glaucoma indicators, and vascular abnormalities.</p>
+      </div>
+      <div class="bg-white border border-brand-line rounded-lg p-6">
+        <div class="text-brand-primary mb-3"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 16V9"/><path d="M12 16v-5"/><path d="M17 16v-3"/></svg></div>
+        <h3 class="text-lg font-semibold text-brand-ink mb-2">DRSS Scoring</h3>
+        <p class="text-sm text-brand-body leading-relaxed">Automated severity grading to support disease staging and screening workflows.</p>
+      </div>
+      <div class="bg-white border border-brand-line rounded-lg p-6">
+        <div class="text-brand-primary mb-3"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+        <h3 class="text-lg font-semibold text-brand-ink mb-2">Explainable & Multimodal</h3>
+        <p class="text-sm text-brand-body leading-relaxed">Lesion-level visualization, confidence outputs, and compatibility with imaging and patient context.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 — PRODUCT ECOSYSTEM (2x2 grid) -->
+<section id="products" class="bg-white scroll-mt-24">
+  <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <h2 class="flex items-baseline gap-3 font-bold leading-tight text-3xl md:text-4xl text-brand-ink justify-center">
+        <span class="block w-1 h-[0.8em] rounded-full flex-shrink-0 bg-brand-primary"></span>
+        <span>One Company. Four Retinal AI Solutions.</span>
+      </h2>
+      <p class="mt-4 text-lg text-brand-body leading-relaxed">Purpose-built solutions for every point of care.</p>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2">
+      <!-- Ocula360 -->
+      <article class="group bg-white border border-brand-line rounded-2xl shadow-sm overflow-hidden flex flex-col">
+        <div class="relative aspect-[16/10] bg-brand-surface-blue overflow-hidden">
+          <img src="../public/images/products/ocula360-product.png" alt="Ocula360" class="absolute inset-0 w-full h-full object-cover" />
+          <span class="absolute top-3 left-3 inline-block rounded-full bg-brand-primary text-white text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 shadow">Flagship</span>
+        </div>
+        <div class="p-7 flex flex-col flex-1">
+          <h3 class="text-2xl font-bold text-brand-ink">Ocula360</h3>
+          <p class="mt-2 text-sm font-semibold text-brand-primary">Foundational Retinal AI Engine</p>
+          <p class="mt-3 text-sm text-brand-body leading-relaxed">The platform behind every Ophthalytics solution. Built on a foundational model architecture, Ocula360 detects multiple retinal diseases from a single image and powers DRSS scoring, explainable outputs, and future-ready multimodal applications.</p>
+          <ul class="mt-4 space-y-1.5 text-sm text-brand-body">
+            <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Multi-disease detection</span></li>
+            <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>DRSS severity grading</span></li>
+            <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Explainable & multimodal outputs</span></li>
+          </ul>
+          <a href="#page-ocula360" class="mt-auto pt-5 inline-flex items-center gap-2 text-brand-primary font-semibold">Learn more →</a>
+        </div>
+      </article>
+
+      <!-- Nsight360 -->
+      <article class="group bg-white border border-brand-line rounded-2xl shadow-sm overflow-hidden flex flex-col">
+        <div class="relative aspect-[16/10] bg-brand-surface-blue overflow-hidden">
+          <img src="../public/images/products/nsight360-product.png" alt="Nsight360" class="absolute inset-0 w-full h-full object-cover" />
+        </div>
+        <div class="p-7 flex flex-col flex-1">
+          <h3 class="text-2xl font-bold text-brand-ink">Nsight360</h3>
+          <p class="mt-2 text-sm font-semibold text-brand-primary">AI-Assisted Retinal Screening for Primary Care</p>
+          <p class="mt-3 text-sm text-brand-body leading-relaxed">Brings retinal screening directly into primary care settings, enabling non-specialists to capture retinal images and receive AI-assisted reports with expert review—closing care gaps and identifying at-risk patients before vision loss occurs.</p>
+          <ul class="mt-4 space-y-1.5 text-sm text-brand-body">
+            <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Primary care integration</span></li>
+            <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Human + AI workflow</span></li>
+            <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Scalable screening programs</span></li>
+          </ul>
+          <a href="#page-nsight360" class="mt-auto pt-5 inline-flex items-center gap-2 text-brand-primary font-semibold">Learn more →</a>
+        </div>
+      </article>
+
+      <!-- 2nd Opinion -->
+      <article class="group bg-white border border-brand-line rounded-2xl shadow-sm overflow-hidden flex flex-col">
+        <div class="relative aspect-[16/10] bg-brand-surface-blue overflow-hidden">
+          <img src="../public/images/products/2nd-opinion-product.png" alt="2nd Opinion" class="absolute inset-0 w-full h-full object-cover" />
+        </div>
+        <div class="p-7 flex flex-col flex-1">
+          <h3 class="text-2xl font-bold text-brand-ink">2nd Opinion</h3>
+          <p class="mt-2 text-sm font-semibold text-brand-primary">AI-Enhanced Diagnostic Support for Optometry</p>
+          <p class="mt-3 text-sm text-brand-body leading-relaxed">Built for optometrists and eye care professionals seeking greater confidence in retinal assessments. Provides AI-supported analysis that highlights subtle findings and reduces diagnostic uncertainty without disrupting existing practice workflows.</p>
+          <ul class="mt-4 space-y-1.5 text-sm text-brand-body">
+            <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Lesion-level visualization</span></li>
+            <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Decision support</span></li>
+            <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Workflow integration</span></li>
+          </ul>
+          <a href="#page-2nd-opinion" class="mt-auto pt-5 inline-flex items-center gap-2 text-brand-primary font-semibold">Learn more →</a>
+        </div>
+      </article>
+
+      <!-- Ophthal360 -->
+      <article class="group bg-white border border-brand-line rounded-2xl shadow-sm overflow-hidden flex flex-col">
+        <div class="relative aspect-[16/10] bg-brand-surface-blue overflow-hidden">
+          <img src="../public/images/products/ophthal360-product.jpg" alt="Ophthal360" class="absolute inset-0 w-full h-full object-cover" />
+        </div>
+        <div class="p-7 flex flex-col flex-1">
+          <h3 class="text-2xl font-bold text-brand-ink">Ophthal360</h3>
+          <p class="mt-2 text-sm font-semibold text-brand-primary">Autonomous AI for Scalable Retinal Screening</p>
+          <p class="mt-3 text-sm text-brand-body leading-relaxed">Designed for high-volume retinal screening across healthcare systems and large-scale programs. Standardizes screening processes and supports timely referral decisions with minimal manual intervention—built for reach in underserved and resource-limited settings.</p>
+          <ul class="mt-4 space-y-1.5 text-sm text-brand-body">
+            <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Autonomous detection</span></li>
+            <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>High-throughput screening</span></li>
+            <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Automated referral logic</span></li>
+          </ul>
+          <a href="#page-ophthal360" class="mt-auto pt-5 inline-flex items-center gap-2 text-brand-primary font-semibold">Learn more →</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="mt-12 flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-xs text-brand-muted">
+      <span>Atlanta, Georgia, USA</span>
+      <span>Retinal Intelligence for Earlier Detection and Better Health</span>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5 — WHO WE HELP -->
+<section class="bg-brand-surface">
+  <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
+    <h2 class="flex items-baseline gap-3 font-bold leading-tight text-3xl md:text-4xl text-brand-ink">
+      <span class="block w-1 h-[0.8em] rounded-full flex-shrink-0 bg-brand-primary"></span>
+      <span>Who We Help</span>
+    </h2>
+    <p class="mt-4 max-w-3xl text-lg text-brand-body leading-relaxed">Supporting providers, systems, and researchers across the care continuum.</p>
+
+    <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div class="bg-white rounded-lg p-6"><div class="w-12 h-12 rounded-lg bg-brand-surface-blue flex items-center justify-center mb-4 text-brand-primary"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg></div><h3 class="text-lg font-semibold text-brand-ink mb-2">Primary Care Providers & Health Systems</h3><p class="text-sm text-brand-body leading-relaxed">Bring retinal screening directly into primary care—enabling earlier detection without specialist dependency.</p></div>
+      <div class="bg-white rounded-lg p-6"><div class="w-12 h-12 rounded-lg bg-brand-surface-blue flex items-center justify-center mb-4 text-brand-primary"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div><h3 class="text-lg font-semibold text-brand-ink mb-2">Optometrists & Eye Care Professionals</h3><p class="text-sm text-brand-body leading-relaxed">Enhance diagnostic confidence with AI-supported interpretation and better visibility into subtle retinal findings.</p></div>
+      <div class="bg-white rounded-lg p-6"><div class="w-12 h-12 rounded-lg bg-brand-surface-blue flex items-center justify-center mb-4 text-brand-primary"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div><h3 class="text-lg font-semibold text-brand-ink mb-2">Insurance Providers & Population Health Programs</h3><p class="text-sm text-brand-body leading-relaxed">Close care gaps, improve screening rates, and support value-based care initiatives.</p></div>
+      <div class="bg-white rounded-lg p-6"><div class="w-12 h-12 rounded-lg bg-brand-surface-blue flex items-center justify-center mb-4 text-brand-primary"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.58 16.5h12.85"/></svg></div><h3 class="text-lg font-semibold text-brand-ink mb-2">Pharmaceutical & Clinical Research Organizations</h3><p class="text-sm text-brand-body leading-relaxed">Accelerate patient identification and clinical trial recruitment with advanced retinal intelligence.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6 — TESTIMONIAL -->
+<section class="bg-brand-primary">
+  <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-white">Proven Impact in Real-World Care</h2>
+    <p class="mt-4 max-w-3xl mx-auto text-lg text-white/80 leading-relaxed">Our solutions are used by healthcare providers globally to expand access to screening, improve early detection, and prevent vision loss.</p>
+    <blockquote class="mt-12 max-w-4xl mx-auto">
+      <p class="text-2xl md:text-3xl font-medium text-white leading-snug">&ldquo;Using Nsight360, we've screened over 250,000 patients and helped prevent thousands of cases of blindness.&rdquo;</p>
+      <footer class="mt-6 text-brand-secondary text-base">— The Diabetic Center, Pakistan</footer>
+    </blockquote>
+  </div>
+</section>
+
+<!-- SECTION 7 — RESOURCES (placeholder cards) -->
+<section class="bg-white">
+  <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
+    <h2 class="flex items-baseline gap-3 font-bold leading-tight text-3xl md:text-4xl text-brand-ink">
+      <span class="block w-1 h-[0.8em] rounded-full flex-shrink-0 bg-brand-primary"></span>
+      <span>Insights & Innovations</span>
+    </h2>
+    <p class="mt-4 max-w-3xl text-lg text-brand-body leading-relaxed">Stay informed on the latest in AI, eye care, and early detection.</p>
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      <a class="block bg-white rounded-lg overflow-hidden border border-brand-line h-full flex flex-col">
+        <div class="aspect-video relative bg-gradient-to-br from-brand-accent to-brand-accent-soft">
+          <span class="absolute top-3 left-3 rounded-full text-xs font-semibold uppercase tracking-wider px-3 py-1 bg-brand-accent text-white">AI & Detection</span>
+        </div>
+        <div class="p-5 flex-1 flex flex-col"><h3 class="text-lg font-semibold text-brand-ink">The Role of AI in Early Disease Detection</h3><p class="mt-2 text-sm text-brand-body">How foundation models are reshaping what frontline clinics can catch before symptoms ever appear.</p><span class="mt-4 inline-block text-brand-primary text-sm font-semibold">Read more →</span></div>
+      </a>
+      <a class="block bg-white rounded-lg overflow-hidden border border-brand-line h-full flex flex-col">
+        <div class="aspect-video relative bg-gradient-to-br from-brand-primary to-brand-primary-light">
+          <span class="absolute top-3 left-3 rounded-full text-xs font-semibold uppercase tracking-wider px-3 py-1 bg-brand-primary text-white">Oculomics</span>
+        </div>
+        <div class="p-5 flex-1 flex flex-col"><h3 class="text-lg font-semibold text-brand-ink">Understanding Oculomics</h3><p class="mt-2 text-sm text-brand-body">Why the retina is emerging as a window into cardiovascular, metabolic, and neurological health.</p><span class="mt-4 inline-block text-brand-primary text-sm font-semibold">Read more →</span></div>
+      </a>
+      <a class="block bg-white rounded-lg overflow-hidden border border-brand-line h-full flex flex-col">
+        <div class="aspect-video relative bg-gradient-to-br from-brand-secondary to-brand-primary-light">
+          <span class="absolute top-3 left-3 rounded-full text-xs font-semibold uppercase tracking-wider px-3 py-1 bg-brand-secondary text-white">Care Access</span>
+        </div>
+        <div class="p-5 flex-1 flex flex-col"><h3 class="text-lg font-semibold text-brand-ink">Closing the Diabetic Eye Care Gap</h3><p class="mt-2 text-sm text-brand-body">Bringing retinal screening to populations that have historically been left out of specialist-driven care.</p><span class="mt-4 inline-block text-brand-primary text-sm font-semibold">Read more →</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8 — CLOSING -->
+<section class="bg-brand-surface-blue">
+  <div class="max-w-3xl mx-auto px-6 md:px-8 lg:px-12 py-24 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-brand-ink leading-tight">From Eye Exams to Health Intelligence</h2>
+    <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed">
+      <p>Ophthalytics is building a connected ecosystem of retinal AI solutions—designed to improve early detection, expand access to care, and unlock deeper health insights.</p>
+      <p>Because the future of healthcare starts with seeing risk earlier.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 9 — FINAL CTA -->
+<section class="bg-brand-primary">
+  <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 text-center">
+    <h2 class="text-4xl md:text-5xl font-bold text-white leading-tight">Transform Early Detection with Retinal AI</h2>
+    <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+      <button class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-8 py-3 rounded-md">Request a Demo</button>
+      <button class="inline-flex items-center justify-center border-2 border-white text-white font-semibold px-8 py-3 rounded-md">Contact Us</button>
+    </div>
+  </div>
+</section>
+
+
+<div class="page-divider">▼ Solutions Index Page ▼</div>
+
+
+<!-- =============================================================
+     PAGE 2 — SOLUTIONS INDEX
+============================================================= -->
+<a id="page-solutions"></a>
+
+<section class="bg-brand-surface-blue">
+  <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28">
+    <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Our Solutions</p>
+    <h1 class="mt-3 text-5xl md:text-6xl font-bold text-brand-ink leading-tight max-w-4xl">Four Retinal AI Solutions.<br/>One Foundational Platform.</h1>
+    <p class="mt-6 max-w-3xl text-lg md:text-xl text-brand-body leading-relaxed">Ophthalytics builds AI that turns a retinal image into actionable diagnostic intelligence—purpose-built for every point in the care continuum, from primary care screening to clinical research.</p>
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
+    <div class="grid gap-0 md:grid-cols-2 rounded-2xl overflow-hidden border border-brand-line">
+      <div class="relative bg-gradient-to-br from-[#0F2C5C] via-[#123F6E] to-[#0F6F7D] flex items-center justify-center min-h-[380px] overflow-hidden">
+        <img src="../public/images/products/ocula360-product.png" alt="Ocula360" class="absolute inset-0 w-full h-full object-cover" />
+      </div>
+      <div class="p-10 md:p-12 flex flex-col justify-center">
+        <span class="inline-block self-start rounded-full bg-brand-primary/10 text-brand-primary text-xs font-semibold uppercase tracking-widest px-3 py-1">Flagship</span>
+        <h2 class="mt-5 text-4xl md:text-5xl font-bold text-brand-ink">Ocula360</h2>
+        <p class="mt-2 text-2xl text-brand-primary leading-tight">Foundational Retinal AI</p>
+        <p class="mt-5 text-base text-brand-body leading-relaxed">Our flagship AI engine, built on a foundational model architecture to detect multiple retinal diseases from a single image. Ocula360 powers scalable screening, advanced DRSS scoring, and future-ready multimodal applications across clinical care and research.</p>
+        <ul class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-brand-ink">
+          <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand-primary"></span>Multi-Disease Detection</li>
+          <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand-primary"></span>DRSS Scoring</li>
+          <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand-primary"></span>Explainable & Multimodal</li>
+        </ul>
+        <a href="#page-ocula360" class="mt-7 inline-flex items-center gap-2 text-brand-primary font-semibold">Learn more about Ocula360 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-brand-surface">
+  <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
+    <div class="text-center max-w-3xl mx-auto">
+      <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Purpose-Built Solutions</p>
+      <h2 class="mt-3 text-3xl md:text-4xl font-bold text-brand-ink">Tailored for Every Point of Care</h2>
+      <p class="mt-4 text-lg text-brand-body leading-relaxed">Each solution extends Ocula360's foundational intelligence into a specific care environment.</p>
+    </div>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      <a href="#page-nsight360" class="group">
+        <div class="bg-white border border-brand-line rounded-2xl p-6 md:p-7 h-full flex flex-col">
+          <span class="inline-block self-start rounded-full bg-brand-surface-blue text-brand-primary text-xs font-semibold uppercase tracking-wider px-3 py-1 mb-4">HUMAN + AI</span>
+          <h3 class="text-2xl font-bold text-brand-ink mb-2">Nsight360</h3>
+          <p class="text-sm text-brand-body mb-5">AI-assisted retinal screening for primary care, health systems, and insurance providers.</p>
+          <ul class="space-y-2 text-sm text-brand-body mt-auto">
+            <li class="flex items-start gap-2"><span class="text-brand-primary mt-1">•</span><span>Primary care integration</span></li>
+            <li class="flex items-start gap-2"><span class="text-brand-primary mt-1">•</span><span>Human + AI workflow</span></li>
+            <li class="flex items-start gap-2"><span class="text-brand-primary mt-1">•</span><span>Scalable screening programs</span></li>
+          </ul>
+        </div>
+        <span class="mt-4 inline-flex items-center gap-1 text-brand-primary font-semibold">Learn more →</span>
+      </a>
+      <a href="#page-2nd-opinion" class="group">
+        <div class="bg-white border border-brand-line rounded-2xl p-6 md:p-7 h-full flex flex-col">
+          <span class="inline-block self-start rounded-full bg-brand-surface-blue text-brand-primary text-xs font-semibold uppercase tracking-wider px-3 py-1 mb-4">EYE CARE MARKET</span>
+          <h3 class="text-2xl font-bold text-brand-ink mb-2">2nd Opinion</h3>
+          <p class="text-sm text-brand-body mb-5">AI-enhanced diagnostic support for optometrists and eye care professionals.</p>
+          <ul class="space-y-2 text-sm text-brand-body mt-auto">
+            <li class="flex items-start gap-2"><span class="text-brand-primary mt-1">•</span><span>Lesion visualization</span></li>
+            <li class="flex items-start gap-2"><span class="text-brand-primary mt-1">•</span><span>Diagnostic confidence</span></li>
+            <li class="flex items-start gap-2"><span class="text-brand-primary mt-1">•</span><span>Workflow integration</span></li>
+          </ul>
+        </div>
+        <span class="mt-4 inline-flex items-center gap-1 text-brand-primary font-semibold">Learn more →</span>
+      </a>
+      <a href="#page-ophthal360" class="group">
+        <div class="bg-white border border-brand-line rounded-2xl p-6 md:p-7 h-full flex flex-col">
+          <span class="inline-block self-start rounded-full bg-brand-surface-blue text-brand-primary text-xs font-semibold uppercase tracking-wider px-3 py-1 mb-4">AUTONOMOUS AI</span>
+          <h3 class="text-2xl font-bold text-brand-ink mb-2">Ophthal360</h3>
+          <p class="text-sm text-brand-body mb-5">Autonomous retinal diagnostics for high-volume screening programs and global markets.</p>
+          <ul class="space-y-2 text-sm text-brand-body mt-auto">
+            <li class="flex items-start gap-2"><span class="text-brand-primary mt-1">•</span><span>Autonomous detection</span></li>
+            <li class="flex items-start gap-2"><span class="text-brand-primary mt-1">•</span><span>High-throughput screening</span></li>
+            <li class="flex items-start gap-2"><span class="text-brand-primary mt-1">•</span><span>Automated referral logic</span></li>
+          </ul>
+        </div>
+        <span class="mt-4 inline-flex items-center gap-1 text-brand-primary font-semibold">Learn more →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3.5 — PLATFORM TRANSITION (locked: D2 · photo + duotone + stat) -->
+<style>
+  .am-band { position: relative; overflow: hidden; height: 380px; }
+  @media (min-width: 768px) { .am-band { height: 460px; } }
+  .am-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .am-content {
+    position:relative; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding: 0 24px;
+  }
+  .am-eyebrow { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; font-weight: 700; margin-bottom: 14px; }
+  .am-quote { font-size: 28px; font-weight: 700; line-height: 1.2; max-width: 820px; letter-spacing: -0.01em; }
+  @media (min-width: 768px) { .am-quote { font-size: 36px; } }
+  .am-quote em { font-style: normal; }
+</style>
+
+<section>
+  <div class="am-band">
+    <img class="am-bg" src="../public/images/sections/ai-montage-with-dr-on-pad-LIGHTER-scaled.jpg" alt="" style="filter: grayscale(0.7) contrast(1.05);" />
+    <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(15,35,80,0.85) 0%, rgba(30,58,138,0.78) 50%, rgba(14,127,176,0.65) 100%);"></div>
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(39,170,225,0.25) 0%, rgba(15,35,80,0) 70%);"></div>
+
+    <!-- Smoother, deeper top + bottom feathers so the band dissolves into white -->
+    <div class="absolute inset-x-0 top-0 h-40 pointer-events-none" style="background: linear-gradient(to bottom, #ffffff 0%, rgba(255,255,255,0.92) 18%, rgba(255,255,255,0.7) 38%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0.15) 80%, rgba(255,255,255,0) 100%);"></div>
+    <div class="absolute inset-x-0 bottom-0 h-40 pointer-events-none" style="background: linear-gradient(to top, #ffffff 0%, rgba(255,255,255,0.92) 18%, rgba(255,255,255,0.7) 38%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0.15) 80%, rgba(255,255,255,0) 100%);"></div>
+
+    <div class="am-content">
+      <p class="am-eyebrow" style="color:#27AAE1;">Built on Ocula360</p>
+      <p class="am-quote" style="color:#fff;">One foundation. Four purpose-built deployments.</p>
+      <div class="mt-7 grid grid-cols-3 gap-8 md:gap-12 text-center">
+        <div><p class="text-2xl md:text-3xl font-bold text-white">4+</p><p class="text-xs uppercase tracking-wider text-white/70 mt-1">Diseases detected</p></div>
+        <div><p class="text-2xl md:text-3xl font-bold text-white">250K+</p><p class="text-xs uppercase tracking-wider text-white/70 mt-1">Patients screened</p></div>
+        <div><p class="text-2xl md:text-3xl font-bold text-white">&lt;2s</p><p class="text-xs uppercase tracking-wider text-white/70 mt-1">Per-image inference</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ONE PLATFORM. FOUR DEPLOYMENTS — VARIATIONS PICKER ===== -->
+<div class="bg-brand-surface border-y-2 border-dashed border-brand-secondary/40">
+  <div class="max-w-6xl mx-auto px-6 py-6">
+    <div class="flex items-center gap-3 flex-wrap text-sm">
+      <span class="text-xs uppercase tracking-widest font-bold text-brand-primary">Variations · One Platform Four Deployments</span>
+      <button data-opfd="current" class="opfd-btn opfd-active">Current (Live)</button>
+      <button data-opfd="A" class="opfd-btn">A · Animated Orbit</button>
+      <button data-opfd="B" class="opfd-btn">B · Constellation w/ Imagery</button>
+      <button data-opfd="C" class="opfd-btn">C · Stacked Cards on Spine</button>
+      <button data-opfd="D" class="opfd-btn">D · Dark Network Diagram</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .opfd-btn { padding: 6px 12px; border-radius: 6px; background: white; border: 1px solid #cbd5e1; font-weight: 600; color: #1e3a8a; transition: all .15s; }
+  .opfd-btn:hover { background: #1e3a8a; color: white; }
+  .opfd-active { background: #1e3a8a !important; color: white !important; }
+  .opfd-variant { display: none; }
+  .opfd-variant.opfd-show { display: block; }
+</style>
+
+<!-- ============== VARIANT: CURRENT (LIVE) ============== -->
+<div class="opfd-variant opfd-show" data-opfd-variant="current">
+<section class="bg-white">
+  <div class="max-w-5xl mx-auto px-6 md:px-8 lg:px-12 py-20 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-brand-ink">One Platform. Four Deployments.</h2>
+    <p class="mt-5 text-lg text-brand-body leading-relaxed max-w-3xl mx-auto">Ocula360 is the foundation. Nsight360, 2nd Opinion, and Ophthal360 are purpose-built deployments of that foundation, each tuned for the workflows, decision points, and volume of a specific care setting.</p>
+    <div class="mt-12 flex justify-center">
+      <svg viewBox="0 0 500 340" class="w-full max-w-[500px]">
+        <circle cx="250" cy="170" r="60" fill="#1E3A8A"/>
+        <text x="250" y="170" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="Inter">Ocula360</text>
+        <text x="250" y="190" text-anchor="middle" fill="#fff" fill-opacity="0.8" font-size="10" font-family="Inter">Foundation</text>
+        <g><line x1="250" y1="170" x2="250" y2="40" stroke="#3B5BBF" stroke-width="1.5" stroke-dasharray="4 4"/><circle cx="250" cy="40" r="42" fill="#EFF6FF" stroke="#1E3A8A" stroke-width="1.5"/><text x="250" y="38" text-anchor="middle" fill="#0F172A" font-size="12" font-weight="700" font-family="Inter">Nsight360</text><text x="250" y="54" text-anchor="middle" fill="#64748B" font-size="10" font-family="Inter">Primary care</text></g>
+        <g><line x1="250" y1="170" x2="70" y2="280" stroke="#3B5BBF" stroke-width="1.5" stroke-dasharray="4 4"/><circle cx="70" cy="280" r="42" fill="#EFF6FF" stroke="#1E3A8A" stroke-width="1.5"/><text x="70" y="278" text-anchor="middle" fill="#0F172A" font-size="12" font-weight="700" font-family="Inter">2nd Opinion</text><text x="70" y="294" text-anchor="middle" fill="#64748B" font-size="10" font-family="Inter">Optometry</text></g>
+        <g><line x1="250" y1="170" x2="430" y2="280" stroke="#3B5BBF" stroke-width="1.5" stroke-dasharray="4 4"/><circle cx="430" cy="280" r="42" fill="#EFF6FF" stroke="#1E3A8A" stroke-width="1.5"/><text x="430" y="278" text-anchor="middle" fill="#0F172A" font-size="12" font-weight="700" font-family="Inter">Ophthal360</text><text x="430" y="294" text-anchor="middle" fill="#64748B" font-size="10" font-family="Inter">Autonomous / scale</text></g>
+      </svg>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ============== VARIANT A · ANIMATED ORBIT ============== -->
+<div class="opfd-variant" data-opfd-variant="A">
+<section class="relative bg-white overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="inline-block text-xs uppercase tracking-[0.2em] font-bold text-brand-secondary">The Platform</span>
+      <h2 class="mt-4 text-3xl md:text-5xl font-bold text-brand-ink tracking-tight">One Platform. Four Deployments.</h2>
+      <p class="mt-5 text-lg text-brand-body leading-relaxed">Ocula360 is the foundation. Nsight360, 2nd Opinion, and Ophthal360 are purpose-built deployments of that foundation — each tuned for the workflows, decision points, and volume of a specific care setting.</p>
+    </div>
+
+    <div class="mt-16 flex justify-center">
+      <!-- OUTER stage tracks the cursor; INNER scene parallaxes within it -->
+      <div id="opfdA-stage" class="relative w-full max-w-[640px] aspect-square">
+        <!-- BEAMS SVG is the FIRST child of stage — paints under everything that follows in DOM order. -->
+        <svg id="opfdA-beams" viewBox="0 0 600 600" class="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
+          <defs>
+            <filter id="opfdA-glowf"><feGaussianBlur stdDeviation="2.2"/></filter>
+          </defs>
+          <line class="opfdA-beam" data-from="300,60"  data-to="300,300" data-from-r="50" data-to-r="30" stroke="#1E3A8A" stroke-opacity="0.22" stroke-width="1"/>
+          <line class="opfdA-beam" data-from="90,510"  data-to="300,300" data-from-r="50" data-to-r="30" stroke="#1E3A8A" stroke-opacity="0.22" stroke-width="1"/>
+          <line class="opfdA-beam" data-from="510,510" data-to="300,300" data-from-r="50" data-to-r="30" stroke="#1E3A8A" stroke-opacity="0.22" stroke-width="1"/>
+
+          <circle class="opfdA-packet" r="3.5" fill="#27AAE1" filter="url(#opfdA-glowf)" data-line="0" data-dur="2600" data-phase="0"></circle>
+          <circle class="opfdA-packet" r="2"   fill="#27AAE1" opacity="0.55"            data-line="0" data-dur="2600" data-phase="0.5"></circle>
+          <circle class="opfdA-packet" r="3.5" fill="#27AAE1" filter="url(#opfdA-glowf)" data-line="1" data-dur="3000" data-phase="0.13"></circle>
+          <circle class="opfdA-packet" r="2"   fill="#27AAE1" opacity="0.55"            data-line="1" data-dur="3000" data-phase="0.63"></circle>
+          <circle class="opfdA-packet" r="3.5" fill="#27AAE1" filter="url(#opfdA-glowf)" data-line="2" data-dur="3000" data-phase="0.27"></circle>
+          <circle class="opfdA-packet" r="2"   fill="#27AAE1" opacity="0.55"            data-line="2" data-dur="3000" data-phase="0.77"></circle>
+        </svg>
+
+        <div id="opfdA-scene" class="absolute inset-0 will-change-transform" style="transition: transform 600ms cubic-bezier(.22,.61,.36,1);">
+          <!-- Concentric orbit rings -->
+          <svg viewBox="0 0 600 600" class="absolute inset-0 w-full h-full" aria-hidden="true">
+            <defs>
+              <radialGradient id="opfdA-glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#27AAE1" stop-opacity="0.18"/>
+                <stop offset="60%" stop-color="#27AAE1" stop-opacity="0.04"/>
+                <stop offset="100%" stop-color="#27AAE1" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="opfdA-ring" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#27AAE1" stop-opacity="0.6"/>
+                <stop offset="100%" stop-color="#1E3A8A" stop-opacity="0.2"/>
+              </linearGradient>
+            </defs>
+            <circle cx="300" cy="300" r="280" fill="url(#opfdA-glow)"/>
+            <circle cx="300" cy="300" r="240" fill="none" stroke="url(#opfdA-ring)" stroke-width="1" stroke-dasharray="2 6"/>
+            <circle cx="300" cy="300" r="180" fill="none" stroke="#1E3A8A" stroke-opacity="0.12" stroke-width="1"/>
+          </svg>
+
+          <!-- Nodes positioned with absolute % coords matching the SVG viewBox (600x600).
+               Each node has a positioning wrapper (Tailwind translate centers it on its anchor point)
+               and an INNER .opfdA-layer that the JS transforms for parallax — so parallax doesn't
+               clobber the centering translate. -->
+
+          <!-- Center: Ocula360 foundation @ (300,300) of viewBox = 50%,50% -->
+          <div class="absolute z-10" style="left:50%; top:50%; transform: translate(-50%,-50%);">
+            <div class="opfdA-layer" data-depth="0">
+              <a href="#page-ocula360" class="opfdA-foundation group block relative outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
+                <!-- soft halo behind orb — intensifies on hover -->
+                <div class="absolute inset-0 rounded-full bg-brand-secondary/40 blur-2xl scale-125 transition-all duration-300 group-hover:bg-brand-secondary/60 group-hover:scale-[1.4]"></div>
+                <div class="relative w-40 h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-br from-brand-primary-dark via-brand-primary to-[#2B4FB8] shadow-2xl shadow-brand-primary/40 flex flex-col items-center justify-center text-white border border-white/20 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_25px_60px_-15px_rgba(39,170,225,0.6)] group-hover:border-brand-secondary/60">
+                  <span class="text-[10px] uppercase tracking-[0.18em] font-semibold text-brand-secondary">Foundation</span>
+                  <span class="mt-1 text-2xl md:text-3xl font-bold">Ocula360</span>
+                  <span class="mt-1 text-xs text-white/70">Retinal AI Platform</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Top: Nsight360 @ (300, 60) of viewBox = 50%, 10% -->
+          <div class="absolute z-20" style="left:50%; top:10%; transform: translate(-50%,-50%);">
+            <div class="opfdA-layer" data-depth="0">
+              <a href="#page-nsight360" class="group block outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
+                <div class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-white border-2 border-brand-primary/15 shadow-lg shadow-brand-primary/10 flex flex-col items-center justify-center text-center px-3 transition-all hover:border-brand-secondary hover:shadow-xl hover:-translate-y-1">
+                  <span class="text-sm md:text-base font-bold text-brand-ink">Nsight360</span>
+                  <span class="mt-1 text-[10px] uppercase tracking-wider font-semibold text-brand-secondary">Primary care</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Bottom-left: 2nd Opinion @ (90, 510) of viewBox = 15%, 85% -->
+          <div class="absolute z-20" style="left:15%; top:85%; transform: translate(-50%,-50%);">
+            <div class="opfdA-layer" data-depth="0">
+              <a href="#page-2nd-opinion" class="group block outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
+                <div class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-white border-2 border-brand-primary/15 shadow-lg shadow-brand-primary/10 flex flex-col items-center justify-center text-center px-3 transition-all hover:border-brand-secondary hover:shadow-xl hover:-translate-y-1">
+                  <span class="text-sm md:text-base font-bold text-brand-ink">2nd Opinion</span>
+                  <span class="mt-1 text-[10px] uppercase tracking-wider font-semibold text-brand-secondary">Optometry</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Bottom-right: Ophthal360 @ (510, 510) of viewBox = 85%, 85% -->
+          <div class="absolute z-20" style="left:85%; top:85%; transform: translate(-50%,-50%);">
+            <div class="opfdA-layer" data-depth="0">
+              <a href="#page-ophthal360" class="group block outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
+                <div class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-white border-2 border-brand-primary/15 shadow-lg shadow-brand-primary/10 flex flex-col items-center justify-center text-center px-3 transition-all hover:border-brand-secondary hover:shadow-xl hover:-translate-y-1">
+                  <span class="text-sm md:text-base font-bold text-brand-ink">Ophthal360</span>
+                  <span class="mt-1 text-[10px] uppercase tracking-wider font-semibold text-brand-secondary">Autonomous</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var stage = document.getElementById('opfdA-stage');
+    var scene = document.getElementById('opfdA-scene');
+    if (!stage || !scene) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+
+    var layers = scene.querySelectorAll('.opfdA-layer');
+    var beamSvg = document.getElementById('opfdA-beams');
+    var beams = beamSvg ? beamSvg.querySelectorAll('.opfdA-beam') : [];
+    var packets = beamSvg ? beamSvg.querySelectorAll('.opfdA-packet') : [];
+    var tx = 0, ty = 0, cx = 0, cy = 0; // target & current (px in stage space)
+    var raf = null;
+    var MAX = 14; // px max sway of scene — kept small to stay professional
+
+    // All nodes move together with the scene — no per-layer parallax (avoids any node
+    // appearing to drift opposite the cursor relative to its neighbors).
+    var FROM_DEPTH = 0; // satellites baseline: just the scene translate
+    var TO_DEPTH = 0;   // foundation baseline: just the scene translate
+
+    function pxToVb() {
+      var w = stage.clientWidth || 1;
+      return 600 / w;
+    }
+
+    function updateBeams() {
+      var k = pxToVb();
+      // sceneOffset (px) applies to all SVG coords; per-end depths are layered on top.
+      var sx = cx * k, sy = cy * k;
+      var fromOff = { x: cx * FROM_DEPTH * k, y: cy * FROM_DEPTH * k };
+      var toOff   = { x: cx * TO_DEPTH * k,   y: cy * TO_DEPTH * k };
+
+      beams.forEach(function (line, i) {
+        var f = line.getAttribute('data-from').split(',').map(Number);
+        var t = line.getAttribute('data-to').split(',').map(Number);
+        var fr = parseFloat(line.getAttribute('data-from-r') || '0');
+        var tr = parseFloat(line.getAttribute('data-to-r') || '0');
+
+        // live endpoints in viewBox units
+        var fx = f[0] + sx + fromOff.x;
+        var fy = f[1] + sy + fromOff.y;
+        var tx2 = t[0] + sx + toOff.x;
+        var ty2 = t[1] + sy + toOff.y;
+
+        // shorten each end by its node radius along the line
+        var dx = tx2 - fx, dy = ty2 - fy;
+        var L = Math.hypot(dx, dy) || 1;
+        var ux = dx / L, uy = dy / L;
+        var x1 = fx + ux * fr;
+        var y1 = fy + uy * fr;
+        var x2 = tx2 - ux * tr;
+        var y2 = ty2 - uy * tr;
+
+        line.setAttribute('x1', x1.toFixed(1));
+        line.setAttribute('y1', y1.toFixed(1));
+        line.setAttribute('x2', x2.toFixed(1));
+        line.setAttribute('y2', y2.toFixed(1));
+        // stash for packets
+        line._x1 = x1; line._y1 = y1; line._x2 = x2; line._y2 = y2;
+      });
+
+    }
+
+    function updatePackets(now) {
+      packets.forEach(function (p) {
+        var li = parseInt(p.getAttribute('data-line'), 10);
+        var dur = parseFloat(p.getAttribute('data-dur'));
+        var phase = parseFloat(p.getAttribute('data-phase'));
+        var line = beams[li];
+        if (!line) return;
+        var prog = ((now / dur) + phase) % 1; // 0..1
+        var x = line._x1 + (line._x2 - line._x1) * prog;
+        var y = line._y1 + (line._y2 - line._y1) * prog;
+        p.setAttribute('cx', x.toFixed(1));
+        p.setAttribute('cy', y.toFixed(1));
+        // fade in/out at the ends
+        var op = prog < 0.12 ? prog / 0.12 : prog > 0.88 ? (1 - prog) / 0.12 : 1;
+        var base = parseFloat(p.getAttribute('opacity') || '1') || 1;
+        // store base once
+        if (!p._base) p._base = (p.getAttribute('r') === '2') ? 0.55 : 0.9;
+        p.setAttribute('opacity', (op * p._base).toFixed(3));
+      });
+    }
+
+    function tick() {
+      cx += (tx - cx) * 0.08;
+      cy += (ty - cy) * 0.08;
+      // scene & per-layer parallax
+      scene.style.transform = 'translate(' + cx.toFixed(2) + 'px,' + cy.toFixed(2) + 'px)';
+      layers.forEach(function (el) {
+        var d = parseFloat(el.getAttribute('data-depth') || '0');
+        el.style.transform = 'translate(' + (cx * d).toFixed(2) + 'px,' + (cy * d).toFixed(2) + 'px)';
+      });
+      updateBeams();
+      updatePackets(performance.now());
+      if (Math.abs(tx - cx) > 0.05 || Math.abs(ty - cy) > 0.05) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        raf = null;
+      }
+    }
+    function setTarget(nx, ny) {
+      tx = nx; ty = ny;
+      if (!raf) raf = requestAnimationFrame(tick);
+    }
+
+    // Cursor attraction tracks the WHOLE viewport, not just the stage.
+    // We measure the cursor's offset from the stage's center, normalize by a
+    // RANGE radius (in px) — beyond that distance the pull saturates at MAX.
+    var RANGE = 1500; // px from stage center where pull reaches full strength
+    function onMouse(e) {
+      var r = stage.getBoundingClientRect();
+      var ccx = r.left + r.width / 2;
+      var ccy = r.top + r.height / 2;
+      var dx = e.clientX - ccx;
+      var dy = e.clientY - ccy;
+      // normalize and clamp to [-1, 1] so faraway cursors don't fly the diagram off-screen
+      var nx = Math.max(-1, Math.min(1, dx / RANGE));
+      var ny = Math.max(-1, Math.min(1, dy / RANGE));
+      setTarget(nx * MAX, ny * MAX);
+    }
+    window.addEventListener('mousemove', onMouse, { passive: true });
+    // When cursor leaves the document entirely (e.g. moves off the browser), recenter.
+    document.addEventListener('mouseleave', function () { setTarget(0, 0); });
+
+    // Idle drift — slow figure-8 wobble so the "net floating in space" feel exists even without mouse
+    var t0 = performance.now();
+    function drift() {
+      // Always keep beams + packets animating, even when idle
+      var t = (performance.now() - t0) / 1000;
+      if (Math.abs(tx) < 0.01 && Math.abs(ty) < 0.01) {
+        var dx = Math.sin(t * 0.5) * 3;
+        var dy = Math.sin(t * 0.35) * Math.cos(t * 0.25) * 2.5;
+        cx += (dx - cx) * 0.04;
+        cy += (dy - cy) * 0.04;
+        scene.style.transform = 'translate(' + cx.toFixed(2) + 'px,' + cy.toFixed(2) + 'px)';
+        layers.forEach(function (el) {
+          var d = parseFloat(el.getAttribute('data-depth') || '0');
+          el.style.transform = 'translate(' + (cx * d).toFixed(2) + 'px,' + (cy * d).toFixed(2) + 'px)';
+        });
+      }
+      updateBeams();
+      updatePackets(performance.now());
+      requestAnimationFrame(drift);
+    }
+    // initial paint so beams render before first frame of drift loop
+    updateBeams();
+    updatePackets(performance.now());
+    requestAnimationFrame(drift);
+  })();
+</script>
+</div>
+
+<!-- ============== VARIANT B · CONSTELLATION w/ IMAGERY ============== -->
+<div class="opfd-variant" data-opfd-variant="B">
+<section class="bg-white">
+  <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="inline-block text-xs uppercase tracking-[0.2em] font-bold text-brand-secondary">The Platform</span>
+      <h2 class="mt-4 text-3xl md:text-5xl font-bold text-brand-ink tracking-tight">One Platform. Four Deployments.</h2>
+      <p class="mt-5 text-lg text-brand-body leading-relaxed">Ocula360 is the foundation. Nsight360, 2nd Opinion, and Ophthal360 are purpose-built deployments — each tuned for the workflows, decision points, and volume of a specific care setting.</p>
+    </div>
+
+    <div class="mt-16 grid lg:grid-cols-12 gap-10 items-center">
+      <!-- LEFT: Foundation card -->
+      <div class="lg:col-span-5">
+        <div class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-brand-primary-dark to-brand-primary text-white p-1 shadow-2xl shadow-brand-primary/30">
+          <div class="rounded-[22px] bg-gradient-to-br from-brand-primary-dark to-brand-primary p-8 md:p-10 relative overflow-hidden">
+            <div class="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-brand-secondary/30 blur-3xl"></div>
+            <div class="absolute -left-10 -bottom-10 w-48 h-48 rounded-full bg-brand-accent/20 blur-3xl"></div>
+            <div class="relative">
+              <span class="inline-block px-3 py-1 rounded-full bg-white/15 backdrop-blur text-[10px] uppercase tracking-[0.2em] font-bold">Foundation</span>
+              <h3 class="mt-5 text-4xl md:text-5xl font-bold tracking-tight">Ocula360</h3>
+              <p class="mt-3 text-base text-white/80 leading-relaxed">Foundational retinal AI. The diagnostic engine, model library, and image pipeline every deployment is built on.</p>
+              <div class="mt-7 grid grid-cols-3 gap-4 pt-6 border-t border-white/15">
+                <div><div class="text-2xl font-bold text-brand-secondary">4+</div><div class="text-[11px] uppercase tracking-wider text-white/60">Diseases</div></div>
+                <div><div class="text-2xl font-bold text-brand-secondary">250K+</div><div class="text-[11px] uppercase tracking-wider text-white/60">Patients</div></div>
+                <div><div class="text-2xl font-bold text-brand-secondary">&lt;2s</div><div class="text-[11px] uppercase tracking-wider text-white/60">Inference</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER: connecting bracket (only on lg+) -->
+      <div class="hidden lg:flex lg:col-span-1 items-center justify-center">
+        <svg viewBox="0 0 60 400" class="w-full h-full" aria-hidden="true">
+          <defs>
+            <linearGradient id="opfdB-bracket" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#1E3A8A" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#27AAE1" stop-opacity="0.6"/>
+            </linearGradient>
+          </defs>
+          <!-- horizontal stem from foundation -->
+          <line x1="0" y1="200" x2="30" y2="200" stroke="url(#opfdB-bracket)" stroke-width="1.5"/>
+          <!-- vertical spine -->
+          <line x1="30" y1="60" x2="30" y2="340" stroke="#27AAE1" stroke-opacity="0.4" stroke-width="1.5"/>
+          <!-- branches to each card -->
+          <line x1="30" y1="60" x2="60" y2="60" stroke="#27AAE1" stroke-opacity="0.5" stroke-width="1.5"/>
+          <line x1="30" y1="200" x2="60" y2="200" stroke="#27AAE1" stroke-opacity="0.5" stroke-width="1.5"/>
+          <line x1="30" y1="340" x2="60" y2="340" stroke="#27AAE1" stroke-opacity="0.5" stroke-width="1.5"/>
+          <!-- pulse traveling down spine -->
+          <circle cx="30" cy="60" r="3" fill="#27AAE1">
+            <animate attributeName="cy" values="60;200;340;60" dur="4s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;1;1;0;1" dur="4s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+
+      <!-- RIGHT: three deployment cards -->
+      <div class="lg:col-span-6 grid gap-4">
+        <a class="group relative flex items-center gap-5 rounded-2xl bg-white border border-slate-200 p-5 hover:border-brand-secondary hover:shadow-xl hover:shadow-brand-primary/5 transition-all">
+          <div class="shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-brand-primary/10 to-brand-secondary/10 flex items-center justify-center">
+            <svg viewBox="0 0 32 32" class="w-8 h-8" fill="none" stroke="#1E3A8A" stroke-width="1.5"><circle cx="16" cy="16" r="11"/><path d="M5 16h22M16 5v22M9 9l14 14M23 9 9 23"/></svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2"><h3 class="text-xl font-bold text-brand-ink">Nsight360</h3><span class="text-[10px] uppercase tracking-widest font-semibold text-brand-secondary">Primary care</span></div>
+            <p class="mt-1 text-sm text-brand-body">Point-of-care diabetic retinopathy screening built into the primary care visit.</p>
+          </div>
+          <svg viewBox="0 0 24 24" class="w-5 h-5 text-brand-primary opacity-0 group-hover:opacity-100 transition" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a class="group relative flex items-center gap-5 rounded-2xl bg-white border border-slate-200 p-5 hover:border-brand-secondary hover:shadow-xl hover:shadow-brand-primary/5 transition-all">
+          <div class="shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-brand-primary/10 to-brand-secondary/10 flex items-center justify-center">
+            <svg viewBox="0 0 32 32" class="w-8 h-8" fill="none" stroke="#1E3A8A" stroke-width="1.5"><path d="M4 16c4-7 20-7 24 0-4 7-20 7-24 0Z"/><circle cx="16" cy="16" r="4"/></svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2"><h3 class="text-xl font-bold text-brand-ink">2nd Opinion</h3><span class="text-[10px] uppercase tracking-widest font-semibold text-brand-secondary">Optometry</span></div>
+            <p class="mt-1 text-sm text-brand-body">A confident second read on every retinal image — for optometric practices.</p>
+          </div>
+          <svg viewBox="0 0 24 24" class="w-5 h-5 text-brand-primary opacity-0 group-hover:opacity-100 transition" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a class="group relative flex items-center gap-5 rounded-2xl bg-white border border-slate-200 p-5 hover:border-brand-secondary hover:shadow-xl hover:shadow-brand-primary/5 transition-all">
+          <div class="shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-brand-primary/10 to-brand-secondary/10 flex items-center justify-center">
+            <svg viewBox="0 0 32 32" class="w-8 h-8" fill="none" stroke="#1E3A8A" stroke-width="1.5"><rect x="5" y="6" width="22" height="14" rx="2"/><path d="M11 26h10M16 20v6"/><circle cx="16" cy="13" r="3"/></svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2"><h3 class="text-xl font-bold text-brand-ink">Ophthal360</h3><span class="text-[10px] uppercase tracking-widest font-semibold text-brand-secondary">Autonomous / scale</span></div>
+            <p class="mt-1 text-sm text-brand-body">Autonomous diagnostic workflows for high-volume ophthalmology and trials.</p>
+          </div>
+          <svg viewBox="0 0 24 24" class="w-5 h-5 text-brand-primary opacity-0 group-hover:opacity-100 transition" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ============== VARIANT C · STACKED CARDS ON SPINE ============== -->
+<div class="opfd-variant" data-opfd-variant="C">
+<section class="bg-brand-surface">
+  <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="inline-block text-xs uppercase tracking-[0.2em] font-bold text-brand-secondary">The Platform</span>
+      <h2 class="mt-4 text-3xl md:text-5xl font-bold text-brand-ink tracking-tight">One Platform. Four Deployments.</h2>
+      <p class="mt-5 text-lg text-brand-body leading-relaxed">Ocula360 is the foundation. Nsight360, 2nd Opinion, and Ophthal360 are purpose-built deployments of that foundation.</p>
+    </div>
+
+    <div class="mt-16 relative">
+      <!-- Foundation header -->
+      <div class="relative z-10 max-w-2xl mx-auto rounded-2xl bg-gradient-to-br from-brand-primary-dark to-brand-primary text-white p-7 shadow-xl shadow-brand-primary/30 text-center">
+        <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-brand-secondary">Foundation</span>
+        <h3 class="mt-2 text-3xl md:text-4xl font-bold">Ocula360</h3>
+        <p class="mt-2 text-sm text-white/75">Foundational retinal AI · 4+ diseases · 250K+ patients · &lt;2s inference</p>
+      </div>
+
+      <!-- Vertical spine + branching tree -->
+      <div class="relative mt-0">
+        <!-- vertical spine line -->
+        <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-12 w-px bg-gradient-to-b from-brand-primary via-brand-secondary to-brand-secondary/0"></div>
+        <!-- pulse dot -->
+        <div class="absolute left-1/2 -translate-x-1/2 top-0 w-2 h-2 rounded-full bg-brand-secondary opfdC-pulse"></div>
+
+        <div class="pt-12 grid md:grid-cols-3 gap-6 relative">
+          <!-- branch markers from spine to each card -->
+          <div class="hidden md:block absolute top-0 left-0 right-0 h-12 pointer-events-none">
+            <svg viewBox="0 0 600 48" preserveAspectRatio="none" class="w-full h-full">
+              <path d="M 300 0 L 300 24 L 100 24 L 100 48" fill="none" stroke="#27AAE1" stroke-opacity="0.5" stroke-width="1.5"/>
+              <path d="M 300 0 L 300 48" fill="none" stroke="#27AAE1" stroke-opacity="0.5" stroke-width="1.5"/>
+              <path d="M 300 0 L 300 24 L 500 24 L 500 48" fill="none" stroke="#27AAE1" stroke-opacity="0.5" stroke-width="1.5"/>
+            </svg>
+          </div>
+
+          <!-- Card 1 -->
+          <div class="relative bg-white rounded-2xl p-6 border border-slate-200 hover:border-brand-secondary hover:shadow-lg transition group">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-brand-secondary border-2 border-brand-surface"></div>
+            <span class="text-[10px] uppercase tracking-widest font-bold text-brand-secondary">Primary care</span>
+            <h3 class="mt-2 text-2xl font-bold text-brand-ink">Nsight360</h3>
+            <p class="mt-3 text-sm text-brand-body leading-relaxed">DR screening at the point of care, built into the primary care visit.</p>
+            <div class="mt-5 pt-5 border-t border-slate-100 flex items-center text-sm font-semibold text-brand-primary group-hover:text-brand-secondary transition">Explore →</div>
+          </div>
+          <!-- Card 2 -->
+          <div class="relative bg-white rounded-2xl p-6 border border-slate-200 hover:border-brand-secondary hover:shadow-lg transition group">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-brand-secondary border-2 border-brand-surface"></div>
+            <span class="text-[10px] uppercase tracking-widest font-bold text-brand-secondary">Optometry</span>
+            <h3 class="mt-2 text-2xl font-bold text-brand-ink">2nd Opinion</h3>
+            <p class="mt-3 text-sm text-brand-body leading-relaxed">A confident second read on every retinal image, for optometric practice.</p>
+            <div class="mt-5 pt-5 border-t border-slate-100 flex items-center text-sm font-semibold text-brand-primary group-hover:text-brand-secondary transition">Explore →</div>
+          </div>
+          <!-- Card 3 -->
+          <div class="relative bg-white rounded-2xl p-6 border border-slate-200 hover:border-brand-secondary hover:shadow-lg transition group">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-brand-secondary border-2 border-brand-surface"></div>
+            <span class="text-[10px] uppercase tracking-widest font-bold text-brand-secondary">Autonomous / scale</span>
+            <h3 class="mt-2 text-2xl font-bold text-brand-ink">Ophthal360</h3>
+            <p class="mt-3 text-sm text-brand-body leading-relaxed">Autonomous diagnostic workflows for high-volume ophthalmology and trials.</p>
+            <div class="mt-5 pt-5 border-t border-slate-100 flex items-center text-sm font-semibold text-brand-primary group-hover:text-brand-secondary transition">Explore →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .opfdC-pulse { animation: opfdC-pulse-anim 2.4s ease-in-out infinite; box-shadow: 0 0 0 0 rgba(39,170,225,0.6); }
+  @keyframes opfdC-pulse-anim {
+    0% { box-shadow: 0 0 0 0 rgba(39,170,225,0.7); }
+    70% { box-shadow: 0 0 0 12px rgba(39,170,225,0); }
+    100% { box-shadow: 0 0 0 0 rgba(39,170,225,0); }
+  }
+</style>
+</div>
+
+<!-- ============== VARIANT D · DARK NETWORK DIAGRAM ============== -->
+<div class="opfd-variant" data-opfd-variant="D">
+<section class="relative bg-gradient-to-br from-[#0a1530] via-brand-primary-dark to-[#0a1530] text-white overflow-hidden">
+  <!-- Starfield / subtle texture -->
+  <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 25% 30%, rgba(39,170,225,0.15), transparent 40%), radial-gradient(circle at 75% 70%, rgba(124,58,237,0.12), transparent 40%);"></div>
+
+  <div class="relative max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="inline-block text-xs uppercase tracking-[0.2em] font-bold text-brand-secondary">The Platform</span>
+      <h2 class="mt-4 text-3xl md:text-5xl font-bold tracking-tight">One Platform. Four Deployments.</h2>
+      <p class="mt-5 text-lg text-white/80 leading-relaxed">Ocula360 is the foundation. Nsight360, 2nd Opinion, and Ophthal360 are purpose-built deployments — each tuned for a specific care setting.</p>
+    </div>
+
+    <div class="mt-16 flex justify-center">
+      <div class="relative w-full max-w-[760px]">
+        <svg viewBox="0 0 760 460" class="w-full h-auto" aria-hidden="true">
+          <defs>
+            <radialGradient id="opfdD-core" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#27AAE1" stop-opacity="0.5"/>
+              <stop offset="50%" stop-color="#27AAE1" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#27AAE1" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="opfdD-edge" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#27AAE1" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#27AAE1" stop-opacity="0.2"/>
+            </linearGradient>
+            <filter id="opfdD-glow"><feGaussianBlur stdDeviation="3"/></filter>
+          </defs>
+
+          <!-- Halo -->
+          <circle cx="380" cy="230" r="180" fill="url(#opfdD-core)"/>
+
+          <!-- Edges (data-flow lines from foundation outward) -->
+          <g stroke-linecap="round">
+            <line x1="380" y1="230" x2="160" y2="100" stroke="url(#opfdD-edge)" stroke-width="2"/>
+            <line x1="380" y1="230" x2="600" y2="100" stroke="url(#opfdD-edge)" stroke-width="2"/>
+            <line x1="380" y1="230" x2="160" y2="380" stroke="url(#opfdD-edge)" stroke-width="2"/>
+            <line x1="380" y1="230" x2="600" y2="380" stroke="url(#opfdD-edge)" stroke-width="2"/>
+          </g>
+
+          <!-- Animated data packets traveling along edges -->
+          <circle r="3" fill="#27AAE1" filter="url(#opfdD-glow)">
+            <animateMotion dur="2.4s" repeatCount="indefinite" path="M 380 230 L 160 100"/>
+            <animate attributeName="opacity" values="0;1;1;0" dur="2.4s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="3" fill="#27AAE1" filter="url(#opfdD-glow)">
+            <animateMotion dur="2.4s" repeatCount="indefinite" begin="0.6s" path="M 380 230 L 600 100"/>
+            <animate attributeName="opacity" values="0;1;1;0" dur="2.4s" repeatCount="indefinite" begin="0.6s"/>
+          </circle>
+          <circle r="3" fill="#27AAE1" filter="url(#opfdD-glow)">
+            <animateMotion dur="2.4s" repeatCount="indefinite" begin="1.2s" path="M 380 230 L 160 380"/>
+            <animate attributeName="opacity" values="0;1;1;0" dur="2.4s" repeatCount="indefinite" begin="1.2s"/>
+          </circle>
+          <circle r="3" fill="#27AAE1" filter="url(#opfdD-glow)">
+            <animateMotion dur="2.4s" repeatCount="indefinite" begin="1.8s" path="M 380 230 L 600 380"/>
+            <animate attributeName="opacity" values="0;1;1;0" dur="2.4s" repeatCount="indefinite" begin="1.8s"/>
+          </circle>
+
+          <!-- Foundation node (center) -->
+          <circle cx="380" cy="230" r="78" fill="#0a1530" stroke="#27AAE1" stroke-width="2"/>
+          <circle cx="380" cy="230" r="78" fill="url(#opfdD-core)"/>
+          <text x="380" y="218" text-anchor="middle" fill="#27AAE1" font-size="9" font-weight="700" letter-spacing="2" font-family="Inter">FOUNDATION</text>
+          <text x="380" y="240" text-anchor="middle" fill="#fff" font-size="22" font-weight="700" font-family="Inter">Ocula360</text>
+          <text x="380" y="258" text-anchor="middle" fill="#ffffff" fill-opacity="0.6" font-size="10" font-family="Inter">Retinal AI Platform</text>
+
+          <!-- Deployment nodes -->
+          <!-- top-left: Nsight360 -->
+          <g>
+            <circle cx="160" cy="100" r="50" fill="#0a1530" stroke="#27AAE1" stroke-opacity="0.5" stroke-width="1.5"/>
+            <text x="160" y="94" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter">Nsight360</text>
+            <text x="160" y="112" text-anchor="middle" fill="#27AAE1" font-size="9" letter-spacing="1.5" font-family="Inter">PRIMARY CARE</text>
+          </g>
+          <!-- top-right: 2nd Opinion -->
+          <g>
+            <circle cx="600" cy="100" r="50" fill="#0a1530" stroke="#27AAE1" stroke-opacity="0.5" stroke-width="1.5"/>
+            <text x="600" y="94" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter">2nd Opinion</text>
+            <text x="600" y="112" text-anchor="middle" fill="#27AAE1" font-size="9" letter-spacing="1.5" font-family="Inter">OPTOMETRY</text>
+          </g>
+          <!-- bottom-left: Ophthal360 -->
+          <g>
+            <circle cx="160" cy="380" r="50" fill="#0a1530" stroke="#27AAE1" stroke-opacity="0.5" stroke-width="1.5"/>
+            <text x="160" y="374" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" font-family="Inter">Ophthal360</text>
+            <text x="160" y="392" text-anchor="middle" fill="#27AAE1" font-size="9" letter-spacing="1.5" font-family="Inter">AUTONOMOUS</text>
+          </g>
+          <!-- bottom-right: future / research -->
+          <g>
+            <circle cx="600" cy="380" r="50" fill="#0a1530" stroke="#7C3AED" stroke-opacity="0.5" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <text x="600" y="374" text-anchor="middle" fill="#ffffff" fill-opacity="0.6" font-size="13" font-weight="600" font-family="Inter">Research</text>
+            <text x="600" y="392" text-anchor="middle" fill="#7C3AED" font-size="9" letter-spacing="1.5" font-family="Inter">CLINICAL TRIALS</text>
+          </g>
+        </svg>
+
+        <!-- Legend -->
+        <div class="mt-6 flex items-center justify-center gap-6 text-[11px] uppercase tracking-widest text-white/50">
+          <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-brand-secondary"></span>Live deployments</span>
+          <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-brand-accent"></span>Research access</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<script>
+  document.querySelectorAll('[data-opfd]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const v = btn.getAttribute('data-opfd');
+      document.querySelectorAll('.opfd-btn').forEach(b => b.classList.remove('opfd-active'));
+      btn.classList.add('opfd-active');
+      document.querySelectorAll('.opfd-variant').forEach(el => el.classList.remove('opfd-show'));
+      const target = document.querySelector('[data-opfd-variant="' + v + '"]');
+      if (target) target.classList.add('opfd-show');
+    });
+  });
+</script>
+
+<section class="relative text-white overflow-hidden">
+  <img src="../public/images/sections/ai-geometrcicdesign.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" />
+  <div class="absolute inset-0 bg-brand-primary/85 mix-blend-multiply pointer-events-none"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-brand-primary/80 via-brand-primary/50 to-brand-primary/80 pointer-events-none"></div>
+  <div class="relative max-w-4xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold">Find the right solution for your organization.</h2>
+    <p class="mt-5 max-w-2xl mx-auto text-lg text-white/90 leading-relaxed">Whether you're screening at the point of care, supporting diagnosis, or running a clinical trial, we'll help you identify which solution fits your workflow.</p>
+    <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+      <button class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-6 py-3 rounded-md">Request a Demo</button>
+      <button class="inline-flex items-center justify-center border-2 border-white text-white font-semibold px-6 py-3 rounded-md">Contact Us</button>
+    </div>
+  </div>
+</section>
+
+
+<div class="page-divider">▼ Ocula360 Detail Page ▼</div>
+
+
+<!-- =============================================================
+     PAGE 3 — OCULA360
+============================================================= -->
+<a id="page-ocula360"></a>
+
+<section class="relative bg-gradient-to-br from-brand-primary-dark to-brand-primary text-white overflow-hidden">
+  <div class="relative max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid gap-12 md:grid-cols-2 items-center">
+    <div>
+      <span class="inline-block rounded-full bg-white/10 text-white text-xs uppercase tracking-widest font-semibold px-3 py-1">Flagship Solution</span>
+      <h1 class="mt-5 text-5xl md:text-6xl font-bold leading-tight">Ocula360</h1>
+      <p class="mt-3 text-2xl md:text-3xl font-semibold text-brand-secondary">Foundational Retinal AI</p>
+      <p class="mt-6 text-lg text-white/90 leading-relaxed max-w-xl">A single platform that turns retinal imaging into actionable diagnostic intelligence—across screening, clinical care, and research environments.</p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4">
+        <button class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-6 py-3 rounded-md">Request a Demo</button>
+        <a class="inline-flex items-center justify-center border-2 border-white text-white font-semibold px-6 py-3 rounded-md">Download Overview</a>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="relative aspect-square max-w-[420px] rounded-2xl overflow-hidden mx-auto">
+        <img src="../public/images/hero/orb-ring-static.png" alt="Ocula360 visualization" class="absolute inset-0 w-full h-full object-cover" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="max-w-3xl mx-auto px-6 md:px-8 lg:px-12 py-20 text-center">
+    <h2 class="flex items-baseline gap-3 font-bold leading-tight text-sm uppercase tracking-widest text-brand-primary justify-center">
+      <span class="block w-1 h-[0.8em] rounded-full flex-shrink-0 bg-brand-primary"></span>
+      <span>THE PLATFORM</span>
+    </h2>
+    <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">One Retinal Image. Layered Diagnostic Intelligence.</h2>
+    <div class="mt-8 space-y-5 text-lg text-brand-body leading-relaxed text-left">
+      <p>Ocula360 is our foundational AI engine—designed to detect multiple retinal diseases from a single image. Built on a foundational model architecture, it delivers explainable lesion-level outputs, advanced DRSS scoring, and multimodal compatibility that scales from individual clinic workflows to enterprise screening programs.</p>
+      <p>From diabetic retinopathy to age-related macular degeneration to glaucoma indicators, Ocula360 transforms one scan into a comprehensive diagnostic signal—so providers can act earlier, researchers can move faster, and patients get the care they need, sooner.</p>
+      <p class="text-xl font-semibold text-brand-ink">At its core, Ocula360 is not a feature set. It is a platform.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-brand-surface-blue">
+  <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
+    <div class="text-center max-w-3xl mx-auto">
+      <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">CAPABILITIES</p>
+      <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">Built for the Full Diagnostic Stack</h2>
+    </div>
+    <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div class="bg-white border border-brand-line rounded-lg p-6"><h3 class="text-lg font-semibold text-brand-ink mb-2">Multi-Disease Detection</h3><p class="text-sm text-brand-body leading-relaxed">Detects diabetic retinopathy, AMD, glaucoma indicators, vascular abnormalities, hemorrhages, microaneurysms, and exudates—all from a single image.</p></div>
+      <div class="bg-white border border-brand-line rounded-lg p-6"><h3 class="text-lg font-semibold text-brand-ink mb-2">Automated DRSS Scoring</h3><p class="text-sm text-brand-body leading-relaxed">Standardized severity grading for diabetic retinopathy, supporting consistent disease staging and eligibility decisions across screening programs.</p></div>
+      <div class="bg-white border border-brand-line rounded-lg p-6"><h3 class="text-lg font-semibold text-brand-ink mb-2">Lesion-Level Explainability</h3><p class="text-sm text-brand-body leading-relaxed">Transparent confidence outputs and lesion overlays show clinicians exactly where and why the model flagged a finding—building trust, not black boxes.</p></div>
+      <div class="bg-white border border-brand-line rounded-lg p-6"><h3 class="text-lg font-semibold text-brand-ink mb-2">Multimodal & Future-Ready</h3><p class="text-sm text-brand-body leading-relaxed">Compatible with fundus imaging, ultra-widefield (UWF) scans, and patient metadata. Architected to integrate additional inputs as imaging standards evolve.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
+    <div class="text-center max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-ink">Simple. Scalable. Integrated.</h2>
+      <p class="mt-4 text-lg text-brand-body">Ocula360 fits seamlessly into any retinal imaging workflow.</p>
+    </div>
+    <div class="mt-14 grid gap-6 md:grid-cols-4">
+      <div class="bg-white border border-brand-line rounded-xl p-6"><span class="text-brand-primary font-bold text-4xl">01</span><h3 class="mt-3 text-lg font-semibold text-brand-ink">Capture</h3><p class="mt-2 text-sm text-brand-body leading-relaxed">Any retinal image from any supported camera—fundus, handheld, or ultra-widefield.</p></div>
+      <div class="bg-white border border-brand-line rounded-xl p-6"><span class="text-brand-primary font-bold text-4xl">02</span><h3 class="mt-3 text-lg font-semibold text-brand-ink">Upload</h3><p class="mt-2 text-sm text-brand-body leading-relaxed">Images upload to the Ocula360 platform via secure, HIPAA-compliant transfer.</p></div>
+      <div class="bg-white border border-brand-line rounded-xl p-6"><span class="text-brand-primary font-bold text-4xl">03</span><h3 class="mt-3 text-lg font-semibold text-brand-ink">Analyze</h3><p class="mt-2 text-sm text-brand-body leading-relaxed">The foundational model processes the image, detecting findings and grading severity based on your configured study criteria.</p></div>
+      <div class="bg-white border border-brand-line rounded-xl p-6"><span class="text-brand-primary font-bold text-4xl">04</span><h3 class="mt-3 text-lg font-semibold text-brand-ink">Act</h3><p class="mt-2 text-sm text-brand-body leading-relaxed">Receive explainable reports with lesion-level overlays and confidence signals—ready for clinical review, referral routing, or trial enrollment decisions.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-brand-primary text-white">
+  <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
+    <h2 class="text-3xl md:text-4xl font-bold text-center">Faster Detection. Better Precision. Real Scale.</h2>
+    <div class="mt-12 grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
+      <div><h3 class="text-xl font-bold">Accelerated Timelines</h3><p class="mt-2 text-base text-white/90 leading-relaxed">Reduce time-to-detection and time-to-enrollment by automating the most manual parts of retinal image review.</p></div>
+      <div><h3 class="text-xl font-bold">Consistent Evaluation</h3><p class="mt-2 text-base text-white/90 leading-relaxed">Standardize interpretation across sites, readers, and geographies—reducing variability in diagnosis and research.</p></div>
+      <div><h3 class="text-xl font-bold">Enterprise Integration</h3><p class="mt-2 text-base text-white/90 leading-relaxed">HIPAA-compliant infrastructure and flexible deployment options fit the security and workflow needs of health systems, payers, and pharma.</p></div>
+      <div><h3 class="text-xl font-bold">Clinically Grounded</h3><p class="mt-2 text-base text-white/90 leading-relaxed">Built with and validated by ophthalmologists. Every model output is explainable and evidence-based.</p></div>
+    </div>
+  </div>
+</section>
+
+
+<div class="page-divider">▼ Nsight360 Detail Page ▼</div>
+
+
+<!-- =============================================================
+     PAGE 4 — NSIGHT360
+============================================================= -->
+<a id="page-nsight360"></a>
+
+<section class="bg-brand-surface-blue">
+  <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid gap-12 md:grid-cols-2 items-center">
+    <div>
+      <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Primary Care Solution</p>
+      <h1 class="mt-4 text-5xl md:text-6xl font-bold text-brand-ink leading-tight">Nsight360</h1>
+      <p class="mt-3 text-2xl text-brand-primary">Retinal screening, delivered where care begins.</p>
+      <p class="mt-6 max-w-xl text-lg text-brand-body leading-relaxed">Nsight360 brings AI-assisted retinal screening directly into primary care, endocrinology, home health, and community clinics—so at-risk patients are identified where they already receive care.</p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4">
+        <button class="inline-flex items-center justify-center bg-brand-primary text-white font-semibold px-6 py-3 rounded-md">Request a Demo</button>
+        <a class="inline-flex items-center justify-center border-2 border-brand-primary text-brand-primary font-semibold px-6 py-3 rounded-md">See Who It's For</a>
+      </div>
+    </div>
+    <div class="flex justify-center">
+      <!-- Synthetic SVG illustration (no photo) -->
+      <svg viewBox="0 0 360 340" class="w-full max-w-[360px]">
+        <rect x="40" y="40" width="280" height="260" rx="14" fill="#fff" stroke="#1E3A8A" stroke-width="1.5"/>
+        <rect x="70" y="70" width="100" height="80" rx="6" fill="#EFF6FF"/>
+        <circle cx="120" cy="110" r="26" fill="#0EA5E9" fill-opacity="0.2" stroke="#1E3A8A" stroke-width="1.5"/>
+        <circle cx="120" cy="110" r="8" fill="#1E3A8A"/>
+        <rect x="70" y="170" width="220" height="10" rx="5" fill="#E2E8F0"/>
+        <rect x="70" y="190" width="180" height="10" rx="5" fill="#E2E8F0"/>
+        <rect x="70" y="230" width="80" height="32" rx="6" fill="#1E3A8A"/>
+        <text x="110" y="251" text-anchor="middle" fill="#fff" font-size="11" font-weight="600" font-family="Inter">Screen →</text>
+        <g transform="translate(200, 90)">
+          <rect x="0" y="0" width="90" height="60" rx="8" fill="#1E3A8A"/>
+          <circle cx="25" cy="30" r="12" fill="#0EA5E9" fill-opacity="0.6"/>
+          <circle cx="25" cy="30" r="4" fill="#fff"/>
+          <text x="62" y="34" text-anchor="middle" fill="#fff" font-size="9" font-weight="600" font-family="Inter">Handheld</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="max-w-3xl mx-auto px-6 md:px-8 lg:px-12 py-20">
+    <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">THE CARE GAP</p>
+    <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">Millions of at-risk patients never reach a specialist.</h2>
+    <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed">
+      <p>Diabetic retinopathy is the leading cause of preventable blindness in working-age adults. It is also one of the most treatable conditions—when caught early.</p>
+      <p>But specialist shortages, long wait times, and travel barriers mean that millions of at-risk patients never make it in for an eye exam until symptoms appear. By then, intervention is harder and outcomes are worse.</p>
+      <p>Primary care is where most of these patients already go. It is also where retinal screening has been hardest to deploy. Until now.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-brand-surface">
+  <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 grid gap-12 md:grid-cols-5 items-start">
+    <div class="md:col-span-3">
+      <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">THE SOLUTION</p>
+      <h2 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink">Retinal screening built for the front line of care.</h2>
+      <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed">
+        <p>Nsight360 enables non-specialists—primary care physicians, nurses, endocrinologists, home health aides—to capture retinal images using accessible hand-held or portable cameras. Our AI analyzes each image and produces a clinically actionable report, reviewed by licensed ophthalmologists, within minutes.</p>
+        <p>No on-site eye specialist required. No workflow rebuild required. Just faster, broader access to sight-saving screening.</p>
+      </div>
+    </div>
+    <div class="md:col-span-2 bg-white rounded-2xl shadow-md p-8 space-y-6">
+      <div><p class="text-5xl font-bold text-brand-primary">95%</p><p class="mt-1 text-sm text-brand-body">Compliance rate providers can reach within 1 year</p></div>
+      <div class="border-t border-brand-line pt-6"><p class="text-5xl font-bold text-brand-primary">3x</p><p class="mt-1 text-sm text-brand-body">Screening efficiency versus existing systems</p></div>
+      <div class="border-t border-brand-line pt-6"><p class="text-5xl font-bold text-brand-primary">50</p><p class="mt-1 text-sm text-brand-body">US states where our reading ophthalmologists are licensed</p></div>
+    </div>
+  </div>
+</section>
+
+
+<div class="page-divider">▼ 2nd Opinion Detail Page ▼</div>
+
+
+<!-- =============================================================
+     PAGE 5 — 2ND OPINION
+============================================================= -->
+<a id="page-2nd-opinion"></a>
+
+<section class="bg-white border-b border-brand-line">
+  <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid gap-12 md:grid-cols-2 items-center">
+    <div>
+      <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Diagnostic Support Solution</p>
+      <h1 class="mt-4 text-5xl md:text-6xl font-bold text-brand-ink leading-tight">2nd Opinion</h1>
+      <p class="mt-3 text-2xl text-brand-primary">Greater confidence on the cases that matter most.</p>
+      <p class="mt-6 max-w-xl text-lg text-brand-body leading-relaxed">AI-assisted retinal analysis built for optometrists and eye care professionals. 2nd Opinion highlights subtle findings, standardizes interpretation, and adds a trusted layer of review to every complex or borderline case.</p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4">
+        <button class="inline-flex items-center justify-center bg-brand-primary text-white font-semibold px-6 py-3 rounded-md">Request a Demo</button>
+        <a class="inline-flex items-center justify-center border-2 border-brand-primary text-brand-primary font-semibold px-6 py-3 rounded-md">See How It Integrates</a>
+      </div>
+    </div>
+    <div class="bg-brand-surface-blue rounded-2xl p-6">
+      <div class="grid grid-cols-2 gap-3">
+        <div class="rounded-xl overflow-hidden border border-brand-line bg-white">
+          <div class="aspect-square relative bg-gradient-to-br from-[#450a0a] via-[#991b1b] to-[#dc2626]">
+            <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full"><circle cx="50" cy="50" r="8" fill="#0EA5E9" fill-opacity="0.7"/></svg>
+          </div>
+          <p class="p-2 text-xs text-brand-muted text-center font-medium">Original</p>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-brand-primary bg-white">
+          <div class="aspect-square relative bg-gradient-to-br from-[#450a0a] via-[#991b1b] to-[#dc2626]">
+            <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full"><circle cx="50" cy="50" r="8" fill="#0EA5E9" fill-opacity="0.7"/><circle cx="30" cy="35" r="6" fill="none" stroke="#0EA5E9" stroke-width="1.5"/><circle cx="70" cy="40" r="4" fill="none" stroke="#0EA5E9" stroke-width="1.5"/><circle cx="65" cy="70" r="5" fill="none" stroke="#0EA5E9" stroke-width="1.5"/><circle cx="35" cy="72" r="3" fill="none" stroke="#0EA5E9" stroke-width="1.5"/></svg>
+          </div>
+          <p class="p-2 text-xs text-brand-primary text-center font-semibold">AI-annotated</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="page-divider">▼ Ophthal360 Detail Page ▼</div>
+
+
+<!-- =============================================================
+     PAGE 6 — OPHTHAL360
+============================================================= -->
+<a id="page-ophthal360"></a>
+
+<section class="relative bg-gradient-to-br from-brand-primary-dark to-brand-primary text-white overflow-hidden">
+  <div class="relative max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid gap-12 md:grid-cols-2 items-center">
+    <div>
+      <span class="inline-block rounded-full bg-brand-secondary/20 text-brand-secondary text-xs uppercase tracking-widest font-semibold px-3 py-1">Autonomous AI</span>
+      <h1 class="mt-5 text-5xl md:text-6xl font-bold leading-tight">Ophthal360</h1>
+      <p class="mt-3 text-2xl md:text-3xl font-semibold text-brand-secondary">Retinal screening at the scale of a population.</p>
+      <p class="mt-6 text-lg text-white/90 leading-relaxed max-w-xl">An autonomous AI platform built for health systems, population health programs, and large-scale screening deployments—delivering retinal analysis and referral decision support without manual image review.</p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4">
+        <button class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-6 py-3 rounded-md">Request a Demo</button>
+        <a class="inline-flex items-center justify-center border-2 border-white text-white font-semibold px-6 py-3 rounded-md">See Deployment Case</a>
+      </div>
+    </div>
+    <div class="flex justify-center">
+      <svg viewBox="0 0 400 340" class="w-full max-w-[420px]">
+        <circle cx="200" cy="170" r="40" fill="#0EA5E9" fill-opacity="0.3" stroke="#0EA5E9" stroke-width="1.5"/>
+        <circle cx="200" cy="170" r="20" fill="#0EA5E9"/>
+        <text x="200" y="174" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="Inter">AI</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================= -->
+<footer class="relative bg-brand-navy text-white overflow-hidden mt-24">
+  <div class="relative border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-14 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 md:gap-10 items-center">
+      <h2 class="text-3xl md:text-[38px] font-bold leading-[1.1] tracking-[-0.02em] max-w-[640px] m-0">Ocula360 sees what a trained eye would miss — <em class="not-italic text-brand-cyan">in under two seconds.</em></h2>
+      <button class="inline-flex items-center gap-2 bg-white text-brand-primary font-semibold text-sm px-[22px] py-[14px] rounded-[10px] whitespace-nowrap">Book a demo →</button>
+    </div>
+  </div>
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-12 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] gap-10">
+    <div>
+      <p class="font-bold text-xl mb-4">Ophthalytics</p>
+      <p class="text-[13px] text-slate-300 leading-[1.6] max-w-[280px]">Retinal AI platform for multi-disease detection, DRSS scoring, and explainable outputs.</p>
+    </div>
+    <div><h5 class="font-mono text-[10px] text-brand-cyan uppercase tracking-[.16em] mb-4">Platform</h5><ul class="space-y-2.5 text-[13.5px] text-slate-300"><li>Ocula360</li><li>Nsight360</li><li>2nd Opinion</li><li>Ophthal360</li></ul></div>
+    <div><h5 class="font-mono text-[10px] text-brand-cyan uppercase tracking-[.16em] mb-4">Clinicians</h5><ul class="space-y-2.5 text-[13.5px] text-slate-300"><li>Who We Help</li><li>All Solutions</li><li>Journal Articles</li></ul></div>
+    <div><h5 class="font-mono text-[10px] text-brand-cyan uppercase tracking-[.16em] mb-4">Science</h5><ul class="space-y-2.5 text-[13.5px] text-slate-300"><li>Publications</li><li>Innovation Pipeline</li><li>Newsroom</li><li>All Resources</li></ul></div>
+    <div><h5 class="font-mono text-[10px] text-brand-cyan uppercase tracking-[.16em] mb-4">Company</h5><ul class="space-y-2.5 text-[13.5px] text-slate-300"><li>About</li><li>Leadership</li><li>Press</li><li>Contact</li></ul></div>
+  </div>
+  <div class="relative border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-5 flex flex-col md:flex-row justify-between items-center gap-3 font-mono text-[10px] text-slate-400 tracking-[.14em] uppercase">
+      <div>© 2019 – 2026 Ophthalytics, Inc. · All rights reserved</div>
+      <div class="flex gap-6"><a>Privacy</a><a>Terms</a><a>Accessibility</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- Active jumper highlighting -->
+<script>
+const ids = ['page-home','page-solutions','page-ocula360','page-nsight360','page-2nd-opinion','page-ophthal360'];
+const links = [...document.querySelectorAll('.jumper a')];
+const setActive = () => {
+  const y = window.scrollY + 200;
+  let curr = ids[0];
+  for (const id of ids) {
+    const el = document.getElementById(id);
+    if (el && el.offsetTop <= y) curr = id;
+  }
+  links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+curr));
+};
+window.addEventListener('scroll', setActive);
+setActive();
+</script>
+
+</body>
+</html>

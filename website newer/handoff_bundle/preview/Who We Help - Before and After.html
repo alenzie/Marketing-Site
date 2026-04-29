@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Who We Help — Before & After</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #1E3A8A;
+    --navy-deep: #0F2C5C;
+    --cyan: #27AAE1;
+    --purple: #7C3AED;
+    --ink: #0F172A;
+    --body: #475569;
+    --muted: #64748B;
+    --line: #E2E8F0;
+    --surface: #F8FAFC;
+    --surface-blue: #EFF6FF;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; color: var(--ink); background: #fff; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+
+  /* ───── VERSION LABELS ───── */
+  .version-label {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--ink);
+    color: white;
+    padding: 14px 32px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .version-label.before { background: #475569; }
+  .version-label.after { background: #065F46; }
+  .version-label .badge {
+    background: rgba(255,255,255,0.15);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+  .version-label .meta { font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 12px; opacity: 0.75; }
+
+  /* ───── PAGE BREAK ───── */
+  .page-break {
+    background: #DC2626;
+    color: white;
+    padding: 32px;
+    text-align: center;
+    position: relative;
+    border-top: 4px dashed #FCA5A5;
+    border-bottom: 4px dashed #FCA5A5;
+  }
+  .page-break .label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 12px;
+  }
+  .page-break h2 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .page-break .arrow {
+    display: inline-block;
+    margin: 0 12px;
+    transform: translateY(-2px);
+  }
+  .page-break .scissors {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    opacity: 0.7;
+  }
+  .page-break .scissors.left { left: 32px; }
+  .page-break .scissors.right { right: 32px; }
+
+  /* ───── HERO BAND ───── */
+  .hero-band {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--surface-blue) 0%, white 100%);
+    padding: 96px 48px 128px;
+  }
+  .hero-band .dots {
+    position: absolute; inset: 0; opacity: 0.12; pointer-events: none;
+    background-image: radial-gradient(circle, var(--navy) 1.5px, transparent 1.5px);
+    background-size: 40px 40px;
+  }
+  .hero-band .inner { position: relative; max-width: 1280px; margin: 0 auto; }
+  .hero-band .eyebrow { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy); font-weight: 600; }
+  .hero-band h1 { margin: 16px 0 0; font-size: 56px; line-height: 1.05; letter-spacing: -0.02em; max-width: 920px; font-weight: 700; }
+
+  /* ───── SECTIONS ───── */
+  section.block { padding: 80px 48px; }
+  section.block.tinted { background: var(--surface); }
+  section.block .container { max-width: 1100px; margin: 0 auto; }
+  .sec-head-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+  .sec-head-row .product-tag { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy); font-weight: 600; margin: 0; }
+  .sec-head-row .audience-tag { font-size: 14px; color: var(--body); font-style: italic; margin: 0; }
+  .block h2 { font-size: 36px; line-height: 1.15; letter-spacing: -0.015em; max-width: 720px; margin: 0; font-weight: 700; }
+  .block .lede { margin: 24px 0 0; max-width: 720px; font-size: 17px; color: var(--body); line-height: 1.6; }
+  .block .columns { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; margin-top: 48px; align-items: start; }
+  .block h3 { font-size: 19px; font-weight: 600; margin: 0 0 18px; }
+  .block ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+  .block ul li { display: flex; gap: 12px; font-size: 15.5px; color: var(--body); line-height: 1.55; }
+  .block ul li::before { content: '•'; color: var(--navy); font-weight: 700; }
+  .block .closer { margin-top: 40px; max-width: 720px; font-style: italic; color: var(--body); font-size: 16px; }
+
+  /* ───── BEFORE: AudiencePill (icon + label) ───── */
+  .pill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .pill-before {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: white;
+    transition: border-color 200ms;
+  }
+  .pill-before:hover { border-color: var(--cyan); }
+  .pill-before .icon-wrap {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--surface-blue);
+    color: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .pill-before .label { font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.25; }
+
+  /* ───── AFTER: photo pill ───── */
+  .aud-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .aud-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px 12px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: white;
+    transition: border-color 200ms, transform 200ms, box-shadow 200ms;
+  }
+  .aud-card:hover {
+    border-color: var(--cyan);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px -6px rgba(30,58,138,0.18);
+  }
+  .aud-card .photo {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--surface-blue);
+    border: 2px solid var(--surface-blue);
+  }
+  .aud-card .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .aud-card .label { font-size: 14.5px; font-weight: 600; color: var(--ink); line-height: 1.25; }
+
+  /* ───── COMPLIANCE STAT ───── */
+  .compliance { background: white; padding: 56px 48px 80px; }
+  .compliance .container { max-width: 1100px; margin: 0 auto; }
+  .compliance .frame { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: rgba(239,246,255,0.4); }
+  .compliance img { width: 100%; height: auto; display: block; }
+
+  /* ───── REGIONAL IMPACT ───── */
+  .impact { background: var(--surface-blue); padding: 96px 48px; }
+  .impact .grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
+  .impact .photo {
+    aspect-ratio: 4/3;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px -10px rgba(15,44,92,0.25);
+  }
+  .impact .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .impact .placeholder {
+    aspect-ratio: 4/3;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--navy) 0%, #3B5FBF 50%, var(--purple) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.85);
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 12px 30px -10px rgba(15,44,92,0.25);
+    text-align: center;
+    padding: 24px;
+  }
+  .impact .pipe-h2 { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy); font-weight: 600; padding-left: 14px; border-left: 3px solid var(--cyan); margin: 0; }
+  .impact h3 { font-size: 36px; line-height: 1.15; letter-spacing: -0.015em; margin: 16px 0 24px; max-width: 540px; font-weight: 700; }
+  .impact p { font-size: 16.5px; color: var(--body); line-height: 1.65; max-width: 540px; margin: 0; }
+
+  @media (max-width: 900px) {
+    section.block { padding: 56px 24px; }
+    .hero-band { padding: 56px 24px 80px; }
+    .hero-band h1 { font-size: 36px; }
+    .block h2 { font-size: 28px; }
+    .block .columns { grid-template-columns: 1fr; gap: 32px; }
+    .pill-grid, .aud-grid { grid-template-columns: 1fr; }
+    .impact { padding: 56px 24px; }
+    .impact .grid { grid-template-columns: 1fr; gap: 32px; }
+    .impact h3 { font-size: 28px; }
+    .page-break h2 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░  BEFORE  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<div class="version-label before">
+  <span><span class="badge">BEFORE</span> &nbsp; Current production · /who-we-help</span>
+  <span class="meta">SVG icon pills · placeholder gradient for Pakistan section</span>
+</div>
+
+<!-- BEFORE: HERO -->
+<section class="hero-band">
+  <div class="dots"></div>
+  <div class="inner">
+    <p class="eyebrow">Who We Help</p>
+    <h1>Advancing Eye Care Across Every Stage of the Patient Journey</h1>
+  </div>
+</section>
+
+<!-- BEFORE: INTRO -->
+<section class="block">
+  <div class="container" style="text-align:center; max-width: 720px;">
+    <p style="font-size: 19px; color: var(--body); line-height: 1.65; margin: 0 0 24px;">
+      Ophthalytics supports healthcare providers, researchers, and organizations through AI-powered solutions designed for screening, diagnosis, and clinical research.
+    </p>
+    <p style="font-size: 19px; color: var(--body); line-height: 1.65; margin: 0;">
+      From primary care to optometry to pharmaceutical trials, our products are built to address real-world gaps in detection, decision-making, and patient access.
+    </p>
+  </div>
+</section>
+
+<!-- BEFORE: NSIGHT360 -->
+<section class="block tinted">
+  <div class="container">
+    <div class="sec-head-row">
+      <p class="product-tag">Nsight360</p>
+      <p class="audience-tag">For Primary Care, Population Health, and Screening Programs</p>
+    </div>
+    <h2>Bringing retinal screening to the frontlines of care</h2>
+    <p class="lede">Nsight360 is designed for healthcare providers who want to deliver accessible, efficient retinal screening at the point of care. By enabling non-specialists to perform eye exams, it expands access and helps close critical care gaps.</p>
+    <div class="columns">
+      <div>
+        <h3>Who it's for</h3>
+        <div class="pill-grid">
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg></div><div class="label">Primary Care Physicians</div></div>
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="label">Endocrinologists &amp; Diabetologists</div></div>
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg></div><div class="label">Nurses &amp; Care Teams</div></div>
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><div class="label">Home Health Agencies</div></div>
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/></svg></div><div class="label">Community Health Centers</div></div>
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="label">Remote &amp; Rural Clinics</div></div>
+        </div>
+      </div>
+      <div>
+        <h3>How it helps</h3>
+        <ul>
+          <li>Enables retinal screening without requiring an on-site eye specialist</li>
+          <li>Expands access to underserved populations</li>
+          <li>Supports early detection of diabetic retinopathy</li>
+          <li>Improves workflow efficiency and patient throughput</li>
+          <li>Helps close care gaps and improve quality measures</li>
+        </ul>
+      </div>
+    </div>
+    <p class="closer">Nsight360 makes it possible to identify at-risk patients earlier—where they already receive care.</p>
+  </div>
+</section>
+
+<!-- BEFORE: COMPLIANCE STAT -->
+<section class="compliance">
+  <div class="container">
+    <div class="frame">
+      <img src="../OPHLX_MEDIA/95-compliance-rate.png" alt="95% compliance rate" />
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE: 2ND OPINION -->
+<section class="block">
+  <div class="container">
+    <div class="sec-head-row">
+      <p class="product-tag">2nd Opinion</p>
+      <p class="audience-tag">For Optometrists and Eye Care Professionals</p>
+    </div>
+    <h2>Enhancing confidence in retinal assessments</h2>
+    <p class="lede">2nd Opinion is built for optometrists and eye care providers who want additional support in interpreting retinal images, especially in complex or borderline cases.</p>
+    <div class="columns">
+      <div>
+        <h3>Who it's for</h3>
+        <div class="pill-grid">
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div><div class="label">Optometrists</div></div>
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="15" r="4"/><circle cx="18" cy="15" r="4"/><path d="M10 15h4"/></svg></div><div class="label">Eye Clinics &amp; Optical Chains</div></div>
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/></svg></div><div class="label">Ophthalmology Practices</div></div>
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="label">Reading Centers</div></div>
+        </div>
+      </div>
+      <div>
+        <h3>How it helps</h3>
+        <ul>
+          <li>Highlights suspicious regions and potential lesions</li>
+          <li>Supports clinical decision-making in uncertain cases</li>
+          <li>Reduces variability in retinal interpretation</li>
+          <li>Integrates seamlessly into existing workflows</li>
+        </ul>
+      </div>
+    </div>
+    <p class="closer">In everyday practice, not every case is clear-cut. 2nd Opinion provides an added layer of insight—helping clinicians see more and decide with greater confidence.</p>
+  </div>
+</section>
+
+<!-- BEFORE: OPHTHAL360 -->
+<section class="block tinted">
+  <div class="container">
+    <div class="sec-head-row">
+      <p class="product-tag">Ophthal360</p>
+      <p class="audience-tag">For High-Volume Screening and Autonomous Deployment</p>
+    </div>
+    <h2>Autonomous AI for scale and reach</h2>
+    <p class="lede">Ophthal360 is designed for organizations delivering retinal screening at scale—healthcare systems, large screening programs, and partners serving high-volume markets.</p>
+    <div class="columns">
+      <div>
+        <h3>Who it's for</h3>
+        <div class="pill-grid">
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 22V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v18"/></svg></div><div class="label">Healthcare Systems</div></div>
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="label">Population Health Programs</div></div>
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M10 2v7.31"/></svg></div><div class="label">Pharmaceutical Companies</div></div>
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="m9 14 2 2 4-4"/></svg></div><div class="label">Clinical Research Organizations</div></div>
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M7 8h8"/><path d="M7 12h10"/></svg></div><div class="label">Imaging Centers</div></div>
+          <div class="pill-before"><div class="icon-wrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg></div><div class="label">Academic &amp; Research Institutions</div></div>
+        </div>
+      </div>
+      <div>
+        <h3>How it helps</h3>
+        <ul>
+          <li>Performs retinal analysis and generates screening outputs without manual interpretation</li>
+          <li>Optimized for large-scale deployment in clinics, screening programs, and population health initiatives</li>
+          <li>Identifies at-risk patients and supports timely referral decisions</li>
+          <li>Accelerates recruitment and enrollment timelines for trials</li>
+          <li>Supports consistent evaluation across sites and geographies</li>
+        </ul>
+      </div>
+    </div>
+    <p class="closer">Ophthal360 makes it possible to deliver screening coverage at a scale no specialist-dependent model can match.</p>
+  </div>
+</section>
+
+<!-- BEFORE: REGIONAL IMPACT (placeholder) -->
+<section class="impact">
+  <div class="grid">
+    <div class="placeholder">FINAL_ASSET_TBD<br />Pakistan impact imagery</div>
+    <div>
+      <p class="pipe-h2">Regional Impact</p>
+      <h3>Transforming Diabetic Eye Care in Pakistan</h3>
+      <p>Recognizing the crucial need to reach underserved communities, we have forged powerful partnerships to amplify our impact. Through dynamic collaborations with The Diabetes Centre and the Layton Rahmatulla Benevolent Trust, we are bringing our services to rural and marginalized populations in Pakistan.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░  PAGE BREAK  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<div class="page-break">
+  <span class="scissors left">✂</span>
+  <p class="label">Page Break</p>
+  <h2>BEFORE <span class="arrow">→</span> AFTER</h2>
+  <span class="scissors right">✂</span>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░  AFTER  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<div class="version-label after">
+  <span><span class="badge">AFTER</span> &nbsp; Proposed · audience photos + Pakistan collage activated</span>
+  <span class="meta">9 brand assets activated · 0 layout changes</span>
+</div>
+
+<!-- AFTER: HERO -->
+<section class="hero-band">
+  <div class="dots"></div>
+  <div class="inner">
+    <p class="eyebrow">Who We Help</p>
+    <h1>Advancing Eye Care Across Every Stage of the Patient Journey</h1>
+  </div>
+</section>
+
+<!-- AFTER: INTRO -->
+<section class="block">
+  <div class="container" style="text-align:center; max-width: 720px;">
+    <p style="font-size: 19px; color: var(--body); line-height: 1.65; margin: 0 0 24px;">
+      Ophthalytics supports healthcare providers, researchers, and organizations through AI-powered solutions designed for screening, diagnosis, and clinical research.
+    </p>
+    <p style="font-size: 19px; color: var(--body); line-height: 1.65; margin: 0;">
+      From primary care to optometry to pharmaceutical trials, our products are built to address real-world gaps in detection, decision-making, and patient access.
+    </p>
+  </div>
+</section>
+
+<!-- AFTER: NSIGHT360 -->
+<section class="block tinted">
+  <div class="container">
+    <div class="sec-head-row">
+      <p class="product-tag">Nsight360</p>
+      <p class="audience-tag">For Primary Care, Population Health, and Screening Programs</p>
+    </div>
+    <h2>Bringing retinal screening to the frontlines of care</h2>
+    <p class="lede">Nsight360 is designed for healthcare providers who want to deliver accessible, efficient retinal screening at the point of care. By enabling non-specialists to perform eye exams, it expands access and helps close critical care gaps.</p>
+    <div class="columns">
+      <div>
+        <h3>Who it's for</h3>
+        <div class="aud-grid">
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Primary-Care-Physicians.png" alt="" /></div><div class="label">Primary Care Physicians</div></div>
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Endocrinologists-and-Diabetologists.png" alt="" /></div><div class="label">Endocrinologists &amp; Diabetologists</div></div>
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Nurses-and-Educators.png" alt="" /></div><div class="label">Nurses &amp; Care Teams</div></div>
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Home-Health-Agencies.png" alt="" /></div><div class="label">Home Health Agencies</div></div>
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Medical-Schools.png" alt="" /></div><div class="label">Community Health Centers</div></div>
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Remote-and-Rural-Eye-Clinics.png" alt="" /></div><div class="label">Remote &amp; Rural Clinics</div></div>
+        </div>
+      </div>
+      <div>
+        <h3>How it helps</h3>
+        <ul>
+          <li>Enables retinal screening without requiring an on-site eye specialist</li>
+          <li>Expands access to underserved populations</li>
+          <li>Supports early detection of diabetic retinopathy</li>
+          <li>Improves workflow efficiency and patient throughput</li>
+          <li>Helps close care gaps and improve quality measures</li>
+        </ul>
+      </div>
+    </div>
+    <p class="closer">Nsight360 makes it possible to identify at-risk patients earlier—where they already receive care.</p>
+  </div>
+</section>
+
+<!-- AFTER: COMPLIANCE STAT -->
+<section class="compliance">
+  <div class="container">
+    <div class="frame">
+      <img src="../OPHLX_MEDIA/95-compliance-rate.png" alt="95% compliance rate" />
+    </div>
+  </div>
+</section>
+
+<!-- AFTER: 2ND OPINION -->
+<section class="block">
+  <div class="container">
+    <div class="sec-head-row">
+      <p class="product-tag">2nd Opinion</p>
+      <p class="audience-tag">For Optometrists and Eye Care Professionals</p>
+    </div>
+    <h2>Enhancing confidence in retinal assessments</h2>
+    <p class="lede">2nd Opinion is built for optometrists and eye care providers who want additional support in interpreting retinal images, especially in complex or borderline cases.</p>
+    <div class="columns">
+      <div>
+        <h3>Who it's for</h3>
+        <div class="aud-grid">
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Ophthalmologists.png" alt="" /></div><div class="label">Optometrists</div></div>
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Remote-and-Rural-Eye-Clinics.png" alt="" /></div><div class="label">Eye Clinics &amp; Optical Chains</div></div>
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Ophthalmologists.png" alt="" /></div><div class="label">Ophthalmology Practices</div></div>
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Medical-Schools.png" alt="" /></div><div class="label">Reading Centers</div></div>
+        </div>
+      </div>
+      <div>
+        <h3>How it helps</h3>
+        <ul>
+          <li>Highlights suspicious regions and potential lesions</li>
+          <li>Supports clinical decision-making in uncertain cases</li>
+          <li>Reduces variability in retinal interpretation</li>
+          <li>Integrates seamlessly into existing workflows</li>
+        </ul>
+      </div>
+    </div>
+    <p class="closer">In everyday practice, not every case is clear-cut. 2nd Opinion provides an added layer of insight—helping clinicians see more and decide with greater confidence.</p>
+  </div>
+</section>
+
+<!-- AFTER: OPHTHAL360 -->
+<section class="block tinted">
+  <div class="container">
+    <div class="sec-head-row">
+      <p class="product-tag">Ophthal360</p>
+      <p class="audience-tag">For High-Volume Screening and Autonomous Deployment</p>
+    </div>
+    <h2>Autonomous AI for scale and reach</h2>
+    <p class="lede">Ophthal360 is designed for organizations delivering retinal screening at scale—healthcare systems, large screening programs, and partners serving high-volume markets.</p>
+    <div class="columns">
+      <div>
+        <h3>Who it's for</h3>
+        <div class="aud-grid">
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Home-Health-Agencies.png" alt="" /></div><div class="label">Healthcare Systems</div></div>
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Nurses-and-Educators.png" alt="" /></div><div class="label">Population Health Programs</div></div>
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Pharmaceutical-Companies.png" alt="" /></div><div class="label">Pharmaceutical Companies</div></div>
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Medical-Schools.png" alt="" /></div><div class="label">Clinical Research Organizations</div></div>
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Device-Manufacturers.png" alt="" /></div><div class="label">Imaging Centers</div></div>
+          <div class="aud-card"><div class="photo"><img src="../OPHLX_MEDIA/Medical-Schools.png" alt="" /></div><div class="label">Academic &amp; Research Institutions</div></div>
+        </div>
+      </div>
+      <div>
+        <h3>How it helps</h3>
+        <ul>
+          <li>Performs retinal analysis and generates screening outputs without manual interpretation</li>
+          <li>Optimized for large-scale deployment in clinics, screening programs, and population health initiatives</li>
+          <li>Identifies at-risk patients and supports timely referral decisions</li>
+          <li>Accelerates recruitment and enrollment timelines for trials</li>
+          <li>Supports consistent evaluation across sites and geographies</li>
+        </ul>
+      </div>
+    </div>
+    <p class="closer">Ophthal360 makes it possible to deliver screening coverage at a scale no specialist-dependent model can match.</p>
+  </div>
+</section>
+
+<!-- AFTER: REGIONAL IMPACT (real photo) -->
+<section class="impact">
+  <div class="grid">
+    <div class="photo">
+      <img src="../OPHLX_MEDIA/pakistan-collage.jpg" alt="Ophthalytics team with The Diabetes Centre partners in Pakistan" />
+    </div>
+    <div>
+      <p class="pipe-h2">Regional Impact</p>
+      <h3>Transforming Diabetic Eye Care in Pakistan</h3>
+      <p>Recognizing the crucial need to reach underserved communities, we have forged powerful partnerships to amplify our impact. Through dynamic collaborations with The Diabetes Centre and the Layton Rahmatulla Benevolent Trust, we are bringing our services to rural and marginalized populations in Pakistan.</p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
