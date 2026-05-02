@@ -2,6 +2,7 @@
 interface SubItem {
   name: string;
   href: string;
+  icon?: string;
 }
 
 interface NavEntry {
@@ -137,14 +138,25 @@ const isGroupActive = (entry: NavEntry) =>
                       href={item.href}
                       data-drawer-link
                       class:list={[
-                        'block px-4 py-2 rounded-md text-sm',
+                        'flex items-center gap-3 px-4 py-2 rounded-md text-sm',
                         isActive(item.href)
                           ? 'text-brand-primary font-semibold'
                           : 'text-brand-body hover:text-brand-primary',
                       ]}
                       aria-current={isActive(item.href) ? 'page' : undefined}
                     >
-                      {item.name}
+                      {item.icon && (
+                        <img
+                          src={item.icon}
+                          alt=""
+                          width="40"
+                          height="40"
+                          class="w-5 h-5 flex-shrink-0 object-contain"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      )}
+                      <span>{item.name}</span>
                     </a>
                   </li>
                 ))}
