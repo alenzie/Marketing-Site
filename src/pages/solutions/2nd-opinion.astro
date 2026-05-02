@@ -3,7 +3,6 @@
 import Layout from '../../components/layout/Layout.astro';
 import PipeHeading from '../../components/content/PipeHeading.astro';
 import CapabilityTile from '../../components/content/CapabilityTile.astro';
-import AudienceCard from '../../components/content/AudienceCard.astro';
 import CtaBand from '../../components/content/CtaBand.astro';
 
 const capabilities = [
@@ -173,18 +172,17 @@ const benefits = [
       </div>
       <div class="mt-12 grid gap-6 md:grid-cols-2" data-reveal-group>
         {audiences.map((a) => (
-          <AudienceCard title={a.title} body={a.body}>
+          <div class="bg-white rounded-lg p-6 text-center md:text-left">
             <img
-              slot="icon"
               src={a.image}
               alt={a.imageAlt}
-              width="96"
-              height="96"
-              class="w-full h-full object-contain"
+              class="w-full h-auto object-contain mb-4"
               loading="lazy"
               decoding="async"
             />
-          </AudienceCard>
+            <h3 class="text-lg font-semibold text-brand-ink mb-2">{a.title}</h3>
+            <p class="text-sm text-brand-body leading-relaxed">{a.body}</p>
+          </div>
         ))}
       </div>
     </div>
