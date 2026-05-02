@@ -103,7 +103,9 @@ import CtaBand from '../components/content/CtaBand.astro';
       border: 1px solid rgba(15,35,80,0.12);
       display: grid; place-items: center;
       box-shadow: 0 6px 22px -10px rgba(15,35,80,0.3);
+      overflow: hidden;
     }
+    .tp-logo .tp-mark img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
     .tp-logo .tp-name { font-weight: 700; font-size: 18px; letter-spacing: -0.01em; white-space: nowrap; }
     .tp-logo .tp-name small {
       display: block; font-weight: 500; font-size: 11px; color: #64748B;
@@ -116,15 +118,18 @@ import CtaBand from '../components/content/CtaBand.astro';
     (function () {
       var partners = [
         { name: 'Cleveland Vision Institute', tag: 'Research partner', icon: '<path d="M3 12h4l3-9 4 18 3-9h4"/>' },
-        { name: 'Global Eye Foundation',      tag: 'Screening network', icon: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>' },
+        { name: 'Global Eye Foundation',      tag: 'Screening network', image: '/images/partners/global-eye-foundation.webp' },
         { name: 'Northridge Health System',   tag: 'Enterprise deployment', icon: '<path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-7h6v7"/>' },
         { name: 'ARVO 2023',                  tag: 'Featured presenter', icon: '<path d="M12 2v6M12 22v-6M2 12h6M22 12h-6M5 5l4 4M19 5l-4 4M5 19l4-4M19 19l-4-4"/>' },
         { name: 'Diagnostics Journal',        tag: 'Peer-reviewed', icon: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h10M7 17h6"/>' },
         { name: 'Pakistan Diabetic Center',   tag: '250K+ patients screened', icon: '<path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6z"/>' }
       ];
       function buildLogo(p) {
+        var mark = p.image
+          ? '<img src="' + p.image + '" alt="' + p.name + ' logo" loading="lazy" decoding="async"/>'
+          : '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E3A8A" stroke-width="2">' + p.icon + '</svg>';
         return '<div class="tp-logo">' +
-          '<span class="tp-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E3A8A" stroke-width="2">' + p.icon + '</svg></span>' +
+          '<span class="tp-mark">' + mark + '</span>' +
           '<span class="tp-name">' + p.name + '<small>' + p.tag + '</small></span>' +
         '</div>';
       }
