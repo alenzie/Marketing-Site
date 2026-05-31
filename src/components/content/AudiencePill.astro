@@ -3,15 +3,16 @@ interface Props {
   label: string;
   photo?: string;
   photoAlt?: string;
+  photoStyle?: string;
 }
 
-const { label, photo, photoAlt = '' } = Astro.props;
+const { label, photo, photoAlt = '', photoStyle } = Astro.props;
 ---
 
 <div class="flex items-center gap-3 px-3 py-2 border border-brand-line rounded-full bg-white transition hover:border-brand-primary-light hover:-translate-y-px hover:shadow-[0_4px_14px_-6px_rgba(30,58,138,0.18)]">
   {photo ? (
     <span class="rounded-full overflow-hidden flex-shrink-0 bg-brand-surface-blue ring-2 ring-brand-surface-blue" style="width:52px;height:52px;">
-      <img src={photo} alt={photoAlt} class="w-full h-full object-cover block" loading="lazy" />
+      <img src={photo} alt={photoAlt} class="w-full h-full object-cover block" style={photoStyle} loading="lazy" />
     </span>
   ) : (
     <span class="w-7 h-7 rounded-full bg-brand-surface-blue text-brand-primary flex items-center justify-center flex-shrink-0">

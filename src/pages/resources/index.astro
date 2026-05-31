@@ -1,6 +1,7 @@
 ---
 import Layout from '../../components/layout/Layout.astro';
 import PipeHeading from '../../components/content/PipeHeading.astro';
+import ResourceCard from '../../components/content/ResourceCard.astro';
 
 const categories = [
   {
@@ -24,12 +25,36 @@ const categories = [
     cta: 'Read the latest',
     image: '/images/resources/newsroom.webp',
   },
+];
+
+const feed = [
   {
-    href: '/resources/innovation-pipeline',
-    title: 'Innovation Pipeline',
-    body: 'The next generation of AI-powered diagnostics—4Front360, cardiovascular risk assessment, and the "Windows to 270 Diseases" initiative.',
-    cta: "Explore what's next",
-    image: '/images/resources/innovation.webp',
+    category: 'Article',
+    categoryColor: 'accent',
+    title: 'Bridging the Gap in Eye Care: How AI-Assisted Technology Enables Early Detection & Prevents Blindness',
+    excerpt: 'How AI-assisted retinal screening brings early detection to the front lines of care and helps prevent avoidable blindness.',
+    link: '/resources/articles/bridging-the-gap-eye-care',
+  },
+  {
+    category: 'Journal',
+    categoryColor: 'primary',
+    title: 'A Prospective Study on Diabetic Retinopathy Detection Based on a Modified CNN Using Fundus Images',
+    excerpt: 'Peer-reviewed research documenting the performance of our early deep-learning models on diabetic retinopathy detection.',
+    link: '/resources/journal-articles',
+  },
+  {
+    category: 'News',
+    categoryColor: 'secondary',
+    title: 'Medicare Advantage News: What the 2026 Payment Increase Means for Medical Practices',
+    excerpt: 'What the 2026 Medicare Advantage payment changes mean for practices investing in preventive eye screening.',
+    link: '/resources/newsroom',
+  },
+  {
+    category: 'News',
+    categoryColor: 'secondary',
+    title: "Star Community Health Is Protecting Patients' Vision — One Routine Visit at a Time",
+    excerpt: 'How a community health network is closing the diabetic eye care gap through routine, in-clinic retinal screening.',
+    link: '/resources/newsroom',
   },
 ];
 ---
@@ -51,31 +76,18 @@ const categories = [
     </div>
   </section>
 
-  <!-- SECTION 2 — CATEGORY CARDS -->
-  <section class="bg-white">
-    <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4" data-reveal-group>
+  <!-- SECTION 2 — BROWSE BY CATEGORY (compact pills) -->
+  <section class="bg-white border-b border-brand-line">
+    <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-8">
+      <div class="flex flex-wrap items-center gap-3" data-reveal-group>
+        <span class="text-sm font-semibold text-brand-muted mr-1">Browse:</span>
         {categories.map((cat) => (
           <a
             href={cat.href}
-            class="group bg-white border border-brand-line rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col"
+            class="inline-flex items-center gap-2 rounded-full border border-brand-line bg-white px-4 py-2 text-sm font-semibold text-brand-ink hover:border-brand-primary hover:text-brand-primary transition-colors"
           >
-            <img
-              src={cat.image}
-              alt=""
-              width="96"
-              height="96"
-              class="w-12 h-12 object-contain mb-5"
-              loading="lazy"
-              decoding="async"
-            />
-
-            <h2 class="text-2xl font-bold text-brand-ink mb-3">{cat.title}</h2>
-            <p class="text-base text-brand-body leading-relaxed flex-1">{cat.body}</p>
-            <span class="mt-6 inline-flex items-center gap-1 text-brand-primary font-semibold">
-              {cat.cta}
-              <span class="transition-transform group-hover:translate-x-1">→</span>
-            </span>
+            <img src={cat.image} alt="" width="20" height="20" class="w-5 h-5 object-contain" loading="lazy" />
+            {cat.title}
           </a>
         ))}
       </div>
@@ -123,6 +135,27 @@ const categories = [
             </svg>
           </a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 — LATEST (mixed-content feed) -->
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
+      <PipeHeading level="h2" data-reveal>Latest from Ophthalytics</PipeHeading>
+      <p class="mt-4 max-w-3xl text-lg text-brand-body leading-relaxed" data-reveal>
+        Articles, research, and news from across our work in AI-powered eye care.
+      </p>
+      <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+        {feed.map((item) => (
+          <ResourceCard
+            categoryColor={item.categoryColor}
+            category={item.category}
+            title={item.title}
+            excerpt={item.excerpt}
+            link={item.link}
+          />
+        ))}
       </div>
     </div>
   </section>

@@ -12,8 +12,19 @@ import CtaBand from '../components/content/CtaBand.astro';
 >
 
   <!-- SECTION 1 — HERO BAND -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-brand-surface-blue to-white">
-    <svg class="absolute inset-0 w-full h-full opacity-[0.12] pointer-events-none" aria-hidden="true">
+  <section class="relative overflow-hidden isolate bg-gradient-to-b from-brand-surface-blue to-white">
+    <!-- Change 4: Fundus background wash — bleeds in from the right -->
+    <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+      <img
+        src="/images/sections/fundus-2.jpeg"
+        alt=""
+        class="absolute top-0 right-0 h-full"
+        style="width:65%;object-fit:cover;object-position:center;opacity:0.13;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);mask-composite:intersect;"
+        loading="eager"
+      />
+    </div>
+    <div class="absolute inset-0 z-[1] pointer-events-none" aria-hidden="true" style="background:linear-gradient(to right,rgba(239,246,255,1) 0%,rgba(239,246,255,0.95) 25%,rgba(239,246,255,0.6) 45%,rgba(239,246,255,0.2) 65%,rgba(255,255,255,0) 100%);"></div>
+    <svg class="absolute inset-0 w-full h-full opacity-[0.12] pointer-events-none z-[2]" aria-hidden="true">
       <defs>
         <pattern id="wwh-dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
           <circle cx="2" cy="2" r="1.5" fill="#1E3A8A" />
@@ -21,7 +32,7 @@ import CtaBand from '../components/content/CtaBand.astro';
       </defs>
       <rect width="100%" height="100%" fill="url(#wwh-dots)" />
     </svg>
-    <div class="relative max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-24 md:py-32">
+    <div class="relative z-[3] max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-24 md:py-32">
       <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Who We Help</p>
       <h1 class="mt-4 text-5xl md:text-6xl font-bold text-brand-ink leading-tight max-w-4xl">
         Advancing Eye Care Across Every Stage of the Patient Journey
@@ -63,8 +74,8 @@ import CtaBand from '../components/content/CtaBand.astro';
             <AudiencePill label="Endocrinologists & Diabetologists" photo="/images/audiences/Endocrinologists-and-Diabetologists.png" photoAlt="Endocrinologist consultation" />
             <AudiencePill label="Nurses & Care Teams" photo="/images/audiences/Nurses-and-Educators.png" photoAlt="Nurses and educators" />
             <AudiencePill label="Home Health Agencies" photo="/images/audiences/Home-Health-Agencies.png" photoAlt="Home health visit" />
-            <AudiencePill label="Community Health Centers" photo="/images/audiences/Medical-Schools.png" photoAlt="Community health center staff" />
-            <AudiencePill label="Remote & Rural Clinics" photo="/images/audiences/Remote-and-Rural-Eye-Clinics.png" photoAlt="Remote and rural clinic" />
+            <AudiencePill label="Community Health Centers" photo="/images/audiences/medical-center-waiting-room.jpeg" photoAlt="Community health center waiting room" photoStyle="object-position: 0% 30%; transform: scale(1.35);" />
+            <AudiencePill label="Remote & Rural Clinics" photo="/images/audiences/underprivileged.jpeg" photoAlt="Field eye examination in an underserved community" photoStyle="transform: scale(1.5);" />
           </div>
         </div>
         <div>
@@ -116,10 +127,10 @@ import CtaBand from '../components/content/CtaBand.astro';
         <div>
           <h3 class="text-xl font-semibold text-brand-ink mb-4">Who it's for</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <AudiencePill label="Optometrists" photo="/images/audiences/Ophthalmologists.png" photoAlt="Optometrist with patient" />
-            <AudiencePill label="Eye Clinics & Optical Chains" photo="/images/audiences/Remote-and-Rural-Eye-Clinics.png" photoAlt="Eye clinic" />
+            <AudiencePill label="Optometrists" photo="/images/audiences/optician-eye-clinic.jpeg" photoAlt="Optometrist in an eye clinic" photoStyle="transform: scale(1.5);" />
+            <AudiencePill label="Eye Clinics & Optical Chains" photo="/images/audiences/eye-child.jpeg" photoAlt="Child receiving an eye exam" photoStyle="object-position: 40% center; transform: scale(1.6);" />
             <AudiencePill label="Ophthalmology Practices" photo="/images/audiences/Ophthalmologists.png" photoAlt="Ophthalmologist" />
-            <AudiencePill label="Reading Centers" photo="/images/audiences/Medical-Schools.png" photoAlt="Reading center" />
+            <AudiencePill label="Reading Centers" photo="/images/audiences/fundus.jpeg" photoAlt="Retinal fundus image" />
           </div>
         </div>
         <div>
@@ -156,12 +167,12 @@ import CtaBand from '../components/content/CtaBand.astro';
         <div>
           <h3 class="text-xl font-semibold text-brand-ink mb-4">Who it's for</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <AudiencePill label="Healthcare Systems" photo="/images/audiences/Home-Health-Agencies.png" photoAlt="Healthcare system facility" />
-            <AudiencePill label="Population Health Programs" photo="/images/audiences/Nurses-and-Educators.png" photoAlt="Population health care team" />
-            <AudiencePill label="Pharmaceutical Companies" photo="/images/audiences/Pharmaceutical-Companies.png" photoAlt="Pharmaceutical research" />
-            <AudiencePill label="Clinical Research Organizations" photo="/images/audiences/Medical-Schools.png" photoAlt="Clinical research staff" />
-            <AudiencePill label="Imaging Centers" photo="/images/audiences/Device-Manufacturers.png" photoAlt="Imaging device" />
-            <AudiencePill label="Academic & Research Institutions" photo="/images/audiences/Medical-Schools.png" photoAlt="Academic research" />
+            <AudiencePill label="Healthcare Systems" photo="/images/audiences/research2.jpeg" photoAlt="Healthcare system clinicians" photoStyle="object-position: 85% center; transform: scale(1.2);" />
+            <AudiencePill label="Population Health Programs" photo="/images/audiences/happy-woman-group-leader.jpeg" photoAlt="Population health program leader" />
+            <AudiencePill label="Pharmaceutical Companies" photo="/images/audiences/Pharmaceutical-Companies.png" photoAlt="Pharmaceutical research" photoStyle="transform: scale(1.35);" />
+            <AudiencePill label="Clinical Research Organizations" photo="/images/audiences/american-doctors.jpeg" photoAlt="Clinical research team" photoStyle="object-position: 45% center; transform: scale(1.4);" />
+            <AudiencePill label="Imaging Centers" photo="/images/audiences/Device-Manufacturers.png" photoAlt="Retinal imaging device" />
+            <AudiencePill label="Academic & Research Institutions" photo="/images/audiences/medical-school.jpeg" photoAlt="Academic research institution" photoStyle="object-position: center; transform: scale(1.4);" />
           </div>
         </div>
         <div>
@@ -227,10 +238,85 @@ import CtaBand from '../components/content/CtaBand.astro';
     </div>
   </section>
 
-  <!-- SECTION 7 — REGIONAL IMPACT -->
+  <!-- SECTION 7 — NATIONAL IMPACT (US) — Change 2 (NEW) -->
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 grid gap-12 md:grid-cols-2 items-center">
+      <!-- US photo collage: capitol-04 hero + capitol-01/02 side shots -->
+      <div class="grid grid-cols-2 gap-2 rounded-2xl overflow-hidden shadow-[0_10px_30px_-10px_rgba(15,44,92,0.18)]" data-reveal>
+        <div class="col-span-2 aspect-[16/9] overflow-hidden">
+          <img src="/images/sections/capitol-04.png" alt="Ophthalytics team presenting AI eye screening technology to legislators" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="/images/sections/capitol-01.png" alt="Ophthalytics founder at the U.S. Capitol" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="/images/sections/capitol-02.png" alt="Ophthalytics team at the U.S. House of Representatives" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-[0.18em] text-brand-primary font-bold mb-1" data-reveal>National Impact</p>
+        <PipeHeading level="h2" data-reveal>National Impact</PipeHeading>
+        <h3 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink leading-tight" data-reveal>
+          Redefining American Eye Care Through Intelligence
+        </h3>
+        <p class="mt-6 text-base md:text-lg text-brand-body leading-relaxed" data-reveal>
+          Ophthalytics is advancing the future of preventive eye care across the United States — partnering with health systems, community clinics, and policymakers to bring AI-powered retinal screening to the populations that need it most.
+        </p>
+        <p class="mt-4 text-base md:text-lg text-brand-body leading-relaxed" data-reveal>
+          From Congressional telehealth showcases to federally qualified health centers, our technology is earning recognition as a critical tool in closing the diabetic eye care gap in America.
+        </p>
+        <div class="mt-8 flex gap-3 flex-wrap" data-reveal>
+          <div class="flex items-center gap-2.5 bg-brand-surface-blue border border-brand-line rounded-full px-4 py-2">
+            <span class="text-xl font-extrabold text-brand-primary">50+</span>
+            <span class="text-xs text-brand-muted font-medium leading-tight">U.S. clinic<br/>partnerships</span>
+          </div>
+          <div class="flex items-center gap-2.5 bg-brand-surface-blue border border-brand-line rounded-full px-4 py-2">
+            <span class="text-xl font-extrabold text-brand-primary">95%</span>
+            <span class="text-xs text-brand-muted font-medium leading-tight">Screening<br/>compliance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER — Our Global Reach -->
+  <div class="bg-white">
+    <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-2">
+      <div class="flex items-center gap-4">
+        <span class="flex-1 h-px bg-brand-line"></span>
+        <span class="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-brand-muted whitespace-nowrap">Our Global Reach</span>
+        <span class="flex-1 h-px bg-brand-line"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 8 — INTERNATIONAL IMPACT (Pakistan) — Change 3 (renamed from Regional) -->
   <section class="bg-brand-surface-blue">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 grid gap-12 md:grid-cols-2 items-center">
-      <div class="rounded-2xl overflow-hidden shadow-lg">
+      <div class="order-2 md:order-1">
+        <p class="text-xs uppercase tracking-[0.18em] text-brand-primary font-bold mb-1" data-reveal>International Impact</p>
+        <PipeHeading level="h2" data-reveal>International Impact</PipeHeading>
+        <h3 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink leading-tight" data-reveal>
+          Transforming Diabetic Care Across Pakistan
+        </h3>
+        <p class="mt-6 text-base md:text-lg text-brand-body leading-relaxed" data-reveal>
+          Recognizing the crucial need to reach underserved communities, we have forged powerful partnerships to amplify our impact. Through dynamic collaborations with The Diabetes Centre and the Layton Rahmatulla Benevolent Trust, we are bringing our services to rural and marginalized populations in Pakistan.
+        </p>
+        <p class="mt-4 text-base md:text-lg text-brand-body leading-relaxed" data-reveal>
+          By harnessing Nsight360, we are breaking down barriers to access, ensuring that individuals in these communities receive the essential diabetic eye exams they deserve.
+        </p>
+        <div class="mt-8 flex gap-3 flex-wrap" data-reveal>
+          <div class="flex items-center gap-2.5 bg-white border border-brand-line rounded-full px-4 py-2">
+            <span class="text-xl font-extrabold text-brand-primary">250K+</span>
+            <span class="text-xs text-brand-muted font-medium leading-tight">Patients<br/>screened</span>
+          </div>
+          <div class="flex items-center gap-2.5 bg-white border border-brand-line rounded-full px-4 py-2">
+            <span class="text-xl font-extrabold text-brand-primary">2</span>
+            <span class="text-xs text-brand-muted font-medium leading-tight">Major clinical<br/>partners</span>
+          </div>
+        </div>
+      </div>
+      <div class="order-1 md:order-2 rounded-2xl overflow-hidden shadow-[0_10px_30px_-10px_rgba(15,44,92,0.18)]" data-reveal>
         <img
           src="/images/sections/pakistan-collage.jpg"
           alt="Ophthalytics team with The Diabetes Centre partners in Pakistan"
@@ -238,20 +324,11 @@ import CtaBand from '../components/content/CtaBand.astro';
           loading="lazy"
         />
       </div>
-      <div>
-        <PipeHeading level="h2" data-reveal>Regional Impact</PipeHeading>
-        <h3 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink leading-tight" data-reveal>
-          Transforming Diabetic Eye Care in Pakistan
-        </h3>
-        <p class="mt-6 text-base md:text-lg text-brand-body leading-relaxed" data-reveal>
-          Recognizing the crucial need to reach underserved communities, we have forged powerful partnerships to amplify our impact. Through dynamic collaborations with The Diabetes Centre and the Layton Rahmatulla Benevolent Trust, we are bringing our services to rural and marginalized populations in Pakistan. By harnessing Nsight360, we are breaking down barriers to access, ensuring that individuals in these communities receive the essential diabetic eye exams they deserve.
-        </p>
-      </div>
     </div>
   </section>
 
   <!-- SECTION 8 — FINAL CTA -->
-  <CtaBand>
+  <CtaBand image="/images/cta/future_tech_eye.jpeg">
     <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 text-center">
       <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight" data-reveal>
         Find the Right Solution for Your Practice
