@@ -241,17 +241,14 @@ import CtaBand from '../components/content/CtaBand.astro';
   <!-- SECTION 7 — NATIONAL IMPACT (US) — Change 2 (NEW) -->
   <section class="bg-white">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 grid gap-12 md:grid-cols-2 items-center">
-      <!-- US photo collage: capitol-04 hero + capitol-01/02 side shots -->
-      <div class="grid grid-cols-2 gap-2 rounded-2xl overflow-hidden shadow-[0_10px_30px_-10px_rgba(15,44,92,0.18)]" data-reveal>
-        <div class="col-span-2 aspect-[16/9] overflow-hidden">
-          <img src="/images/sections/capitol-04.png" alt="Ophthalytics team presenting AI eye screening technology to legislators" class="w-full h-full object-cover" loading="lazy" />
-        </div>
-        <div class="aspect-[4/3] overflow-hidden">
-          <img src="/images/sections/capitol-01.png" alt="Ophthalytics founder at the U.S. Capitol" class="w-full h-full object-cover" loading="lazy" />
-        </div>
-        <div class="aspect-[4/3] overflow-hidden">
-          <img src="/images/sections/capitol-02.png" alt="Ophthalytics team at the U.S. House of Representatives" class="w-full h-full object-cover" loading="lazy" />
-        </div>
+      <!-- US single hero photo (P2: one clean shot instead of the squeezed collage) -->
+      <div class="rounded-2xl overflow-hidden shadow-[0_10px_30px_-10px_rgba(15,44,92,0.18)] aspect-[4/3]" data-reveal>
+        <img
+          src="/images/sections/capitol-02.png"
+          alt="Ophthalytics team at the U.S. House of Representatives showcasing AI-assisted eye screening"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
       </div>
       <div>
         <p class="text-xs uppercase tracking-[0.18em] text-brand-primary font-bold mb-1" data-reveal>National Impact</p>
