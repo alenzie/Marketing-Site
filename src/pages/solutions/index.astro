@@ -1,6 +1,7 @@
 ---
 import Layout from '../../components/layout/Layout.astro';
 import ProductCard from '../../components/content/ProductCard.astro';
+import CtaBand from '../../components/content/CtaBand.astro';
 
 const products = [
   {
@@ -404,38 +405,21 @@ const products = [
   </script>
 
   <!-- SECTION 5 — FINAL CTA -->
-  <section class="relative text-white overflow-hidden">
-    <img
-      src="/images/sections/ai-geometrcicdesign.jpg"
-      alt=""
-      aria-hidden="true"
-      class="absolute inset-0 w-full h-full object-cover"
-      loading="lazy"
-    />
-    <!-- Brand color veil so text stays legible on the geometric photo -->
-    <div class="absolute inset-0 bg-brand-primary/85 mix-blend-multiply pointer-events-none"></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-brand-primary/80 via-brand-primary/50 to-brand-primary/80 pointer-events-none"></div>
-    <div class="relative max-w-4xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold" data-reveal>Find the right solution for your organization.</h2>
-      <p class="mt-5 max-w-2xl mx-auto text-lg text-white/90 leading-relaxed" data-reveal>
+  <CtaBand>
+    <div class="max-w-4xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight" data-reveal>Find the right solution for your organization.</h2>
+      <p class="mt-6 max-w-2xl mx-auto text-lg text-white/90 leading-relaxed" data-reveal>
         Whether you're screening at the point of care, supporting diagnosis, or running a clinical trial, we'll help you identify which solution fits your workflow.
       </p>
-      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center" data-reveal>
-        <button
-          type="button"
-          data-open-modal="demo"
-          class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-6 py-3 rounded-md hover:bg-brand-surface transition"
-        >
-          Request a Demo
-        </button>
+      <div class="mt-8" data-reveal>
         <button
           type="button"
           data-open-modal="contact"
-          class="inline-flex items-center justify-center border-2 border-white text-white font-semibold px-6 py-3 rounded-md hover:bg-white hover:text-brand-primary transition"
+          class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-8 py-3 rounded-md hover:bg-brand-surface transition"
         >
           Contact Us
         </button>
       </div>
     </div>
-  </section>
+  </CtaBand>
 </Layout>

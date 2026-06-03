@@ -17,6 +17,12 @@ const {
   categoryColor = 'primary',
 } = Astro.props;
 
+// Render as a real link only when it points somewhere; '#'/empty becomes a
+// non-clickable card (e.g. "Coming Soon" items) so there are no dead links.
+const isLink = Boolean(link) && link !== '#';
+const isExternal = isLink && /^https?:\/\//.test(link);
+const Tag = isLink ? 'a' : 'div';
+
 const badgeClass = {
   primary: 'bg-brand-primary text-white',
   accent: 'bg-brand-accent text-white',
@@ -32,9 +38,14 @@ const gradientClass = {
 }[categoryColor];
 ---
 
-<a
-  href={link}
-  class="block bg-white rounded-lg overflow-hidden border border-brand-line hover:shadow-lg transition-shadow h-full flex flex-col"
+<Tag
+  href={isLink ? link : undefined}
+  target={isExternal ? '_blank' : undefined}
+  rel={isExternal ? 'noopener noreferrer' : undefined}
+  class:list={[
+    'bg-white rounded-lg overflow-hidden border border-brand-line h-full flex flex-col',
+    isLink && 'hover:shadow-lg transition-shadow',
+  ]}
 >
   <div class:list={['aspect-video relative', !thumbnail && gradientClass]}>
     {thumbnail && (
@@ -47,6 +58,8 @@ const gradientClass = {
   <div class="p-5 flex-1 flex flex-col">
     <h3 class="text-lg font-semibold text-brand-ink line-clamp-2">{title}</h3>
     <p class="mt-2 text-sm text-brand-body line-clamp-3">{excerpt}</p>
-    <span class="mt-4 inline-block text-brand-primary text-sm font-semibold">Read more →</span>
+    {isLink && (
+      <span class="mt-4 inline-block text-brand-primary text-sm font-semibold">Read more →</span>
+    )}
   </div>
-</a>
+</Tag>
