@@ -26,3 +26,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# project-local docs — keep out of the public repo
+CLAUDE.md
+Changes requested_.pdf
