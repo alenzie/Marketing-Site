@@ -30,6 +30,11 @@ const scientificAdvisors = [
 
 const businessAdvisors = [
   {
+    // Placeholder — awaiting headshot + title
+    name: 'Raghab Hussain',
+    role: 'Business Advisor',
+  },
+  {
     name: 'Baz Khuti',
     role: 'President US at Modak, Co-Founder QiO Technologies, Executive CTO Cloud at GE',
     headshot: '/team/advisors/baz-khuti.jpg',
@@ -43,6 +48,11 @@ const businessAdvisors = [
     name: 'Joshua Freeman',
     role: 'Medical Device Clinical and Regulatory Professional',
     headshot: '/team/advisors/joshua-freeman.jpg',
+  },
+  {
+    // Placeholder — awaiting headshot + title
+    name: 'Abu Bakar',
+    role: 'Business Advisor',
   },
 ];
 ---
@@ -101,18 +111,18 @@ const businessAdvisors = [
   <section class="bg-brand-surface-blue">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
       <div class="text-center">
-        <PipeHeading level="h2" class="justify-center" data-reveal>Founders</PipeHeading>
+        <PipeHeading level="h2" class="justify-center" data-reveal>Leadership</PipeHeading>
       </div>
       <div class="mt-12 grid gap-10 md:grid-cols-2 max-w-4xl mx-auto" data-reveal-group>
         <TeamCard
           name="Awais Bajwa"
-          role="Co-Founder & CEO"
+          role="Founder & CEO"
           headshot="/team/awais-bajwa.jpg"
           bioModal="bio-awais"
         />
         <TeamCard
           name="Neelam Nosheen, MD"
-          role="Co-Founder & Chief Product Officer"
+          role="Chief Medical Officer"
           headshot="/team/neelam-nosheen.jpg"
           bioModal="bio-neelam"
         />
@@ -140,7 +150,7 @@ const businessAdvisors = [
       <div class="text-center">
         <PipeHeading level="h2" class="justify-center" data-reveal>Business Advisory Board</PipeHeading>
       </div>
-      <div class="mt-12 grid gap-10 md:grid-cols-3 max-w-5xl mx-auto" data-reveal-group>
+      <div class="mt-12 grid gap-10 md:grid-cols-3 lg:grid-cols-5 max-w-6xl mx-auto" data-reveal-group>
         {businessAdvisors.map((a) => (
           <TeamCard size="sm" name={a.name} role={a.role} headshot={a.headshot} />
         ))}
@@ -178,7 +188,7 @@ const businessAdvisors = [
       <h2 id="bio-awais-title" class="mt-5 text-2xl md:text-3xl font-bold text-brand-ink text-center">
         Awais Bajwa
       </h2>
-      <p class="mt-1 text-brand-primary font-semibold">Co-Founder &amp; CEO</p>
+      <p class="mt-1 text-brand-primary font-semibold">Founder &amp; CEO</p>
       <p class="mt-1 italic text-brand-primary text-sm">Machine Learning, Data Science Expert &amp; AI Junkie</p>
     </div>
     <div class="mt-6 space-y-4 text-base text-brand-body leading-relaxed">
@@ -186,7 +196,7 @@ const businessAdvisors = [
         Awais is a visionary healthcare innovator and data scientist. Blending innovation with compassion, he has used knowledge engineering—commonly called artificial intelligence, or AI—to greatly expand the access, accuracy, and efficiency of diagnosis. Under his leadership, the company has won accolades, such as the Health Equity Initiative award from Amazon Web Services, for its transformative impact.
       </p>
       <p>
-        With more than 15 years of experience in advanced data analytics, Awais also leads AI product development for GE Companies, contributing advances in deep learning, generative AI, computer vision, and enterprise architecture.
+        With more than 15 years of experience in advanced data analytics, Awais previously led AI product development for GE Companies, contributing advances in deep learning, generative AI, computer vision, and enterprise architecture.
       </p>
     </div>
   </Modal>
@@ -201,12 +211,12 @@ const businessAdvisors = [
       <h2 id="bio-neelam-title" class="mt-5 text-2xl md:text-3xl font-bold text-brand-ink text-center">
         Neelam Nosheen, MD
       </h2>
-      <p class="mt-1 text-brand-primary font-semibold">Co-Founder &amp; Chief Product Officer</p>
+      <p class="mt-1 text-brand-primary font-semibold">Chief Medical Officer</p>
       <p class="mt-1 italic text-brand-primary text-sm">Researcher &amp; Distinguished Health Informatician</p>
     </div>
     <div class="mt-6 space-y-4 text-base text-brand-body leading-relaxed">
       <p>
-        Neelam Nosheen, MD, is a physician, healthcare innovator, and founder of Ophthalytics. From her background in obstetrics and gynecology, Neelam expanded her scope to health information technologies, earning a Master's in Health Informatics and gaining valuable experience in clinical research.
+        Neelam Nosheen, MD, is a physician, healthcare innovator, and Chief Medical Officer at Ophthalytics. From her background in obstetrics and gynecology, Neelam expanded her scope to health information technologies, earning a Master's in Health Informatics and gaining valuable experience in clinical research.
       </p>
       <p>
         Neelam is committed to making healthcare accessible and efficient through cutting-edge knowledge engineering, deep-learning AI, and computer vision technologies. Compassion and innovation are the foundations of her work.
