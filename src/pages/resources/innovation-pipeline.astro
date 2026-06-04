@@ -1,6 +1,7 @@
 ---
 import Layout from '../../components/layout/Layout.astro';
 import CtaBand from '../../components/content/CtaBand.astro';
+import RetinalIntelligenceCanvas from '../../components/canvas/RetinalIntelligenceCanvas.astro';
 ---
 
 <Layout
@@ -9,7 +10,10 @@ import CtaBand from '../../components/content/CtaBand.astro';
   noindex
 >
   <!-- SECTION 1 — HERO -->
-  <section class="relative bg-gradient-to-br from-brand-primary-dark to-brand-primary overflow-hidden">
+  <section class="relative isolate bg-gradient-to-br from-brand-primary-dark to-brand-primary overflow-hidden">
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden hidden md:block" aria-hidden="true">
+      <RetinalIntelligenceCanvas />
+    </div>
     <div class="absolute inset-0 opacity-20" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
         <defs>

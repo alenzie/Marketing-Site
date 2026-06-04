@@ -26,7 +26,7 @@ const capabilities = [
 const audiences = [
   { title: 'Optometrists', body: 'Add a confident second layer of AI-supported review to everyday exams, especially on subtle or borderline retinal findings.', image: '/images/audiences/optician-eye-clinic.jpeg', imageAlt: 'Optometrist performing an eye exam' },
   { title: 'Eye Clinics & Optical Chains', body: 'Standardize retinal interpretation across locations and clinicians to deliver consistent patient experiences at every branch.', image: '/images/audiences/eye-child.jpeg', imageAlt: 'Child receiving an eye exam at a clinic' },
-  { title: 'Ophthalmology Practices', body: 'Strengthen diagnostic confidence on high-volume days without expanding headcount. Every image gets a second look.', image: '/images/audiences/Ophthalmologists.png', imageAlt: 'Ophthalmologist conducting a clinical eye exam' },
+  { title: 'Ophthalmology Practices', body: 'Strengthen diagnostic confidence on high-volume days without expanding headcount. Every image gets a second look.', image: '/images/audiences/ophthalmology-exam.jpg', imageAlt: 'Ophthalmologist conducting a slit-lamp eye exam' },
   { title: 'Reading Centers', body: 'Reduce inter-reader variability and improve throughput on large-volume retinal image review projects.', image: '/images/audiences/fundus.jpeg', imageAlt: 'Retinal fundus image under review' },
 ];
 
@@ -49,8 +49,11 @@ const benefits = [
   description="AI-assisted retinal analysis built for optometrists and eye care professionals."
 >
   <!-- SECTION 1 — HERO -->
-  <section class="bg-white border-b border-brand-line">
-    <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid gap-12 md:grid-cols-2 items-center">
+  <section class="relative overflow-hidden isolate bg-white border-b border-brand-line">
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <img src="/images/sections/healthcare-professionals.jpg" alt="" class="absolute top-0 h-full" style="left:-22%;width:85%;object-fit:cover;object-position:center;opacity:0.14;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to left,transparent 0%,transparent 20%,black 45%,black 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to left,transparent 0%,transparent 20%,black 45%,black 100%);mask-composite:intersect;" loading="eager" decoding="async" />
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid gap-12 md:grid-cols-2 items-center">
       <div>
         <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Diagnostic Support Solution</p>
         <h1 class="mt-4 text-5xl md:text-6xl font-bold text-brand-ink leading-tight">2nd Opinion</h1>
@@ -76,7 +79,7 @@ const benefits = [
       </div>
       <div class="rounded-2xl overflow-hidden border border-brand-line shadow-lg bg-brand-surface-blue">
         <img
-          src="/images/products/2nd-opinion-mockup.jpeg"
+          src="/images/products/2nd-opinion-mockup_2.jpg"
           alt="2nd Opinion AI Diagnostic Support — ultra-widefield retinal scan with a 7-field overlay"
           class="w-full h-auto block"
           loading="lazy"

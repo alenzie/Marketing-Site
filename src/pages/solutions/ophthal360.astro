@@ -5,7 +5,6 @@ import PipeHeading from '../../components/content/PipeHeading.astro';
 import CapabilityTile from '../../components/content/CapabilityTile.astro';
 import AudienceCard from '../../components/content/AudienceCard.astro';
 import CtaBand from '../../components/content/CtaBand.astro';
-import OrbCloudCanvas from '../../components/canvas/OrbCloudCanvas.astro';
 
 const capabilities = [
   {
@@ -52,7 +51,10 @@ const benefits = [
   description="An autonomous AI platform for health systems and population-scale retinal screening programs. In active deployment across Asian markets."
 >
   <!-- SECTION 1 — HERO (dark) -->
-  <section class="relative bg-gradient-to-br from-brand-primary-dark to-brand-primary text-white overflow-hidden">
+  <section class="relative isolate bg-gradient-to-br from-brand-primary-dark to-brand-primary text-white overflow-hidden">
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <img src="/images/sections/medical-center-waiting-room.jpg" alt="" class="absolute top-0 right-0 h-full" style="width:65%;object-fit:cover;object-position:center;opacity:0.16;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);mask-composite:intersect;" loading="eager" decoding="async" />
+    </div>
     <div class="absolute inset-0 opacity-15" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
         <defs>
@@ -92,7 +94,17 @@ const benefits = [
         </div>
       </div>
       <div class="flex justify-center">
-        <OrbCloudCanvas class="max-w-[480px]" ariaLabel="Floating orb network — Ophthal360 autonomous AI" />
+        <div class="rounded-2xl overflow-hidden border border-white/15 ring-1 ring-white/10 shadow-2xl shadow-black/40">
+          <img
+            src="/images/products/ophthal360-mockup_blue_3.jpg"
+            alt="Ophthal360 Multimodal AI Retinal Platform — DRSS eligibility dashboard shown on a clinical workstation"
+            class="block w-full h-auto max-w-[560px]"
+            width="1536"
+            height="1024"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
       </div>
     </div>
   </section>

@@ -64,8 +64,11 @@ const feed = [
   description="Ophthalytics resources, news, testimonies, and more."
 >
   <!-- SECTION 1 — HERO -->
-  <section class="bg-brand-surface-blue">
-    <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28">
+  <section class="relative overflow-hidden isolate bg-brand-surface-blue">
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <img src="/images/sections/nurse-smiling.jpg" alt="" class="absolute top-0 right-0 h-full" style="width:65%;object-fit:cover;object-position:center;opacity:0.13;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);mask-composite:intersect;" loading="eager" decoding="async" />
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28">
       <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Resources</p>
       <h1 class="mt-3 text-5xl md:text-6xl font-bold text-brand-ink leading-tight">
         Resources
