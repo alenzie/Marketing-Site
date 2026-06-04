@@ -119,8 +119,8 @@ const speakerEvent = {
   </section>
 
   <style is:global>
-    .tp-band { position: relative; overflow: hidden; height: 170px; }
-    @media (min-width: 768px) { .tp-band { height: 190px; } }
+    .tp-band { position: relative; overflow: hidden; height: 210px; }
+    @media (min-width: 768px) { .tp-band { height: 230px; } }
     .tp-stack { position: relative; height: 100%; display: flex; flex-direction: column; }
     .tp-eyebrow {
       flex: 0 0 auto;
@@ -141,11 +141,11 @@ const speakerEvent = {
     .tp-track { display: flex; align-items: center; gap: var(--gap); width: max-content; animation: tp-scroll var(--duration) linear infinite; }
     @keyframes tp-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     .tp-logo {
-      flex-shrink: 0; height: 96px; display: flex; align-items: center; gap: 16px; padding: 0 8px;
+      flex-shrink: 0; height: 120px; display: flex; align-items: center; gap: 18px; padding: 0 10px;
       color: #0F2350;
     }
     .tp-logo .tp-mark {
-      height: 72px; min-width: 72px;
+      height: 80px; min-width: 80px;
       border-radius: 14px;
       background: rgba(255,255,255,0.92);
       border: 1px solid rgba(15,35,80,0.12);
@@ -154,8 +154,19 @@ const speakerEvent = {
       overflow: hidden;
       padding: 8px 12px;
     }
-    .tp-logo .tp-mark img { height: 100%; width: auto; max-width: 160px; object-fit: contain; display: block; filter: grayscale(1) contrast(1.15); mix-blend-mode: multiply; }
-    .tp-logo .tp-mark svg { width: 36px; height: 36px; }
+    .tp-logo .tp-mark svg { width: 44px; height: 44px; }
+    /* Real partner logos: drop the white box + shadow, normalize by height, multiply so they "float" on the white band */
+    .tp-logo .tp-mark.is-img {
+      height: auto; min-width: 0;
+      background: transparent; border: 0; border-radius: 0;
+      box-shadow: none; overflow: visible; padding: 0;
+    }
+    .tp-logo .tp-mark.is-img img {
+      height: 80px; width: auto; max-width: none;
+      object-fit: contain; display: block;
+      filter: grayscale(1) contrast(1.1);
+      mix-blend-mode: multiply;
+    }
     .tp-logo .tp-name { font-weight: 700; font-size: 18px; letter-spacing: -0.01em; white-space: nowrap; }
     .tp-logo .tp-name small {
       display: block; font-weight: 500; font-size: 11px; color: #64748B;
@@ -168,13 +179,13 @@ const speakerEvent = {
     (function () {
       var partners = [
         { name: 'Cleveland Vision Institute', tag: 'Research partner', icon: '<path d="M3 12h4l3-9 4 18 3-9h4"/>' },
-        { name: 'Global Eye Foundation',      tag: 'Screening network', image: '/images/partners/global-eye-foundation.webp' },
-        { name: 'ATDC',                       tag: 'Georgia Tech accelerator', image: '/images/partners/atdc-gt.webp' },
+        { name: 'Global Eye Foundation',      tag: 'Screening network', image: '/images/partners/global-eye-foundation.webp', scale: 1.2 },
+        { name: 'ATDC',                       tag: 'Georgia Tech accelerator', image: '/images/partners/atdc-gt.webp', scale: 1.33 },
         { name: 'Northridge Health System',   tag: 'Enterprise deployment', icon: '<path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-7h6v7"/>' },
         { name: 'The Diabetes Centre',        tag: '250K+ patients screened', image: '/images/partners/tdc-logo.svg' },
         { name: 'LRBT',                       tag: "Pakistan's largest eye-care NGO", image: '/images/partners/lrbt-logo.webp' },
         { name: 'Prominence Health',          tag: 'Health plan partner', image: '/images/partners/prominence-logo.webp' },
-        { name: 'Anthem Blue Cross Blue Shield', tag: 'Wellness screening', image: '/images/partners/anthem-logo.png' },
+        { name: 'Anthem Blue Cross Blue Shield', tag: 'Wellness screening', image: '/images/partners/anthem-logo.png', scale: 1.33 },
         { name: 'CTeL',                       tag: 'Telehealth & e-Health law', image: '/images/partners/ctel-logo.webp' },
         { name: 'Medlife',                    tag: 'Healthcare partner', icon: '<path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6z"/>' },
         { name: 'Georgia PC Clinic',          tag: 'Primary care partner', image: '/images/partners/georgia-clinic-logo.png' },
@@ -182,11 +193,13 @@ const speakerEvent = {
         { name: 'Prestige Medical Group',     tag: 'Medical group', image: '/images/partners/prestige-logo.webp' }
       ];
       function buildLogo(p) {
+        var imgStyle = p.scale ? ' style="height:' + Math.round(80 * p.scale) + 'px"' : '';
         var mark = p.image
-          ? '<img src="' + p.image + '" alt="' + p.name + ' logo" loading="lazy" decoding="async"/>'
+          ? '<img src="' + p.image + '" alt="' + p.name + ' logo" loading="lazy" decoding="async"' + imgStyle + '/>'
           : '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F2350" stroke-width="2">' + p.icon + '</svg>';
+        var markClass = p.image ? 'tp-mark is-img' : 'tp-mark';
         return '<div class="tp-logo">' +
-          '<span class="tp-mark">' + mark + '</span>' +
+          '<span class="' + markClass + '">' + mark + '</span>' +
           '<span class="tp-name">' + p.name + '<small>' + p.tag + '</small></span>' +
         '</div>';
       }
@@ -535,7 +548,7 @@ const speakerEvent = {
             alt=""
             width="96"
             height="96"
-            class="w-full h-full object-contain"
+            class="w-full h-full object-cover rounded-full"
             loading="lazy"
             decoding="async"
           />
