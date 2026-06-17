@@ -7,12 +7,12 @@ import TestimonialFeature from '../components/content/TestimonialFeature.astro';
 import ResourceCard from '../components/content/ResourceCard.astro';
 import CtaBand from '../components/content/CtaBand.astro';
 
-// #2 — Guest-speaker promo shown at the bottom of the hero (amaros.ai-style).
-// The "Event Details" button is a link only when `url` is set; clear `url` to drop the link.
+// #2 — Post-event recap promo shown at the bottom of the hero (amaros.ai-style).
+// The "Event Recap" button is a link only when `url` is set; clear `url` to drop the link.
 const speakerEvent = {
-  eyebrow: 'Join us for',
-  title: 'Clinical Trials at the Summit',
-  date: 'June 13, 2026',
+  eyebrow: 'Thank you for joining us',
+  title: 'Clinical Trials at the Summit · Retina 2026',
+  date: '',
   presenter: 'Awais Bajwa, Founder & CEO',
   photo: '/team/awais-bajwa.jpg',
   url: 'https://www.ctsretina.org/',
@@ -85,7 +85,7 @@ const speakerEvent = {
           <p class="mt-1 text-white font-bold text-base md:text-lg leading-snug">
             {speakerEvent.title}{speakerEvent.date ? ` · ${speakerEvent.date}` : ''}
           </p>
-          <p class="mt-0.5 text-sm text-white/70">Presenter: {speakerEvent.presenter}</p>
+          <p class="mt-0.5 text-sm text-white/70">Presented by {speakerEvent.presenter}</p>
         </div>
         {speakerEvent.url ? (
           <a
@@ -94,14 +94,14 @@ const speakerEvent = {
             rel="noopener noreferrer"
             class="shrink-0 inline-flex items-center gap-2 bg-white text-brand-primary font-semibold text-sm px-5 py-3 rounded-lg hover:bg-brand-cyan-soft transition-colors whitespace-nowrap"
           >
-            Event Details
+            Event Recap
             <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none" aria-hidden="true">
               <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
         ) : (
           <span class="shrink-0 inline-flex items-center gap-2 bg-white/30 text-white font-semibold text-sm px-5 py-3 rounded-lg whitespace-nowrap cursor-default" aria-disabled="true" title="Event link coming soon">
-            Event Details
+            Event Recap
           </span>
         )}
       </div>
