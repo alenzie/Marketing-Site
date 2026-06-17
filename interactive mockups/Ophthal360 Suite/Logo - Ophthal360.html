@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Logo — Ophthal360</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:#070d1a;color:#eaf1ff;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+  .bar{display:flex;align-items:center;gap:6px;padding:14px 22px;border-bottom:1px solid #16243d;font-size:13px}
+  .bar a{color:#8aa0bf;text-decoration:none;padding:7px 13px;border-radius:8px;font-weight:500}
+  .bar a:hover{background:rgba(255,255,255,.05);color:#fff}
+  .bar a.on{background:rgba(47,107,255,.18);color:#fff;box-shadow:inset 0 0 0 1px rgba(79,134,255,.3)}
+  .bar .home{margin-right:auto;color:#54678a}
+  .stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:64px;padding:60px 24px}
+  .label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#54678a;text-align:center;margin-bottom:22px}
+  .block{display:flex;flex-direction:column;align-items:center}
+  /* full lockup */
+  .lockup{display:flex;align-items:center;gap:22px}
+  .lockup img{width:118px;height:118px;filter:drop-shadow(0 8px 24px rgba(47,107,255,.4))}
+  .lockup .wm{font-size:62px;font-weight:600;letter-spacing:-.02em;line-height:1;white-space:nowrap}
+  .lockup .tg{font-size:17px;letter-spacing:.04em;color:#8aa0bf;margin-top:8px;font-weight:400}
+  /* mark up close */
+  .mark-xl{width:340px;height:340px;background:
+    linear-gradient(0deg,rgba(255,255,255,.04),rgba(255,255,255,.04)),
+    repeating-linear-gradient(0deg,transparent,transparent 41px,rgba(255,255,255,.04) 41px,rgba(255,255,255,.04) 42px),
+    repeating-linear-gradient(90deg,transparent,transparent 41px,rgba(255,255,255,.04) 41px,rgba(255,255,255,.04) 42px);
+    border:1px solid #16243d;border-radius:18px;display:grid;place-items:center}
+  .mark-xl img{width:280px;height:280px}
+  .compare{display:flex;gap:36px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+  .col{display:flex;flex-direction:column;align-items:center;gap:14px}
+  .col .cap{font-size:13.5px;color:#cdd9ee;font-weight:600;text-align:center}
+  .col .cap span{display:block;font-size:11px;color:#54678a;font-weight:400;margin-top:3px;letter-spacing:.02em}
+  .mark-md{width:268px;height:268px;background:
+    repeating-linear-gradient(0deg,transparent,transparent 41px,rgba(255,255,255,.04) 41px,rgba(255,255,255,.04) 42px),
+    repeating-linear-gradient(90deg,transparent,transparent 41px,rgba(255,255,255,.04) 41px,rgba(255,255,255,.04) 42px);
+    border:1px solid #16243d;border-radius:18px;display:grid;place-items:center}
+  .mark-md.sel{border-color:#2f6bff;box-shadow:0 0 0 1px #2f6bff, 0 20px 50px -24px rgba(47,107,255,.5)}
+  .mark-md img{width:212px;height:212px}
+  .swatches{display:flex;gap:0;margin-top:14px;border-radius:10px;overflow:hidden;border:1px solid #16243d}
+  .sw{width:84px;height:52px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;font-size:10px;font-family:monospace;color:rgba(255,255,255,.85)}
+  @media (max-width:640px){.lockup{flex-direction:column;text-align:center}.lockup .wm{font-size:44px}}
+</style>
+</head>
+<body>
+  <nav class="bar">
+    <a class="home" href="index.html">‹ Suite</a>
+    <a class="on" href="Logo - Ophthal360.html">Ophthal360</a>
+    <a href="Logo - Ocula360.html">Ocula360</a>
+    <a href="Logo - 2nd Opinion.html">2nd Opinion</a>
+  </nav>
+  <div class="stage">
+    <div class="block">
+      <div class="label">Primary Lockup</div>
+      <div class="lockup">
+        <img src="assets/o360-mark.png" alt="Ophthal360 mark" />
+        <div><div class="wm">Ophthal360</div><div class="tg">Multimodal AI Retinal Platform</div></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="label">Symbol &middot; original vs. muted palette experiment</div>
+      <div class="compare">
+        <div class="col">
+          <div class="mark-md"><img src="assets/o360-mark.png" alt="Ophthal360 symbol original" /></div>
+          <div class="cap">Original<span>vivid &mdash; as supplied</span></div>
+          <div class="swatches">
+            <div class="sw" style="background:#1746c4">#1746C4</div>
+            <div class="sw" style="background:#2f6bff">#2F6BFF</div>
+            <div class="sw" style="background:#4f86ff">#4F86FF</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="mark-md sel"><img src="assets/o360-mark-harmonized.png" alt="Ophthal360 symbol harmonized" /></div>
+          <div class="cap">Harmonized &middot; matched palette<span>recolored to the Ocula360 / 2nd Opinion azure family</span></div>
+          <div class="swatches">
+            <div class="sw" style="background:#1c4e9e">#1C4E9E</div>
+            <div class="sw" style="background:#2f6fcf">#2F6FCF</div>
+            <div class="sw" style="background:#6aa9f5">#6AA9F5</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2nd Opinion — AI Diagnostic Support</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#071425;
+    --app:#0a1a2e;
+    --panel:#0e2236;
+    --panel-2:#0c1d30;
+    --line:#1c3a55;
+    --line-soft:#163049;
+    --blue:#3b82f6;
+    --blue-bright:#5b9af7;
+    --sky:#4f9cf0;
+    --ink:#eaf3ff;
+    --ink-2:#a6bdd6;
+    --ink-3:#6c84a0;
+    --ink-4:#516a86;
+    --green:#3fbf6a;
+    --amber:#f5b53d;
+    --red:#ef5350;
+    --orange:#f0813c;
+    --violet:#a78bfa;
+    --teal:#2dd4bf;
+    --radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:'Hanken Grotesk',system-ui,sans-serif;
+    background:radial-gradient(1000px 600px at 50% -10%,rgba(59,130,246,.10),transparent 60%),var(--bg);
+    color:var(--ink);-webkit-font-smoothing:antialiased;display:flex;justify-content:center;padding:20px;min-height:100vh}
+  .mono{font-family:'IBM Plex Mono',monospace}
+  ::selection{background:rgba(59,130,246,.35)}
+
+  .app{width:100%;max-width:1340px;background:linear-gradient(180deg,#0b1c30,#081626);
+    border:1px solid var(--line-soft);border-radius:18px;overflow:hidden;
+    box-shadow:0 40px 110px -40px rgba(0,0,0,.85);display:flex;flex-direction:column}
+
+  /* header */
+  .top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:18px;padding:15px 26px;border-bottom:1px solid var(--line-soft);background:linear-gradient(180deg,#0c2138,#0a1a2e)}
+  .lock{display:flex;align-items:center;gap:12px}
+  .lock .mark{width:54px;height:40px;flex:none}
+  .lock .wm{font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1.05;white-space:nowrap}
+  .lock .tag{font-size:11px;color:var(--ink-3);font-weight:500;margin-top:2px;white-space:nowrap}
+  .htitle{text-align:center}
+  .htitle .t{font-size:22px;font-weight:800;letter-spacing:.04em;line-height:1;white-space:nowrap}
+  .htitle .s{font-size:13px;color:var(--sky);font-weight:600;margin-top:5px}
+  .top .right{display:flex;align-items:center;gap:14px;justify-content:flex-end}
+  .top .welcome{font-size:13.5px;color:var(--ink-2);white-space:nowrap}
+  .top .welcome b{color:var(--ink);font-weight:600}
+  .uic{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;color:var(--ink-2);border:1px solid var(--line)}
+  .uic svg{width:18px;height:18px;stroke:currentColor}
+
+  .body{display:grid;grid-template-columns:208px 1fr;flex:1;min-height:0}
+  .side{border-right:1px solid var(--line-soft);padding:18px 14px;display:flex;flex-direction:column;background:linear-gradient(180deg,#0a1c30,#081525)}
+  .nav{display:flex;flex-direction:column;gap:4px}
+  .nav a{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:10px;color:var(--ink-2);text-decoration:none;font-size:14px;font-weight:500;transition:.14s}
+  .nav a svg{width:18px;height:18px;stroke:currentColor;opacity:.9}
+  .nav a:hover{background:rgba(255,255,255,.04);color:#fff}
+  .nav a.active{background:linear-gradient(90deg,rgba(59,130,246,.32),rgba(59,130,246,.14));color:#fff;box-shadow:inset 0 0 0 1px rgba(91,154,247,.34)}
+  .side .sp{flex:1}
+  .side .hlp{display:flex;align-items:center;gap:11px;color:var(--ink-3);font-size:13.5px;cursor:pointer;padding:10px 13px}
+  .side .hlp svg{width:17px;height:17px;stroke:currentColor}
+
+  .main{display:flex;flex-direction:column;min-width:0}
+  .ctx{display:flex;align-items:center;gap:6px;padding:12px 22px;border-bottom:1px solid var(--line-soft);color:var(--ink-2);font-size:13px}
+  .ctx .pin{width:16px;height:16px;stroke:var(--sky);margin-right:6px}
+  .ctx span{padding:0 14px;border-right:1px solid var(--line);white-space:nowrap}
+  .ctx span:last-child{border-right:0}
+  .ctx b{color:var(--ink);font-weight:600}
+
+  .grid{display:grid;grid-template-columns:1fr 300px;gap:18px;padding:18px 22px 22px;align-items:start}
+  .left{display:flex;flex-direction:column;gap:18px;min-width:0}
+
+  .panel{background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--radius)}
+  .ovl{padding:16px 18px}
+  .ovl .h .t{font-size:15px;font-weight:700;letter-spacing:.04em}
+  .ovl .h .s{font-size:12.5px;color:var(--ink-3);margin-top:1px}
+  .wf-wrap{margin-top:14px;border-radius:12px;overflow:hidden;background:#000;border:1px solid var(--line-soft);aspect-ratio:16/8.2;position:relative}
+  .wf-img{width:100%;height:100%;object-fit:cover;display:block}
+  .ddbadge{font-size:11px;font-weight:600;color:var(--sky);background:rgba(59,130,246,.12);border:1px solid rgba(91,154,247,.3);border-radius:999px;padding:5px 11px;white-space:nowrap}
+  .twoup{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+  .eyecard{border:1px solid var(--line-soft);border-radius:12px;overflow:hidden;background:var(--panel-2)}
+  .eyecard .ehdr{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 13px;border-bottom:1px solid var(--line-soft)}
+  .eyecard .el{display:flex;align-items:center;gap:9px;font-weight:700;font-size:13.5px;white-space:nowrap}
+  .eyecard .el .dot{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:700;color:#cfe2fb;background:rgba(59,130,246,.18);border:1px solid var(--line);font-family:'IBM Plex Mono',monospace}
+  .eyecard .el .tg2{font-size:11px;color:var(--ink-3);font-weight:500}
+  .eyecard .q{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;white-space:nowrap}
+  .eyecard .q svg{width:13px;height:13px;stroke:currentColor}
+  .eyeimg{aspect-ratio:1/1;background:#000;position:relative}
+  .eyeimg img{width:100%;height:100%;object-fit:cover;display:block}
+  .eyeimg .ov{position:absolute;left:10px;bottom:10px;background:rgba(8,18,32,.74);border:1px solid var(--line);border-radius:7px;padding:4px 9px;font-size:10.5px;font-weight:600;font-family:'IBM Plex Mono',monospace}
+  .eyefoot{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 13px;font-size:12.5px;border-top:1px solid var(--line-soft)}
+  .eyefoot .fl{color:var(--ink-3);white-space:nowrap}
+  .eyefoot .fv{font-weight:700;font-family:'IBM Plex Mono',monospace;white-space:nowrap}
+  .leg{display:flex;flex-wrap:wrap;gap:14px 20px;margin-top:14px;justify-content:center}
+  .leg .li{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-2)}
+  .leg .li i{width:9px;height:9px;border-radius:50%;flex:none}
+
+  .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--radius);padding:15px 16px}
+  .card .ch{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+  .card .cs{font-size:12px;color:var(--ink-3);margin-top:4px;line-height:1.4;min-height:32px}
+  .lesion{margin-top:10px;height:74px;border-radius:9px;overflow:hidden;border:1px solid var(--line-soft);background:#1a0a06}
+  .lesion img{width:100%;height:100%;object-fit:cover;display:block}
+  .cdonut{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:6px}
+  .cdonut .pctwrap{position:relative;width:88px;height:60px;overflow:hidden}
+  .cdonut .pct{position:absolute;bottom:0;left:0;right:0;text-align:center;font-size:20px;font-weight:800;color:#fff;font-family:'IBM Plex Mono',monospace}
+  .cdonut .cl{font-size:13px;font-weight:700;color:var(--green)}
+  .clockwrap{margin-top:12px;display:grid;place-items:center;height:74px}
+  .clockwrap svg{width:54px;height:54px;stroke:var(--ink-3)}
+
+  /* rail */
+  .rail{display:flex;flex-direction:column;gap:18px}
+  .rcard{background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--radius);padding:17px}
+  .rt{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+  .rs{font-size:12px;color:var(--ink-3);margin-top:2px;margin-bottom:14px}
+  .find{display:flex;align-items:flex-start;gap:11px;padding:9px 0}
+  .find i{width:11px;height:11px;border-radius:50%;margin-top:4px;flex:none;box-shadow:0 0 8px currentColor}
+  .find .fb{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+  .find .fb .fn{font-size:14px;font-weight:600;color:var(--ink);line-height:1.25;white-space:nowrap}
+  .find .fb .fc{font-size:12px;color:var(--ink-3);line-height:1.2}
+  .find .fb .fc b{color:var(--ink-2);font-family:'IBM Plex Mono',monospace}
+  .btn{width:100%;margin-top:8px;padding:10px;border-radius:9px;border:0;cursor:pointer;background:var(--blue);color:#fff;font:inherit;font-weight:600;font-size:13.5px;transition:.14s}
+  .btn:hover{background:var(--blue-bright)}
+  .divider{height:1px;background:var(--line-soft);margin:4px 0 0}
+  .step{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line-soft)}
+  .step:last-child{border-bottom:0}
+  .step svg{width:19px;height:19px;stroke:var(--sky);flex:none}
+  .step .stt{font-size:13.5px;color:var(--ink);font-weight:500;white-space:nowrap}
+
+  @media (max-width:1140px){
+    .grid{grid-template-columns:1fr}
+    .rail{flex-direction:row;flex-wrap:wrap}
+    .rail>*{flex:1;min-width:260px}
+    .htitle{display:none}
+    .top{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:840px){
+    .body{grid-template-columns:1fr}
+    .side{flex-direction:row;overflow-x:auto}
+    .side .sp,.side .hlp{display:none}
+    .nav{flex-direction:row}
+    .row3{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+  <div class="app" data-screen-label="2nd Opinion Dashboard">
+    <!-- HEADER -->
+    <header class="top">
+      <a class="lock" href="index.html" title="Back to suite" style="text-decoration:none;color:inherit;cursor:pointer">
+        <svg class="mark" viewBox="0 0 70 52" fill="none" aria-label="2nd Opinion">
+          <defs>
+            <linearGradient id="eye-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bcd9ff"/><stop offset=".5" stop-color="#5b9af7"/><stop offset="1" stop-color="#2f6bd6"/></linearGradient>
+            <linearGradient id="eye-lid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fbcf5"/><stop offset="1" stop-color="#3f74cf"/></linearGradient>
+            <radialGradient id="iris" cx="0.42" cy="0.4" r="0.65"><stop offset="0" stop-color="#1a3a66"/><stop offset="1" stop-color="#0c2347"/></radialGradient>
+          </defs>
+          <!-- eye almond -->
+          <path d="M5 26 C20 8, 50 8, 65 26 C50 44, 20 44, 5 26 Z" fill="url(#eye-body)" stroke="#a9cdfb" stroke-width="1.4"/>
+          <path d="M5 26 C20 8, 50 8, 65 26 C52 30, 18 30, 5 26 Z" fill="url(#eye-lid)" opacity=".55"/>
+          <!-- iris -->
+          <circle cx="35" cy="26" r="12" fill="#cfe2fb" stroke="#9fc4f7" stroke-width="1"/>
+          <circle cx="35" cy="26" r="9.2" fill="url(#iris)"/>
+          <circle cx="35" cy="26" r="5.4" fill="none" stroke="#7fb0f0" stroke-width="1.9"/>
+          <!-- refresh notch -->
+          <path d="M35 20.6 a5.4 5.4 0 0 1 4.6 2.7" fill="none" stroke="#cfe2fb" stroke-width="1.9" stroke-linecap="round"/>
+          <path d="M39.6 20.4 l0.9 3.2 l-3.2 -0.7 z" fill="#cfe2fb"/>
+          <circle cx="35" cy="26" r="2.2" fill="#0c2347"/>
+          <circle cx="32.7" cy="23.6" r="1.2" fill="#eaf3ff" opacity=".9"/>
+        </svg>
+        <div>
+          <div class="wm">2nd Opinion</div>
+          <div class="tag">AI Diagnostic Support</div>
+        </div>
+      </a>
+      <div class="htitle">
+        <div class="t">AI DIAGNOSTIC SUPPORT</div>
+        <div class="s">For Optometrists and Eye Care Professionals</div>
+      </div>
+      <div class="right">
+        <span class="welcome">Welcome, <b>Dr. Smith</b></span>
+        <div class="uic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></div>
+      </div>
+    </header>
+
+    <div class="body">
+      <!-- SIDEBAR -->
+      <aside class="side">
+        <nav class="nav">
+          <a href="#" class="active"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>Dashboard</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 8.5a3 3 0 0 1 0 5"/><path d="M18 19a5 5 0 0 0-3-4.6"/></svg>Patient Cases</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>New Analysis</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M6 3h9l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>Reports</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H19v3H6.5"/><path d="M9 8h6"/></svg>Knowledge Base</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 13.5a7.5 7.5 0 0 0 0-3l1.7-1.3-1.8-3.1-2 .8a7.4 7.4 0 0 0-2.6-1.5L14.4 3h-3.6l-.3 2.1a7.4 7.4 0 0 0-2.6 1.5l-2-.8L4.1 8.9 5.8 10.2a7.5 7.5 0 0 0 0 3L4.1 14.5l1.8 3.1 2-.8a7.4 7.4 0 0 0 2.6 1.5l.3 2.1h3.6l.3-2.1a7.4 7.4 0 0 0 2.6-1.5l2 .8 1.8-3.1z"/></svg>Settings</a>
+        </nav>
+        <div class="sp"></div>
+        <div class="hlp"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.6 2.6 0 0 1 5 .8c0 1.8-2.5 2-2.5 4"/><circle cx="12" cy="17" r=".6" fill="currentColor" stroke="none"/></svg>Need Help?</div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main">
+        <div class="ctx">
+          <svg class="pin" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/></svg>
+          <span>Patient ID: <b>7533</b></span>
+          <span>45 Year Old</span>
+          <span>OD <b>(Right Eye)</b></span>
+        </div>
+
+        <div class="grid">
+          <div class="left">
+            <section class="panel ovl">
+              <div class="h" style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+                <div><div class="t">BILATERAL RETINAL ANALYSIS</div><div class="s">Ultra-widefield &middot; both eyes captured &amp; compared</div></div>
+                <div class="ddbadge">Comparative view</div>
+              </div>
+              <div class="twoup">
+                <div class="eyecard">
+                  <div class="ehdr">
+                    <div class="el"><span class="dot">OS</span>Left Eye</div>
+                    <div class="q" style="color:var(--green)">Quality: Good <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></div>
+                  </div>
+                  <div class="eyeimg"><img src="assets/fundus_real_os.png" alt="Left eye fundus" /><div class="ov">UWF &middot; 200&deg;</div></div>
+                  <div class="eyefoot"><span class="fl">AI impression</span><span class="fv" style="color:var(--green)">No DR &middot; DRSS 20</span></div>
+                </div>
+                <div class="eyecard">
+                  <div class="ehdr">
+                    <div class="el"><span class="dot">OD</span>Right Eye</div>
+                    <div class="q" style="color:var(--amber)">Quality: Fair <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg></div>
+                  </div>
+                  <div class="eyeimg"><img src="assets/fundus_real.png" alt="Right eye fundus" /><div class="ov">UWF &middot; 200&deg;</div></div>
+                  <div class="eyefoot"><span class="fl">AI impression</span><span class="fv" style="color:var(--amber)">Moderate NPDR &middot; DRSS 47</span></div>
+                </div>
+              </div>
+              <div class="leg">
+                <div class="li"><i style="background:#3fbf6a"></i>DR</div>
+                <div class="li"><i style="background:#ef5350"></i>Glaucoma</div>
+                <div class="li"><i style="background:#f5b53d"></i>AMD</div>
+                <div class="li"><i style="background:#f0813c"></i>Macular Edema</div>
+                <div class="li"><i style="background:#a78bfa"></i>RVO</div>
+                <div class="li"><i style="background:#3b82f6"></i>Optic Disc</div>
+                <div class="li"><i style="background:#2dd4bf"></i>Peripheral Retina</div>
+              </div>
+            </section>
+
+            <div class="row3">
+              <div class="card">
+                <div class="ch">Lesion Visualization</div>
+                <div class="cs">AI highlights microaneurysms and hemorrhages</div>
+                <div class="lesion"><img src="assets/lesion_real.png" alt="Lesion close-up" /></div>
+              </div>
+              <div class="card">
+                <div class="ch">Diagnostic Confidence</div>
+                <div class="cs">AI-powered confidence scoring to support your decision</div>
+                <div class="cdonut">
+                  <div class="pctwrap">
+                    <svg width="88" height="60" viewBox="0 0 88 60">
+                      <path d="M8 56 A36 36 0 0 1 80 56" fill="none" stroke="#16314f" stroke-width="8" stroke-linecap="round"/>
+                      <path d="M8 56 A36 36 0 0 1 80 56" fill="none" stroke="#3fbf6a" stroke-width="8" stroke-linecap="round" stroke-dasharray="113.1" stroke-dashoffset="14.7"/>
+                    </svg>
+                    <div class="pct">87%</div>
+                  </div>
+                  <div class="cl">High Confidence</div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="ch">Clinical Workflow Fit</div>
+                <div class="cs">Seamless integration into your clinical workflow</div>
+                <div class="clockwrap">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RAIL -->
+          <aside class="rail">
+            <div class="rcard">
+              <div class="rt">AI Diagnostic Insights</div>
+              <div class="rs">Detected Findings</div>
+              <div class="find"><i style="color:#ef5350;background:#ef5350"></i><div class="fb"><div class="fn">Moderate NPDR</div><div class="fc">Confidence: <b>87%</b></div></div></div>
+              <div class="find"><i style="color:#f5b53d;background:#f5b53d"></i><div class="fb"><div class="fn">Early Glaucoma Suspect</div><div class="fc">Confidence: <b>76%</b></div></div></div>
+              <div class="find"><i style="color:#3fbf6a;background:#3fbf6a"></i><div class="fb"><div class="fn">No Signs of AMD</div><div class="fc">Confidence: <b>92%</b></div></div></div>
+              <button class="btn">View Full Report</button>
+            </div>
+
+            <div class="rcard">
+              <div class="rt">Suggested Next Steps</div>
+              <div class="rs">Recommended follow-up</div>
+              <div class="step"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span class="stt">Monitor in 6 Months</span></div>
+              <div class="step"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 12h4l2 6 4-14 2 8h6"/></svg><span class="stt">HVF Testing Recommended</span></div>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+  </div>
+
+<template id="__bundler_thumbnail">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0a1a2e"/><path d="M14 50 C30 26, 70 26, 86 50 C70 74, 30 74, 14 50 Z" fill="#5b9af7"/><circle cx="50" cy="50" r="15" fill="#0c2347"/><circle cx="50" cy="50" r="7" fill="none" stroke="#cfe2fb" stroke-width="3"/></svg>
+</template>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Retinal AI — Product Suite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+    background:radial-gradient(900px 600px at 50% -10%,rgba(59,130,246,.12),transparent 60%),#060e1c;
+    color:#eaf2ff;-webkit-font-smoothing:antialiased;min-height:100vh;padding:48px 24px}
+  .wrap{max-width:1160px;margin:0 auto}
+  .head{text-align:center;margin-bottom:44px}
+  .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#5b81ad;font-weight:600}
+  .head h1{font-size:34px;font-weight:800;letter-spacing:-.02em;margin-top:12px;background:linear-gradient(180deg,#fff,#bcd2f5);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .head p{color:#8aa0bf;font-size:15px;margin-top:10px;max-width:560px;margin-inline:auto;line-height:1.5}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{border-radius:18px;border:1px solid #14304f;overflow:hidden;display:flex;flex-direction:column;
+    background:linear-gradient(180deg,#0c1d33,#0a1626);transition:transform .18s,box-shadow .18s,border-color .18s;text-decoration:none;color:inherit}
+  .card:hover{transform:translateY(-5px);box-shadow:0 26px 60px -28px rgba(0,0,0,.85);border-color:#23507f}
+  .logobox{height:172px;display:grid;place-items:center;border-bottom:1px solid #14304f;position:relative}
+  .lb1{background:radial-gradient(420px 200px at 50% 30%,rgba(47,107,255,.14),transparent 70%),#091426}
+  .lb2{background:radial-gradient(420px 200px at 50% 30%,rgba(47,122,214,.16),transparent 70%),#081427}
+  .lb3{background:radial-gradient(420px 200px at 50% 30%,rgba(59,130,246,.16),transparent 70%),#0a1a2e}
+  .meta{padding:20px 22px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .meta .nm{font-size:19px;font-weight:700;letter-spacing:-.01em}
+  .meta .tg{font-size:12.5px;color:#6f88a8;font-weight:500}
+  .meta .ds{font-size:13.5px;color:#9fb4d2;line-height:1.5;margin-top:4px;flex:1}
+  .open{margin-top:10px;display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:#5b9af7}
+  .open svg{width:16px;height:16px;stroke:currentColor;transition:transform .18s}
+  .card:hover .open svg{transform:translateX(4px)}
+  /* lockups */
+  .o360{display:flex;align-items:center;gap:11px}
+  .o360 img{width:38px;height:38px}
+  .o360 .w{font-size:23px;font-weight:600;letter-spacing:-.02em;line-height:1}
+  .o360 .t{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#54678a;margin-top:4px}
+  .ocu{display:flex;align-items:center;gap:11px}
+  .ocu .w{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1;background:linear-gradient(180deg,#fff,#cfe0fb);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .ocu .t{font-size:9.5px;color:#6f86a8;margin-top:3px}
+  .so{display:flex;align-items:center;gap:11px}
+  .so .w{font-size:21px;font-weight:600;line-height:1.05}
+  .so .t{font-size:10px;color:#6c84a0;margin-top:2px}
+  @media (max-width:900px){.grid{grid-template-columns:1fr;max-width:420px;margin-inline:auto}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Multimodal AI · Retinal Diagnostics</div>
+      <h1>Three Products, One Vision</h1>
+      <p>High-fidelity dashboard mockups and brand lockups for a family of AI-powered retinal screening platforms.</p>
+    </div>
+
+    <div class="grid">
+      <!-- Ophthal360 -->
+      <a class="card" href="Ophthal360 Dashboard.html">
+        <div class="logobox lb1">
+          <div class="o360">
+            <img src="assets/o360-mark.png" alt="" />
+            <div><div class="w">Ophthal360</div><div class="t">Multimodal AI Retinal</div></div>
+          </div>
+        </div>
+        <div class="meta">
+          <div class="nm">Ophthal360</div>
+          <div class="tg">Patient Overview · DRSS Eligibility</div>
+          <div class="ds">Cohort dashboard mapping DRSS scores to clinical-trial eligibility (DRSS 47–53), with AI insights and risk levels.</div>
+          <span class="open">Open dashboard <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <!-- Ocula360 -->
+      <a class="card" href="Ocula360 Dashboard.html">
+        <div class="logobox lb2">
+          <div class="ocu">
+            <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
+              <defs>
+                <linearGradient id="x-a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6aa9f5"/><stop offset="1" stop-color="#2f6fcf"/></linearGradient>
+                <linearGradient id="x-b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3f7fd6"/><stop offset="1" stop-color="#1c4e9e"/></linearGradient>
+                <radialGradient id="x-c" cx="0.4" cy="0.35" r="0.7"><stop offset="0" stop-color="#dcebff"/><stop offset="1" stop-color="#6aa6ee"/></radialGradient>
+              </defs>
+              <polygon points="24,2.5 43,13.2 43,34.8 24,45.5 5,34.8 5,13.2" fill="url(#x-b)" stroke="#7fb2f7" stroke-width="1.2"/>
+              <polygon points="24,2.5 43,13.2 24,24" fill="url(#x-a)"/>
+              <polygon points="24,2.5 24,24 5,13.2" fill="#3f82dc" opacity=".8"/>
+              <polygon points="43,13.2 43,34.8 24,24" fill="#234f96"/>
+              <polygon points="5,13.2 24,24 5,34.8" fill="#2b5fae"/>
+              <polygon points="24,24 43,34.8 24,45.5" fill="#1d4585"/>
+              <polygon points="24,24 24,45.5 5,34.8" fill="#27559c"/>
+              <circle cx="24" cy="24" r="7.2" fill="url(#x-c)" stroke="#bcdcff" stroke-width="1"/>
+              <circle cx="24" cy="24" r="3" fill="#1c4e9e"/>
+            </svg>
+            <div><div class="w">Ocula360</div><div class="t">Multimodal AI Retinal Platform</div></div>
+          </div>
+        </div>
+        <div class="meta">
+          <div class="nm">Ocula360</div>
+          <div class="tg">UWF 7-Field Imaging · Lesion Detection</div>
+          <div class="ds">Imaging-first workspace with ultra-widefield overlay, multi-disease detection, DRSS breakdown and explainability.</div>
+          <span class="open">Open dashboard <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <!-- 2nd Opinion -->
+      <a class="card" href="2nd Opinion Dashboard.html">
+        <div class="logobox lb3">
+          <div class="so">
+            <svg width="52" height="38" viewBox="0 0 70 52" fill="none">
+              <defs>
+                <linearGradient id="y-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bcd9ff"/><stop offset=".5" stop-color="#5b9af7"/><stop offset="1" stop-color="#2f6bd6"/></linearGradient>
+                <linearGradient id="y-lid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fbcf5"/><stop offset="1" stop-color="#3f74cf"/></linearGradient>
+                <radialGradient id="y-iris" cx="0.42" cy="0.4" r="0.65"><stop offset="0" stop-color="#1a3a66"/><stop offset="1" stop-color="#0c2347"/></radialGradient>
+              </defs>
+              <path d="M5 26 C20 8, 50 8, 65 26 C50 44, 20 44, 5 26 Z" fill="url(#y-body)" stroke="#a9cdfb" stroke-width="1.4"/>
+              <path d="M5 26 C20 8, 50 8, 65 26 C52 30, 18 30, 5 26 Z" fill="url(#y-lid)" opacity=".55"/>
+              <circle cx="35" cy="26" r="12" fill="#cfe2fb" stroke="#9fc4f7" stroke-width="1"/>
+              <circle cx="35" cy="26" r="9.2" fill="url(#y-iris)"/>
+              <circle cx="35" cy="26" r="5.4" fill="none" stroke="#7fb0f0" stroke-width="1.9"/>
+              <path d="M35 20.6 a5.4 5.4 0 0 1 4.6 2.7" fill="none" stroke="#cfe2fb" stroke-width="1.9" stroke-linecap="round"/>
+              <path d="M39.6 20.4 l0.9 3.2 l-3.2 -0.7 z" fill="#cfe2fb"/>
+              <circle cx="35" cy="26" r="2.2" fill="#0c2347"/>
+              <circle cx="32.7" cy="23.6" r="1.2" fill="#eaf3ff" opacity=".9"/>
+            </svg>
+            <div><div class="w">2nd Opinion</div><div class="t">AI Diagnostic Support</div></div>
+          </div>
+        </div>
+        <div class="meta">
+          <div class="nm">2nd Opinion</div>
+          <div class="tg">For Optometrists · Decision Support</div>
+          <div class="ds">Diagnostic-support view with detected findings, confidence scoring and suggested next steps for eye-care professionals.</div>
+          <span class="open">Open dashboard <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+    </div>
+    <div style="margin-top:34px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;border-top:1px solid #14304f;padding-top:24px">
+      <span style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#5b81ad;font-weight:600">Brand logo studies</span>
+      <a href="Logo - Ophthal360.html" style="color:#9fb4d2;text-decoration:none;font-size:13.5px;font-weight:600;padding:7px 14px;border:1px solid #14304f;border-radius:999px">Ophthal360 ↗</a>
+      <a href="Logo - Ocula360.html" style="color:#9fb4d2;text-decoration:none;font-size:13.5px;font-weight:600;padding:7px 14px;border:1px solid #14304f;border-radius:999px">Ocula360 ↗</a>
+      <a href="Logo - 2nd Opinion.html" style="color:#9fb4d2;text-decoration:none;font-size:13.5px;font-weight:600;padding:7px 14px;border:1px solid #14304f;border-radius:999px">2nd Opinion ↗</a>
+    </div>
+  </div>
+
+<template id="__bundler_thumbnail">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#060e1c"/><circle cx="30" cy="42" r="12" fill="none" stroke="#2f6bff" stroke-width="5"/><polygon points="62,30 78,39 78,57 62,66 46,57 46,39" fill="#2f6fcf"/><text x="50" y="86" font-family="sans-serif" font-size="11" fill="#eaf2ff" text-anchor="middle">Suite</text></svg>
+</template>
+</body>
+</html>

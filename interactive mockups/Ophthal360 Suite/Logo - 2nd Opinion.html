@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Logo — 2nd Opinion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Hanken Grotesk',system-ui,sans-serif;background:#071425;color:#eaf3ff;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+  .bar{display:flex;align-items:center;gap:6px;padding:14px 22px;border-bottom:1px solid #163049;font-size:13px}
+  .bar a{color:#8aa0bf;text-decoration:none;padding:7px 13px;border-radius:8px;font-weight:500}
+  .bar a:hover{background:rgba(255,255,255,.05);color:#fff}
+  .bar a.on{background:rgba(59,130,246,.2);color:#fff;box-shadow:inset 0 0 0 1px rgba(91,154,247,.34)}
+  .bar .home{margin-right:auto;color:#516a86}
+  .stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:60px;padding:60px 24px}
+  .label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#516a86;text-align:center;margin-bottom:22px}
+  .block{display:flex;flex-direction:column;align-items:center}
+  .lockup{display:flex;align-items:center;gap:22px}
+  .lockup .mk{width:160px;height:118px;filter:drop-shadow(0 8px 24px rgba(59,130,246,.45))}
+  .lockup .wm{font-size:54px;font-weight:600;letter-spacing:-.01em;line-height:1.04;white-space:nowrap}
+  .lockup .tg{font-size:18px;color:#8aa0bf;margin-top:6px;font-weight:500;white-space:nowrap}
+  .mark-xl{width:480px;height:340px;background:
+    repeating-linear-gradient(0deg,transparent,transparent 41px,rgba(255,255,255,.04) 41px,rgba(255,255,255,.04) 42px),
+    repeating-linear-gradient(90deg,transparent,transparent 41px,rgba(255,255,255,.04) 41px,rgba(255,255,255,.04) 42px);
+    border:1px solid #163049;border-radius:18px;display:grid;place-items:center}
+  .mark-xl svg{width:420px;height:312px;filter:drop-shadow(0 10px 30px rgba(59,130,246,.4))}
+  .compare{display:flex;gap:36px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+  .col{display:flex;flex-direction:column;align-items:center;gap:14px}
+  .col .cap{font-size:13.5px;color:#cdd9ee;font-weight:600;text-align:center}
+  .col .cap span{display:block;font-size:11px;color:#516a86;font-weight:400;margin-top:3px;max-width:30ch}
+  .mark-md{width:272px;height:272px;background:repeating-linear-gradient(0deg,transparent,transparent 41px,rgba(255,255,255,.04) 41px,rgba(255,255,255,.04) 42px),repeating-linear-gradient(90deg,transparent,transparent 41px,rgba(255,255,255,.04) 41px,rgba(255,255,255,.04) 42px);border:1px solid #163049;border-radius:18px;display:grid;place-items:center}
+  .mark-md.sel{border-color:#3b82f6;box-shadow:0 0 0 1px #3b82f6,0 20px 50px -24px rgba(59,130,246,.5)}
+  .mark-md svg{width:206px;height:auto;filter:drop-shadow(0 10px 30px rgba(59,130,246,.35))}
+  .swatches{display:flex;margin-top:14px;border-radius:10px;overflow:hidden;border:1px solid #163049}
+  .sw{width:84px;height:52px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;font-size:10px;font-family:monospace;color:rgba(255,255,255,.9)}
+  @media (max-width:640px){.lockup{flex-direction:column;text-align:center}.lockup .wm{font-size:40px}.mark-xl{width:100%;height:auto;aspect-ratio:480/340}}
+</style>
+</head>
+<body>
+  <nav class="bar">
+    <a class="home" href="index.html">‹ Suite</a>
+    <a href="Logo - Ophthal360.html">Ophthal360</a>
+    <a href="Logo - Ocula360.html">Ocula360</a>
+    <a class="on" href="Logo - 2nd Opinion.html">2nd Opinion</a>
+  </nav>
+  <div class="stage">
+    <div class="block">
+      <div class="label">Primary Lockup</div>
+      <div class="lockup">
+        <svg class="mk" viewBox="0 0 70 52" fill="none">
+          <defs>
+            <linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bcd9ff"/><stop offset=".5" stop-color="#5b9af7"/><stop offset="1" stop-color="#2f6bd6"/></linearGradient>
+            <linearGradient id="lid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fbcf5"/><stop offset="1" stop-color="#3f74cf"/></linearGradient>
+            <radialGradient id="iris" cx="0.42" cy="0.4" r="0.65"><stop offset="0" stop-color="#1a3a66"/><stop offset="1" stop-color="#0c2347"/></radialGradient>
+          </defs>
+          <path d="M5 26 C20 8, 50 8, 65 26 C50 44, 20 44, 5 26 Z" fill="url(#body)" stroke="#a9cdfb" stroke-width="1.4"/>
+          <path d="M5 26 C20 8, 50 8, 65 26 C52 30, 18 30, 5 26 Z" fill="url(#lid)" opacity=".55"/>
+          <circle cx="35" cy="26" r="12" fill="#cfe2fb" stroke="#9fc4f7" stroke-width="1"/>
+          <circle cx="35" cy="26" r="9.2" fill="url(#iris)"/>
+          <circle cx="35" cy="26" r="5.4" fill="none" stroke="#7fb0f0" stroke-width="1.9"/>
+          <path d="M35 20.6 a5.4 5.4 0 0 1 4.6 2.7" fill="none" stroke="#cfe2fb" stroke-width="1.9" stroke-linecap="round"/>
+          <path d="M39.6 20.4 l0.9 3.2 l-3.2 -0.7 z" fill="#cfe2fb"/>
+          <circle cx="35" cy="26" r="2.2" fill="#0c2347"/>
+          <circle cx="32.7" cy="23.6" r="1.2" fill="#eaf3ff" opacity=".9"/>
+        </svg>
+        <div><div class="wm">2nd Opinion</div><div class="tg">AI Diagnostic Support</div></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="label">Symbol &middot; two directions</div>
+      <div class="compare">
+        <div class="col">
+          <div class="mark-md sel">
+            <svg viewBox="0 0 70 52" fill="none">
+              <defs>
+                <linearGradient id="body2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bcd9ff"/><stop offset=".5" stop-color="#5b9af7"/><stop offset="1" stop-color="#2f6bd6"/></linearGradient>
+                <linearGradient id="lid2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fbcf5"/><stop offset="1" stop-color="#3f74cf"/></linearGradient>
+                <radialGradient id="iris2" cx="0.42" cy="0.4" r="0.65"><stop offset="0" stop-color="#1a3a66"/><stop offset="1" stop-color="#0c2347"/></radialGradient>
+              </defs>
+              <path d="M5 26 C20 8, 50 8, 65 26 C50 44, 20 44, 5 26 Z" fill="url(#body2)" stroke="#a9cdfb" stroke-width="1.4"/>
+              <path d="M5 26 C20 8, 50 8, 65 26 C52 30, 18 30, 5 26 Z" fill="url(#lid2)" opacity=".55"/>
+              <circle cx="35" cy="26" r="12" fill="#cfe2fb" stroke="#9fc4f7" stroke-width="1"/>
+              <circle cx="35" cy="26" r="9.2" fill="url(#iris2)"/>
+              <circle cx="35" cy="26" r="5.4" fill="none" stroke="#7fb0f0" stroke-width="1.9"/>
+              <path d="M35 20.6 a5.4 5.4 0 0 1 4.6 2.7" fill="none" stroke="#cfe2fb" stroke-width="1.9" stroke-linecap="round"/>
+              <path d="M39.6 20.4 l0.9 3.2 l-3.2 -0.7 z" fill="#cfe2fb"/>
+              <circle cx="35" cy="26" r="2.2" fill="#0c2347"/>
+              <circle cx="32.7" cy="23.6" r="1.2" fill="#eaf3ff" opacity=".9"/>
+            </svg>
+          </div>
+          <div class="cap">Version 1 &middot; anatomical eye<span>realistic, metallic lens &mdash; literal</span></div>
+        </div>
+        <div class="col">
+          <div class="mark-md">
+            <svg viewBox="0 0 64 60" fill="none">
+              <defs>
+                <linearGradient id="bub" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6aa5f7"/><stop offset="1" stop-color="#2f6bd6"/></linearGradient>
+                <radialGradient id="irx" cx="0.42" cy="0.38" r="0.72"><stop offset="0" stop-color="#2a4f86"/><stop offset="1" stop-color="#0c2347"/></radialGradient>
+              </defs>
+              <path d="M25 39 L18 54 L36 41 Z" fill="url(#bub)"/>
+              <rect x="6" y="5" width="52" height="38" rx="16" fill="url(#bub)"/>
+              <ellipse cx="32" cy="14" rx="22" ry="7" fill="#ffffff" opacity=".13"/>
+              <circle cx="32" cy="23" r="11" fill="#eef5ff"/>
+              <circle cx="32" cy="23" r="11" fill="none" stroke="#2f6bd6" stroke-width="1.3"/>
+              <circle cx="32" cy="23" r="6.8" fill="url(#irx)"/>
+              <circle cx="32" cy="23" r="2.9" fill="#0a1830"/>
+              <circle cx="29.6" cy="20.6" r="1.5" fill="#ffffff" opacity=".92"/>
+            </svg>
+          </div>
+          <div class="cap">Version 2 &middot; consult bubble<span>a &ldquo;second opinion&rdquo; speech bubble framing the eye</span></div>
+        </div>
+      </div>
+      <div class="swatches">
+        <div class="sw" style="background:#0c2347">#0C2347</div>
+        <div class="sw" style="background:#2f6bd6">#2F6BD6</div>
+        <div class="sw" style="background:#5b9af7">#5B9AF7</div>
+        <div class="sw" style="background:#cfe2fb;color:#0c2347">#CFE2FB</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Logo — Ocula360</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#06101f;color:#eaf2ff;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+  .bar{display:flex;align-items:center;gap:6px;padding:14px 22px;border-bottom:1px solid #122a47;font-size:13px}
+  .bar a{color:#8aa0bf;text-decoration:none;padding:7px 13px;border-radius:8px;font-weight:500}
+  .bar a:hover{background:rgba(255,255,255,.05);color:#fff}
+  .bar a.on{background:rgba(47,122,214,.2);color:#fff;box-shadow:inset 0 0 0 1px rgba(79,151,236,.32)}
+  .bar .home{margin-right:auto;color:#516a8e}
+  .stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:64px;padding:60px 24px}
+  .label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#516a8e;text-align:center;margin-bottom:22px}
+  .block{display:flex;flex-direction:column;align-items:center}
+  .lockup{display:flex;align-items:center;gap:24px}
+  .lockup .mk{width:118px;height:118px;filter:drop-shadow(0 8px 24px rgba(47,111,207,.45))}
+  .lockup .wm{font-size:60px;font-weight:800;letter-spacing:-.02em;line-height:1;background:linear-gradient(180deg,#fff,#cfe0fb);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
+  .lockup .tg{font-size:17px;color:#8aa0bf;margin-top:8px;font-weight:500}
+  .mark-xl{width:360px;height:360px;background:
+    repeating-linear-gradient(0deg,transparent,transparent 41px,rgba(255,255,255,.04) 41px,rgba(255,255,255,.04) 42px),
+    repeating-linear-gradient(90deg,transparent,transparent 41px,rgba(255,255,255,.04) 41px,rgba(255,255,255,.04) 42px);
+    border:1px solid #122a47;border-radius:18px;display:grid;place-items:center}
+  .mark-xl svg{width:300px;height:300px;filter:drop-shadow(0 10px 30px rgba(47,111,207,.4))}
+  .compare{display:flex;gap:36px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+  .col{display:flex;flex-direction:column;align-items:center;gap:14px}
+  .col .cap{font-size:13.5px;color:#cdd9ee;font-weight:600;text-align:center}
+  .col .cap span{display:block;font-size:11px;color:#516a8e;font-weight:400;margin-top:3px}
+  .mark-md{width:272px;height:272px;background:repeating-linear-gradient(0deg,transparent,transparent 41px,rgba(255,255,255,.04) 41px,rgba(255,255,255,.04) 42px),repeating-linear-gradient(90deg,transparent,transparent 41px,rgba(255,255,255,.04) 41px,rgba(255,255,255,.04) 42px);border:1px solid #122a47;border-radius:18px;display:grid;place-items:center}
+  .mark-md.sel{border-color:#2f7ad6;box-shadow:0 0 0 1px #2f7ad6,0 20px 50px -24px rgba(47,122,214,.5)}
+  .mark-md svg{width:212px;height:212px;filter:drop-shadow(0 10px 30px rgba(47,111,207,.35))}
+  .swatches{display:flex;margin-top:14px;border-radius:10px;overflow:hidden;border:1px solid #122a47}
+  .sw{width:84px;height:52px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;font-size:10px;font-family:monospace;color:rgba(255,255,255,.9)}
+  @media (max-width:640px){.lockup{flex-direction:column;text-align:center}.lockup .wm{font-size:44px}}
+</style>
+</head>
+<body>
+  <nav class="bar">
+    <a class="home" href="index.html">‹ Suite</a>
+    <a href="Logo - Ophthal360.html">Ophthal360</a>
+    <a class="on" href="Logo - Ocula360.html">Ocula360</a>
+    <a href="Logo - 2nd Opinion.html">2nd Opinion</a>
+  </nav>
+  <div class="stage">
+    <div class="block">
+      <div class="label">Primary Lockup</div>
+      <div class="lockup">
+        <svg class="mk" viewBox="0 0 48 48" fill="none">
+          <defs>
+            <linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6aa9f5"/><stop offset="1" stop-color="#2f6fcf"/></linearGradient>
+            <linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3f7fd6"/><stop offset="1" stop-color="#1c4e9e"/></linearGradient>
+            <radialGradient id="c" cx="0.4" cy="0.35" r="0.7"><stop offset="0" stop-color="#dcebff"/><stop offset="1" stop-color="#6aa6ee"/></radialGradient>
+          </defs>
+          <polygon points="24,2.5 43,13.2 43,34.8 24,45.5 5,34.8 5,13.2" fill="url(#b)" stroke="#7fb2f7" stroke-width="1.2"/>
+          <polygon points="24,2.5 43,13.2 24,24" fill="url(#a)"/>
+          <polygon points="24,2.5 24,24 5,13.2" fill="#3f82dc" opacity=".8"/>
+          <polygon points="43,13.2 43,34.8 24,24" fill="#234f96"/>
+          <polygon points="5,13.2 24,24 5,34.8" fill="#2b5fae"/>
+          <polygon points="24,24 43,34.8 24,45.5" fill="#1d4585"/>
+          <polygon points="24,24 24,45.5 5,34.8" fill="#27559c"/>
+          <circle cx="24" cy="24" r="7.2" fill="url(#c)" stroke="#bcdcff" stroke-width="1"/>
+          <circle cx="24" cy="24" r="3" fill="#1c4e9e"/>
+        </svg>
+        <div><div class="wm">Ocula360</div><div class="tg">Multimodal AI Retinal Platform</div></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="label">Symbol &middot; two directions</div>
+      <div class="compare">
+        <div class="col">
+          <div class="mark-md">
+            <svg viewBox="0 0 48 48" fill="none">
+              <defs>
+                <linearGradient id="g1a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6aa9f5"/><stop offset="1" stop-color="#2f6fcf"/></linearGradient>
+                <linearGradient id="g1b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3f7fd6"/><stop offset="1" stop-color="#1c4e9e"/></linearGradient>
+                <radialGradient id="g1c" cx="0.4" cy="0.35" r="0.7"><stop offset="0" stop-color="#dcebff"/><stop offset="1" stop-color="#6aa6ee"/></radialGradient>
+              </defs>
+              <polygon points="24,2.5 43,13.2 43,34.8 24,45.5 5,34.8 5,13.2" fill="url(#g1b)" stroke="#7fb2f7" stroke-width="1.2"/>
+              <polygon points="24,2.5 43,13.2 24,24" fill="url(#g1a)"/>
+              <polygon points="24,2.5 24,24 5,13.2" fill="#3f82dc" opacity=".8"/>
+              <polygon points="43,13.2 43,34.8 24,24" fill="#234f96"/>
+              <polygon points="5,13.2 24,24 5,34.8" fill="#2b5fae"/>
+              <polygon points="24,24 43,34.8 24,45.5" fill="#1d4585"/>
+              <polygon points="24,24 24,45.5 5,34.8" fill="#27559c"/>
+              <circle cx="24" cy="24" r="7.2" fill="url(#g1c)" stroke="#bcdcff" stroke-width="1"/>
+              <circle cx="24" cy="24" r="3" fill="#1c4e9e"/>
+            </svg>
+          </div>
+          <div class="cap">Version 1 &middot; faceted gem<span>solid low-poly crystal</span></div>
+        </div>
+        <div class="col">
+          <div class="mark-md sel">
+            <svg viewBox="0 0 48 48" fill="none">
+              <defs>
+                <linearGradient id="wg" x1="0.12" y1="0.08" x2="0.9" y2="0.96"><stop offset="0" stop-color="#cfe6ff"/><stop offset=".5" stop-color="#4f8ce0"/><stop offset="1" stop-color="#1c4e9e"/></linearGradient>
+              </defs>
+              <polygon points="24,3 42.2,13.5 33.5,18.5 24,13" fill="#5b97e8" opacity=".16"/>
+              <polygon points="42.2,13.5 42.2,34.5 33.5,29.5 33.5,18.5" fill="#3f7fd6" opacity=".12"/>
+              <g stroke="url(#wg)" stroke-width="1.1" stroke-linecap="round">
+                <line x1="24" y1="3" x2="24" y2="13"/>
+                <line x1="42.2" y1="13.5" x2="33.5" y2="18.5"/>
+                <line x1="42.2" y1="34.5" x2="33.5" y2="29.5"/>
+                <line x1="24" y1="45" x2="24" y2="35"/>
+                <line x1="5.8" y1="34.5" x2="14.5" y2="29.5"/>
+                <line x1="5.8" y1="13.5" x2="14.5" y2="18.5"/>
+              </g>
+              <polygon points="24,13 33.5,18.5 33.5,29.5 24,35 14.5,29.5 14.5,18.5" fill="none" stroke="url(#wg)" stroke-width="1.2" stroke-linejoin="round"/>
+              <polygon points="24,3 42.2,13.5 42.2,34.5 24,45 5.8,34.5 5.8,13.5" fill="none" stroke="url(#wg)" stroke-width="1.7" stroke-linejoin="round"/>
+              <path d="M24,3 L42.2,13.5 L42.2,34.5" fill="none" stroke="#eaf3ff" stroke-width="1.7" stroke-linejoin="round" opacity=".92"/>
+              <circle cx="24" cy="24" r="6.3" fill="#0a1830" opacity=".5"/>
+              <circle cx="24" cy="24" r="6.3" fill="none" stroke="#dcebff" stroke-width="2.1"/>
+            </svg>
+          </div>
+          <div class="cap">Version 2 &middot; wireframe aperture<span>closer to the original reference</span></div>
+        </div>
+      </div>
+      <div class="swatches">
+        <div class="sw" style="background:#1c4e9e">#1C4E9E</div>
+        <div class="sw" style="background:#2f6fcf">#2F6FCF</div>
+        <div class="sw" style="background:#6aa9f5">#6AA9F5</div>
+        <div class="sw" style="background:#dcebff;color:#1c4e9e">#DCEBFF</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

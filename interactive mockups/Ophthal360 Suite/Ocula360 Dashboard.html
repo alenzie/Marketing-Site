@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ocula360 — Retinal Imaging Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#06101f;
+    --app:#081427;
+    --panel:#0c1c33;
+    --panel-2:#0a1830;
+    --line:#173356;
+    --line-soft:#122a47;
+    --blue:#2f7ad6;
+    --blue-bright:#4f97ec;
+    --ink:#eaf2ff;
+    --ink-2:#a9bdda;
+    --ink-3:#6f86a8;
+    --ink-4:#516a8e;
+    --orange:#f08a3c;
+    --orange-deep:#e8702a;
+    --green:#39c06a;
+    --yellow:#f5c542;
+    --red:#ef5350;
+    --teal:#2dd4bf;
+    --violet:#a78bfa;
+    --radius:13px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+    background:radial-gradient(1100px 700px at 80% -10%,rgba(47,122,214,.10),transparent 60%),var(--bg);
+    color:var(--ink);-webkit-font-smoothing:antialiased;
+    display:flex;justify-content:center;padding:20px;min-height:100vh;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace}
+  ::selection{background:rgba(47,122,214,.35)}
+
+  .app{width:100%;max-width:1320px;background:linear-gradient(180deg,#0a1729,#081222);
+    border:1px solid var(--line-soft);border-radius:18px;overflow:hidden;
+    box-shadow:0 40px 110px -40px rgba(0,0,0,.85);display:flex;flex-direction:column}
+
+  /* header */
+  .top{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--line-soft);background:rgba(7,15,28,.6)}
+  .lock{display:flex;align-items:center;gap:13px}
+  .lock .mark{width:42px;height:42px;flex:none}
+  .lock .wm{font-size:25px;font-weight:800;letter-spacing:-.02em;line-height:1;background:linear-gradient(180deg,#fff,#cfe0fb);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lock .tag{font-size:11.5px;color:var(--ink-3);font-weight:500;margin-top:3px}
+  .top .right{display:flex;align-items:center;gap:16px}
+  .top .welcome{font-size:14px;color:var(--ink-2)}
+  .top .welcome b{color:var(--ink);font-weight:600}
+  .ibtn{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:var(--ink-2);cursor:pointer;border:1px solid transparent;position:relative}
+  .ibtn:hover{background:rgba(255,255,255,.04);color:#fff}
+  .ibtn svg{width:19px;height:19px;stroke:currentColor}
+  .ibtn .dot{position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;background:var(--red);border:2px solid #0a1729}
+  .pfp{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#23456f,#162f52);display:grid;place-items:center;color:#cfe0fb;border:1px solid var(--line)}
+  .pfp svg{width:20px;height:20px;stroke:currentColor}
+
+  .body{display:grid;grid-template-columns:216px 1fr;flex:1;min-height:0}
+
+  /* sidebar */
+  .side{border-right:1px solid var(--line-soft);padding:18px 14px;display:flex;flex-direction:column;background:linear-gradient(180deg,#091628,#07111f)}
+  .nav{display:flex;flex-direction:column;gap:3px}
+  .nav a{display:flex;align-items:center;gap:13px;padding:11px 13px;border-radius:10px;color:var(--ink-2);text-decoration:none;font-size:14.5px;font-weight:500;transition:.14s}
+  .nav a svg{width:19px;height:19px;stroke:currentColor;opacity:.9}
+  .nav a:hover{background:rgba(255,255,255,.04);color:#fff}
+  .nav a.active{background:linear-gradient(90deg,rgba(47,122,214,.30),rgba(47,122,214,.12));color:#fff;box-shadow:inset 0 0 0 1px rgba(79,151,236,.32)}
+  .side .sp{flex:1}
+  .side .foot{border-top:1px solid var(--line-soft);padding-top:14px;margin-top:8px;display:flex;flex-direction:column;gap:10px}
+  .side .foot .hlp{display:flex;align-items:center;gap:11px;color:var(--ink-3);font-size:13.5px;cursor:pointer}
+  .side .foot .hlp svg{width:17px;height:17px;stroke:currentColor}
+  .side .foot .brand2{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;color:#d7e6ff}
+
+  /* main */
+  .main{display:flex;flex-direction:column;min-width:0;padding:0}
+  .ctx{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 22px;border-bottom:1px solid var(--line-soft);flex-wrap:wrap}
+  .ctx .items{display:flex;align-items:center;color:var(--ink-2);font-size:13px;flex-wrap:wrap}
+  .ctx .items span{padding:0 15px;border-right:1px solid var(--line);white-space:nowrap}
+  .ctx .items span:first-child{padding-left:0}
+  .ctx .items span:last-child{border-right:0}
+  .ctx .items b{color:var(--ink);font-weight:600}
+  .ddown{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:8px 12px;font-size:13px;color:var(--ink);cursor:pointer}
+  .ddown svg{width:14px;height:14px;stroke:var(--ink-3)}
+
+  .grid{display:grid;grid-template-columns:1fr 262px;gap:16px;padding:18px 22px 22px;align-items:start}
+  .left{display:flex;flex-direction:column;gap:16px;min-width:0}
+  .panel{background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--radius)}
+  .ph{display:flex;flex-direction:column;gap:1px;padding:15px 16px 12px}
+  .ph .t{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+  .ph .s{font-size:12px;color:var(--ink-3)}
+
+  /* imaging panel */
+  .imaging{display:grid;grid-template-columns:150px 1fr;gap:14px;padding:0 16px 16px}
+  .legend{display:flex;flex-direction:column;gap:11px;padding-top:4px}
+  .legend .li{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--ink-2)}
+  .legend .li i{width:9px;height:9px;border-radius:50%;flex:none}
+  .fieldguide{margin-top:auto;display:flex;align-items:center;gap:9px;padding-top:14px}
+  .fieldguide .fg{width:74px;height:74px;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;background:var(--panel-2)}
+  .fieldguide .lbl{font-size:11px;color:var(--ink-3)}
+  .fundus-wrap{position:relative;border-radius:12px;overflow:hidden;background:#000;border:1px solid var(--line-soft);aspect-ratio:1/.82}
+  .fundus-img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* bottom 3 cards */
+  .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--radius);padding:15px 16px}
+  .card .ch{font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#fff}
+  .card .cs{font-size:11.5px;color:var(--ink-3);margin-top:2px;margin-bottom:14px}
+  .mdd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+  .mdd .stat .ic{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;margin:0 auto 7px;font-size:15px}
+  .mdd .stat .n{font-size:21px;font-weight:800;font-family:'IBM Plex Mono',monospace}
+  .mdd .stat .l{font-size:9.5px;color:var(--ink-3);margin-top:2px;line-height:1.2}
+  .bars{display:flex;flex-direction:column;gap:11px}
+  .bar{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+  .bar .bl{font-size:12px;color:var(--ink-2)}
+  .bar .track{grid-column:1/2;height:6px;border-radius:4px;background:rgba(255,255,255,.07);overflow:hidden;margin-top:5px}
+  .bar .track i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--blue-bright));border-radius:4px}
+  .bar .bv{font-size:13px;font-weight:700;color:#fff;font-family:'IBM Plex Mono',monospace}
+  .barrow{display:flex;flex-direction:column}
+  .qrows{display:flex;flex-direction:column;gap:13px}
+  .qrow{display:flex;align-items:center;justify-content:space-between;font-size:13px}
+  .qrow .ql{color:var(--ink-2)}
+  .qrow .qv{display:flex;align-items:center;gap:7px;font-weight:600}
+  .qrow .qv svg{width:15px;height:15px;stroke:var(--green)}
+
+  /* right rail */
+  .rail{display:flex;flex-direction:column;gap:16px}
+  .rcard{background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--radius);padding:16px}
+  .rcard .rt{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#fff}
+  .rcard .rs{font-size:11.5px;color:var(--ink-3);margin-top:2px;margin-bottom:13px}
+  .finding{margin-bottom:13px}
+  .finding:last-child{margin-bottom:0}
+  .finding .fr{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:var(--ink)}
+  .finding .fr i{width:9px;height:9px;border-radius:50%;flex:none}
+  .conf{margin-top:7px;display:flex;align-items:center;justify-content:space-between;background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:7px 11px;font-size:12px;color:var(--ink-2)}
+  .conf b{color:#fff;font-weight:600;font-family:'IBM Plex Mono',monospace}
+  .conf svg{width:13px;height:13px;stroke:var(--ink-3)}
+
+  .drss-big{font-size:42px;font-weight:800;letter-spacing:-.02em;color:var(--orange);line-height:1;margin-top:4px;font-family:'IBM Plex Mono',monospace}
+  .drss-sub{font-size:13px;color:var(--ink-2);margin-top:4px;font-weight:600}
+  .scale{margin-top:14px}
+  .scale .barline{height:9px;border-radius:5px;background:linear-gradient(90deg,#ef5350 0%,#f5a623 30%,#8a93b5 50%,#39c06a 75%,#2dd4bf 100%);position:relative}
+  .scale .pin{position:absolute;top:-4px;height:17px;width:3px;border-radius:2px;background:#fff;box-shadow:0 0 0 2px rgba(0,0,0,.4)}
+  .scale .ticks{display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:var(--ink-4);font-family:'IBM Plex Mono',monospace}
+
+  .donut-wrap{display:flex;align-items:center;gap:14px;margin-top:6px}
+  .donut{position:relative;width:90px;height:90px;flex:none}
+  .donut .pct{position:absolute;inset:0;display:grid;place-items:center;font-size:19px;font-weight:800;color:#fff;font-family:'IBM Plex Mono',monospace}
+  .donut-wrap .ct{font-size:17px;font-weight:700;color:var(--green);line-height:1.2}
+  .donut-wrap .ct small{display:block;font-size:12px;color:var(--ink-3);font-weight:500}
+
+  @media (max-width:1120px){
+    .grid{grid-template-columns:1fr}
+    .rail{flex-direction:row;flex-wrap:wrap}
+    .rail>*{flex:1;min-width:240px}
+  }
+  @media (max-width:860px){
+    .body{grid-template-columns:1fr}
+    .side{flex-direction:row;overflow-x:auto}
+    .side .sp,.side .foot{display:none}
+    .nav{flex-direction:row}
+    .row3{grid-template-columns:1fr}
+    .imaging{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+  <div class="app" data-screen-label="Ocula360 Dashboard">
+    <!-- HEADER -->
+    <header class="top">
+      <a class="lock" href="index.html" title="Back to suite" style="text-decoration:none;color:inherit;cursor:pointer">
+        <svg class="mark" viewBox="0 0 48 48" fill="none" aria-label="Ocula360">
+          <defs>
+            <linearGradient id="oc-a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6aa9f5"/><stop offset="1" stop-color="#2f6fcf"/></linearGradient>
+            <linearGradient id="oc-b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3f7fd6"/><stop offset="1" stop-color="#1c4e9e"/></linearGradient>
+            <radialGradient id="oc-c" cx="0.4" cy="0.35" r="0.7"><stop offset="0" stop-color="#dcebff"/><stop offset="1" stop-color="#6aa6ee"/></radialGradient>
+          </defs>
+          <!-- faceted hexagon -->
+          <polygon points="24,2.5 43,13.2 43,34.8 24,45.5 5,34.8 5,13.2" fill="url(#oc-b)" stroke="#7fb2f7" stroke-width="1.2"/>
+          <polygon points="24,2.5 43,13.2 24,24" fill="url(#oc-a)" opacity=".95"/>
+          <polygon points="24,2.5 24,24 5,13.2" fill="#3f82dc" opacity=".8"/>
+          <polygon points="43,13.2 43,34.8 24,24" fill="#234f96" opacity=".9"/>
+          <polygon points="5,13.2 24,24 5,34.8" fill="#2b5fae" opacity=".85"/>
+          <polygon points="24,24 43,34.8 24,45.5" fill="#1d4585" opacity=".9"/>
+          <polygon points="24,24 24,45.5 5,34.8" fill="#27559c" opacity=".85"/>
+          <circle cx="24" cy="24" r="7.2" fill="url(#oc-c)" stroke="#bcdcff" stroke-width="1"/>
+          <circle cx="24" cy="24" r="3" fill="#1c4e9e"/>
+        </svg>
+        <div>
+          <div class="wm">Ocula360</div>
+          <div class="tag">Multimodal AI Retinal Platform</div>
+        </div>
+      </a>
+      <div class="right">
+        <span class="welcome">Welcome, <b>Dr. Smith</b></span>
+        <button class="ibtn"><span class="dot"></span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg></button>
+        <div class="pfp"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></div>
+      </div>
+    </header>
+
+    <div class="body">
+      <!-- SIDEBAR -->
+      <aside class="side">
+        <nav class="nav">
+          <a href="#" class="active"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 8.5a3 3 0 0 1 0 5"/><path d="M18 19a5 5 0 0 0-3-4.6"/></svg>Patients</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 17l5-5 3 3 5-6 5 6"/><path d="M3 21h18"/></svg>Analyses</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="12" cy="12" r="3.2"/><path d="M7 5l1.2-2h7.6L17 5"/></svg>Imaging</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M6 3h9l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>Reports</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9.5 3v4.5L4 18a2 2 0 0 0 1.8 3h12.4A2 2 0 0 0 20 18l-5.5-10.5V3"/><path d="M8 3h8"/></svg>Research</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M6 8.4V12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8.4M12 14v1.6"/></svg>Integrations</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 13.5a7.5 7.5 0 0 0 0-3l1.7-1.3-1.8-3.1-2 .8a7.4 7.4 0 0 0-2.6-1.5L14.4 3h-3.6l-.3 2.1a7.4 7.4 0 0 0-2.6 1.5l-2-.8L4.1 8.9 5.8 10.2a7.5 7.5 0 0 0 0 3L4.1 14.5l1.8 3.1 2-.8a7.4 7.4 0 0 0 2.6 1.5l.3 2.1h3.6l.3-2.1a7.4 7.4 0 0 0 2.6-1.5l2 .8 1.8-3.1z"/></svg>Settings</a>
+        </nav>
+        <div class="sp"></div>
+        <div class="foot">
+          <div class="hlp"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.6 2.6 0 0 1 5 .8c0 1.8-2.5 2-2.5 4"/><circle cx="12" cy="17" r=".6" fill="currentColor" stroke="none"/></svg>Need Help?</div>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main">
+        <div class="ctx">
+          <div class="items">
+            <span>Patient ID: <b>7533</b></span>
+            <span>45 Year Old</span>
+            <span>OD <b>(Right Eye)</b></span>
+            <span>Imaged: <b>May 15, 2025</b></span>
+          </div>
+          <div class="ddown">UWF 7-Field Overlay <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+
+        <div class="grid">
+          <div class="left">
+            <!-- 7-field overlay -->
+            <section class="panel">
+              <div class="ph"><div class="t">7-Field Overlay</div><div class="s">Lesion Visualization</div></div>
+              <div class="imaging">
+                <div class="legend">
+                  <div class="li"><i style="background:#f5c542"></i>Microaneurysms</div>
+                  <div class="li"><i style="background:#e8702a"></i>Hemorrhages</div>
+                  <div class="li"><i style="background:#f5a623"></i>Hard Exudates</div>
+                  <div class="li"><i style="background:#2dd4bf"></i>Cotton Wool Spots</div>
+                  <div class="li"><i style="background:#7c6cf0"></i>IRMA</div>
+                  <div class="li"><i style="background:#ef5350"></i>Neovascularization</div>
+                  <div class="fieldguide">
+                    <div class="fg">
+                      <svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="#e07a9a" stroke-width="1.2">
+                        <circle cx="26" cy="26" r="8"/><circle cx="26" cy="13" r="8"/><circle cx="37" cy="19" r="8"/><circle cx="37" cy="33" r="8"/><circle cx="26" cy="39" r="8"/><circle cx="15" cy="33" r="8"/><circle cx="15" cy="19" r="8"/>
+                      </svg>
+                    </div>
+                    <span class="lbl">Field<br/>Guide</span>
+                  </div>
+                </div>
+                <div class="fundus-wrap">
+                  <img class="fundus-img" src="assets/fundus_real.png" alt="UWF 7-field retinal scan" />
+                </div>
+              </div>
+            </section>
+
+            <!-- bottom 3 cards -->
+            <div class="row3">
+              <div class="card">
+                <div class="ch">Multi-Disease Detection</div>
+                <div class="cs">AI identifies multiple retinal conditions</div>
+                <div class="mdd">
+                  <div class="stat"><div class="ic" style="background:rgba(245,197,66,.16);color:#f5c542">●</div><div class="n">23</div><div class="l">Microaneurysms</div></div>
+                  <div class="stat"><div class="ic" style="background:rgba(232,112,42,.16);color:#e8702a">●</div><div class="n">14</div><div class="l">Hemorrhages</div></div>
+                  <div class="stat"><div class="ic" style="background:rgba(245,166,35,.16);color:#f5a623">●</div><div class="n">8</div><div class="l">Exudates</div></div>
+                  <div class="stat"><div class="ic" style="background:rgba(47,122,214,.18);color:#4f97ec">●</div><div class="n">3</div><div class="l">CWS</div></div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="ch">DRSS Breakdown</div>
+                <div class="cs">Severity Components</div>
+                <div class="bars">
+                  <div class="barrow"><div class="bar"><span class="bl">Retinal Hemorrhages</span><span class="bv">58</span></div><div class="track"><i style="width:58%"></i></div></div>
+                  <div class="barrow"><div class="bar"><span class="bl">Microaneurysms</span><span class="bv">42</span></div><div class="track"><i style="width:42%"></i></div></div>
+                  <div class="barrow"><div class="bar"><span class="bl">Exudates</span><span class="bv">35</span></div><div class="track"><i style="width:35%"></i></div></div>
+                  <div class="barrow"><div class="bar"><span class="bl">IRMA / Neovascularization</span><span class="bv">15</span></div><div class="track"><i style="width:15%"></i></div></div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="ch">Imaging Quality</div>
+                <div class="cs">UWF 7-Field Assessment</div>
+                <div class="qrows">
+                  <div class="qrow"><span class="ql">Image Quality</span><span class="qv" style="color:var(--green)">Excellent <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span></div>
+                  <div class="qrow"><span class="ql">Field Completeness</span><span class="qv" style="color:var(--green)">100% <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span></div>
+                  <div class="qrow"><span class="ql">Focus</span><span class="qv" style="color:var(--green)">Sharp <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT RAIL -->
+          <aside class="rail">
+            <div class="rcard">
+              <div class="rt">AI Insights</div>
+              <div class="rs">Multi-Disease Detection</div>
+              <div class="finding"><div class="fr"><i style="background:#ef5350"></i>Moderate NPDR</div><div class="conf">Confidence <span><b>87%</b></span></div></div>
+              <div class="finding"><div class="fr"><i style="background:#f5a623"></i>Early Glaucoma Suspect</div><div class="conf">Confidence <span><b>76%</b></span></div></div>
+              <div class="finding"><div class="fr"><i style="background:#39c06a"></i>No Signs of AMD</div><div class="conf">Confidence <span><b>92%</b></span></div></div>
+            </div>
+
+            <div class="rcard">
+              <div class="rt">DRSS Score</div>
+              <div class="rs">AI-Powered DR Severity</div>
+              <div class="drss-big">47–53</div>
+              <div class="drss-sub">Moderate NPDR</div>
+              <div class="scale">
+                <div class="barline"><div class="pin" style="left:48%"></div></div>
+                <div class="ticks"><span>0</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
+              </div>
+            </div>
+
+            <div class="rcard">
+              <div class="rt">Explainability</div>
+              <div class="rs">Model Confidence</div>
+              <div class="donut-wrap">
+                <div class="donut">
+                  <svg width="90" height="90" viewBox="0 0 90 90">
+                    <circle cx="45" cy="45" r="38" fill="none" stroke="#16314f" stroke-width="9"/>
+                    <circle cx="45" cy="45" r="38" fill="none" stroke="#39c06a" stroke-width="9" stroke-linecap="round" stroke-dasharray="238.76" stroke-dashoffset="31" transform="rotate(-90 45 45)"/>
+                  </svg>
+                  <div class="pct">87%</div>
+                </div>
+                <div class="ct">High<small>Confidence</small></div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+  </div>
+
+<template id="__bundler_thumbnail">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#081427"/><polygon points="50,18 78,34 78,66 50,82 22,66 22,34" fill="#2f6fcf" stroke="#7fb2f7"/><circle cx="50" cy="50" r="11" fill="#dcebff"/></svg>
+</template>
+</body>
+</html>

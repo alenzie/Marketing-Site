@@ -30,3 +30,13 @@ pnpm-debug.log*
 # project-local docs — keep out of the public repo
 CLAUDE.md
 Changes requested_.pdf
+
+# local archive — never deploy / commit (large source assets, old sites, zips)
+archive/
+
+# Photoshop / large design source files — keep out of the public repo
+*.psd
+
+# sensitive / local-only artifacts
+DNS-RECORDS.png
+convo wih clAUDE DESIGN.txt
