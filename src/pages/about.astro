@@ -26,6 +26,11 @@ const scientificAdvisors = [
     role: 'Director of Clinical Research at Sierra Eye Associates',
     headshot: '/team/advisors/arshad-khanani.jpg',
   },
+  {
+    name: 'Joshua Freeman',
+    role: 'Medical Device Clinical and Regulatory Professional',
+    headshot: '/team/advisors/joshua-freeman.jpg',
+  },
 ];
 
 const businessAdvisors = [
@@ -43,11 +48,6 @@ const businessAdvisors = [
     name: 'Scott Brands',
     role: 'Financial Advisor, SVP Finance at Brightwell Payments, Inc',
     headshot: '/team/advisors/scott-brands.jpg',
-  },
-  {
-    name: 'Joshua Freeman',
-    role: 'Medical Device Clinical and Regulatory Professional',
-    headshot: '/team/advisors/joshua-freeman.jpg',
   },
   {
     name: 'Abu Bakar',
@@ -139,7 +139,7 @@ const businessAdvisors = [
       <div class="text-center">
         <PipeHeading level="h2" class="justify-center" data-reveal>Scientific Advisory Board</PipeHeading>
       </div>
-      <div class="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4" data-reveal-group>
+      <div class="mt-12 grid gap-10 md:grid-cols-3 lg:grid-cols-5 max-w-6xl mx-auto" data-reveal-group>
         {scientificAdvisors.map((a) => (
           <TeamCard size="sm" name={a.name} role={a.role} headshot={a.headshot} />
         ))}
@@ -153,7 +153,7 @@ const businessAdvisors = [
       <div class="text-center">
         <PipeHeading level="h2" class="justify-center" data-reveal>Business Advisory Board</PipeHeading>
       </div>
-      <div class="mt-12 grid gap-10 md:grid-cols-3 lg:grid-cols-5 max-w-6xl mx-auto" data-reveal-group>
+      <div class="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4" data-reveal-group>
         {businessAdvisors.map((a) => (
           <TeamCard size="sm" name={a.name} role={a.role} headshot={a.headshot} />
         ))}
