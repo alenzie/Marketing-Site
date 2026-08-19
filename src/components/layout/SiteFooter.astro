@@ -1,4 +1,13 @@
 ---
+interface Props {
+  variant?: 'default' | 'minimal';
+}
+
+const { variant = 'default' } = Astro.props;
+// Trust Center pages use variant="minimal": a "Book a demo" band and a newsletter
+// signup under a security exhibit read badly to a vendor-risk reviewer.
+const isMinimal = variant === 'minimal';
+
 const platformLinks = [
   { href: '/solutions/ocula360', label: 'Ocula360' },
   { href: '/solutions/nsight360', label: 'Nsight360' },
@@ -22,6 +31,7 @@ const companyLinks = [
   { href: '/about', label: 'About' },
   { href: '/about#leadership', label: 'Leadership' },
   { href: '/resources/newsroom', label: 'Press' },
+  { href: '/trust', label: 'Trust Center' },
 ];
 ---
 
@@ -54,24 +64,26 @@ const companyLinks = [
     </g>
   </svg>
 
-  <!-- CTA band -->
-  <div class="relative border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12 py-14 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 md:gap-10 items-center">
-      <h2 class="text-3xl md:text-[38px] font-bold leading-[1.1] tracking-[-0.02em] max-w-[640px] m-0">
-        Eye doctors operate with greater confidence — <em class="not-italic text-brand-cyan">with the help of Ocula360.</em>
-      </h2>
-      <button
-        type="button"
-        data-open-modal="demo"
-        class="inline-flex items-center gap-2 bg-white text-brand-primary font-semibold text-sm px-[22px] py-[14px] rounded-[10px] hover:bg-brand-cyan-soft transition-colors whitespace-nowrap"
-      >
-        Book a demo
-        <svg class="w-[14px] h-[14px]" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
+  <!-- CTA band — suppressed on Trust Center pages -->
+  {!isMinimal && (
+    <div class="relative border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-6 lg:px-12 py-14 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 md:gap-10 items-center">
+        <h2 class="text-3xl md:text-[38px] font-bold leading-[1.1] tracking-[-0.02em] max-w-[640px] m-0">
+          Eye doctors operate with greater confidence — <em class="not-italic text-brand-cyan">with the help of Ocula360.</em>
+        </h2>
+        <button
+          type="button"
+          data-open-modal="demo"
+          class="inline-flex items-center gap-2 bg-white text-brand-primary font-semibold text-sm px-[22px] py-[14px] rounded-[10px] hover:bg-brand-cyan-soft transition-colors whitespace-nowrap"
+        >
+          Book a demo
+          <svg class="w-[14px] h-[14px]" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
     </div>
-  </div>
+  )}
 
   <!-- Body: brand + 4 columns -->
   <div class="relative max-w-7xl mx-auto px-6 lg:px-12 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] gap-10">
@@ -89,33 +101,35 @@ const companyLinks = [
         Retinal AI platform for multi-disease detection, DRSS scoring, and explainable outputs.
       </p>
 
-      <!-- Newsletter signup -->
-      <form id="newsletter" data-newsletter-form class="space-y-2 max-w-[280px] scroll-mt-24" novalidate>
-        <p class="font-mono text-[10px] uppercase tracking-[.16em] text-brand-cyan mb-2">
-          Stay in the loop
-        </p>
-        <div class="flex gap-2">
-          <input
-            type="email"
-            name="email"
-            required
-            placeholder="your@email.com"
-            aria-label="Email"
-            class="flex-1 min-w-0 px-3 py-2 rounded-md bg-white/5 border border-white/15 text-white placeholder-slate-400 text-sm focus:border-brand-cyan focus:ring-2 focus:ring-brand-cyan/30 outline-none transition"
-          />
-          <button
-            type="submit"
-            class="bg-brand-cyan text-white font-semibold text-sm px-3 py-2 rounded-md hover:bg-brand-cyan-ink transition-colors"
-          >
-            Join
-          </button>
-        </div>
-        <input type="hidden" name="firstName" value="" />
-        <input type="hidden" name="lastName" value="" />
-        <p data-newsletter-success hidden class="text-xs text-brand-cyan mt-1">
-          Thanks — you're on the list.
-        </p>
-      </form>
+      <!-- Newsletter signup — suppressed on Trust Center pages -->
+      {!isMinimal && (
+        <form id="newsletter" data-newsletter-form class="space-y-2 max-w-[280px] scroll-mt-24" novalidate>
+          <p class="font-mono text-[10px] uppercase tracking-[.16em] text-brand-cyan mb-2">
+            Stay in the loop
+          </p>
+          <div class="flex gap-2">
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="your@email.com"
+              aria-label="Email"
+              class="flex-1 min-w-0 px-3 py-2 rounded-md bg-white/5 border border-white/15 text-white placeholder-slate-400 text-sm focus:border-brand-cyan focus:ring-2 focus:ring-brand-cyan/30 outline-none transition"
+            />
+            <button
+              type="submit"
+              class="bg-brand-cyan text-white font-semibold text-sm px-3 py-2 rounded-md hover:bg-brand-cyan-ink transition-colors"
+            >
+              Join
+            </button>
+          </div>
+          <input type="hidden" name="firstName" value="" />
+          <input type="hidden" name="lastName" value="" />
+          <p data-newsletter-success hidden class="text-xs text-brand-cyan mt-1">
+            Thanks — you're on the list.
+          </p>
+        </form>
+      )}
 
       <div class="flex items-center gap-3 mt-5">
         <a

@@ -71,6 +71,7 @@ const isResourcesActive = isActive(resources.href) || resources.items.some((i) =
 const simpleLinks = [
   { href: '/', label: 'Home' },
   { href: '/who-we-help', label: 'Who We Help' },
+  { href: '/trust', label: 'Trust Center' },
   { href: '/about', label: 'About' },
 ];
 
@@ -79,6 +80,7 @@ const mobileNav = [
   { type: 'group' as const, href: solutions.href, label: 'Solutions', items: solutions.items },
   { type: 'link' as const, href: '/who-we-help', label: 'Who We Help' },
   { type: 'group' as const, href: resources.href, label: 'Resources', items: resources.items },
+  { type: 'link' as const, href: '/trust', label: 'Trust Center' },
   { type: 'link' as const, href: '/about', label: 'About' },
 ];
 ---
@@ -155,6 +157,20 @@ const mobileNav = [
           footerLink={resources.footerLink}
           eyebrow={resources.eyebrow}
         />
+      </li>
+      <li>
+        <a
+          href="/trust"
+          class:list={[
+            'text-base font-medium tracking-wide transition-colors',
+            isActive('/trust')
+              ? 'text-brand-primary'
+              : 'text-brand-body hover:text-brand-primary',
+          ]}
+          aria-current={isActive('/trust') ? 'page' : undefined}
+        >
+          Trust Center
+        </a>
       </li>
       <li>
         <a
