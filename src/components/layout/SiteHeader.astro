@@ -95,7 +95,7 @@ const mobileNav = [
 
 <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-brand-line">
   <nav class="max-w-7xl mx-auto px-8 lg:px-12 py-4 flex items-center justify-between" aria-label="Primary">
-    <a href="/" class="relative flex items-center" aria-label="Ophthalytics home">
+    <a href="/" class="relative flex items-center min-w-0" aria-label="Ophthalytics home">
       <div
         aria-hidden="true"
         class="absolute inset-0 -z-10 pointer-events-none scale-[1.8] [background:radial-gradient(ellipse_at_center,rgba(255,255,255,0.7)_0%,rgba(255,255,255,0)_65%)]"
@@ -105,16 +105,16 @@ const mobileNav = [
         alt="Ophthalytics"
         width="300"
         height="34"
-        class="relative h-9 w-auto"
+        class="relative h-9 w-auto max-w-full object-contain object-left"
       />
     </a>
 
-    <ul class="hidden md:flex items-center gap-7">
+    <ul class="hidden xl:flex items-center gap-7">
       <li>
         <a
           href="/"
           class:list={[
-            'text-base font-medium tracking-wide transition-colors',
+            'text-base font-medium tracking-wide whitespace-nowrap transition-colors',
             isActive('/')
               ? 'text-brand-primary'
               : 'text-brand-body hover:text-brand-primary',
@@ -138,7 +138,7 @@ const mobileNav = [
         <a
           href="/who-we-help"
           class:list={[
-            'text-base font-medium tracking-wide transition-colors',
+            'text-base font-medium tracking-wide whitespace-nowrap transition-colors',
             isActive('/who-we-help')
               ? 'text-brand-primary'
               : 'text-brand-body hover:text-brand-primary',
@@ -162,7 +162,7 @@ const mobileNav = [
         <a
           href="/trust"
           class:list={[
-            'text-base font-medium tracking-wide transition-colors',
+            'text-base font-medium tracking-wide whitespace-nowrap transition-colors',
             isActive('/trust')
               ? 'text-brand-primary'
               : 'text-brand-body hover:text-brand-primary',
@@ -176,7 +176,7 @@ const mobileNav = [
         <a
           href="/about"
           class:list={[
-            'text-base font-medium tracking-wide transition-colors',
+            'text-base font-medium tracking-wide whitespace-nowrap transition-colors',
             isActive('/about')
               ? 'text-brand-primary'
               : 'text-brand-body hover:text-brand-primary',
@@ -197,20 +197,32 @@ const mobileNav = [
       </li>
     </ul>
 
-    <button
-      type="button"
-      data-mobile-toggle
-      aria-label="Open navigation menu"
-      aria-expanded="false"
-      aria-controls="mobile-drawer"
-      class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-md text-brand-ink hover:bg-brand-surface"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="4" y1="6" x2="20" y2="6"></line>
-        <line x1="4" y1="12" x2="20" y2="12"></line>
-        <line x1="4" y1="18" x2="20" y2="18"></line>
-      </svg>
-    </button>
+    <!-- Below xl the nav collapses into the drawer: Contact keeps its CTA slot on
+         tablet, and the Menu pill opens the same drawer the phone uses. -->
+    <div class="flex items-center gap-3 xl:hidden">
+      <button
+        type="button"
+        data-open-modal="contact"
+        class="hidden md:inline-flex items-center text-base font-semibold tracking-wide text-brand-primary border-2 border-brand-primary rounded-md px-4 py-2 hover:bg-brand-primary hover:text-white transition"
+      >
+        Contact
+      </button>
+      <button
+        type="button"
+        data-mobile-toggle
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-drawer"
+        class="inline-flex items-center gap-2 text-base font-semibold tracking-wide text-brand-primary border-2 border-brand-primary rounded-md px-4 py-2 hover:bg-brand-primary hover:text-white transition"
+      >
+        Menu
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="4" y1="6" x2="20" y2="6"></line>
+          <line x1="4" y1="12" x2="20" y2="12"></line>
+          <line x1="4" y1="18" x2="20" y2="18"></line>
+        </svg>
+      </button>
+    </div>
   </nav>
 </header>
 
