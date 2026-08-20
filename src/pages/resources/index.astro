@@ -12,13 +12,6 @@ const categories = [
     image: '/images/resources/articles.webp',
   },
   {
-    href: '/resources/journal-articles',
-    title: 'Journal Articles',
-    body: 'Peer-reviewed research authored by the Ophthalytics team, exploring the clinical and technical foundations of our AI platforms.',
-    cta: 'Browse journal articles',
-    image: '/images/resources/journal.webp',
-  },
-  {
     href: '/resources/newsroom',
     title: 'Newsroom',
     body: 'Press releases, company news, conference appearances, and announcements from the Ophthalytics team.',
@@ -34,27 +27,23 @@ const feed = [
     title: 'Bridging the Gap in Eye Care: How AI-Assisted Technology Enables Early Detection & Prevents Blindness',
     excerpt: 'How AI-assisted retinal screening brings early detection to the front lines of care and helps prevent avoidable blindness.',
     link: '/resources/articles/bridging-the-gap-eye-care',
+    thumbnail: '/images/articles/bridging-the-gap-cover.webp',
+  },
+  {
+    category: 'Article',
+    categoryColor: 'accent',
+    title: 'How a Small Startup from Atlanta is Saving Billions in U.S. Healthcare Costs and Preventing Blindness With Assistive AI',
+    excerpt: 'The four-month wait that started the company, and how AI-assisted screening changes the economics of early detection.',
+    link: '/resources/articles/atlanta-startup-saving-billions',
+    thumbnail: '/images/articles/atlanta-startup-cover.webp',
   },
   {
     category: 'Journal',
     categoryColor: 'primary',
     title: 'A Prospective Study on Diabetic Retinopathy Detection Based on a Modified CNN Using Fundus Images',
     excerpt: 'Peer-reviewed research documenting the performance of our early deep-learning models on diabetic retinopathy detection.',
-    link: '/resources/journal-articles',
-  },
-  {
-    category: 'News',
-    categoryColor: 'secondary',
-    title: 'Medicare Advantage News: What the 2026 Payment Increase Means for Medical Practices',
-    excerpt: 'What the 2026 Medicare Advantage payment changes mean for practices investing in preventive eye screening.',
-    link: '/resources/newsroom',
-  },
-  {
-    category: 'News',
-    categoryColor: 'secondary',
-    title: "Star Community Health Is Protecting Patients' Vision — One Routine Visit at a Time",
-    excerpt: 'How a community health network is closing the diabetic eye care gap through routine, in-clinic retinal screening.',
-    link: '/resources/newsroom',
+    link: 'https://www.mdpi.com/2075-4418/13/3/393',
+    thumbnail: '/images/articles/mdpi-card.svg',
   },
 ];
 ---
@@ -157,6 +146,7 @@ const feed = [
             title={item.title}
             excerpt={item.excerpt}
             link={item.link}
+            thumbnail={item.thumbnail}
           />
         ))}
       </div>

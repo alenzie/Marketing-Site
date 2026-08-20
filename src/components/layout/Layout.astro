@@ -11,6 +11,7 @@ interface Props {
   ogImage?: string;
   currentPath?: string;
   noindex?: boolean;
+  footerVariant?: 'default' | 'minimal';
 }
 
 const {
@@ -19,6 +20,7 @@ const {
   ogImage,
   currentPath,
   noindex = false,
+  footerVariant = 'default',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -52,7 +54,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <main class="flex-1">
       <slot />
     </main>
-    <SiteFooter />
+    <SiteFooter variant={footerVariant} />
     <DemoModal />
     <ContactModal />
     <script>

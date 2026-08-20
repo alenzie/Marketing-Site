@@ -1,0 +1,211 @@
+---
+// Shared shell for the three long Trust Center exhibits.
+// Renders: Layout (footer CTA band + newsletter suppressed) > hero > mobile TOC
+// accordion > sticky sidebar + numbered sections > close-out.
+import Layout from '../layout/Layout.astro';
+import TrustHero from './TrustHero.astro';
+import TrustCloseout from './TrustCloseout.astro';
+import type { TrustDoc } from '../../data/trust';
+
+interface Props {
+  doc: TrustDoc;
+  description: string;
+}
+const { doc, description } = Astro.props;
+
+const related = [
+  { href: '/trust/security-exhibit', label: 'Security Exhibit' },
+  { href: '/trust/quality-statement', label: 'Quality Statement' },
+  { href: '/trust/data-processing-addendum', label: 'Data Processing Addendum' },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const sections = doc.sections.map((s, i) => ({ ...s, id: `sec-${i + 1}`, num: i + 1 }));
+---
+
+<Layout
+  title={`${doc.title} — Trust Center — Ophthalytics`}
+  description={description}
+  footerVariant="minimal"
+>
+  <TrustHero title={doc.title} lede={doc.lede} meta={doc.meta} crumb={doc.crumb} />
+
+  <!-- Mobile: collapsible "On this page", pinned under the header -->
+  <div
+    data-trust-toc
+    class="lg:hidden sticky top-[68px] z-30 bg-white/95 backdrop-blur border-b border-brand-line"
+  >
+    <button
+      type="button"
+      data-toc-toggle
+      aria-expanded="false"
+      class="w-full flex items-center justify-between gap-3 px-5 py-[14px] text-left"
+    >
+      <span class="flex flex-col gap-0.5 min-w-0">
+        <span class="font-mono text-[10px] uppercase tracking-[.16em] text-brand-muted">On this page</span>
+        <span data-toc-current class="text-[14.5px] font-semibold text-brand-ink truncate">
+          1. {sections[0].title}
+        </span>
+      </span>
+      <svg
+        data-toc-chevron
+        width="18" height="18" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="flex-shrink-0 text-brand-body transition-transform duration-200"
+      >
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
+    <nav data-toc-panel hidden class="max-h-[52vh] overflow-y-auto px-3 pb-[14px] flex flex-col gap-0.5">
+      {sections.map((s) => (
+        <a
+          href={`#${s.id}`}
+          data-spy-link={s.id}
+          class="block px-3 py-[9px] rounded-md text-[13.5px] leading-[1.35] font-medium text-brand-body hover:bg-brand-surface transition-colors"
+        >
+          {s.num}. {s.title}
+        </a>
+      ))}
+    </nav>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 pt-8 lg:pt-14 grid grid-cols-1 lg:grid-cols-[264px_minmax(0,1fr)] lg:gap-14 items-start">
+    <aside class="hidden lg:flex sticky top-[100px] flex-col gap-7">
+      <div>
+        <div class="font-mono text-[10px] font-semibold uppercase tracking-[.16em] text-brand-muted px-3 mb-2.5">
+          On This Page
+        </div>
+        <nav class="flex flex-col gap-0.5">
+          {sections.map((s) => (
+            <a
+              href={`#${s.id}`}
+              data-spy-link={s.id}
+              class="block px-3 py-[9px] rounded-md text-[13.5px] leading-[1.35] font-medium text-brand-body hover:bg-brand-surface transition-colors"
+            >
+              {s.num}. {s.title}
+            </a>
+          ))}
+        </nav>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] font-semibold uppercase tracking-[.16em] text-brand-muted px-3 mb-2.5">
+          Related
+        </div>
+        <nav class="flex flex-col gap-0.5">
+          {related.map((r) => (
+            <a
+              href={r.href}
+              class:list={[
+                'block px-3 py-[9px] rounded-md text-[13.5px] leading-[1.35] transition-colors',
+                currentPath === r.href
+                  ? 'bg-brand-navy text-white font-semibold'
+                  : 'font-medium text-brand-body hover:bg-brand-surface',
+              ]}
+              aria-current={currentPath === r.href ? 'page' : undefined}
+            >
+              {r.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </aside>
+
+    <div class="min-w-0 max-w-[820px]">
+      <p class="m-0 mb-11 pl-5 border-l-[3px] border-brand-cyan text-[17px] lg:text-[18px] leading-[1.7] font-medium text-brand-ink text-pretty">
+        {doc.callout}
+      </p>
+
+      {sections.map((s) => (
+        <section id={s.id} data-spy class="mb-12 scroll-mt-[150px]">
+          <h2 class="flex items-baseline gap-3.5 m-0 mb-[18px] pb-3.5 border-b border-brand-line">
+            <span class="font-mono text-sm font-bold text-brand-cyan flex-shrink-0 tabular-nums">{s.num}</span>
+            <span class="text-xl lg:text-2xl font-bold leading-[1.25] tracking-[-0.015em] text-brand-ink">
+              {s.title}
+            </span>
+          </h2>
+          {s.paras.map((p) => (
+            <p class="m-0 mb-4 text-base leading-[1.75] text-brand-body text-pretty">{p}</p>
+          ))}
+          {s.kv && (
+            <dl class="m-0 mt-5 border border-brand-line rounded-xl overflow-hidden">
+              {s.kv.map((row, ri) => (
+                <div
+                  class:list={[
+                    'grid grid-cols-1 lg:grid-cols-[minmax(160px,240px)_minmax(0,1fr)] gap-1.5 lg:gap-5 px-5 py-4 bg-brand-surface',
+                    ri === s.kv!.length - 1 ? '' : 'border-b border-brand-line',
+                  ]}
+                >
+                  <dt class="text-[14.5px] font-semibold text-brand-primary">{row.k}</dt>
+                  <dd class="m-0 text-[15px] leading-[1.65] text-brand-body">{row.v}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+          {s.tail && (
+            <p class="m-0 mt-4 text-base leading-[1.75] text-brand-body text-pretty">{s.tail}</p>
+          )}
+        </section>
+      ))}
+
+      <TrustCloseout />
+    </div>
+  </div>
+
+  <div class="h-[72px]"></div>
+</Layout>
+
+<script>
+  // Scrollspy: highlight the most-visible section. Drives both the desktop
+  // sidebar and the mobile "On this page" label.
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-spy-link]'));
+  const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-spy]'));
+  const current = document.querySelector<HTMLElement>('[data-toc-current]');
+
+  const setActive = (id: string) => {
+    links.forEach((l) => {
+      const on = l.dataset.spyLink === id;
+      l.classList.toggle('bg-brand-navy', on);
+      l.classList.toggle('text-white', on);
+      l.classList.toggle('font-semibold', on);
+      l.classList.toggle('text-brand-body', !on);
+      l.classList.toggle('font-medium', !on);
+      if (on && current) current.textContent = l.textContent?.trim() ?? '';
+    });
+  };
+
+  if (sections.length && 'IntersectionObserver' in window) {
+    const ratios = new Map<string, number>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => ratios.set(e.target.id, e.intersectionRatio));
+        let best: string | null = null;
+        let bestValue = -1;
+        ratios.forEach((v, k) => {
+          if (v > bestValue) { bestValue = v; best = k; }
+        });
+        if (best && bestValue > 0) setActive(best);
+      },
+      { rootMargin: '-150px 0px -45% 0px', threshold: [0, 0.05, 0.15, 0.3, 0.5, 0.75, 1] }
+    );
+    sections.forEach((s) => observer.observe(s));
+    setActive(sections[0].id);
+  }
+
+  // Mobile TOC accordion
+  const toc = document.querySelector<HTMLElement>('[data-trust-toc]');
+  const toggle = toc?.querySelector<HTMLButtonElement>('[data-toc-toggle]');
+  const panel = toc?.querySelector<HTMLElement>('[data-toc-panel]');
+  const chevron = toc?.querySelector<HTMLElement>('[data-toc-chevron]');
+
+  const setOpen = (open: boolean) => {
+    if (!panel || !toggle) return;
+    panel.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    if (chevron) chevron.style.transform = open ? 'rotate(180deg)' : '';
+  };
+
+  toggle?.addEventListener('click', () => {
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+  panel?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+</script>

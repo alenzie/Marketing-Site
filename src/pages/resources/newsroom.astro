@@ -4,6 +4,25 @@ import ResourceCard from '../../components/content/ResourceCard.astro';
 
 const articles = [
   {
+    category: 'Press',
+    categoryColor: 'secondary' as const,
+    date: 'August 11, 2026',
+    title: 'Five Atlanta healthcare companies using AI to cut costs, improve care',
+    excerpt:
+      "The Atlanta Business Chronicle features Ophthalytics among the startups powering Atlanta's healthtech boom, using AI to analyze retinal images and detect eye disease.",
+    link: 'https://www.bizjournals.com/atlanta/news/2026/08/11/atlanta-healthcare-companies-ai-healthcare.html',
+  },
+  {
+    thumbnail: '/images/articles/mdpi-card.svg',
+    category: 'Journal',
+    categoryColor: 'primary' as const,
+    date: 'January 2023',
+    title: 'A Prospective Study on Diabetic Retinopathy Detection Based on a Modified Convolutional Neural Network Using Fundus Images',
+    excerpt:
+      'Peer-reviewed research in MDPI Diagnostics documenting the performance of our deep-learning models on diabetic retinopathy detection at Sindh Institute of Ophthalmology & Visual Sciences.',
+    link: 'https://www.mdpi.com/2075-4418/13/3/393',
+  },
+  {
     thumbnail: '/resources/news/arvo-2023.jpg',
     category: 'News',
     categoryColor: 'primary' as const,
@@ -12,37 +31,6 @@ const articles = [
     excerpt:
       'Ophthalytics stole the spotlight at ARVO 2023, the world\'s largest ophthalmology conference, with groundbreaking AI models.',
     link: 'https://www.arvo.org/uploads/files/general/Annual-Meeting/Schedule-at-a-Glance/2023-schedule-at-a-glance.pdf',
-    placeholder: false,
-  },
-  {
-    category: 'News',
-    categoryColor: 'primary' as const,
-    date: '2025',
-    title: "Star Community Health Is Protecting Patients' Vision — One Routine Visit at a Time",
-    excerpt:
-      'A look at how community health centers are integrating Nsight360 into routine care to expand access to diabetic retinopathy screening.',
-    link: '#',
-    placeholder: true,
-  },
-  {
-    category: 'News',
-    categoryColor: 'primary' as const,
-    date: '2026',
-    title: 'Medicare Advantage News: What the 2026 Payment Increase Means for Medical Practices',
-    excerpt:
-      'Unpacking the implications of the 2026 Medicare Advantage payment adjustment for providers running diabetic retinopathy screening programs.',
-    link: '#',
-    placeholder: true,
-  },
-  {
-    category: 'Awareness',
-    categoryColor: 'warn' as const,
-    date: 'November 2025',
-    title: 'Diabetes Awareness Month 2025: Ways to Participate as a Healthcare Provider',
-    excerpt:
-      'Four practical ways healthcare providers can contribute to Diabetes Awareness Month—from patient education to expanded screening programs.',
-    link: '#',
-    placeholder: true,
   },
 ];
 ---
@@ -78,12 +66,7 @@ const articles = [
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-reveal-group>
         {articles.map((a) => (
-          <div class:list={['relative h-full', a.placeholder && 'opacity-80']}>
-            {a.placeholder && (
-              <span class="absolute top-3 right-3 z-10 rounded-full bg-brand-ink/70 text-white text-[10px] font-semibold uppercase tracking-widest px-2 py-1">
-                Coming Soon
-              </span>
-            )}
+          <div class="relative h-full">
             <ResourceCard
               thumbnail={a.thumbnail}
               category={a.category}
@@ -104,10 +87,10 @@ const articles = [
     <div class="max-w-5xl mx-auto px-6 md:px-8 lg:px-12 py-16">
       <h2 class="text-xl font-semibold text-brand-ink text-center" data-reveal>Related Resources</h2>
       <div class="mt-8 grid gap-6 md:grid-cols-2" data-reveal-group>
-        <a href="/resources/journal-articles" class="bg-white border border-brand-line rounded-xl p-6 hover:shadow-lg transition-all">
+        <a href="/resources" class="bg-white border border-brand-line rounded-xl p-6 hover:shadow-lg transition-all">
           <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold">Resources</p>
-          <h3 class="mt-2 text-lg font-bold text-brand-ink">Journal Articles →</h3>
-          <p class="mt-2 text-sm text-brand-body">Peer-reviewed research from the Ophthalytics team.</p>
+          <h3 class="mt-2 text-lg font-bold text-brand-ink">All Resources →</h3>
+          <p class="mt-2 text-sm text-brand-body">Articles, featured research, and news from across our work in AI-powered eye care.</p>
         </a>
         <a href="/resources/articles" class="bg-white border border-brand-line rounded-xl p-6 hover:shadow-lg transition-all">
           <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold">Resources</p>
