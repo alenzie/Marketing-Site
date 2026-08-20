@@ -1,0 +1,37 @@
+{
+  "uid": "ophthalytics_site_integration_app",
+  "type": "app",
+  "config": {
+    "description": "Ophthalytics website integration: receives marketing-site form leads (contact, demo, newsletter) and serves as the read credential for the admin analytics dashboard (conversions, campaigns, revenue attribution).",
+    "name": "Ophthalytics Site Integration",
+    "distribution": "private",
+    "auth": {
+      "type": "static",
+      "requiredScopes": [
+        "oauth",
+        "forms",
+        "crm.objects.contacts.read",
+        "crm.objects.contacts.write",
+        "crm.objects.deals.read",
+        "crm.objects.companies.read",
+        "crm.objects.owners.read",
+        "crm.lists.read"
+      ],
+      "optionalScopes": [
+        "business-intelligence",
+        "marketing.campaigns.read"
+      ],
+      "conditionallyRequiredScopes": []
+    },
+    "permittedUrls": {
+      "fetch": [
+        "https://api.hubapi.com"
+      ],
+      "iframe": [],
+      "img": []
+    },
+    "support": {
+      "supportEmail": "support@ophthalytics.com"
+    }
+  }
+}
