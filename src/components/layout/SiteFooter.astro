@@ -122,8 +122,6 @@ const companyLinks = [
               Join
             </button>
           </div>
-          <input type="hidden" name="firstName" value="" />
-          <input type="hidden" name="lastName" value="" />
           <p data-newsletter-success hidden class="text-xs text-brand-cyan mt-1">
             Thanks — you're on the list.
           </p>
@@ -230,16 +228,34 @@ const companyLinks = [
 </footer>
 
 <script>
+  import { HUBSPOT_FORMS, hubspotSubmitUrl } from '../../data/hubspot';
+
   const form = document.querySelector<HTMLFormElement>('[data-newsletter-form]');
   const success = document.querySelector<HTMLElement>('[data-newsletter-success]');
 
-  form?.addEventListener('submit', (event) => {
+  form?.addEventListener('submit', async (event) => {
     event.preventDefault();
     if (!form.reportValidity()) return;
-    const data = Object.fromEntries(new FormData(form).entries());
-    // TODO: Wire to Resend endpoint — see 06b-forms-future.txt
-    console.log('[NEWSLETTER_STUB]', data);
-    form.reset();
-    if (success) success.hidden = false;
+    const email = (new FormData(form).get('email') as string | null)?.trim();
+    if (!email) return;
+    try {
+      const res = await fetch(hubspotSubmitUrl(HUBSPOT_FORMS.newsletter), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fields: [{ objectTypeId: '0-1', name: 'email', value: email }],
+          context: { pageUri: location.href, pageName: document.title },
+        }),
+      });
+      if (!res.ok) throw new Error(`HubSpot ${res.status}`);
+      form.reset();
+      if (success) success.hidden = false;
+    } catch (err) {
+      console.error('[NEWSLETTER]', err);
+      if (success) {
+        success.textContent = 'Something went wrong — please try again.';
+        success.hidden = false;
+      }
+    }
   });
 </script>

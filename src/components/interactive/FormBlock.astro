@@ -1,6 +1,13 @@
 ---
+// Shared form shell: renders the slotted fields, and on submit posts to HubSpot's
+// public form-submission endpoint (no credentials — see src/data/hubspot.ts).
+// Site field names are mapped to HubSpot contact properties in the script below.
+import { HUBSPOT_FORMS, hubspotSubmitUrl, type HubspotFormKey } from '../../data/hubspot';
+
 interface Props {
   logPrefix: string;
+  /** Which HubSpot form receives this form's submissions. */
+  hubspotForm: HubspotFormKey;
   successMessage?: string;
   variant?: 'light' | 'dark';
   id?: string;
@@ -9,11 +16,14 @@ interface Props {
 
 const {
   logPrefix,
+  hubspotForm,
   successMessage = "Thanks! We'll be in touch shortly.",
   variant = 'light',
   id,
   class: className = 'space-y-4',
 } = Astro.props;
+
+const submitUrl = hubspotSubmitUrl(HUBSPOT_FORMS[hubspotForm]);
 ---
 
 <div data-form-block-root>
@@ -21,10 +31,20 @@ const {
     id={id}
     data-form-block
     data-log-prefix={logPrefix}
+    data-hubspot-url={submitUrl}
     novalidate
     class={className}
   >
     <slot />
+    <!-- Honeypot: humans never see or fill this; bots that do are quietly dropped. -->
+    <input
+      type="text"
+      name="website_url"
+      tabindex="-1"
+      autocomplete="off"
+      aria-hidden="true"
+      class="hidden"
+    />
   </form>
   <div
     data-form-success
@@ -49,27 +69,109 @@ const {
       {successMessage}
     </p>
   </div>
+  <p
+    data-form-error
+    hidden
+    role="alert"
+    class:list={[
+      'mt-3 text-sm',
+      variant === 'dark' ? 'text-white' : 'text-status-error',
+    ]}
+  >
+    Something went wrong sending your message. Please try again, or email us at
+    <a href="mailto:support@ophthalytics.com" class="underline">support@ophthalytics.com</a>.
+  </p>
 </div>
 
 <script>
+  // Map site input names -> HubSpot contact properties. Unmapped names pass
+  // through unchanged if they are already property names (email, phone, message).
+  const NAME_MAP: Record<string, string> = {
+    firstName: 'firstname',
+    lastName: 'lastname',
+    organization: 'company',
+    role: 'jobtitle',
+  };
+  // Names never sent to HubSpot.
+  const DROP = new Set(['website_url']);
+
+  const toFields = (form: HTMLFormElement) => {
+    const raw = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+    const out: Record<string, string> = {};
+    for (const [key, value] of Object.entries(raw)) {
+      const v = value.trim();
+      if (!v || DROP.has(key)) continue;
+      if (key === 'name') {
+        // Single "Name" input -> firstname (+ lastname when a space is present)
+        const sp = v.indexOf(' ');
+        out.firstname = sp === -1 ? v : v.slice(0, sp);
+        if (sp !== -1) out.lastname = v.slice(sp + 1).trim();
+      } else if (key === 'product') {
+        // No standard contact property for product interest; carry it in message.
+        out.message = `Product interest: ${v}` + (out.message ? `\n\n${out.message}` : '');
+      } else if (key === 'message') {
+        out.message = out.message ? `${out.message}\n\n${v}` : v;
+      } else {
+        out[NAME_MAP[key] ?? key] = v;
+      }
+    }
+    return Object.entries(out).map(([name, value]) => ({ objectTypeId: '0-1', name, value }));
+  };
+
+  const hutk = () =>
+    document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/)?.[1];
+
   const bindForm = (form: HTMLFormElement) => {
     if (form.dataset.bound === 'true') return;
     form.dataset.bound = 'true';
     const root = form.closest<HTMLElement>('[data-form-block-root]');
     const success = root?.querySelector<HTMLElement>('[data-form-success]');
+    const error = root?.querySelector<HTMLElement>('[data-form-error]');
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
-      const data = Object.fromEntries(new FormData(form).entries());
-      const prefix = form.dataset.logPrefix ?? 'FORM';
-      // TODO: Wire to Resend endpoint — see 06b-forms-future.txt
-      console.log(`[${prefix}_STUB]`, data);
-      form.hidden = true;
-      if (success) success.hidden = false;
+      if (error) error.hidden = true;
+
+      const showSuccess = () => {
+        form.hidden = true;
+        if (success) success.hidden = false;
+      };
+
+      // Honeypot tripped: pretend success, submit nothing.
+      const trap = form.elements.namedItem('website_url') as HTMLInputElement | null;
+      if (trap?.value) {
+        showSuccess();
+        return;
+      }
+
+      const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        const res = await fetch(form.dataset.hubspotUrl!, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fields: toFields(form),
+            context: {
+              hutk: hutk(),
+              pageUri: location.href,
+              pageName: document.title,
+            },
+          }),
+        });
+        if (!res.ok) throw new Error(`HubSpot ${res.status}`);
+        showSuccess();
+      } catch (err) {
+        console.error(`[${form.dataset.logPrefix ?? 'FORM'}]`, err);
+        if (error) error.hidden = false;
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
     });
   };
 
@@ -85,10 +187,12 @@ const {
     if (!root) return;
     const form = root.querySelector<HTMLFormElement>('form[data-form-block]');
     const success = root.querySelector<HTMLElement>('[data-form-success]');
+    const error = root.querySelector<HTMLElement>('[data-form-error]');
     if (form) {
       form.reset();
       form.hidden = false;
     }
     if (success) success.hidden = true;
+    if (error) error.hidden = true;
   });
 </script>
