@@ -1,5 +1,6 @@
 ---
 import '../../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
 import SiteHeader from './SiteHeader.astro';
 import SiteFooter from './SiteFooter.astro';
 import DemoModal from '../interactive/DemoModal.astro';
@@ -48,6 +49,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:url" content={canonicalURL} />
     {ogImage && <meta property="og:image" content={ogImage} />}
     {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <Analytics />
   </head>
   <body class="min-h-screen flex flex-col">
     <SiteHeader currentPath={currentPath} />
