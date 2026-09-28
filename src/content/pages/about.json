@@ -8,7 +8,7 @@
       "id": "hero",
       "label": "Hero",
       "heading": "About Us: Pioneering Human + AI to Advance Healthcare",
-      "image": { "src": "/images/sections/medical-team.jpg", "alt": "" }
+      "image": { "src": "/uploads/6a6ce4be35adcbe495754fa4b3e88406.webp", "alt": "" }
     },
     {
       "type": "text",
@@ -34,7 +34,7 @@
       "type": "text",
       "id": "vision",
       "label": "Our Vision",
-      "heading": "Our Vision",
+      "heading": "Our Outlook",
       "paragraphs": [
         "AI-driven predictive health through non-invasive, accessible eye scans—enabling earlier disease detection and better outcomes."
       ]
