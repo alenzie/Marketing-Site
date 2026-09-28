@@ -1,0 +1,134 @@
+{
+  "slug": "about",
+  "title": "About — Ophthalytics",
+  "description": "Pioneering Human + AI to advance healthcare through retinal intelligence.",
+  "sections": [
+    {
+      "type": "hero",
+      "id": "hero",
+      "label": "Hero",
+      "heading": "About Us: Pioneering Human + AI to Advance Healthcare",
+      "image": { "src": "/images/sections/medical-team.jpg", "alt": "" }
+    },
+    {
+      "type": "text",
+      "id": "story",
+      "label": "Our Story",
+      "heading": "Our Story",
+      "paragraphs": [
+        "Ophthalytics was founded with a simple but urgent mission: prevent avoidable blindness through early detection.",
+        "We saw how specialist shortages, long wait times, and unequal access to care left millions undiagnosed until it was too late.",
+        "By combining AI with clinical expertise, we empower frontline healthcare providers to deliver sight-saving screenings—when and where patients need them most."
+      ]
+    },
+    {
+      "type": "text",
+      "id": "mission",
+      "label": "Our Mission",
+      "heading": "Our Mission",
+      "paragraphs": [
+        "To amplify the expertise of real doctors with AI-assisted diagnostic tools, delivering faster and more affordable retinal screenings to clinics that need them most."
+      ]
+    },
+    {
+      "type": "text",
+      "id": "vision",
+      "label": "Our Vision",
+      "heading": "Our Vision",
+      "paragraphs": [
+        "AI-driven predictive health through non-invasive, accessible eye scans—enabling earlier disease detection and better outcomes."
+      ]
+    },
+    {
+      "type": "people",
+      "id": "leadership",
+      "label": "Leadership",
+      "heading": "Leadership",
+      "people": [
+        {
+          "name": "Awais Bajwa",
+          "role": "Founder & CEO",
+          "headshot": { "src": "/team/awais-bajwa.jpg", "alt": "Awais Bajwa" },
+          "bio": {
+            "modal": "bio-awais",
+            "tagline": "Machine Learning, Data Science Expert & AI Junkie",
+            "paragraphs": [
+              "Awais is a visionary healthcare innovator and data scientist. Blending innovation with compassion, he has used knowledge engineering—commonly called artificial intelligence, or AI—to greatly expand the access, accuracy, and efficiency of diagnosis. Under his leadership, the company has won accolades, such as the Health Equity Initiative award from Amazon Web Services, for its transformative impact.",
+              "With more than 15 years of experience in advanced data analytics, Awais previously led AI product development for GE Companies, contributing advances in deep learning, generative AI, computer vision, and enterprise architecture."
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "people",
+      "id": "scientific-advisors",
+      "label": "Scientific Advisory Board",
+      "heading": "Scientific Advisory Board",
+      "people": [
+        {
+          "name": "Nadia Waheed, MD, MPH",
+          "role": "Professor of Ophthalmology, Retina Specialist — Retinal & Macular Disease",
+          "headshot": { "src": "/team/advisors/nadia-waheed.jpg", "alt": "Nadia Waheed, MD, MPH" }
+        },
+        {
+          "name": "Peter Kaiser, MD",
+          "role": "Professor of Ophthalmology, Director, Center for Ocular Research and Evaluation (CORE)",
+          "headshot": { "src": "/team/advisors/peter-kaiser.jpg", "alt": "Peter Kaiser, MD" }
+        },
+        {
+          "name": "Justis Ehlers, MD",
+          "role": "Professor of Ophthalmology; Retina Specialist for detached retinas, cataracts & glaucoma",
+          "headshot": { "src": "/team/advisors/justis-ehlers.jpg", "alt": "Justis Ehlers, MD" }
+        },
+        {
+          "name": "Arshad Khanani, MD",
+          "role": "Director of Clinical Research at Sierra Eye Associates",
+          "headshot": { "src": "/team/advisors/arshad-khanani.jpg", "alt": "Arshad Khanani, MD" }
+        },
+        {
+          "name": "Dr. SriniVas Sadda",
+          "role": "President & Chief Scientific Officer, Doheny Eye Institute",
+          "headshot": { "src": "/team/advisors/srinivas-sadda.jpg", "alt": "Dr. SriniVas Sadda" }
+        },
+        {
+          "name": "Joshua Freeman",
+          "role": "Medical Device Clinical and Regulatory Professional",
+          "headshot": { "src": "/team/advisors/joshua-freeman.jpg", "alt": "Joshua Freeman" }
+        }
+      ]
+    },
+    {
+      "type": "people",
+      "id": "business-advisors",
+      "label": "Business Advisory Board",
+      "heading": "Business Advisory Board",
+      "people": [
+        {
+          "name": "Raghib Hussain",
+          "role": "Business Advisor",
+          "headshot": { "src": "/team/advisors/raghib-hussain.jpg", "alt": "Raghib Hussain" }
+        },
+        {
+          "name": "Scott Brands",
+          "role": "Financial Advisor, SVP Finance at Brightwell Payments, Inc",
+          "headshot": { "src": "/team/advisors/scott-brands.jpg", "alt": "Scott Brands" }
+        },
+        {
+          "name": "Abu Bakar",
+          "role": "Business Advisor",
+          "headshot": { "src": "/team/advisors/abu-bakar.jpg", "alt": "Abu Bakar" }
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "id": "join-us",
+      "label": "Join Us",
+      "heading": "Join Us",
+      "body": "Take the first step toward an exciting career with Ophthalytics. Join our team and be a part of our mission to advance wellbeing through deep-learning AI. We are looking for driven and passionate individuals who share our vision and want to make a meaningful impact. Don't wait — start your journey with us today.",
+      "ctas": [{ "label": "Contact Us", "modal": "contact" }],
+      "image": { "src": "/images/cta/healthcare_professionals.jpeg", "alt": "" }
+    }
+  ]
+}

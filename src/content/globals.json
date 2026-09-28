@@ -1,0 +1,57 @@
+{
+  "footer": {
+    "cta": {
+      "heading": "Eye doctors operate with greater confidence —",
+      "highlight": "with the help of Ocula360.",
+      "button": { "label": "Book a demo", "modal": "demo" }
+    },
+    "tagline": "Retinal AI platform for multi-disease detection, DRSS scoring, and explainable outputs.",
+    "newsletter": {
+      "eyebrow": "Stay in the loop",
+      "placeholder": "your@email.com",
+      "buttonLabel": "Join",
+      "success": "Thanks — you're on the list."
+    },
+    "columns": [
+      {
+        "heading": "Platform",
+        "links": [
+          { "label": "Ocula360", "href": "/solutions/ocula360" },
+          { "label": "Nsight360", "href": "/solutions/nsight360" },
+          { "label": "2nd Opinion", "href": "/solutions/2nd-opinion" },
+          { "label": "Ophthal360", "href": "/solutions/ophthal360" }
+        ]
+      },
+      {
+        "heading": "Clinicians",
+        "links": [
+          { "label": "Who We Help", "href": "/who-we-help" },
+          { "label": "All Solutions", "href": "/solutions" }
+        ]
+      },
+      {
+        "heading": "Science",
+        "links": [
+          { "label": "Peer-Reviewed Research", "href": "https://www.mdpi.com/2075-4418/13/3/393" },
+          { "label": "Newsroom", "href": "/resources/newsroom" },
+          { "label": "All Resources", "href": "/resources" }
+        ]
+      },
+      {
+        "heading": "Company",
+        "links": [
+          { "label": "About", "href": "/about" },
+          { "label": "Leadership", "href": "/about#leadership" },
+          { "label": "Press", "href": "/resources/newsroom" },
+          { "label": "Trust Center", "href": "/trust" }
+        ]
+      }
+    ],
+    "contactLabel": "Contact",
+    "copyright": "© 2019 – 2026 Ophthalytics, Inc. · All rights reserved",
+    "legalLinks": [
+      { "label": "Privacy", "href": "/privacy" },
+      { "label": "Terms", "href": "/terms" }
+    ]
+  }
+}
