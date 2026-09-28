@@ -1,0 +1,335 @@
+{
+  "slug": "article-atlanta-startup",
+  "title": "How a Small Startup from Atlanta is Saving Billions in U.S. Healthcare Costs and Preventing Blindness With Assistive AI — Ophthalytics",
+  "description": "Ophthalytics CEO Awais Bajwa on the four-month wait that started the company, the $139 billion annual cost of vision loss in the U.S., and how AI-assisted screening changes the economics of early detection.",
+  "sections": [
+    {
+      "type": "hero",
+      "id": "hero",
+      "label": "Hero",
+      "breadcrumb": "Saving Billions With Assistive AI",
+      "eyebrow": "Industry Insight",
+      "heading": "How a Small Startup from Atlanta is Saving Billions in U.S. Healthcare Costs and Preventing Blindness With Assistive AI"
+    },
+    {
+      "type": "article",
+      "id": "article",
+      "label": "Article",
+      "author": "Awais Bajwa",
+      "authorRole": "Founder & CEO, Ophthalytics",
+      "date": "April 1, 2025",
+      "cover": {
+        "src": "/images/articles/atlanta-startup-cover.webp",
+        "alt": "Cover image from the original LinkedIn article"
+      },
+      "lead": "It started with my mother.",
+      "body": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "The Story Behind Ophthalytics"
+        },
+        {
+          "type": "paragraph",
+          "text": "She has diabetes, and during a visit to Atlanta, she needed an eye check-up. Simple, right? But despite our efforts, we couldn't get an appointment with an ophthalmologist for months—the earliest available slot was four months away."
+        },
+        {
+          "type": "paragraph",
+          "text": "That wait time wasn't just inconvenient. It was dangerous."
+        },
+        {
+          "type": "paragraph",
+          "text": "I kept wondering: How many others face these same delays? How many people are losing their vision—not because their condition is untreatable, but because they simply can't get diagnosed in time?"
+        },
+        {
+          "type": "paragraph",
+          "text": "As I dug deeper, the numbers were staggering."
+        },
+        {
+          "type": "quote",
+          "text": "Over 65,000 people in the U.S. lose their vision every year due to late detection of diabetic retinopathy and other retinal diseases."
+        },
+        {
+          "type": "paragraph",
+          "text": "Yet, research shows that <strong>95% of vision loss is preventable</strong> with early detection and timely treatment."
+        },
+        {
+          "type": "paragraph",
+          "text": "This wasn't just a gap in the system. It was a healthcare crisis."
+        },
+        {
+          "type": "paragraph",
+          "text": "That realization changed everything. I knew we had to build a solution—one that would bring AI-assisted retinal screening directly to clinics and communities, making early detection faster, easier, and more accessible."
+        },
+        {
+          "type": "paragraph",
+          "text": "Because no one should have to wait months for a test that could save their vision."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "The Growing Crisis in U.S. Healthcare"
+        },
+        {
+          "type": "paragraph",
+          "text": "The U.S. healthcare system faces a growing crisis—not just in cost, but in access to care."
+        },
+        {
+          "type": "paragraph",
+          "text": "Nowhere is this more evident than in eye health, where long wait times, a shortage of specialists, and financial barriers leave millions at risk of preventable blindness. With over <strong>93 million adults at risk</strong> and <strong>less than 50% receiving routine eye exams</strong>, the need for faster, more accessible screenings has never been greater."
+        },
+        {
+          "type": "list",
+          "intro": "The cause?",
+          "items": [
+            "<strong>Specialist shortages</strong> — long wait times, often months, for an ophthalmology appointment",
+            "<strong>Geographic barriers</strong> — rural and underserved communities have limited access to eye care",
+            "<strong>High costs</strong> — vision screenings and specialist referrals often require out-of-pocket expenses"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Without early detection, eye diseases like diabetic retinopathy, glaucoma, and macular degeneration can quietly progress, leading to irreversible blindness."
+        },
+        {
+          "type": "paragraph",
+          "text": "This results in missed diagnoses, avoidable vision loss, and skyrocketing treatment costs. Take diabetic retinopathy—it's the leading cause of blindness among working-age adults, yet it often goes undetected until it's too late."
+        },
+        {
+          "type": "paragraph",
+          "text": "The problem isn't just medical; it's also economic."
+        },
+        {
+          "type": "quote",
+          "text": "The estimated cost of eye disorders and vision loss in the U.S. exceeds $139 billion annually, including medical expenses, lost productivity, and long-term disability care."
+        },
+        {
+          "type": "paragraph",
+          "text": "The numbers don't lie—vision loss is costing lives and billions in preventable healthcare expenses."
+        },
+        {
+          "type": "paragraph",
+          "text": "But how do we close this gap in care without adding more strain on an already overwhelmed system?"
+        },
+        {
+          "type": "paragraph",
+          "text": "The answer lies in AI-assisted screening—technology that empowers primary care providers to detect vision-threatening diseases earlier, affordably, and efficiently."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "A Startup's Mission: Transforming Eye Care with AI"
+        },
+        {
+          "type": "paragraph",
+          "text": "Our mission is simple: make eye screenings more accessible, efficient, and affordable to the frontlines of healthcare by integrating AI-powered diagnostics with human expertise."
+        },
+        {
+          "type": "paragraph",
+          "text": "Our journey started with a personal experience—when our founder's mother, a diabetic patient, had to wait four months for an ophthalmology appointment. That delay wasn't just frustrating; it was dangerous."
+        },
+        {
+          "type": "paragraph",
+          "text": "This experience led to a deeper realization: millions of people are facing similar barriers to care, and the healthcare system isn't equipped to handle the growing demand."
+        },
+        {
+          "type": "paragraph",
+          "text": "Then I wondered, what if there was a way to detect vision-threatening diseases before they get worse—without requiring an appointment with an eye specialist?"
+        },
+        {
+          "type": "paragraph",
+          "text": "This is where Nsight360 comes in—an AI-assisted retinal screening tool designed to empower primary care physicians, community health centers, and telehealth providers to detect eye diseases in minutes, not months, before irreversible damage occurs."
+        },
+        {
+          "type": "paragraph",
+          "text": "The best part? This technology allows them to detect diseases earlier, preserve vision, and improve patient outcomes—without needing to be eye specialists themselves."
+        },
+        {
+          "type": "paragraph",
+          "text": "Through this innovation, we developed a tool capable of detecting more than eight serious eye diseases—validated by licensed eye specialists."
+        },
+        {
+          "type": "paragraph",
+          "text": "Eventually, what started with my mom has grown into a commitment to millions who deserve timely, accessible, and life-changing diagnostics."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "The Role of Early Detection in Reducing Costs and Preventing Blindness"
+        },
+        {
+          "type": "paragraph",
+          "text": "Beyond the personal toll, research shows that vision loss places a staggering burden on the U.S. economy. In 2017 alone, <strong>the total cost of vision loss and blindness was estimated at $134.2 billion</strong>:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "<strong>$98.7 billion</strong> in direct medical costs—including hospital care, nursing home expenses, and supportive services",
+            "<strong>$35.5 billion</strong> in indirect costs such as lost productivity, absenteeism, and informal care"
+          ]
+        },
+        {
+          "type": "list",
+          "intro": "Among these:",
+          "items": [
+            "Medical expenses accounted for <strong>$53.5 billion</strong>",
+            "Nursing home care alone cost <strong>$41.8 billion</strong>",
+            "Reduced labor force participation due to vision impairment led to a <strong>$16.2 billion</strong> loss in economic productivity"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "On average, vision loss costs <strong>$16,838 annually per affected person</strong>."
+        },
+        {
+          "type": "paragraph",
+          "text": "On the other hand, Medicare, the largest payer of medical expenses for eye diseases, faces a significant financial burden due to common vision disorders. In 2018, <strong>41% of Medicare fee-for-service beneficiaries</strong> had at least one claim related to age-related macular degeneration (AMD), cataracts, diabetic retinopathy (DR), or glaucoma."
+        },
+        {
+          "type": "paragraph",
+          "text": "Medicare payments for these conditions totaled <strong>$10.1 billion</strong>, broken down as follows:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Age-related macular degeneration (AMD): <strong>$3.5 billion</strong>",
+            "Cataracts: <strong>$3.6 billion</strong>",
+            "Diabetic retinopathy (DR): <strong>$0.8 billion</strong>",
+            "Glaucoma: <strong>$2.2 billion</strong>"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "These four conditions accounted for 4% of all Medicare Part B spending and 1% of Medicare Part D spending among fee-for-service beneficiaries. The average annual treatment costs per patient were:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "AMD: <strong>$1,290</strong>",
+            "Cataracts: <strong>$360</strong>",
+            "Diabetic retinopathy: <strong>$781</strong>",
+            "Glaucoma: <strong>$543</strong>"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Vision loss isn't just a healthcare issue—it's an economic and quality-of-life crisis."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "But what if we already have a solution that saves billions?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Early detection is the key to stopping preventable blindness, reducing long-term medical expenses, and improving patient outcomes."
+        },
+        {
+          "type": "paragraph",
+          "text": "Catching diabetic retinopathy and other eye diseases early could save billions in healthcare expenses while preserving the vision and independence of millions."
+        },
+        {
+          "type": "paragraph",
+          "text": "As of today, AI-assisted screening is already driving down costs and improving access to care in four key ways:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "<strong>No need to travel</strong> — patients can get screened at their primary care physician's office or even through a telehealth consultation",
+            "<strong>Faster specialist access</strong> — high-risk patients are prioritized for ophthalmologist referrals only when necessary, reducing unnecessary specialist visits",
+            "<strong>Early detection</strong> — AI screening helps detect diseases early, preventing costly late-stage treatments and saving billions in medical expenses",
+            "<strong>Addressing health inequities</strong> — millions of Americans, especially in rural and underserved communities, lack access to eye specialists. AI-powered screenings help bridge this gap, ensuring more people get the care they deserve"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "The Road Ahead: Scaling AI in Healthcare"
+        },
+        {
+          "type": "paragraph",
+          "text": "Eventually, what started as a solution for my mother has now grown into a mission to ensure no one has to wait months for a test that could save their vision."
+        },
+        {
+          "type": "paragraph",
+          "text": "As AI adoption in healthcare accelerates, startups like ours are proving that innovative technology doesn't just improve patient outcomes—it reduces the economic burden on the healthcare system."
+        },
+        {
+          "type": "paragraph",
+          "text": "Of course, scaling AI in healthcare comes with challenges. Regulatory hurdles, system integration, and physician adoption remain key barriers."
+        },
+        {
+          "type": "paragraph",
+          "text": "But as AI continues to demonstrate its accuracy and efficiency, more healthcare providers are embracing it—not as a replacement for specialists, but as a powerful tool to expand access and enhance patient care."
+        },
+        {
+          "type": "paragraph",
+          "text": "We're not just addressing today's challenges—we're shaping the future of preventive eye care."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Don't Let Preventable Blindness Steal Another Life"
+        },
+        {
+          "type": "paragraph",
+          "text": "Your patients deserve early detection, better care, and accessible screenings. By integrating AI-assisted retinal screening, you can reduce healthcare costs, improve patient outcomes, and stop preventable blindness before it's too late."
+        },
+        {
+          "type": "quote",
+          "text": "Because no one should go blind waiting."
+        },
+        { "type": "rule" },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "About the author"
+        },
+        {
+          "type": "paragraph",
+          "text": "Awais Bajwa is an AI product leader with a strong focus on customer-centric innovation in the healthcare and manufacturing industries. At GE Vernova, he has successfully led the development of AI-driven solutions that have significantly improved productivity and reduced costs."
+        },
+        {
+          "type": "paragraph",
+          "text": "In the healthcare sector, Awais is pioneering an AI-powered eye screening tool designed to autonomously detect various eye conditions. This groundbreaking technology minimizes the need for retina specialists during screenings, making early detection more accessible and contributing to the global fight against preventable blindness. Committed to health equity, he ensures this service is provided free of charge to charitable hospitals, helping bridge gaps in vision care."
+        },
+        {
+          "type": "paragraph",
+          "text": "Awais is also a distinguished member of the AI Blue Ribbon Collaborative (AIBRC) at the Center for Telehealth and eHealth Law (CTeL)—an honor reserved for top experts shaping the future of AI in healthcare. Through this initiative, he collaborates with policymakers, healthcare leaders, and legal experts to address critical clinical and regulatory challenges in AI-driven healthcare solutions."
+        },
+        {
+          "type": "paragraph",
+          "text": "Most recently, Awais and his team were invited to Capitol Hill to present their AI-powered eye disease detection technology to Members of Congress. This milestone underscores his commitment to advancing AI for public health and ensuring early detection of preventable blindness is accessible to all."
+        }
+      ],
+      "source": {
+        "text": "Originally published by Awais Bajwa on LinkedIn —",
+        "link": {
+          "label": "read the original article",
+          "href": "https://www.linkedin.com/pulse/how-small-startup-from-atlanta-saving-billions-us-healthcare-costs-mj45c"
+        }
+      }
+    },
+    {
+      "type": "cta",
+      "id": "cta",
+      "label": "Closing CTA",
+      "heading": "See Nsight360 in action",
+      "body": "Discover how AI-assisted retinal screening fits into your practice — detecting 8+ conditions in primary care, without a specialist appointment.",
+      "ctas": [
+        {
+          "label": "Book a Demo",
+          "modal": "demo"
+        },
+        {
+          "label": "Learn about Nsight360",
+          "href": "/solutions/nsight360"
+        }
+      ],
+      "image": {
+        "src": "/images/sections/medical-center-waiting-room.jpg",
+        "alt": ""
+      }
+    }
+  ]
+}

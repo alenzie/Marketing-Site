@@ -1,0 +1,50 @@
+{
+  "slug": "articles",
+  "title": "Articles — Resources — Ophthalytics",
+  "description": "Industry insights from the Ophthalytics team on early detection, AI-assisted screening, and the future of preventive eye care.",
+  "sections": [
+    {
+      "type": "hero",
+      "id": "hero",
+      "label": "Hero",
+      "breadcrumb": "Articles",
+      "heading": "Articles",
+      "body": "Industry insights from the Ophthalytics team on early detection, AI-assisted screening, and the future of preventive eye care."
+    },
+    {
+      "type": "resources",
+      "id": "articles",
+      "label": "Articles",
+      "cards": [
+        {
+          "category": "Industry Insight",
+          "categoryColor": "primary",
+          "date": "March 18, 2025",
+          "title": "Bridging the Gap in Eye Care: How AI-Assisted Technology Enables Early Detection & Prevents Blindness",
+          "excerpt": "Ophthalytics CEO Awais Bajwa on the U.S. eye care specialist shortage, the rising burden of diabetic retinopathy, and how AI-assisted retinal screening is bringing early detection into primary care.",
+          "href": "/resources/articles/bridging-the-gap-eye-care",
+          "thumbnail": { "src": "/images/articles/bridging-the-gap-cover.webp", "alt": "" }
+        },
+        {
+          "category": "Industry Insight",
+          "categoryColor": "primary",
+          "date": "April 1, 2025",
+          "title": "How a Small Startup from Atlanta is Saving Billions in U.S. Healthcare Costs and Preventing Blindness With Assistive AI",
+          "excerpt": "Ophthalytics CEO Awais Bajwa on the cost of late detection — 93 million U.S. adults at risk of vision loss, fewer than half getting routine exams — and how AI-assisted screening in primary care changes the economics.",
+          "href": "/resources/articles/atlanta-startup-saving-billions",
+          "thumbnail": { "src": "/images/articles/atlanta-startup-cover.webp", "alt": "" }
+        }
+      ]
+    },
+    {
+      "type": "features",
+      "id": "related",
+      "label": "Related resources",
+      "heading": "Related Resources",
+      "items": [
+        { "eyebrow": "Resources", "title": "All Resources", "body": "Articles, featured research, and news from across our work in AI-powered eye care.", "href": "/resources" },
+        { "eyebrow": "Resources", "title": "Newsroom", "body": "Press releases, announcements, and conference appearances.", "href": "/resources/newsroom" }
+      ]
+    }
+  ]
+}

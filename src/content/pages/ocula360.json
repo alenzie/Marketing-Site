@@ -1,0 +1,112 @@
+{
+  "slug": "ocula360",
+  "title": "Ocula360 — Foundational Retinal AI — Ophthalytics",
+  "description": "Ocula360 is our flagship retinal AI platform—turning a single retinal image into actionable diagnostic intelligence across screening, clinical care, and research.",
+  "sections": [
+    {
+      "type": "hero",
+      "id": "hero",
+      "label": "Hero",
+      "eyebrow": "Flagship Solution",
+      "heading": "Ocula360",
+      "subheading": "Foundational Retinal AI",
+      "body": "A single platform that turns retinal imaging into actionable diagnostic intelligence—across screening, clinical care, and research environments.",
+      "media": { "src": "/images/products/ocula360_product_shot_2.jpg", "alt": "Ocula360 Multimodal AI Retinal Platform shown on a clinical workstation display" },
+      "ctas": [
+        { "label": "Request a Demo", "modal": "demo" },
+        { "label": "Request Overview", "modal": "contact" }
+      ]
+    },
+    {
+      "type": "split",
+      "id": "platform",
+      "label": "What is Ocula360",
+      "eyebrow": "THE PLATFORM",
+      "heading": "One Retinal Image. Layered Diagnostic Intelligence.",
+      "paragraphs": [
+        "Ocula360 is our foundational AI engine—designed to detect multiple retinal diseases from a single image. Built on a foundational model architecture, it delivers explainable lesion-level outputs, advanced DRSS scoring, and multimodal compatibility that scales from individual clinic workflows to enterprise screening programs.",
+        "From diabetic retinopathy to age-related macular degeneration to glaucoma indicators, Ocula360 transforms one scan into a comprehensive diagnostic signal—so providers can act earlier, researchers can move faster, and patients get the care they need, sooner."
+      ],
+      "closing": "At its core, Ocula360 is not a feature set. It is a platform.",
+      "image": { "src": "/images/products/ocula360_product_shot_screen_only.png", "alt": "Inside the Ocula360 platform — 7-field lesion overlay, multi-disease detection, DRSS scoring, and model explainability" },
+      "caption": "A look inside the platform — lesion overlays, DRSS scoring, and explainable AI in a single view."
+    },
+    {
+      "type": "features",
+      "id": "capabilities",
+      "label": "Core capabilities",
+      "eyebrow": "CAPABILITIES",
+      "heading": "Built for the Full Diagnostic Stack",
+      "items": [
+        { "title": "Multi-Disease Detection", "body": "Detects diabetic retinopathy, age-related macular degeneration (AMD), glaucoma indicators, vascular abnormalities, hemorrhages, microaneurysms, and exudates—all from a single image." },
+        { "title": "Automated DRSS Scoring", "body": "Standardized severity grading for diabetic retinopathy, supporting consistent disease staging and eligibility decisions across screening programs." },
+        { "title": "Lesion-Level Explainability", "body": "Transparent confidence outputs and lesion overlays show clinicians exactly where and why the model flagged a finding—building trust, not black boxes." },
+        { "title": "Multimodal & Future-Ready", "body": "Compatible with fundus imaging, ultra-widefield (UWF) scans, and patient metadata. Architected to integrate additional inputs as imaging standards evolve." }
+      ]
+    },
+    {
+      "type": "features",
+      "id": "how-it-works",
+      "label": "How it works",
+      "heading": "Simple. Scalable. Integrated.",
+      "intro": "Ocula360 fits seamlessly into any retinal imaging workflow.",
+      "items": [
+        { "title": "Capture", "body": "Any retinal image from any supported camera—fundus, handheld, or ultra-widefield." },
+        { "title": "Upload", "body": "Images upload to the Ocula360 platform via secure, HIPAA-compliant transfer." },
+        { "title": "Analyze", "body": "The foundational model processes the image, detecting findings and grading severity based on your configured study criteria." },
+        { "title": "Act", "body": "Receive explainable reports with lesion-level overlays and confidence signals—ready for clinical review, referral routing, or trial enrollment decisions." }
+      ]
+    },
+    {
+      "type": "features",
+      "id": "use-cases",
+      "label": "Use cases",
+      "heading": "Built for How You Work",
+      "intro": "Ocula360 powers deployments across screening, clinical care, and research—adapting to the workflow, not the other way around.",
+      "items": [
+        { "title": "Population Screening", "body": "Deploy Ocula360 in primary care networks, community health centers, and home health programs to identify at-risk patients at scale—before vision loss occurs.", "tag": "Often delivered via Nsight360 or Ophthal360" },
+        { "title": "Diagnostic Support", "body": "Give optometrists and eye care professionals a second layer of AI-assisted insight on complex or borderline cases—reducing variability and increasing confidence.", "tag": "Delivered via 2nd Opinion" },
+        { "title": "Clinical Research", "body": "Accelerate patient identification for retinal-based clinical trials. Ocula360 analyzes ultra-widefield imaging against study-specific criteria, reducing manual review burden and shortening enrollment timelines.", "tag": "Ocula360 direct deployment for pharma / CROs" }
+      ]
+    },
+    {
+      "type": "split",
+      "id": "approach",
+      "label": "Our approach (Human + AI)",
+      "eyebrow": "OUR APPROACH",
+      "heading": "Technology that amplifies clinical expertise.",
+      "paragraphs": [
+        "Ocula360 is not designed to replace clinicians. It is built to support them.",
+        "By combining AI-driven analysis with expert review, Ocula360 delivers the speed and scale of machine learning with the judgment and trust that only human expertise can provide."
+      ],
+      "points": [
+        { "term": "Trustworthiness:", "body": "Every output is explainable, auditable, and grounded in clinical evidence." },
+        { "term": "Explainability:", "body": "Lesion overlays and confidence signals show exactly what the model saw and how it decided." },
+        { "term": "Accountability:", "body": "Clinicians remain in the loop. Ocula360 informs decisions—it does not make them." }
+      ],
+      "image": { "src": "/images/sections/venn2.png", "alt": "Trustworthiness, Explainability, and Accountability converging in the Ophthalytics platform" }
+    },
+    {
+      "type": "features",
+      "id": "benefits",
+      "label": "Why Ocula360",
+      "heading": "Faster Detection. Better Precision. Real Scale.",
+      "image": { "src": "/images/cta/fundus_2.jpeg", "alt": "" },
+      "items": [
+        { "title": "Accelerated Timelines", "body": "Reduce time-to-detection and time-to-enrollment by automating the most manual parts of retinal image review." },
+        { "title": "Consistent Evaluation", "body": "Standardize interpretation across sites, readers, and geographies—reducing variability in diagnosis and research." },
+        { "title": "Enterprise Integration", "body": "HIPAA-compliant infrastructure and flexible deployment options fit the security and workflow needs of health systems, payers, and pharma." },
+        { "title": "Clinically Grounded", "body": "Built with and validated by ophthalmologists. Every model output is explainable and evidence-based." }
+      ]
+    },
+    {
+      "type": "cta",
+      "id": "final-cta",
+      "label": "Final CTA",
+      "heading": "Ready to see Ocula360 in action?",
+      "body": "Talk to our team about how Ocula360 fits your screening, diagnostic, or research workflow.",
+      "ctas": [{ "label": "Contact Us", "modal": "contact" }],
+      "image": { "src": "/images/cta/fundus.jpeg", "alt": "" }
+    }
+  ]
+}

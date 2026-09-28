@@ -2,42 +2,18 @@
 import Layout from '../../components/layout/Layout.astro';
 import ResourceCard from '../../components/content/ResourceCard.astro';
 
-const articles = [
-  {
-    category: 'Press',
-    categoryColor: 'secondary' as const,
-    date: 'August 11, 2026',
-    title: 'Five Atlanta healthcare companies using AI to cut costs, improve care',
-    excerpt:
-      "The Atlanta Business Chronicle features Ophthalytics among the startups powering Atlanta's healthtech boom, using AI to analyze retinal images and detect eye disease.",
-    link: 'https://www.bizjournals.com/atlanta/news/2026/08/11/atlanta-healthcare-companies-ai-healthcare.html',
-  },
-  {
-    thumbnail: '/images/articles/mdpi-card.svg',
-    category: 'Journal',
-    categoryColor: 'primary' as const,
-    date: 'January 2023',
-    title: 'A Prospective Study on Diabetic Retinopathy Detection Based on a Modified Convolutional Neural Network Using Fundus Images',
-    excerpt:
-      'Peer-reviewed research in MDPI Diagnostics documenting the performance of our deep-learning models on diabetic retinopathy detection at Sindh Institute of Ophthalmology & Visual Sciences.',
-    link: 'https://www.mdpi.com/2075-4418/13/3/393',
-  },
-  {
-    thumbnail: '/resources/news/arvo-2023.jpg',
-    category: 'News',
-    categoryColor: 'primary' as const,
-    date: 'May 5, 2022',
-    title: "Ophthalytics' AI Retina Screening System Makes a Splash at ARVO 2023",
-    excerpt:
-      'Ophthalytics stole the spotlight at ARVO 2023, the world\'s largest ophthalmology conference, with groundbreaking AI models.',
-    link: 'https://www.arvo.org/uploads/files/general/Annual-Meeting/Schedule-at-a-Glance/2023-schedule-at-a-glance.pdf',
-  },
-];
+import { getPage, required, section } from '../../content';
+
+const page = getPage('newsroom');
+const hero = section(page, 'hero', 'hero');
+const heroMedia = required(hero.media, 'newsroom/hero.media');
+const news = section(page, 'news', 'resources');
+const related = section(page, 'related', 'features');
 ---
 
 <Layout
-  title="Newsroom — Resources — Ophthalytics"
-  description="The latest from Ophthalytics—press, announcements, and conference appearances."
+  title={page.title}
+  description={page.description}
 >
   <!-- SECTION 1 — HERO -->
   <section class="bg-brand-surface-blue">
@@ -46,17 +22,17 @@ const articles = [
         <nav aria-label="Breadcrumb" class="text-sm text-brand-muted">
           <a href="/resources" class="hover:text-brand-primary">Resources</a>
           <span class="mx-2">/</span>
-          <span class="text-brand-ink">Newsroom</span>
+          <span class="text-brand-ink">{hero.breadcrumb}</span>
         </nav>
         <h1 class="mt-4 text-4xl md:text-5xl font-bold text-brand-ink leading-tight">
-          Newsroom
+          {hero.heading}
         </h1>
         <p class="mt-5 max-w-2xl text-lg text-brand-body leading-relaxed" data-reveal>
-          The latest from Ophthalytics—press, announcements, and conference appearances.
+          {hero.body}
         </p>
       </div>
       <div class="relative" data-reveal>
-        <img src="/images/sections/newsroom-house-event.jpg" alt="The Ophthalytics team at a U.S. House of Representatives briefing on AI-assisted eye screening" class="w-full rounded-2xl shadow-lg ring-1 ring-black/5 object-cover" loading="eager" decoding="async" />
+        <img src={heroMedia.src} alt={heroMedia.alt} class="w-full rounded-2xl shadow-lg ring-1 ring-black/5 object-cover" loading="eager" decoding="async" />
       </div>
     </div>
   </section>
@@ -65,15 +41,15 @@ const articles = [
   <section class="bg-white">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-reveal-group>
-        {articles.map((a) => (
+        {news.cards.map((a) => (
           <div class="relative h-full">
             <ResourceCard
-              thumbnail={a.thumbnail}
+              thumbnail={a.thumbnail?.src}
               category={a.category}
               categoryColor={a.categoryColor}
               title={a.title}
               excerpt={a.excerpt}
-              link={a.link}
+              link={a.href}
             />
             <p class="absolute bottom-4 right-5 text-xs text-brand-muted">{a.date}</p>
           </div>
@@ -85,18 +61,13 @@ const articles = [
   <!-- SECTION 3 — RELATED RESOURCES -->
   <section class="bg-brand-surface">
     <div class="max-w-5xl mx-auto px-6 md:px-8 lg:px-12 py-16">
-      <h2 class="text-xl font-semibold text-brand-ink text-center" data-reveal>Related Resources</h2>
+      <h2 class="text-xl font-semibold text-brand-ink text-center" data-reveal>{related.heading}</h2>
       <div class="mt-8 grid gap-6 md:grid-cols-2" data-reveal-group>
-        <a href="/resources" class="bg-white border border-brand-line rounded-xl p-6 hover:shadow-lg transition-all">
-          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold">Resources</p>
-          <h3 class="mt-2 text-lg font-bold text-brand-ink">All Resources →</h3>
-          <p class="mt-2 text-sm text-brand-body">Articles, featured research, and news from across our work in AI-powered eye care.</p>
-        </a>
-        <a href="/resources/articles" class="bg-white border border-brand-line rounded-xl p-6 hover:shadow-lg transition-all">
-          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold">Resources</p>
-          <h3 class="mt-2 text-lg font-bold text-brand-ink">Articles →</h3>
-          <p class="mt-2 text-sm text-brand-body">Industry insights from the Ophthalytics team on AI-assisted eye care.</p>
-        </a>
+        {related.items.map((r, i) => <Fragment>{i > 0 && ' '}<a href={r.href} class="bg-white border border-brand-line rounded-xl p-6 hover:shadow-lg transition-all">
+          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold">{r.eyebrow}</p>
+          <h3 class="mt-2 text-lg font-bold text-brand-ink">{r.title} →</h3>
+          <p class="mt-2 text-sm text-brand-body">{r.body}</p>
+        </a></Fragment>)}
       </div>
     </div>
   </section>

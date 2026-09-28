@@ -11,7 +11,26 @@ src/content/
   pages/<slug>.json  one file per extracted page
 ```
 
-Extracted so far: `home` (/), `about` (/about), and the footer (`globals.json`).
+Extracted: every marketing page and the footer (`globals.json`):
+
+| slug | route |
+| --- | --- |
+| `home` | / |
+| `about` | /about |
+| `who-we-help` | /who-we-help |
+| `solutions` | /solutions |
+| `ocula360`, `nsight360`, `second-opinion`, `ophthal360` | /solutions/ocula360, /nsight360, /2nd-opinion, /ophthal360 |
+| `resources` | /resources |
+| `articles` | /resources/articles |
+| `article-bridging-the-gap` | /resources/articles/bridging-the-gap-eye-care |
+| `article-atlanta-startup` | /resources/articles/atlanta-startup-saving-billions |
+| `newsroom` | /resources/newsroom |
+| `innovation-pipeline` | /resources/innovation-pipeline |
+
+**Locked (not editable in v1)**, listed with the reason in `LOCKED_PAGES` (`schema.ts`)
+so the admin catalogue can show it: `privacy`, `terms` (legal documents), `trust`
+(/trust and every /trust/* security document) and `styleguide` (internal). Their copy
+stays in the templates.
 
 ## How a page reads content
 
@@ -69,6 +88,24 @@ to `SectionSchema`. Current vocabulary:
 | `text` | optional heading + paragraphs |
 | `cta` | heading, body, `ctas`, rich-text `note`, background image |
 | `people` | team/advisor grid; a person with `bio` gets a "Read Bio" modal |
+| `features` | grid of cards: capabilities, steps, use cases, benefits, product tiles, related links, category pills. Items: `title` + optional `eyebrow`, `body`, `tag`, `image`, `bullets`, `href` (whole card links). Section: `eyebrow`, `heading`, `intro`, `linkLabel` (the per-card "Learn more"), `closing`, background `image` |
+| `stats` | statement band: eyebrow, heading, `stats` (value + label), background image |
+| `fit` | product fit (who-we-help): product name, audience tagline, heading, body, "who it's for" photo pills (`photoPosition`/`photoZoom` crop tuning), "how it helps" bullets, closing line |
+| `divider` | labelled horizontal rule between sections |
+| `figure` | a standalone image with optional caption |
+| `article` | long-form article: byline (`author`, `authorRole`, `date`), `cover`, `lead`, ordered `body` nodes, `source` note + link |
+
+Optional fields added to existing types by the follow-up extraction:
+- `hero`: `headingLine2` (second heading line after a `<br>`), `subheading` (line under
+  the heading), `breadcrumb` (current-page crumb; the parent crumbs are site navigation
+  and stay in the template), `media` (foreground image beside the copy; `image` stays
+  the washed-out background).
+- `split`: `badge` (pill), `subheading`, `closing` (emphasized last line), `bullets`,
+  `points` (term + body), `stats`, `aside` (side card), `background` (band photo),
+  `caption` (under `image`), `link`. A layout renders only the extras it has.
+- `resources`: `heading` is optional (listing pages have none); cards take a display `date`.
+
+Numbered steps (`01`, `02`, ...) are derived from the item position, not stored.
 
 **4. Field types.**
 - Plain strings for headings, body, labels. Store what the reader sees: `&`, not
@@ -88,7 +125,11 @@ to `SectionSchema`. Current vocabulary:
 - CTAs: arrays of `{ label, href }` (navigates) or `{ label, modal: 'demo' | 'contact' }`
   (opens a site modal via `data-open-modal`). Never both.
 - Things that stay in templates: SVG icons, classes, layout, `aria-label`s on icon-only
-  controls, decorative glyphs (the `•` bullet), client-script strings.
+  controls, decorative glyphs (the `•` bullet, the `→` after a card title), client-script
+  strings, breadcrumb parent links, anchor ids (`id="who-its-for"`), and `target="_blank"`.
+- Stat labels (`StatSchema.label`) are rich text so a label can break lines with `<br>`
+  (`"U.S. clinic<br>partnerships"`); render with `set:html`.
+- A section without `image` on a `CtaBand` gets the band's default photo.
 
 **5. Repeated items.**
 - *Open lists* (uniform items an editor may add or remove: paragraphs, bullets,
@@ -103,6 +144,20 @@ to `SectionSchema`. Current vocabulary:
   `slots()` so the count is enforced at build time, and bind each slot:
   `const [ocula, nsight, secondOpinion, ophthal] = slots(products.cards, 4, 'home/products.cards');`
   The admin must not offer add/remove on these arrays.
+- A list whose items have **different markup** is a fixed-slot list too, even when the
+  difference is only whitespace or one class (`<p>Short.</p>` next to a multi-line
+  `<p>`, `mt-6` on the first paragraph and `mt-4` on the second): whitespace inside an
+  element is part of the output and the parity check catches it.
+- **Every `slots(list, n, ...)` needs a matching `.length(n)`** in `SECTION_OVERRIDES`
+  (`schema.ts`), keyed by page slug and section id:
+  `ocula360: { hero: HeroBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }) }`.
+  The page schema enforces it, and the admin reads it through
+  `sectionSchema(slug, id, type)` to decide whether a list can grow or shrink. Nested
+  lists extend the nested schema (`ShowcaseFlagshipSchema.extend(...)`); global lists
+  put `.length(n)` directly on their schema (footer columns).
+- Built-in icons for fixed slots live in the template as an array indexed by slot
+  (`capabilityIcons[i]`). In an open list, an item without `image` gets the layout's
+  built-in icon (nsight360 "who it's for").
 
 **6. Component-slot whitespace.** Literal text on its own line inside a
 *component* (`<PipeHeading>\n  Text\n</PipeHeading>`) rendered with surrounding
@@ -110,13 +165,22 @@ spaces; an expression in the same spot is trimmed. Keep the spaces explicitly:
 `{' '}{hero.heading}{' '}`. Inline text (`<PipeHeading>Text</PipeHeading>`) needs
 nothing. Plain HTML elements are not affected.
 
+**6b. Article bodies and scoped styles.** A page with a scoped `<style>` gives every
+element in its template a `data-astro-cid-*` attribute, which `set:html` cannot add.
+So `article` body text is `FlatRichTextSchema` (the rich-text tags, never nested) and
+the template renders it run by run with `richRuns(text)` from the loader (`<strong>`,
+`<em>`, `<a>`, `<br>` each written in the template). Body nodes, in order:
+`heading` (`level` 2 or 3), `paragraph`, `list` (optional one-line `intro` set directly
+above it, e.g. "Among these:"), `quote`, `rule` (`<hr>`), `image` (+ `caption`).
+
 **7. Client scripts.** Data used by an `is:inline` script is passed with
 `define:vars={{ name: value }}` (safe JSON serialization), never string-built into
 the script. Escape content before inserting it into `innerHTML` (see the partners
 marquee in `pages/index.astro`).
 
 **8. Registering a page.** Add `pages/<slug>.json`, register it in
-`CONTENT_FILES.pages` (`schema.ts`) and in `PAGE_JSON` (`index.ts`).
+`CONTENT_FILES.pages` (`schema.ts`) and in `PAGE_JSON` (`index.ts`), and add its
+fixed-slot lists to `SECTION_OVERRIDES`.
 
 **9. Tailwind.** Tailwind scans the JSON (rich text may carry classes) but not
 `src/content/*.ts`, this README or `scripts/` (see `@source not` in

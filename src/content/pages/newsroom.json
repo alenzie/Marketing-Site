@@ -1,0 +1,59 @@
+{
+  "slug": "newsroom",
+  "title": "Newsroom — Resources — Ophthalytics",
+  "description": "The latest from Ophthalytics—press, announcements, and conference appearances.",
+  "sections": [
+    {
+      "type": "hero",
+      "id": "hero",
+      "label": "Hero",
+      "breadcrumb": "Newsroom",
+      "heading": "Newsroom",
+      "body": "The latest from Ophthalytics—press, announcements, and conference appearances.",
+      "media": { "src": "/images/sections/newsroom-house-event.jpg", "alt": "The Ophthalytics team at a U.S. House of Representatives briefing on AI-assisted eye screening" }
+    },
+    {
+      "type": "resources",
+      "id": "news",
+      "label": "News",
+      "cards": [
+        {
+          "category": "Press",
+          "categoryColor": "secondary",
+          "date": "August 11, 2026",
+          "title": "Five Atlanta healthcare companies using AI to cut costs, improve care",
+          "excerpt": "The Atlanta Business Chronicle features Ophthalytics among the startups powering Atlanta's healthtech boom, using AI to analyze retinal images and detect eye disease.",
+          "href": "https://www.bizjournals.com/atlanta/news/2026/08/11/atlanta-healthcare-companies-ai-healthcare.html"
+        },
+        {
+          "category": "Journal",
+          "categoryColor": "primary",
+          "date": "January 2023",
+          "title": "A Prospective Study on Diabetic Retinopathy Detection Based on a Modified Convolutional Neural Network Using Fundus Images",
+          "excerpt": "Peer-reviewed research in MDPI Diagnostics documenting the performance of our deep-learning models on diabetic retinopathy detection at Sindh Institute of Ophthalmology & Visual Sciences.",
+          "href": "https://www.mdpi.com/2075-4418/13/3/393",
+          "thumbnail": { "src": "/images/articles/mdpi-card.svg", "alt": "" }
+        },
+        {
+          "category": "News",
+          "categoryColor": "primary",
+          "date": "May 5, 2022",
+          "title": "Ophthalytics' AI Retina Screening System Makes a Splash at ARVO 2023",
+          "excerpt": "Ophthalytics stole the spotlight at ARVO 2023, the world's largest ophthalmology conference, with groundbreaking AI models.",
+          "href": "https://www.arvo.org/uploads/files/general/Annual-Meeting/Schedule-at-a-Glance/2023-schedule-at-a-glance.pdf",
+          "thumbnail": { "src": "/resources/news/arvo-2023.jpg", "alt": "" }
+        }
+      ]
+    },
+    {
+      "type": "features",
+      "id": "related",
+      "label": "Related resources",
+      "heading": "Related Resources",
+      "items": [
+        { "eyebrow": "Resources", "title": "All Resources", "body": "Articles, featured research, and news from across our work in AI-powered eye care.", "href": "/resources" },
+        { "eyebrow": "Resources", "title": "Articles", "body": "Industry insights from the Ophthalytics team on AI-assisted eye care.", "href": "/resources/articles" }
+      ]
+    }
+  ]
+}

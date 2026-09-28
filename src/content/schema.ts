@@ -134,6 +134,73 @@ export const RichTextSchema = z.string().superRefine((value, ctx) => {
   for (const message of richTextProblems(value)) ctx.addIssue({ code: 'custom', message });
 });
 
+/** One run of flat rich text: plain text, or one formatted element holding plain text. */
+export type RichTextRun =
+  | { tag: 'text'; text: string }
+  | { tag: 'strong' | 'em'; text: string }
+  | { tag: 'br' }
+  | { tag: 'a'; text: string; href: string; target?: string; rel?: string; class?: string };
+
+const ENTITIES: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: '\u00a0' };
+const decodeEntities = (text: string) =>
+  text.replace(/&(#x[0-9a-fA-F]+|#[0-9]+|[a-zA-Z]+);/g, (whole, name: string) => {
+    if (name[0] === '#') {
+      const code = name[1] === 'x' || name[1] === 'X' ? parseInt(name.slice(2), 16) : parseInt(name.slice(1), 10);
+      return Number.isFinite(code) ? String.fromCodePoint(code) : whole;
+    }
+    return ENTITIES[name.toLowerCase()] ?? whole;
+  });
+
+/**
+ * Splits valid, FLAT rich text (no tag inside another tag) into runs, with entities
+ * decoded, so a template can render each run as its own element. Used where the page
+ * has scoped styles (`data-astro-cid-*` attributes must be on every element, which
+ * `set:html` cannot add). Returns null when the value nests tags.
+ */
+export function richTextRuns(value: string): RichTextRun[] | null {
+  const runs: RichTextRun[] = [];
+  const tagRe = /<\s*(\/?)\s*([a-zA-Z][a-zA-Z0-9-]*)([^>]*)>/g;
+  let open: { name: string; attrs: string; start: number } | null = null;
+  let last = 0;
+  let m: RegExpExecArray | null;
+  while ((m = tagRe.exec(value))) {
+    const [whole, closing, rawName, rawAttrs] = m;
+    const name = rawName.toLowerCase();
+    if (!open) {
+      if (m.index > last) runs.push({ tag: 'text', text: decodeEntities(value.slice(last, m.index)) });
+      if (closing) return null;
+      if (name === 'br') runs.push({ tag: 'br' });
+      else open = { name, attrs: rawAttrs, start: m.index + whole.length };
+    } else {
+      if (!closing || name !== open.name) return null;
+      const text = decodeEntities(value.slice(open.start, m.index));
+      if (open.name === 'a') {
+        const attrs: Record<string, string> = {};
+        const attrRe = /([a-zA-Z-]+)\s*=\s*"([^"]*)"/g;
+        let a: RegExpExecArray | null;
+        while ((a = attrRe.exec(open.attrs))) attrs[a[1].toLowerCase()] = decodeEntities(a[2]);
+        runs.push({ tag: 'a', text, href: attrs.href ?? '', target: attrs.target, rel: attrs.rel, class: attrs.class });
+      } else if (open.name === 'strong' || open.name === 'em') {
+        runs.push({ tag: open.name, text });
+      } else {
+        return null;
+      }
+      open = null;
+    }
+    last = m.index + whole.length;
+  }
+  if (open) return null;
+  if (last < value.length) runs.push({ tag: 'text', text: decodeEntities(value.slice(last)) });
+  return runs;
+}
+
+/** Rich text whose tags do not nest (`<strong>a</strong> b <a href="/x">c</a>`). */
+export const FlatRichTextSchema = RichTextSchema.superRefine((value, ctx) => {
+  if (richTextProblems(value).length === 0 && richTextRuns(value) === null) {
+    ctx.addIssue({ code: 'custom', message: 'formatting cannot be nested here (no tag inside another tag)' });
+  }
+});
+
 /* ---------------------------------------------------------------- block types */
 
 export const BLOCK_TYPES = [
@@ -148,6 +215,12 @@ export const BLOCK_TYPES = [
   'text',
   'cta',
   'people',
+  'features',
+  'stats',
+  'fit',
+  'divider',
+  'figure',
+  'article',
 ] as const;
 export type BlockType = (typeof BLOCK_TYPES)[number];
 
@@ -183,8 +256,17 @@ export const EventPromoSchema = z
 export const HeroBlockSchema = block('hero', {
   eyebrow: Text.optional(),
   heading: Text,
+  /** Second line of the heading, rendered after a line break. */
+  headingLine2: Text.optional(),
+  /** Line under the heading (product name heroes: "Foundational Retinal AI"). */
+  subheading: Text.optional(),
+  /** Current-page crumb of the breadcrumb trail (the parent links are site navigation). */
+  breadcrumb: Text.optional(),
   body: Text.optional(),
+  /** Background image (washed out behind the copy). */
   image: ImageSchema.optional(),
+  /** Foreground image beside the copy (product shot, illustration). */
+  media: ImageSchema.optional(),
   ctas: z.array(CtaSchema).optional(),
   promo: EventPromoSchema.optional(),
 });
@@ -213,30 +295,61 @@ export const PartnersBlockSchema = block('partners', {
   logos: z.array(PartnerSchema).min(1),
 });
 
-/** Copy panel over/next to an image: heading + paragraphs. */
+/** A figure: `value` ("95%", "250K+", "<2s") and its label. `label` may break lines with <br>. */
+export const StatSchema = z.object({ value: Text, label: RichTextSchema }).strict();
+
+/** Term + explanation pair ("Trustworthiness: Every output is explainable..."). */
+export const PointSchema = z.object({ term: Text, body: Text }).strict();
+
+/** Side card next to the copy (a highlighted statement). */
+export const AsideSchema = z
+  .object({ eyebrow: Text.optional(), heading: Text, body: Text })
+  .strict();
+
+/**
+ * Copy panel over/next to an image (or a side card / stats panel): heading +
+ * paragraphs, plus optional extras. Which extras a section shows is fixed by its
+ * page layout; an extra the layout does not render is ignored.
+ */
 export const SplitBlockSchema = block('split', {
   eyebrow: Text.optional(),
+  /** Small pill label ("Flagship", "Journal Article"). */
+  badge: Text.optional(),
   heading: Text,
+  subheading: Text.optional(),
   paragraphs: z.array(Text).min(1),
+  /** Emphasized line after the paragraphs. */
+  closing: Text.optional(),
+  bullets: z.array(Text).optional(),
+  points: z.array(PointSchema).optional(),
+  stats: z.array(StatSchema).optional(),
+  aside: AsideSchema.optional(),
   image: ImageSchema.optional(),
+  /** Section background photo, for band layouts. */
+  background: ImageSchema.optional(),
+  /** Caption under the image. */
+  caption: Text.optional(),
+  link: LinkSchema.optional(),
 });
 
 export const TileSchema = z.object({ title: Text, body: Text }).strict();
+
+export const ShowcaseFlagshipSchema = z
+  .object({
+    eyebrow: Text,
+    heading: Text,
+    subheading: Text,
+    paragraphs: z.array(Text).min(1),
+    link: LinkSchema,
+  })
+  .strict();
 
 /** Flagship product showcase: header row, flagship card, highlight card, tiles. */
 export const ShowcaseBlockSchema = block('showcase', {
   eyebrow: Text,
   tagline: Text,
   pill: Text,
-  flagship: z
-    .object({
-      eyebrow: Text,
-      heading: Text,
-      subheading: Text,
-      paragraphs: z.array(Text).min(1),
-      link: LinkSchema,
-    })
-    .strict(),
+  flagship: ShowcaseFlagshipSchema,
   highlight: z.object({ eyebrow: Text, heading: Text, body: Text }).strict(),
   tiles: z.array(TileSchema).min(1),
 });
@@ -293,12 +406,14 @@ export const ResourceCardSchema = z
     /** "#" or "" renders a non-clickable card. */
     href: z.union([z.literal(''), z.literal('#'), HrefSchema]),
     thumbnail: ImageSchema.optional(),
+    /** Publication date as displayed ("March 18, 2025"); shown on listing pages. */
+    date: Text.optional(),
   })
   .strict();
 
 /** Grid of article/journal/news cards with an optional "view all" link. */
 export const ResourcesBlockSchema = block('resources', {
-  heading: Text,
+  heading: Text.optional(),
   intro: Text.optional(),
   cards: z.array(ResourceCardSchema).min(1),
   link: LinkSchema.optional(),
@@ -344,6 +459,135 @@ export const PeopleBlockSchema = block('people', {
   people: z.array(PersonSchema).min(1),
 });
 
+/**
+ * One card in a `features` grid. Only `title` is always shown; the page layout
+ * decides which of the other fields a card renders.
+ */
+export const FeatureItemSchema = z
+  .object({
+    /** Small label above the title. */
+    eyebrow: Text.optional(),
+    title: Text,
+    body: Text.optional(),
+    /** Small print under the body. */
+    tag: Text.optional(),
+    /** Icon or photo. Where a layout draws built-in icons, a card without one gets the built-in. */
+    image: ImageSchema.optional(),
+    bullets: z.array(Text).optional(),
+    /** Makes the whole card a link. */
+    href: HrefSchema.optional(),
+  })
+  .strict();
+
+/**
+ * Grid of cards: capabilities, steps (numbered by position), use cases, benefits,
+ * product tiles, related links. `image` is the section background, when the layout has one.
+ */
+export const FeaturesBlockSchema = block('features', {
+  eyebrow: Text.optional(),
+  heading: Text,
+  intro: Text.optional(),
+  items: z.array(FeatureItemSchema).min(1),
+  /** Label of the link shown on each card ("Learn more"). */
+  linkLabel: Text.optional(),
+  /** Line after the grid. */
+  closing: Text.optional(),
+  image: ImageSchema.optional(),
+});
+
+/** Statement band with key figures over a background photo. */
+export const StatsBlockSchema = block('stats', {
+  eyebrow: Text.optional(),
+  heading: Text,
+  stats: z.array(StatSchema).min(1),
+  image: ImageSchema.optional(),
+});
+
+/** A "who it's for" pill: label + round photo, with optional crop tuning. */
+export const FitAudienceSchema = z
+  .object({
+    label: Text,
+    photo: ImageSchema,
+    /** CSS object-position of the photo inside its circle ("40% center"). */
+    photoPosition: z
+      .string()
+      .regex(/^[a-z0-9%. -]+$/, 'use CSS object-position keywords/percentages, e.g. "40% center"')
+      .optional(),
+    /** Zoom of the photo inside its circle (1 = none). */
+    photoZoom: z.number().min(1).max(3).optional(),
+  })
+  .strict();
+
+/** Product fit: who a product is for (photo pills) and how it helps (bullets). */
+export const FitBlockSchema = block('fit', {
+  /** Product name. */
+  eyebrow: Text,
+  /** Audience line next to the product name. */
+  tagline: Text,
+  heading: Text,
+  body: Text,
+  audiencesHeading: Text,
+  audiences: z.array(FitAudienceSchema).min(1),
+  benefitsHeading: Text,
+  benefits: z.array(Text).min(1),
+  closing: Text,
+});
+
+/** Labelled horizontal rule between sections. */
+export const DividerBlockSchema = block('divider', {
+  heading: Text,
+});
+
+/** A standalone image with an optional caption. */
+export const FigureBlockSchema = block('figure', {
+  image: ImageSchema,
+  caption: Text.optional(),
+});
+
+/* Article body nodes, rendered in order. Inline formatting is flat rich text. */
+export const ArticleHeadingSchema = z
+  .object({ type: z.literal('heading'), level: z.union([z.literal(2), z.literal(3)]), text: Text })
+  .strict();
+export const ArticleParagraphSchema = z
+  .object({ type: z.literal('paragraph'), text: FlatRichTextSchema })
+  .strict();
+export const ArticleListSchema = z
+  .object({
+    type: z.literal('list'),
+    /** Short lead-in line set directly above the list ("Among these:"). */
+    intro: Text.optional(),
+    items: z.array(FlatRichTextSchema).min(1),
+  })
+  .strict();
+export const ArticleQuoteSchema = z.object({ type: z.literal('quote'), text: Text }).strict();
+/** Horizontal rule. */
+export const ArticleRuleSchema = z.object({ type: z.literal('rule') }).strict();
+export const ArticleImageSchema = z
+  .object({ type: z.literal('image'), image: ImageSchema, caption: Text.optional() })
+  .strict();
+export const ArticleNodeSchema = z.discriminatedUnion('type', [
+  ArticleHeadingSchema,
+  ArticleParagraphSchema,
+  ArticleListSchema,
+  ArticleQuoteSchema,
+  ArticleRuleSchema,
+  ArticleImageSchema,
+]);
+export type ArticleNode = z.infer<typeof ArticleNodeSchema>;
+
+/** Long-form article: byline, cover, lead paragraph, ordered body, link to the original. */
+export const ArticleBlockSchema = block('article', {
+  author: Text,
+  authorRole: Text,
+  /** As displayed ("March 18, 2025"). */
+  date: Text,
+  cover: ImageSchema,
+  lead: Text,
+  body: z.array(ArticleNodeSchema).min(1),
+  /** "Originally published ..." note at the end; `link` is the original. */
+  source: z.object({ text: Text, link: LinkSchema }).strict(),
+});
+
 export const SectionSchema = z.discriminatedUnion('type', [
   HeroBlockSchema,
   PartnersBlockSchema,
@@ -356,10 +600,37 @@ export const SectionSchema = z.discriminatedUnion('type', [
   TextBlockSchema,
   CtaBlockSchema,
   PeopleBlockSchema,
+  FeaturesBlockSchema,
+  StatsBlockSchema,
+  FitBlockSchema,
+  DividerBlockSchema,
+  FigureBlockSchema,
+  ArticleBlockSchema,
 ]);
 export type Section = z.infer<typeof SectionSchema>;
 /** The section type for a given `type` discriminant. */
 export type SectionOf<T extends BlockType> = Extract<Section, { type: T }>;
+
+/** The generic schema of every block type. */
+export const BLOCK_SCHEMAS = {
+  hero: HeroBlockSchema,
+  partners: PartnersBlockSchema,
+  split: SplitBlockSchema,
+  showcase: ShowcaseBlockSchema,
+  products: ProductsBlockSchema,
+  audiences: AudiencesBlockSchema,
+  testimonial: TestimonialBlockSchema,
+  resources: ResourcesBlockSchema,
+  text: TextBlockSchema,
+  cta: CtaBlockSchema,
+  people: PeopleBlockSchema,
+  features: FeaturesBlockSchema,
+  stats: StatsBlockSchema,
+  fit: FitBlockSchema,
+  divider: DividerBlockSchema,
+  figure: FigureBlockSchema,
+  article: ArticleBlockSchema,
+} as const satisfies Record<BlockType, z.ZodTypeAny>;
 
 /* ----------------------------------------------------------------------- pages */
 
@@ -382,9 +653,85 @@ export const PAGE_SLUGS = [
   'trust', // /trust (+ /trust/* documents)
   'privacy', // /privacy
   'terms', // /terms
+  'styleguide', // /styleguide (internal)
 ] as const;
 export const PageSlugSchema = z.enum(PAGE_SLUGS);
 export type PageSlug = (typeof PAGE_SLUGS)[number];
+
+/* ------------------------------------------------------ fixed-slot lists per page */
+
+/** A list whose layout has exactly `n` hand-built slots: editors change items, never the count. */
+const fixed = <T extends z.ZodTypeAny>(item: T, n: number) => z.array(item).length(n);
+
+/**
+ * Page-specific section schemas. A section listed here must match this schema in
+ * addition to its block type's: it pins the lists whose layout has one hand-built
+ * slot per item (bespoke icons, one-off classes) to their exact length with
+ * `.length(n)`. The admin reads these to disable add/remove on such lists; the
+ * templates guard the same counts with `slots()`. Look them up with `sectionSchema()`.
+ */
+export const SECTION_OVERRIDES: { readonly [P in PageSlug]?: Readonly<Record<string, z.ZodTypeAny>> } = {
+  home: {
+    hero: HeroBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
+    flagship: ShowcaseBlockSchema.extend({
+      flagship: ShowcaseFlagshipSchema.extend({ paragraphs: fixed(Text, 2) }),
+      tiles: fixed(TileSchema, 3),
+    }),
+    products: ProductsBlockSchema.extend({ cards: fixed(ProductCardSchema, 4) }),
+    'who-we-help': AudiencesBlockSchema.extend({ cards: fixed(AudienceCardSchema, 4) }),
+    'final-cta': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+  },
+  about: {
+    'join-us': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+  },
+  solutions: {
+    'platform-stats': StatsBlockSchema.extend({ stats: fixed(StatSchema, 3) }),
+    platform: FeaturesBlockSchema.extend({ items: fixed(FeatureItemSchema, 4) }),
+    'final-cta': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+  },
+  ocula360: {
+    hero: HeroBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
+    capabilities: FeaturesBlockSchema.extend({ items: fixed(FeatureItemSchema, 4) }),
+    approach: SplitBlockSchema.extend({ paragraphs: fixed(Text, 2) }),
+    'final-cta': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+  },
+  nsight360: {
+    hero: HeroBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
+    'final-cta': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+  },
+  'second-opinion': {
+    hero: HeroBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
+    capabilities: FeaturesBlockSchema.extend({ items: fixed(FeatureItemSchema, 3) }),
+    'final-cta': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+  },
+  ophthal360: {
+    hero: HeroBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
+    capabilities: FeaturesBlockSchema.extend({ items: fixed(FeatureItemSchema, 3) }),
+    'who-its-for': FeaturesBlockSchema.extend({ items: fixed(FeatureItemSchema, 4) }),
+    'final-cta': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+  },
+  'who-we-help': {
+    continuum: FeaturesBlockSchema.extend({ items: fixed(FeatureItemSchema, 3) }),
+    'national-impact': SplitBlockSchema.extend({ paragraphs: fixed(Text, 2) }),
+    'international-impact': SplitBlockSchema.extend({ paragraphs: fixed(Text, 2) }),
+    'final-cta': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+  },
+  'innovation-pipeline': {
+    intro: TextBlockSchema.extend({ paragraphs: fixed(Text, 3) }),
+    'stay-connected': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
+  },
+  'article-bridging-the-gap': {
+    cta: CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
+  },
+  'article-atlanta-startup': {
+    cta: CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
+  },
+};
+
+/** The schema of section `id` on page `slug`: its page override, else its block type's schema. */
+export function sectionSchema(slug: PageSlug, id: string, type: BlockType): z.ZodTypeAny {
+  return SECTION_OVERRIDES[slug]?.[id] ?? BLOCK_SCHEMAS[type];
+}
 
 export const PageSchema = z
   .object({
@@ -403,6 +750,17 @@ export const PageSchema = z
         ctx.addIssue({ code: 'custom', path: ['sections', i, 'id'], message: `duplicate section id "${s.id}"` });
       }
       seen.add(s.id);
+      const override = SECTION_OVERRIDES[page.slug]?.[s.id];
+      if (!override) return;
+      const result = override.safeParse(s);
+      if (result.success) return;
+      // Report only what the override adds; the block type's own issues are already reported.
+      const key = (issue: { path: PropertyKey[]; message: string }) => `${issue.path.join('.')}|${issue.message}`;
+      const generic = new Set((BLOCK_SCHEMAS[s.type].safeParse(s).error?.issues ?? []).map(key));
+      for (const issue of result.error.issues) {
+        if (generic.has(key(issue))) continue;
+        ctx.addIssue({ code: 'custom', path: ['sections', i, ...issue.path], message: issue.message });
+      }
     });
   });
 export type Page = z.infer<typeof PageSchema>;
@@ -434,7 +792,7 @@ export const FooterSchema = z
       })
       .strict(),
     /** Link columns, in display order: Platform, Clinicians, Science, Company. */
-    columns: z.array(FooterColumnSchema),
+    columns: fixed(FooterColumnSchema, 4),
     /** Label of the modal button appended to the last column. */
     contactLabel: Text,
     copyright: Text,
@@ -457,5 +815,29 @@ export const CONTENT_FILES = {
   pages: {
     home: 'src/content/pages/home.json',
     about: 'src/content/pages/about.json',
+    solutions: 'src/content/pages/solutions.json',
+    ocula360: 'src/content/pages/ocula360.json',
+    nsight360: 'src/content/pages/nsight360.json',
+    'second-opinion': 'src/content/pages/second-opinion.json',
+    ophthal360: 'src/content/pages/ophthal360.json',
+    'who-we-help': 'src/content/pages/who-we-help.json',
+    newsroom: 'src/content/pages/newsroom.json',
+    articles: 'src/content/pages/articles.json',
+    resources: 'src/content/pages/resources.json',
+    'innovation-pipeline': 'src/content/pages/innovation-pipeline.json',
+    'article-bridging-the-gap': 'src/content/pages/article-bridging-the-gap.json',
+    'article-atlanta-startup': 'src/content/pages/article-atlanta-startup.json',
   } as Partial<Record<PageSlug, string>>,
 } as const;
+
+/**
+ * Pages that are deliberately NOT editable in the admin (v1), with the reason the
+ * catalogue shows. Their copy stays in the .astro templates and changes go through
+ * a normal code review.
+ */
+export const LOCKED_PAGES: { readonly [P in PageSlug]?: string } = {
+  privacy: 'Not editable: legal document',
+  terms: 'Not editable: legal document',
+  trust: 'Not editable: security & compliance documents (Trust Center)',
+  styleguide: 'Not editable: internal design reference',
+};

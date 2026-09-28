@@ -2,11 +2,24 @@
 import Layout from '../../components/layout/Layout.astro';
 import CtaBand from '../../components/content/CtaBand.astro';
 import RetinalIntelligenceCanvas from '../../components/canvas/RetinalIntelligenceCanvas.astro';
+import { getPage, required, section, slots } from '../../content';
+
+const page = getPage('innovation-pipeline');
+const hero = section(page, 'hero', 'hero');
+const intro = section(page, 'intro', 'text');
+const [introLead, introMore, introClosing] = slots(intro.paragraphs, 3, 'innovation-pipeline/intro.paragraphs');
+const fourFront = section(page, 'four-front', 'split');
+const cardio = section(page, 'cardiovascular', 'split');
+const cardioImage = required(cardio.image, 'innovation-pipeline/cardiovascular.image');
+const systemic = section(page, 'systemic-health', 'split');
+const stayConnected = section(page, 'stay-connected', 'cta');
+const [subscribeCta, contactCta] = slots(stayConnected.ctas, 2, 'innovation-pipeline/stay-connected.ctas');
+const related = section(page, 'related', 'features');
 ---
 
 <Layout
-  title="Innovation Pipeline — Resources — Ophthalytics"
-  description="We're harnessing the power of deep-learning AI to enable retinal scans to detect more than just eye-related diseases."
+  title={page.title}
+  description={page.description}
   noindex
 >
   <!-- SECTION 1 — HERO -->
@@ -28,13 +41,13 @@ import RetinalIntelligenceCanvas from '../../components/canvas/RetinalIntelligen
       <nav aria-label="Breadcrumb" class="text-sm text-white/60">
         <a href="/resources" class="hover:text-white">Resources</a>
         <span class="mx-2">/</span>
-        <span class="text-white">Innovation Pipeline</span>
+        <span class="text-white">{hero.breadcrumb}</span>
       </nav>
       <h1 class="mt-4 text-5xl md:text-6xl font-bold text-white leading-tight">
-        Our Innovation Pipeline: The Next Generation of Breakthroughs
+        {hero.heading}
       </h1>
       <p class="mt-6 max-w-3xl text-lg md:text-xl text-white/90 leading-relaxed" data-reveal>
-        We're harnessing the power of deep-learning AI to enable retinal scans to detect more than just eye-related diseases—opening an unprecedented window into overall health.
+        {hero.body}
       </p>
     </div>
   </section>
@@ -44,12 +57,12 @@ import RetinalIntelligenceCanvas from '../../components/canvas/RetinalIntelligen
     <div class="max-w-3xl mx-auto px-6 md:px-8 lg:px-12 py-20">
       <div class="space-y-5 text-lg text-brand-body leading-relaxed" data-reveal>
         <p>
-          Beyond diabetic retinopathy and our current product lineup, we're developing AI applications that extend the power of retinal analysis into adjacent areas of human health.
+          {introLead}
         </p>
         <p>
-          Each initiative is rooted in the same principle: the retina is one of the only places in the body where microvascular and neural structures can be observed directly, non-invasively, and at scale. We believe that makes the eye an unprecedented starting point for early detection across a wide range of systemic conditions.
+          {introMore}
         </p>
-        <p>Below are three of the initiatives we're actively pursuing.</p>
+        <p>{introClosing}</p>
       </div>
     </div>
   </section>
@@ -66,15 +79,12 @@ import RetinalIntelligenceCanvas from '../../components/canvas/RetinalIntelligen
           </svg>
         </div>
         <div>
-          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold" data-reveal>Closing the Care Gap</p>
-          <h2 class="mt-2 text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>4Front360</h2>
+          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold" data-reveal>{fourFront.eyebrow}</p>
+          <h2 class="mt-2 text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>{fourFront.heading}</h2>
           <div class="mt-5 space-y-4 text-base text-brand-body leading-relaxed" data-reveal>
-            <p>
-              We are pioneering an autonomous version of our optical diagnostic breakthrough—Nsight360—that can be administered and reported without the supervision of a physician. We call this innovation 4Front360.
-            </p>
-            <p>
-              4Front360 has been administered successfully for more than 150,000 patients in South Asia, extending the reach of the benefit and, at the same time, adding dimension to the body of data sets that inform and validate the technique.
-            </p>
+            {fourFront.paragraphs.map((p, i) => <Fragment>{i > 0 && ' '}<p>
+              {p}
+            </p></Fragment>)}
           </div>
         </div>
       </div>
@@ -87,8 +97,8 @@ import RetinalIntelligenceCanvas from '../../components/canvas/RetinalIntelligen
       <div class="grid gap-10 md:grid-cols-2 items-center">
         <div class="md:order-2 rounded-2xl aspect-[4/3] bg-gradient-to-br from-brand-accent/10 to-brand-primary/20 flex items-center justify-center border border-brand-line">
           <img
-            src="/images/sections/cardio-risk.webp"
-            alt="Cardiovascular risk assessment from retinal imaging"
+            src={cardioImage.src}
+            alt={cardioImage.alt}
             width="273"
             height="269"
             class="max-w-[60%] max-h-[80%] object-contain"
@@ -97,15 +107,12 @@ import RetinalIntelligenceCanvas from '../../components/canvas/RetinalIntelligen
           />
         </div>
         <div class="md:order-1">
-          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold" data-reveal>Cardiovascular Risk Assessment</p>
-          <h2 class="mt-2 text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>Seeing Heart Disease, Early</h2>
+          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold" data-reveal>{cardio.eyebrow}</p>
+          <h2 class="mt-2 text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>{cardio.heading}</h2>
           <div class="mt-5 space-y-4 text-base text-brand-body leading-relaxed" data-reveal>
-            <p>
-              Already we can see with confidence that evidence of cardiovascular risk is revealed in retinal scans. We are working to complete the application of our "Human + AI" knowledge engineering to diagnosis of cardiovascular risk.
-            </p>
-            <p>
-              Cardiovascular disease is one of the most notorious care gaps in healthcare, and even though it is one of the top five factors in mortality, cardiovascular risk has persisted with few diagnostic tools. The first symptom for most people is a heart attack. We intend to play a role in addressing this effectively and efficiently by making intelligent diagnostics more widely available.
-            </p>
+            {cardio.paragraphs.map((p, i) => <Fragment>{i > 0 && ' '}<p>
+              {p}
+            </p></Fragment>)}
           </div>
         </div>
       </div>
@@ -144,18 +151,12 @@ import RetinalIntelligenceCanvas from '../../components/canvas/RetinalIntelligen
           </svg>
         </div>
         <div>
-          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold" data-reveal>The Windows to 270 Diseases</p>
-          <h2 class="mt-2 text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>A Non-Invasive Window Into Full-Body Health</h2>
+          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold" data-reveal>{systemic.eyebrow}</p>
+          <h2 class="mt-2 text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>{systemic.heading}</h2>
           <div class="mt-5 space-y-4 text-base text-brand-body leading-relaxed" data-reveal>
-            <p>
-              In addition to sight-threatening conditions in the eye, retinal scans have emerged as an effective, non-invasive window into full-body health. We were invited recently to take part in a conference on this subject by risk experts VSP Vision.
-            </p>
-            <p>
-              As reported by VSP and by MATTER, an organized community of healthcare innovators, a comprehensive eye exam can provide valuable insights on more than 270 systemic and chronic diseases, such as heart disease, diabetes, and neurological diseases such as Alzheimer's.
-            </p>
-            <p>
-              We are working to extend the known accuracy and affordability of our systems of intelligent diagnosis to increase the availability of this array of vital insights.
-            </p>
+            {systemic.paragraphs.map((p, i) => <Fragment>{i > 0 && ' '}<p>
+              {p}
+            </p></Fragment>)}
           </div>
         </div>
       </div>
@@ -163,25 +164,25 @@ import RetinalIntelligenceCanvas from '../../components/canvas/RetinalIntelligen
   </section>
 
   <!-- SECTION 4 — STAY CONNECTED -->
-  <CtaBand image="/images/cta/research1.jpeg">
+  <CtaBand image={stayConnected.image?.src}>
     <div class="max-w-4xl mx-auto px-6 md:px-8 lg:px-12 py-20 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold" data-reveal>We're just getting started.</h2>
+      <h2 class="text-3xl md:text-4xl font-bold" data-reveal>{stayConnected.heading}</h2>
       <p class="mt-5 text-lg text-white/90 max-w-2xl mx-auto leading-relaxed" data-reveal>
-        Every scan contributes to a growing foundation of real-world data—making future applications possible. To stay informed as we release more, subscribe to our newsletter or reach out directly.
+        {stayConnected.body}
       </p>
       <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center" data-reveal>
         <a
-          href="#newsletter"
+          href={subscribeCta.href}
           class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-6 py-3 rounded-md hover:bg-brand-surface transition"
         >
-          Subscribe to Updates
+          {subscribeCta.label}
         </a>
         <button
           type="button"
-          data-open-modal="contact"
+          data-open-modal={contactCta.modal}
           class="inline-flex items-center justify-center border-2 border-white text-white font-semibold px-6 py-3 rounded-md hover:bg-white hover:text-brand-primary transition"
         >
-          Contact the Team
+          {contactCta.label}
         </button>
       </div>
     </div>
@@ -190,18 +191,13 @@ import RetinalIntelligenceCanvas from '../../components/canvas/RetinalIntelligen
   <!-- SECTION 5 — RELATED RESOURCES -->
   <section class="bg-brand-surface">
     <div class="max-w-5xl mx-auto px-6 md:px-8 lg:px-12 py-16">
-      <h2 class="text-xl font-semibold text-brand-ink text-center" data-reveal>Related Resources</h2>
+      <h2 class="text-xl font-semibold text-brand-ink text-center" data-reveal>{related.heading}</h2>
       <div class="mt-8 grid gap-6 md:grid-cols-2" data-reveal-group>
-        <a href="/resources/articles" class="bg-white border border-brand-line rounded-xl p-6 hover:shadow-lg transition-all">
-          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold">Resources</p>
-          <h3 class="mt-2 text-lg font-bold text-brand-ink">Articles →</h3>
-          <p class="mt-2 text-sm text-brand-body">Industry insights from the Ophthalytics team on AI-assisted eye care.</p>
-        </a>
-        <a href="/resources/newsroom" class="bg-white border border-brand-line rounded-xl p-6 hover:shadow-lg transition-all">
-          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold">Resources</p>
-          <h3 class="mt-2 text-lg font-bold text-brand-ink">Newsroom →</h3>
-          <p class="mt-2 text-sm text-brand-body">Press releases, company news, and conference appearances.</p>
-        </a>
+        {related.items.map((r, i) => <Fragment>{i > 0 && ' '}<a href={r.href} class="bg-white border border-brand-line rounded-xl p-6 hover:shadow-lg transition-all">
+          <p class="text-xs uppercase tracking-widest text-brand-primary font-semibold">{r.eyebrow}</p>
+          <h3 class="mt-2 text-lg font-bold text-brand-ink">{r.title} →</h3>
+          <p class="mt-2 text-sm text-brand-body">{r.body}</p>
+        </a></Fragment>)}
       </div>
     </div>
   </section>

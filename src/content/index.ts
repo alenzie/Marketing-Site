@@ -11,21 +11,47 @@ import {
   CONTENT_FILES,
   GlobalsSchema,
   PageSchema,
+  richTextRuns,
   type BlockType,
   type Globals,
   type Page,
   type PageSlug,
+  type RichTextRun,
   type SectionOf,
 } from './schema';
 
 import globalsJson from './globals.json';
 import homeJson from './pages/home.json';
 import aboutJson from './pages/about.json';
+import solutionsJson from './pages/solutions.json';
+import ocula360Json from './pages/ocula360.json';
+import nsight360Json from './pages/nsight360.json';
+import secondOpinionJson from './pages/second-opinion.json';
+import ophthal360Json from './pages/ophthal360.json';
+import whoWeHelpJson from './pages/who-we-help.json';
+import newsroomJson from './pages/newsroom.json';
+import articlesJson from './pages/articles.json';
+import resourcesJson from './pages/resources.json';
+import innovationPipelineJson from './pages/innovation-pipeline.json';
+import articleBridgingJson from './pages/article-bridging-the-gap.json';
+import articleAtlantaJson from './pages/article-atlanta-startup.json';
 
 /** Raw JSON per extracted page. Add an entry here AND in CONTENT_FILES.pages. */
 const PAGE_JSON: Partial<Record<PageSlug, unknown>> = {
   home: homeJson,
   about: aboutJson,
+  solutions: solutionsJson,
+  ocula360: ocula360Json,
+  nsight360: nsight360Json,
+  'second-opinion': secondOpinionJson,
+  ophthal360: ophthal360Json,
+  'who-we-help': whoWeHelpJson,
+  newsroom: newsroomJson,
+  articles: articlesJson,
+  resources: resourcesJson,
+  'innovation-pipeline': innovationPipelineJson,
+  'article-bridging-the-gap': articleBridgingJson,
+  'article-atlanta-startup': articleAtlantaJson,
 };
 
 export class ContentError extends Error {
@@ -108,4 +134,15 @@ export function required<T>(value: T | undefined, where: string): T {
     throw new ContentError(`${where} is required by this page's layout but is missing.`);
   }
   return value;
+}
+
+/**
+ * Flat rich text as runs, for templates that must render every element themselves
+ * (pages with scoped styles; see richTextRuns in schema.ts). Throws on nested tags,
+ * which the schema already rejects for FlatRichText fields.
+ */
+export function richRuns(value: string): RichTextRun[] {
+  const runs = richTextRuns(value);
+  if (!runs) throw new ContentError(`Rich text must not nest tags here: ${value}`);
+  return runs;
 }
