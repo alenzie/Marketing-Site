@@ -33,10 +33,18 @@ export const SectionIdSchema = z
 /** A required, non-empty line of copy. */
 const Text = z.string().min(1, 'must not be empty');
 
+/**
+ * Backslashes and control characters are never valid in a stored path or URL: browsers
+ * read "/\host" as "//host" (another origin) and strip tabs/newlines inside URLs.
+ */
+const URL_SAFE_CHARS = /^[^\\\u0000-\u001f\u007f]*$/;
+const URL_SAFE_MESSAGE = 'must not contain backslashes or control characters';
+
 /** Root-absolute path to a file under public/ ("/images/x.jpg"; not "//cdn..."). */
 export const MediaPathSchema = z
   .string()
-  .regex(/^\/(?!\/)\S*$/, 'must be a root-absolute path under public/, e.g. /images/photo.jpg');
+  .regex(/^\/(?!\/)\S*$/, 'must be a root-absolute path under public/, e.g. /images/photo.jpg')
+  .regex(URL_SAFE_CHARS, URL_SAFE_MESSAGE);
 
 /** Internal path, in-page anchor, or an absolute http(s)/mailto/tel URL. */
 export const HrefSchema = z
@@ -44,7 +52,8 @@ export const HrefSchema = z
   .regex(
     /^(?:\/(?!\/)\S*|#\S*|https?:\/\/\S+|mailto:\S+|tel:\S+)$/,
     'must be a root-relative path (/about), #anchor, http(s):// URL, mailto: or tel:',
-  );
+  )
+  .regex(URL_SAFE_CHARS, URL_SAFE_MESSAGE);
 
 /** Site modals a CTA can open (they are rendered once in the Layout). */
 export const ModalNameSchema = z.enum(['demo', 'contact']);
@@ -76,56 +85,97 @@ export const CtaSchema = z
 export const RICH_TEXT_TAGS = ['strong', 'em', 'a', 'br'] as const;
 export const RICH_TEXT_LINK_ATTRS = ['href', 'target', 'rel', 'class'] as const;
 
+/** `<strong>`, `<em>` (open), `</strong>`, `</em>`, `</a>` (close), `<br>`, `<br/>`, `<br />`. */
+const RT_SIMPLE = /^<(\/?)(strong|em|a|br)( ?\/)?>/;
+/** `<a` + one or more ` name="value"` + optional spaces + `>`; values hold no `<`, `>` or `"`. */
+const RT_LINK = /^<a((?: +[a-z]+="[^"<>]*")+) *>/;
+const RT_LINK_ATTR = / +([a-z]+)="([^"<>]*)"/;
+
 /**
- * Returns a list of problems with a rich-text string (empty = valid). A structural
- * allowlist check, not a sanitizer: the admin sanitizes on save; this is the
- * build-time backstop so disallowed markup can never reach `set:html`.
+ * Problems with a link's href as written in the markup (empty = valid). The only
+ * character reference allowed in an href is `&amp;`, so what the browser follows is
+ * exactly the decoded value that HrefSchema checks.
+ */
+function richTextHrefProblems(raw: string): string[] {
+  if (/&(?!amp;)/.test(raw)) return [`<a href="${raw}">: the only entity allowed in an href is &amp;`];
+  const href = raw.replace(/&amp;/g, '&');
+  return HrefSchema.safeParse(href).success ? [] : [`<a href="${raw}"> is not a valid href`];
+}
+
+/**
+ * Returns a list of problems with a rich-text string (empty = valid). A strict
+ * tokenizer, not a sanitizer: every "<" must start one complete, well-formed allowed
+ * tag, written exactly as `<strong>`, `</strong>`, `<em>`, `</em>`, `<br>`, `<br/>`,
+ * `<br />`, `</a>`, or `<a` + attributes from RICH_TEXT_LINK_ATTRS (each once,
+ * double-quoted, no `<` `>` `"` inside, an `href` that passes HrefSchema) + `>`.
+ * Tags must nest and balance, links may not nest, and no other "<" may appear (write
+ * it as &lt;). This is the build-time backstop so disallowed markup can never reach
+ * `set:html`; the admin also sanitizes on save and re-checks on submit.
  */
 export function richTextProblems(value: string): string[] {
   const problems: string[] = [];
-  const tagRe = /<\s*(\/?)\s*([a-zA-Z][a-zA-Z0-9-]*)([^>]*)>/g;
   const stack: string[] = [];
-  let m: RegExpExecArray | null;
-  while ((m = tagRe.exec(value))) {
-    const [, closing, rawName, rawAttrs] = m;
-    const name = rawName.toLowerCase();
-    if (!(RICH_TEXT_TAGS as readonly string[]).includes(name)) {
-      problems.push(`<${name}> is not allowed (allowed: ${RICH_TEXT_TAGS.join(', ')})`);
+  let at = 0;
+  while (problems.length < 20) {
+    const lt = value.indexOf('<', at);
+    if (lt === -1) break;
+    const rest = value.slice(lt, lt + 2048);
+    const simple = RT_SIMPLE.exec(rest);
+    if (simple) {
+      const [whole, closing, name, selfClose] = simple;
+      at = lt + whole.length;
+      if (name === 'br') {
+        if (closing) problems.push('</br> is not valid; write <br>');
+        continue;
+      }
+      if (selfClose) {
+        problems.push(`<${closing}${name}${selfClose}> is not valid`);
+        continue;
+      }
+      if (closing) {
+        const top = stack.pop();
+        if (top !== name) {
+          problems.push(`unbalanced </${name}>`);
+          if (top !== undefined) stack.push(top);
+        }
+        continue;
+      }
+      if (name === 'a') {
+        problems.push('<a> needs an href');
+        stack.push('a');
+        continue;
+      }
+      stack.push(name);
       continue;
     }
-    const attrs = rawAttrs.replace(/\/\s*$/, '').trim();
-    if (closing) {
-      if (attrs) problems.push(`closing </${name}> must not have attributes`);
-      if (stack.pop() !== name) problems.push(`unbalanced </${name}>`);
-      continue;
-    }
-    if (name === 'br') {
-      if (attrs) problems.push('<br> must not have attributes');
-      continue;
-    }
-    if (name !== 'a' && attrs) problems.push(`<${name}> must not have attributes`);
-    if (name === 'a') {
-      const attrRe = /([a-zA-Z-]+)\s*=\s*"([^"]*)"/g;
-      const leftover = attrs.replace(attrRe, '').trim();
-      if (leftover) problems.push(`<a> has unparseable attributes: ${leftover}`);
+    const link = RT_LINK.exec(rest);
+    if (link) {
+      at = lt + link[0].length;
+      const seen = new Set<string>();
+      const attrRe = new RegExp(RT_LINK_ATTR.source, 'g');
       let a: RegExpExecArray | null;
-      let hasHref = false;
-      while ((a = attrRe.exec(attrs))) {
-        const attr = a[1].toLowerCase();
+      while ((a = attrRe.exec(link[1]))) {
+        const [, attr, raw] = a;
         if (!(RICH_TEXT_LINK_ATTRS as readonly string[]).includes(attr)) {
           problems.push(`<a ${attr}> is not allowed (allowed: ${RICH_TEXT_LINK_ATTRS.join(', ')})`);
         }
-        if (attr === 'href') {
-          hasHref = true;
-          if (!HrefSchema.safeParse(a[2]).success) problems.push(`<a href="${a[2]}"> is not a valid href`);
-        }
+        if (seen.has(attr)) problems.push(`<a> repeats the ${attr} attribute`);
+        seen.add(attr);
+        if (attr === 'href') problems.push(...richTextHrefProblems(raw));
       }
-      if (!hasHref) problems.push('<a> needs an href');
+      if (!seen.has('href')) problems.push('<a> needs an href');
+      if (stack.includes('a')) problems.push('a link cannot contain another link');
+      stack.push('a');
+      continue;
     }
-    stack.push(name);
+    const shown = value.slice(lt, lt + 24).replace(/\s+/g, ' ');
+    problems.push(
+      `"${shown}${value.length > lt + 24 ? '…' : ''}" is not an allowed tag (allowed exactly: ` +
+        `<strong>, <em>, <br>, <a href="…">); write a literal "<" as &lt;`,
+    );
+    at = lt + 1;
   }
   if (stack.length) problems.push(`unclosed <${stack.join('>, <')}>`);
-  if (/<(?![a-zA-Z/])/.test(value.replace(tagRe, ''))) problems.push('stray "<"; write it as &lt;');
   return problems;
 }
 
