@@ -80,6 +80,15 @@ export const CtaSchema = z
     message: 'a CTA needs exactly one of `href` or `modal`',
   });
 
+/**
+ * A CTA slot whose layout renders it only as a modal button (`data-open-modal`): a link there
+ * would be ignored, so the page schema pins the slot to this shape (see SECTION_OVERRIDES).
+ */
+export const ModalCtaSchema = z.object({ label: Text, modal: ModalNameSchema }).strict();
+
+/** A CTA slot whose layout renders it only as a link (`<a href>`): a modal there would be ignored. */
+export const LinkCtaSchema = z.object({ label: Text, href: HrefSchema }).strict();
+
 /* ------------------------------------------------------------------- rich text */
 
 export const RICH_TEXT_TAGS = ['strong', 'em', 'a', 'br'] as const;
@@ -739,73 +748,132 @@ export const PAGE_SLUGS = [
 export const PageSlugSchema = z.enum(PAGE_SLUGS);
 export type PageSlug = (typeof PAGE_SLUGS)[number];
 
-/* ------------------------------------------------------ fixed-slot lists per page */
+/* ------------------------------------------------- per-page section contracts */
 
 /** A list whose layout has exactly `n` hand-built slots: editors change items, never the count. */
 const fixed = <T extends z.ZodTypeAny>(item: T, n: number) => z.array(item).length(n);
 
+/** A card the layout always prints with its body (`required(c.body, ...)`). */
+const BodyItemSchema = FeatureItemSchema.extend({ body: Text });
+/** A card the layout renders as a link (`<a href={item.href}>`): without `href` it goes nowhere. */
+const LinkedItemSchema = FeatureItemSchema.extend({ href: HrefSchema });
+
 /**
- * Page-specific section schemas. A section listed here must match this schema in
- * addition to its block type's: it pins the lists whose layout has one hand-built
- * slot per item (bespoke icons, one-off classes) to their exact length with
- * `.length(n)`. The admin reads these to disable add/remove on such lists; the
- * templates guard the same counts with `slots()`. Look them up with `sectionSchema()`.
+ * Page-specific section schemas: the contract between each section and its template. A section
+ * listed here must match this schema in addition to its block type's. Three kinds of pin:
+ * - fixed-slot lists (one hand-built slot per item: bespoke icons, one-off classes) are pinned
+ *   to their exact length with `.length(n)`; the templates guard the same counts with `slots()`;
+ * - fields a template reads with `required()` (optional in the block type, needed by this
+ *   layout) and hrefs it renders unconditionally are required here, so removing one fails
+ *   validation instead of `astro build`;
+ * - CTA slots are typed by what the markup renders: `ModalCtaSchema` where the slot is only a
+ *   `data-open-modal` button, `LinkCtaSchema` where it is only an `<a href>`, as a `z.tuple`
+ *   in slot order (a tuple has a fixed length too).
+ * The admin reads these (through `sectionSchema()`) to disable add/remove on fixed lists, to
+ * offer no "remove" on required fields, and to offer only the action a CTA slot supports.
  */
 export const SECTION_OVERRIDES: { readonly [P in PageSlug]?: Readonly<Record<string, z.ZodTypeAny>> } = {
   home: {
-    hero: HeroBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
+    hero: HeroBlockSchema.extend({
+      image: ImageSchema,
+      promo: EventPromoSchema,
+      ctas: z.tuple([ModalCtaSchema, LinkCtaSchema]),
+    }),
+    'beyond-the-eye': SplitBlockSchema.extend({ image: ImageSchema }),
     flagship: ShowcaseBlockSchema.extend({
       flagship: ShowcaseFlagshipSchema.extend({ paragraphs: fixed(Text, 2) }),
       tiles: fixed(TileSchema, 3),
     }),
     products: ProductsBlockSchema.extend({ cards: fixed(ProductCardSchema, 4) }),
     'who-we-help': AudiencesBlockSchema.extend({ cards: fixed(AudienceCardSchema, 4) }),
-    'final-cta': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+    insights: ResourcesBlockSchema.extend({ link: LinkSchema }),
+    'final-cta': CtaBlockSchema.extend({ ctas: z.tuple([ModalCtaSchema]) }),
   },
   about: {
-    'join-us': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+    hero: HeroBlockSchema.extend({ image: ImageSchema }),
+    'join-us': CtaBlockSchema.extend({ ctas: z.tuple([ModalCtaSchema]) }),
   },
   solutions: {
-    'platform-stats': StatsBlockSchema.extend({ stats: fixed(StatSchema, 3) }),
-    platform: FeaturesBlockSchema.extend({ items: fixed(FeatureItemSchema, 4) }),
-    'final-cta': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+    hero: HeroBlockSchema.extend({ image: ImageSchema }),
+    flagship: SplitBlockSchema.extend({ image: ImageSchema, link: LinkSchema }),
+    products: FeaturesBlockSchema.extend({ items: z.array(LinkedItemSchema).min(1) }),
+    'platform-stats': StatsBlockSchema.extend({ stats: fixed(StatSchema, 3), image: ImageSchema }),
+    platform: FeaturesBlockSchema.extend({ items: fixed(LinkedItemSchema, 4) }),
+    'final-cta': CtaBlockSchema.extend({ ctas: z.tuple([ModalCtaSchema]) }),
   },
   ocula360: {
-    hero: HeroBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
-    capabilities: FeaturesBlockSchema.extend({ items: fixed(FeatureItemSchema, 4) }),
-    approach: SplitBlockSchema.extend({ paragraphs: fixed(Text, 2) }),
-    'final-cta': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+    hero: HeroBlockSchema.extend({ media: ImageSchema, ctas: z.tuple([ModalCtaSchema, ModalCtaSchema]) }),
+    platform: SplitBlockSchema.extend({ image: ImageSchema }),
+    capabilities: FeaturesBlockSchema.extend({ items: fixed(BodyItemSchema, 4) }),
+    approach: SplitBlockSchema.extend({ image: ImageSchema, paragraphs: fixed(Text, 2) }),
+    'final-cta': CtaBlockSchema.extend({ ctas: z.tuple([ModalCtaSchema]) }),
   },
   nsight360: {
-    hero: HeroBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
-    'final-cta': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+    hero: HeroBlockSchema.extend({
+      image: ImageSchema,
+      media: ImageSchema,
+      ctas: z.tuple([ModalCtaSchema, LinkCtaSchema]),
+    }),
+    capabilities: FeaturesBlockSchema.extend({
+      items: z.array(FeatureItemSchema.extend({ body: Text, image: ImageSchema })).min(1),
+    }),
+    'who-its-for': FeaturesBlockSchema.extend({ items: z.array(BodyItemSchema).min(1) }),
+    'final-cta': CtaBlockSchema.extend({ ctas: z.tuple([ModalCtaSchema]) }),
   },
   'second-opinion': {
-    hero: HeroBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
-    capabilities: FeaturesBlockSchema.extend({ items: fixed(FeatureItemSchema, 3) }),
-    'final-cta': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+    hero: HeroBlockSchema.extend({
+      image: ImageSchema,
+      media: ImageSchema,
+      ctas: z.tuple([ModalCtaSchema, LinkCtaSchema]),
+    }),
+    solution: SplitBlockSchema.extend({ aside: AsideSchema }),
+    capabilities: FeaturesBlockSchema.extend({ items: fixed(BodyItemSchema, 3) }),
+    'final-cta': CtaBlockSchema.extend({ ctas: z.tuple([ModalCtaSchema]) }),
   },
   ophthal360: {
-    hero: HeroBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
-    capabilities: FeaturesBlockSchema.extend({ items: fixed(FeatureItemSchema, 3) }),
-    'who-its-for': FeaturesBlockSchema.extend({ items: fixed(FeatureItemSchema, 4) }),
-    'final-cta': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+    hero: HeroBlockSchema.extend({
+      image: ImageSchema,
+      media: ImageSchema,
+      ctas: z.tuple([ModalCtaSchema, LinkCtaSchema]),
+    }),
+    solution: SplitBlockSchema.extend({ aside: AsideSchema }),
+    capabilities: FeaturesBlockSchema.extend({ items: fixed(BodyItemSchema, 3) }),
+    'who-its-for': FeaturesBlockSchema.extend({ items: fixed(BodyItemSchema, 4) }),
+    'deployment-case': SplitBlockSchema.extend({ image: ImageSchema }),
+    'final-cta': CtaBlockSchema.extend({ ctas: z.tuple([ModalCtaSchema]) }),
   },
   'who-we-help': {
-    continuum: FeaturesBlockSchema.extend({ items: fixed(FeatureItemSchema, 3) }),
-    'national-impact': SplitBlockSchema.extend({ paragraphs: fixed(Text, 2) }),
-    'international-impact': SplitBlockSchema.extend({ paragraphs: fixed(Text, 2) }),
-    'final-cta': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 1) }),
+    hero: HeroBlockSchema.extend({ image: ImageSchema }),
+    continuum: FeaturesBlockSchema.extend({ items: fixed(LinkedItemSchema, 3) }),
+    'national-impact': SplitBlockSchema.extend({ image: ImageSchema, paragraphs: fixed(Text, 2) }),
+    'international-impact': SplitBlockSchema.extend({ image: ImageSchema, paragraphs: fixed(Text, 2) }),
+    'final-cta': CtaBlockSchema.extend({ ctas: z.tuple([ModalCtaSchema]) }),
+  },
+  resources: {
+    hero: HeroBlockSchema.extend({ image: ImageSchema }),
+    browse: FeaturesBlockSchema.extend({
+      items: z.array(FeatureItemSchema.extend({ href: HrefSchema, image: ImageSchema })).min(1),
+    }),
+    'featured-research': SplitBlockSchema.extend({ image: ImageSchema, link: LinkSchema }),
+  },
+  articles: {
+    related: FeaturesBlockSchema.extend({ items: z.array(LinkedItemSchema).min(1) }),
+  },
+  newsroom: {
+    hero: HeroBlockSchema.extend({ media: ImageSchema }),
+    related: FeaturesBlockSchema.extend({ items: z.array(LinkedItemSchema).min(1) }),
   },
   'innovation-pipeline': {
     intro: TextBlockSchema.extend({ paragraphs: fixed(Text, 3) }),
-    'stay-connected': CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
+    cardiovascular: SplitBlockSchema.extend({ image: ImageSchema }),
+    'stay-connected': CtaBlockSchema.extend({ ctas: z.tuple([LinkCtaSchema, ModalCtaSchema]) }),
+    related: FeaturesBlockSchema.extend({ items: z.array(LinkedItemSchema).min(1) }),
   },
   'article-bridging-the-gap': {
-    cta: CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
+    cta: CtaBlockSchema.extend({ ctas: z.tuple([ModalCtaSchema, LinkCtaSchema]) }),
   },
   'article-atlanta-startup': {
-    cta: CtaBlockSchema.extend({ ctas: fixed(CtaSchema, 2) }),
+    cta: CtaBlockSchema.extend({ ctas: z.tuple([ModalCtaSchema, LinkCtaSchema]) }),
   },
 };
 
@@ -860,7 +928,8 @@ export const FooterSchema = z
         heading: Text,
         /** Accent-colored tail of the heading. */
         highlight: Text,
-        button: CtaSchema,
+        /** Rendered only as a modal button (`data-open-modal`), so it takes a `modal`, never an `href`. */
+        button: ModalCtaSchema,
       })
       .strict(),
     tagline: Text,

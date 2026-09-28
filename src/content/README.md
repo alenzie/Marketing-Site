@@ -43,7 +43,7 @@ const story = section(page, 'story', 'text');        // typed; throws if missing
 const joinUs = section(page, 'join-us', 'cta');
 const hero = section(page, 'hero', 'hero');
 const [joinCta] = slots(joinUs.ctas, 1, 'about/join-us.ctas'); // fixed-slot list
-const heroImage = required(hero.image, 'about/hero.image');    // optional in schema, needed here
+const heroImage = required(hero.image, 'about/hero.image');    // optional in the block type, needed here
 ---
 <Layout title={page.title} description={page.description}>
 ```
@@ -123,7 +123,10 @@ Numbered steps (`01`, `02`, ...) are derived from the item position, not stored.
   (`CtaBand image`, `ResourceCard thumbnail`, `TeamCard headshot`), pass `.src`.
 - Links: `{ label, href }`. `href` is `/path`, `#anchor`, `http(s)://`, `mailto:` or `tel:`.
 - CTAs: arrays of `{ label, href }` (navigates) or `{ label, modal: 'demo' | 'contact' }`
-  (opens a site modal via `data-open-modal`). Never both.
+  (opens a site modal via `data-open-modal`). Never both. A template that renders a CTA
+  slot only as a modal button (`data-open-modal={cta.modal}`) or only as a link
+  (`href={cta.href}`) must pin that slot's shape in `SECTION_OVERRIDES` (rule 5b), or an
+  editor could switch it to the other action and publish a dead button.
 - Things that stay in templates: SVG icons, classes, layout, `aria-label`s on icon-only
   controls, decorative glyphs (the `•` bullet, the `→` after a card title), client-script
   strings, breadcrumb parent links, anchor ids (`id="who-its-for"`), and `target="_blank"`.
@@ -159,6 +162,25 @@ Numbered steps (`01`, `02`, ...) are derived from the item position, not stored.
   (`capabilityIcons[i]`). In an open list, an item without `image` gets the layout's
   built-in icon (nsight360 "who it's for").
 
+**5b. The page contract (`SECTION_OVERRIDES`).** The block types are shared by many
+pages, so their fields are mostly optional. What one page's template actually needs is
+pinned per page and section in `SECTION_OVERRIDES` (`schema.ts`), and the admin builds its
+forms from it (`sectionSchema(slug, id, type)`): a pinned field has no "Remove" button, a
+fixed list no add/remove, a typed CTA slot no link/popup switch. Keep it in step with the
+templates; every one of these needs an entry:
+- `slots(list, n, ...)` -> `.length(n)` (`fixed(ItemSchema, n)`).
+- `required(section.field, ...)` -> the field without `.optional()`:
+  `about: { hero: HeroBlockSchema.extend({ image: ImageSchema }) }`. Inside a list
+  (`required(c.body, 'nsight360/capabilities.items.body')`), extend the item schema.
+- An optional `href` rendered unconditionally (`<a href={item.href}>`) -> required
+  (`LinkedItemSchema`).
+- A CTA slot used only as `data-open-modal={cta.modal}` -> `ModalCtaSchema`; only as
+  `href={cta.href}` -> `LinkCtaSchema`; the slots as a `z.tuple([...])` in order (a tuple
+  also fixes the count): `hero: HeroBlockSchema.extend({ ctas: z.tuple([ModalCtaSchema, LinkCtaSchema]) })`.
+  The footer's `cta.button` is `ModalCtaSchema` in `FooterSchema` itself.
+Section ids themselves are fixed: the admin never adds, removes or reorders sections, and
+`section(page, id, type)` throws if one is missing.
+
 **6. Component-slot whitespace.** Literal text on its own line inside a
 *component* (`<PipeHeading>\n  Text\n</PipeHeading>`) rendered with surrounding
 spaces; an expression in the same spot is trimmed. Keep the spaces explicitly:
@@ -180,7 +202,8 @@ marquee in `pages/index.astro`).
 
 **8. Registering a page.** Add `pages/<slug>.json`, register it in
 `CONTENT_FILES.pages` (`schema.ts`) and in `PAGE_JSON` (`index.ts`), and add its
-fixed-slot lists to `SECTION_OVERRIDES`.
+page contract (fixed-slot lists, `required()` fields, typed CTA slots) to
+`SECTION_OVERRIDES` (rule 5b).
 
 **9. Tailwind.** Tailwind scans the JSON (rich text may carry classes) but not
 `src/content/*.ts`, this README or `scripts/` (see `@source not` in
