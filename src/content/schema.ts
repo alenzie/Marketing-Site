@@ -103,17 +103,47 @@ function richTextHrefProblems(raw: string): string[] {
 }
 
 /**
+ * The code point of a numeric character reference body (`#65`, `#x41`), or null when it is
+ * not a character a document may contain: 0, a UTF-16 surrogate (U+D800 to U+DFFF), or
+ * anything above U+10FFFF (String.fromCodePoint would throw a RangeError on those).
+ */
+export function numericReferenceCodePoint(body: string): number | null {
+  const hex = body[1] === 'x' || body[1] === 'X';
+  const digits = body.slice(hex ? 2 : 1);
+  if (!/^[0-9a-fA-F]+$/.test(digits) || (!hex && !/^[0-9]+$/.test(digits))) return null;
+  // Past 7 significant digits any value is out of range; stop before parseInt loses precision.
+  if (digits.replace(/^0+/, '').length > 7) return null;
+  const code = parseInt(digits, hex ? 16 : 10);
+  if (!Number.isInteger(code) || code <= 0 || code > 0x10ffff) return null;
+  if (code >= 0xd800 && code <= 0xdfff) return null;
+  return code;
+}
+
+/** Problems with the numeric character references (`&#…;`) in a string (empty = valid). */
+function numericReferenceProblems(value: string): string[] {
+  const problems: string[] = [];
+  for (const m of value.matchAll(/&(#[xX][0-9a-fA-F]+|#[0-9]+);/g)) {
+    if (numericReferenceCodePoint(m[1]) === null) {
+      problems.push(`"${m[0].slice(0, 24)}" is not a valid character reference`);
+      if (problems.length >= 5) break;
+    }
+  }
+  return problems;
+}
+
+/**
  * Returns a list of problems with a rich-text string (empty = valid). A strict
  * tokenizer, not a sanitizer: every "<" must start one complete, well-formed allowed
  * tag, written exactly as `<strong>`, `</strong>`, `<em>`, `</em>`, `<br>`, `<br/>`,
  * `<br />`, `</a>`, or `<a` + attributes from RICH_TEXT_LINK_ATTRS (each once,
  * double-quoted, no `<` `>` `"` inside, an `href` that passes HrefSchema) + `>`.
  * Tags must nest and balance, links may not nest, and no other "<" may appear (write
- * it as &lt;). This is the build-time backstop so disallowed markup can never reach
- * `set:html`; the admin also sanitizes on save and re-checks on submit.
+ * it as &lt;). Numeric character references must name a real character (not 0, a
+ * surrogate, or above U+10FFFF). This is the build-time backstop so disallowed markup
+ * can never reach `set:html`; the admin also sanitizes on save and re-checks on submit.
  */
 export function richTextProblems(value: string): string[] {
-  const problems: string[] = [];
+  const problems: string[] = numericReferenceProblems(value);
   const stack: string[] = [];
   let at = 0;
   while (problems.length < 20) {
@@ -195,8 +225,9 @@ const ENTITIES: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"'
 const decodeEntities = (text: string) =>
   text.replace(/&(#x[0-9a-fA-F]+|#[0-9]+|[a-zA-Z]+);/g, (whole, name: string) => {
     if (name[0] === '#') {
-      const code = name[1] === 'x' || name[1] === 'X' ? parseInt(name.slice(2), 16) : parseInt(name.slice(1), 10);
-      return Number.isFinite(code) ? String.fromCodePoint(code) : whole;
+      // Out-of-range references are rejected by richTextProblems; never throw here.
+      const code = numericReferenceCodePoint(name);
+      return code === null ? whole : String.fromCodePoint(code);
     }
     return ENTITIES[name.toLowerCase()] ?? whole;
   });
