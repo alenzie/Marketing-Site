@@ -12,7 +12,9 @@
  *   escapes them.
  * - RichText: only where the source markup has inline formatting inside a run of
  *   copy. Allowed tags: <strong>, <em>, <a>, <br>. <a> may carry href, target, rel
- *   and class; no other tag may carry attributes. Rendered with `set:html`.
+ *   and class; no other tag may carry attributes. Rendered with `set:html`. A link
+ *   may open a new tab (`target="_blank"`) only with `rel="noopener"` (write
+ *   `rel="noopener noreferrer"`), and `rel="opener"` is never allowed.
  * - Images: { src, alt } with a root-absolute `src` under public/ ("/images/x.jpg").
  *   Decorative/background images use alt: "".
  * - Links: { label, href }. CTAs: arrays of { label, href } or { label, modal }.
@@ -141,11 +143,43 @@ function numericReferenceProblems(value: string): string[] {
 }
 
 /**
+/** The only `target` values a link may carry (exact, as the browser matches them). */
+export const RICH_TEXT_TARGETS = ['_blank', '_self'] as const;
+
+/**
+ * Problems with a link's `target` and `rel` as written in the markup (empty = valid), against
+ * reverse tabnabbing: a page opened in a new tab with an opener can navigate this one.
+ * - No character references in either value, so what is checked is exactly what the browser
+ *   reads (`rel="op&#101;ner"` is "opener" to a browser).
+ * - `target` is `_blank` or `_self` (ASCII case-insensitive, untrimmed: " _blank" is a NAMED
+ *   target, which opens a new window WITH an opener).
+ * - `rel` never contains the `opener` token (it defeats the implicit noopener of `_blank`), and
+ *   `target="_blank"` requires the `noopener` token.
+ */
+function richTextTargetRelProblems(target: string | undefined, rel: string | undefined): string[] {
+  const problems: string[] = [];
+  if (target !== undefined && target.includes('&')) problems.push(`<a target="${target}">: no character references in target`);
+  if (rel !== undefined && rel.includes('&')) problems.push(`<a rel="${rel}">: no character references in rel`);
+  if (problems.length) return problems;
+  const t = target?.toLowerCase();
+  if (t !== undefined && !(RICH_TEXT_TARGETS as readonly string[]).includes(t)) {
+    problems.push(`<a target="${target}"> is not allowed (allowed: ${RICH_TEXT_TARGETS.join(', ')})`);
+  }
+  const tokens = (rel ?? '').toLowerCase().split(/[\t\n\f\r ]+/).filter(Boolean);
+  if (tokens.includes('opener')) problems.push(`<a rel="${rel}">: "opener" is not allowed (it lets the linked page control this one)`);
+  if (t === '_blank' && !tokens.includes('noopener')) {
+    problems.push('<a target="_blank"> needs rel="noopener" (write rel="noopener noreferrer")');
+  }
+  return problems;
+}
+
+/**
  * Returns a list of problems with a rich-text string (empty = valid). A strict
  * tokenizer, not a sanitizer: every "<" must start one complete, well-formed allowed
  * tag, written exactly as `<strong>`, `</strong>`, `<em>`, `</em>`, `<br>`, `<br/>`,
  * `<br />`, `</a>`, or `<a` + attributes from RICH_TEXT_LINK_ATTRS (each once,
- * double-quoted, no `<` `>` `"` inside, an `href` that passes HrefSchema) + `>`.
+ * double-quoted, no `<` `>` `"` inside, an `href` that passes HrefSchema, a
+ * `target`/`rel` pair that passes richTextTargetRelProblems) + `>`.
  * Tags must nest and balance, links may not nest, and no other "<" may appear (write
  * it as &lt;). Numeric character references must name a real character (not 0, a
  * surrogate, or above U+10FFFF). This is the build-time backstop so disallowed markup
@@ -191,6 +225,7 @@ export function richTextProblems(value: string): string[] {
     if (link) {
       at = lt + link[0].length;
       const seen = new Set<string>();
+      const values: Record<string, string> = {};
       const attrRe = new RegExp(RT_LINK_ATTR.source, 'g');
       let a: RegExpExecArray | null;
       while ((a = attrRe.exec(link[1]))) {
@@ -200,9 +235,11 @@ export function richTextProblems(value: string): string[] {
         }
         if (seen.has(attr)) problems.push(`<a> repeats the ${attr} attribute`);
         seen.add(attr);
+        values[attr] = raw;
         if (attr === 'href') problems.push(...richTextHrefProblems(raw));
       }
       if (!seen.has('href')) problems.push('<a> needs an href');
+      problems.push(...richTextTargetRelProblems(values.target, values.rel));
       if (stack.includes('a')) problems.push('a link cannot contain another link');
       stack.push('a');
       continue;
@@ -877,6 +914,134 @@ export const SECTION_OVERRIDES: { readonly [P in PageSlug]?: Readonly<Record<str
   },
 };
 
+/**
+ * The sections each extracted page's template renders, in order: `[id, block type]`. The
+ * templates look sections up by id (a missing one throws during `astro build`), and v1 of the
+ * admin cannot add, remove or reorder sections, so a page document must contain exactly these
+ * sections in exactly this order. A page without an entry (not extracted yet) is unconstrained.
+ */
+export const REQUIRED_SECTIONS: { readonly [P in PageSlug]?: ReadonlyArray<readonly [string, BlockType]> } = {
+  home: [
+    ['hero', 'hero'],
+    ['partners', 'partners'],
+    ['beyond-the-eye', 'split'],
+    ['flagship', 'showcase'],
+    ['products', 'products'],
+    ['who-we-help', 'audiences'],
+    ['testimonial', 'testimonial'],
+    ['insights', 'resources'],
+    ['closing', 'text'],
+    ['final-cta', 'cta'],
+  ],
+  about: [
+    ['hero', 'hero'],
+    ['story', 'text'],
+    ['mission', 'text'],
+    ['vision', 'text'],
+    ['leadership', 'people'],
+    ['scientific-advisors', 'people'],
+    ['business-advisors', 'people'],
+    ['join-us', 'cta'],
+  ],
+  solutions: [
+    ['hero', 'hero'],
+    ['flagship', 'split'],
+    ['products', 'features'],
+    ['platform-stats', 'stats'],
+    ['platform', 'features'],
+    ['final-cta', 'cta'],
+  ],
+  ocula360: [
+    ['hero', 'hero'],
+    ['platform', 'split'],
+    ['capabilities', 'features'],
+    ['how-it-works', 'features'],
+    ['use-cases', 'features'],
+    ['approach', 'split'],
+    ['benefits', 'features'],
+    ['final-cta', 'cta'],
+  ],
+  nsight360: [
+    ['hero', 'hero'],
+    ['care-gap', 'text'],
+    ['solution', 'split'],
+    ['capabilities', 'features'],
+    ['who-its-for', 'features'],
+    ['how-it-works', 'features'],
+    ['benefits', 'features'],
+    ['final-cta', 'cta'],
+  ],
+  'second-opinion': [
+    ['hero', 'hero'],
+    ['challenge', 'text'],
+    ['solution', 'split'],
+    ['capabilities', 'features'],
+    ['who-its-for', 'audiences'],
+    ['how-it-integrates', 'features'],
+    ['benefits', 'features'],
+    ['final-cta', 'cta'],
+  ],
+  ophthal360: [
+    ['hero', 'hero'],
+    ['challenge', 'text'],
+    ['solution', 'split'],
+    ['capabilities', 'features'],
+    ['who-its-for', 'features'],
+    ['how-it-works', 'features'],
+    ['deployment-case', 'split'],
+    ['benefits', 'features'],
+    ['final-cta', 'cta'],
+  ],
+  'who-we-help': [
+    ['hero', 'hero'],
+    ['intro', 'text'],
+    ['nsight360', 'fit'],
+    ['compliance-stat', 'figure'],
+    ['second-opinion', 'fit'],
+    ['ophthal360', 'fit'],
+    ['continuum', 'features'],
+    ['national-impact', 'split'],
+    ['global-reach', 'divider'],
+    ['international-impact', 'split'],
+    ['final-cta', 'cta'],
+  ],
+  resources: [
+    ['hero', 'hero'],
+    ['browse', 'features'],
+    ['featured-research', 'split'],
+    ['latest', 'resources'],
+  ],
+  articles: [
+    ['hero', 'hero'],
+    ['articles', 'resources'],
+    ['related', 'features'],
+  ],
+  'article-bridging-the-gap': [
+    ['hero', 'hero'],
+    ['article', 'article'],
+    ['cta', 'cta'],
+  ],
+  'article-atlanta-startup': [
+    ['hero', 'hero'],
+    ['article', 'article'],
+    ['cta', 'cta'],
+  ],
+  'innovation-pipeline': [
+    ['hero', 'hero'],
+    ['intro', 'text'],
+    ['four-front', 'split'],
+    ['cardiovascular', 'split'],
+    ['systemic-health', 'split'],
+    ['stay-connected', 'cta'],
+    ['related', 'features'],
+  ],
+  newsroom: [
+    ['hero', 'hero'],
+    ['news', 'resources'],
+    ['related', 'features'],
+  ],
+};
+
 /** The schema of section `id` on page `slug`: its page override, else its block type's schema. */
 export function sectionSchema(slug: PageSlug, id: string, type: BlockType): z.ZodTypeAny {
   return SECTION_OVERRIDES[slug]?.[id] ?? BLOCK_SCHEMAS[type];
@@ -893,6 +1058,18 @@ export const PageSchema = z
   })
   .strict()
   .superRefine((page, ctx) => {
+    const required = REQUIRED_SECTIONS[page.slug];
+    if (required) {
+      const want = required.map(([id, type]) => `${id} (${type})`).join(', ');
+      const got = page.sections.map((s) => `${s.id} (${s.type})`).join(', ');
+      if (got !== want) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['sections'],
+          message: `the ${page.slug} page must have exactly these sections, in this order: ${want}; found: ${got || 'none'}`,
+        });
+      }
+    }
     const seen = new Set<string>();
     page.sections.forEach((s, i) => {
       if (seen.has(s.id)) {
