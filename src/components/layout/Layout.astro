@@ -62,5 +62,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <script>
       import '../../scripts/reveal.ts';
     </script>
+    <!-- Admin portal preview: when this page is shown inside the portal's Preview tab, tell the portal
+         which page it is, so its editor can follow. Sends the path only, to the portal's origin only;
+         does nothing when the page is opened normally. -->
+    <script is:inline>
+      if (window.parent !== window) {
+        try {
+          window.parent.postMessage({ type: 'oph:page', path: location.pathname }, 'https://admin.ophthalytics.com');
+        } catch (e) {}
+      }
+    </script>
   </body>
 </html>
