@@ -126,7 +126,7 @@
       "id": "join-us",
       "label": "Join Us",
       "heading": "Join Us",
-      "body": "Take the first step toward an exciting career with Ophthalytics. Join our team and be a part of our mission to advance wellbeing through deep-learning AI. We are looking for driven and passionate individuals who share our vision and want to make a meaningful impact. Don't wait — start your journey with us today.",
+      "body": "Take the first step toward an exciting career with Ophthalytics. Join our team and be a part of our mission to advance wellbeing through deep-learning AI. We are looking for driven and passionate individuals who share our vision and want to make a meaningful impact. Don't wait—start your journey with us today.",
       "ctas": [{ "label": "Contact Us", "modal": "contact" }],
       "image": { "src": "/images/cta/healthcare_professionals.jpeg", "alt": "" }
     }
