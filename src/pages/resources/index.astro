@@ -3,67 +3,34 @@ import Layout from '../../components/layout/Layout.astro';
 import PipeHeading from '../../components/content/PipeHeading.astro';
 import ResourceCard from '../../components/content/ResourceCard.astro';
 
-const categories = [
-  {
-    href: '/resources/articles',
-    title: 'Articles',
-    body: 'Industry insights from the Ophthalytics team on early detection, AI-assisted screening, and the future of preventive eye care.',
-    cta: 'Read articles',
-    image: '/images/resources/articles.webp',
-  },
-  {
-    href: '/resources/newsroom',
-    title: 'Newsroom',
-    body: 'Press releases, company news, conference appearances, and announcements from the Ophthalytics team.',
-    cta: 'Read the latest',
-    image: '/images/resources/newsroom.webp',
-  },
-];
+import { getPage, required, section } from '../../content';
 
-const feed = [
-  {
-    category: 'Article',
-    categoryColor: 'accent',
-    title: 'Bridging the Gap in Eye Care: How AI-Assisted Technology Enables Early Detection & Prevents Blindness',
-    excerpt: 'How AI-assisted retinal screening brings early detection to the front lines of care and helps prevent avoidable blindness.',
-    link: '/resources/articles/bridging-the-gap-eye-care',
-    thumbnail: '/images/articles/bridging-the-gap-cover.webp',
-  },
-  {
-    category: 'Article',
-    categoryColor: 'accent',
-    title: 'How a Small Startup from Atlanta is Saving Billions in U.S. Healthcare Costs and Preventing Blindness With Assistive AI',
-    excerpt: 'The four-month wait that started the company, and how AI-assisted screening changes the economics of early detection.',
-    link: '/resources/articles/atlanta-startup-saving-billions',
-    thumbnail: '/images/articles/atlanta-startup-cover.webp',
-  },
-  {
-    category: 'Journal',
-    categoryColor: 'primary',
-    title: 'A Prospective Study on Diabetic Retinopathy Detection Based on a Modified CNN Using Fundus Images',
-    excerpt: 'Peer-reviewed research documenting the performance of our early deep-learning models on diabetic retinopathy detection.',
-    link: 'https://www.mdpi.com/2075-4418/13/3/393',
-    thumbnail: '/images/articles/mdpi-card.svg',
-  },
-];
+const page = getPage('resources');
+const hero = section(page, 'hero', 'hero');
+const heroImage = required(hero.image, 'resources/hero.image');
+const browse = section(page, 'browse', 'features');
+const featured = section(page, 'featured-research', 'split');
+const featuredImage = required(featured.image, 'resources/featured-research.image');
+const featuredLink = required(featured.link, 'resources/featured-research.link');
+const latest = section(page, 'latest', 'resources');
 ---
 
 <Layout
-  title="Resources — Ophthalytics"
-  description="Ophthalytics resources, news, testimonies, and more."
+  title={page.title}
+  description={page.description}
 >
   <!-- SECTION 1 — HERO -->
   <section class="relative overflow-hidden isolate bg-brand-surface-blue">
     <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
-      <img src="/images/sections/nurse-smiling.jpg" alt="" class="absolute top-0 right-0 h-full" style="width:65%;object-fit:cover;object-position:center;opacity:0.13;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);mask-composite:intersect;" loading="eager" decoding="async" />
+      <img src={heroImage.src} alt={heroImage.alt} class="absolute top-0 right-0 h-full" style="width:65%;object-fit:cover;object-position:center;opacity:0.13;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);mask-composite:intersect;" loading="eager" decoding="async" />
     </div>
     <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28">
-      <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Resources</p>
+      <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">{hero.eyebrow}</p>
       <h1 class="mt-3 text-5xl md:text-6xl font-bold text-brand-ink leading-tight">
-        Resources
+        {hero.heading}
       </h1>
       <p class="mt-6 max-w-2xl text-lg md:text-xl text-brand-body leading-relaxed" data-reveal>
-        Ophthalytics resources, news, testimonies, and more.
+        {hero.body}
       </p>
     </div>
   </section>
@@ -72,13 +39,13 @@ const feed = [
   <section class="bg-white border-b border-brand-line">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-8">
       <div class="flex flex-wrap items-center gap-3" data-reveal-group>
-        <span class="text-sm font-semibold text-brand-muted mr-1">Browse:</span>
-        {categories.map((cat) => (
+        <span class="text-sm font-semibold text-brand-muted mr-1">{browse.heading}</span>
+        {browse.items.map((cat) => (
           <a
             href={cat.href}
             class="inline-flex items-center gap-2 rounded-full border border-brand-line bg-white px-4 py-2 text-sm font-semibold text-brand-ink hover:border-brand-primary hover:text-brand-primary transition-colors"
           >
-            <img src={cat.image} alt="" width="20" height="20" class="w-5 h-5 object-contain" loading="lazy" />
+            <img src={required(cat.image, 'resources/browse.items.image').src} alt={cat.image?.alt} width="20" height="20" class="w-5 h-5 object-contain" loading="lazy" />
             {cat.title}
           </a>
         ))}
@@ -90,37 +57,37 @@ const feed = [
   <section class="bg-brand-surface">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
       <PipeHeading level="h2" size="text-sm uppercase tracking-widest" color="text-brand-primary" data-reveal>
-        FEATURED RESEARCH
+        {' '}{featured.eyebrow}{' '}
       </PipeHeading>
       <div class="mt-8 grid gap-8 md:grid-cols-5 items-center bg-white rounded-2xl border border-brand-line overflow-hidden" data-reveal>
         <div class="md:col-span-2">
           <img
-            src="/resources/journal-cover.png"
-            alt="Journal article cover"
+            src={featuredImage.src}
+            alt={featuredImage.alt}
             class="w-full h-full object-cover aspect-[3/4] md:aspect-auto"
             loading="lazy"
           />
         </div>
         <div class="md:col-span-3 p-6 md:p-10">
           <span class="inline-block rounded-full bg-brand-primary/10 text-brand-primary text-xs uppercase tracking-widest font-semibold px-3 py-1">
-            Journal Article
+            {featured.badge}
           </span>
           <h3 class="mt-4 text-2xl md:text-3xl font-bold text-brand-ink leading-snug">
-            A Prospective Study on Diabetic Retinopathy Detection Based on a Modified Convolutional Neural Network Using Fundus Images at Sindh Institute of Ophthalmology &amp; Visual Sciences
+            {featured.heading}
           </h3>
           <p class="mt-3 text-sm text-brand-muted">
-            Authored by the Ophthalytics team and clinical partners
+            {featured.subheading}
           </p>
-          <p class="mt-4 text-base text-brand-body leading-relaxed">
-            Published peer-reviewed research documenting the performance of our early deep-learning models on diabetic retinopathy detection using standard fundus imaging.
-          </p>
+          {featured.paragraphs.map((p, i) => <Fragment>{i > 0 && ' '}<p class="mt-4 text-base text-brand-body leading-relaxed">
+            {p}
+          </p></Fragment>)}
           <a
-            href="https://www.mdpi.com/2075-4418/13/3/393"
+            href={featuredLink.href}
             target="_blank"
             rel="noopener noreferrer"
             class="mt-6 inline-flex items-center gap-2 text-brand-primary font-semibold hover:gap-3 transition-all"
           >
-            Read the Article
+            {featuredLink.label}
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
               <polyline points="12 5 19 12 12 19"></polyline>
@@ -134,19 +101,19 @@ const feed = [
   <!-- SECTION 4 — LATEST (mixed-content feed) -->
   <section class="bg-white">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
-      <PipeHeading level="h2" data-reveal>Latest from Ophthalytics</PipeHeading>
+      <PipeHeading level="h2" data-reveal>{latest.heading}</PipeHeading>
       <p class="mt-4 max-w-3xl text-lg text-brand-body leading-relaxed" data-reveal>
-        Articles, research, and news from across our work in AI-powered eye care.
+        {latest.intro}
       </p>
       <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-reveal-group>
-        {feed.map((item) => (
+        {latest.cards.map((item) => (
           <ResourceCard
             categoryColor={item.categoryColor}
             category={item.category}
             title={item.title}
             excerpt={item.excerpt}
-            link={item.link}
-            thumbnail={item.thumbnail}
+            link={item.href}
+            thumbnail={item.thumbnail?.src}
           />
         ))}
       </div>

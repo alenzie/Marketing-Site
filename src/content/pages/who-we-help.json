@@ -1,0 +1,170 @@
+{
+  "slug": "who-we-help",
+  "title": "Who We Help — Ophthalytics",
+  "description": "Advancing eye care across every stage of the patient journey.",
+  "sections": [
+    {
+      "type": "hero",
+      "id": "hero",
+      "label": "Hero",
+      "eyebrow": "Who We Help",
+      "heading": "Advancing Eye Care Across Every Stage of the Patient Journey",
+      "image": { "src": "/images/sections/fundus-2.jpeg", "alt": "" }
+    },
+    {
+      "type": "text",
+      "id": "intro",
+      "label": "Intro statement",
+      "paragraphs": [
+        "Ophthalytics supports healthcare providers, researchers, and organizations through AI-powered solutions designed for screening, diagnosis, and clinical research.",
+        "From primary care to optometry to pharmaceutical trials, our products are built to address real-world gaps in detection, decision-making, and patient access."
+      ]
+    },
+    {
+      "type": "fit",
+      "id": "nsight360",
+      "label": "Nsight360",
+      "eyebrow": "Nsight360",
+      "tagline": "For Primary Care, Population Health, and Screening Programs",
+      "heading": "Bringing retinal screening to the frontlines of care",
+      "body": "Nsight360 is designed for healthcare providers who want to deliver accessible, efficient retinal screening at the point of care. By enabling non-specialists to perform eye exams, it expands access and helps close critical care gaps.",
+      "audiencesHeading": "Who it's for",
+      "audiences": [
+        { "label": "Primary Care Physicians", "photo": { "src": "/images/audiences/Primary-Care-Physicians.png", "alt": "Primary care physician" } },
+        { "label": "Endocrinologists & Diabetologists", "photo": { "src": "/images/audiences/Endocrinologists-and-Diabetologists.png", "alt": "Endocrinologist consultation" } },
+        { "label": "Nurses & Care Teams", "photo": { "src": "/images/audiences/Nurses-and-Educators.png", "alt": "Nurses and educators" } },
+        { "label": "Home Health Agencies", "photo": { "src": "/images/audiences/Home-Health-Agencies.png", "alt": "Home health visit" } },
+        { "label": "Community Health Centers", "photo": { "src": "/images/audiences/medical-center-waiting-room.jpeg", "alt": "Community health center waiting room" }, "photoPosition": "0% 30%", "photoZoom": 1.35 },
+        { "label": "Remote & Rural Clinics", "photo": { "src": "/images/audiences/underprivileged.jpeg", "alt": "Field eye examination in an underserved community" }, "photoZoom": 1.5 }
+      ],
+      "benefitsHeading": "How it helps",
+      "benefits": [
+        "Enables retinal screening without requiring an on-site eye specialist",
+        "Expands access to underserved populations",
+        "Supports early detection of diabetic retinopathy",
+        "Improves workflow efficiency and patient throughput",
+        "Helps close care gaps and improve quality measures"
+      ],
+      "closing": "Nsight360 makes it possible to identify at-risk patients earlier—where they already receive care."
+    },
+    {
+      "type": "figure",
+      "id": "compliance-stat",
+      "label": "Compliance stat image",
+      "image": { "src": "/images/sections/95-compliance-rate.png", "alt": "95% compliance rate — diabetic retinopathy screening with Nsight360" }
+    },
+    {
+      "type": "fit",
+      "id": "second-opinion",
+      "label": "2nd Opinion",
+      "eyebrow": "2nd Opinion",
+      "tagline": "For Optometrists and Eye Care Professionals",
+      "heading": "Enhancing confidence in retinal assessments",
+      "body": "2nd Opinion is built for optometrists and eye care providers who want additional support in interpreting retinal images, especially in complex or borderline cases.",
+      "audiencesHeading": "Who it's for",
+      "audiences": [
+        { "label": "Optometrists", "photo": { "src": "/images/audiences/optician-eye-clinic.jpeg", "alt": "Optometrist in an eye clinic" }, "photoZoom": 1.5 },
+        { "label": "Eye Clinics & Optical Chains", "photo": { "src": "/images/audiences/eye-child.jpeg", "alt": "Child receiving an eye exam" }, "photoPosition": "40% center", "photoZoom": 1.6 },
+        { "label": "Ophthalmology Practices", "photo": { "src": "/images/audiences/Ophthalmologists.png", "alt": "Ophthalmologist" } },
+        { "label": "Reading Centers", "photo": { "src": "/images/audiences/fundus.jpeg", "alt": "Retinal fundus image" } }
+      ],
+      "benefitsHeading": "How it helps",
+      "benefits": [
+        "Highlights suspicious regions and potential lesions",
+        "Supports clinical decision-making in uncertain cases",
+        "Reduces variability in retinal interpretation",
+        "Integrates seamlessly into existing workflows"
+      ],
+      "closing": "In everyday practice, not every case is clear-cut. 2nd Opinion provides an added layer of insight—helping clinicians see more and decide with greater confidence."
+    },
+    {
+      "type": "fit",
+      "id": "ophthal360",
+      "label": "Ophthal360",
+      "eyebrow": "Ophthal360",
+      "tagline": "For High-Volume Screening and Autonomous Deployment",
+      "heading": "Autonomous AI for scale and reach",
+      "body": "Ophthal360 is designed for organizations delivering retinal screening at scale—healthcare systems, large screening programs, and partners serving high-volume markets. Currently in active deployment in Asian markets, Ophthal360 enables rapid, consistent detection with minimal manual intervention.",
+      "audiencesHeading": "Who it's for",
+      "audiences": [
+        { "label": "Healthcare Systems", "photo": { "src": "/images/audiences/research2.jpeg", "alt": "Healthcare system clinicians" }, "photoPosition": "85% center", "photoZoom": 1.2 },
+        { "label": "Population Health Programs", "photo": { "src": "/images/audiences/happy-woman-group-leader.jpeg", "alt": "Population health program leader" } },
+        { "label": "Pharmaceutical Companies", "photo": { "src": "/images/audiences/Pharmaceutical-Companies.png", "alt": "Pharmaceutical research" }, "photoZoom": 1.35 },
+        { "label": "Clinical Research Organizations", "photo": { "src": "/images/audiences/american-doctors.jpeg", "alt": "Clinical research team" }, "photoPosition": "45% center", "photoZoom": 1.4 },
+        { "label": "Imaging Centers", "photo": { "src": "/images/audiences/Device-Manufacturers.png", "alt": "Retinal imaging device" } },
+        { "label": "Academic & Research Institutions", "photo": { "src": "/images/audiences/medical-school.jpeg", "alt": "Academic research institution" }, "photoPosition": "center", "photoZoom": 1.4 }
+      ],
+      "benefitsHeading": "How it helps",
+      "benefits": [
+        "Performs retinal analysis and generates screening outputs without manual interpretation",
+        "Optimized for large-scale deployment in clinics, screening programs, and population health initiatives",
+        "Identifies at-risk patients and supports timely referral decisions",
+        "Accelerates recruitment and enrollment timelines for trials",
+        "Supports consistent evaluation across sites and geographies"
+      ],
+      "closing": "Ophthal360 makes it possible to deliver screening coverage at a scale no specialist-dependent model can match."
+    },
+    {
+      "type": "features",
+      "id": "continuum",
+      "label": "Continuum of care",
+      "heading": "From Screening to Diagnosis to Discovery",
+      "intro": "Together, our products support the full continuum of eye care:",
+      "items": [
+        { "eyebrow": "Screening", "title": "Nsight360", "body": "Bring retinal screening to the frontlines of care.", "href": "/solutions/nsight360" },
+        { "eyebrow": "Diagnostic Support", "title": "2nd Opinion", "body": "Enhance clinical confidence in complex cases.", "href": "/solutions/2nd-opinion" },
+        { "eyebrow": "Scale & Discovery", "title": "Ophthal360", "body": "Autonomous screening for high-volume programs.", "href": "/solutions/ophthal360" }
+      ],
+      "closing": "This integrated approach enables earlier detection, better decisions, and faster advancements in eye health."
+    },
+    {
+      "type": "split",
+      "id": "national-impact",
+      "label": "National impact (US)",
+      "eyebrow": "National Impact",
+      "heading": "National Impact",
+      "subheading": "Redefining American Eye Care Through Intelligence",
+      "paragraphs": [
+        "Ophthalytics is advancing the future of preventive eye care across the United States — partnering with health systems, community clinics, and policymakers to bring AI-powered retinal screening to the populations that need it most.",
+        "From Congressional telehealth showcases to federally qualified health centers, our technology is earning recognition as a critical tool in closing the diabetic eye care gap in America."
+      ],
+      "stats": [
+        { "value": "50+", "label": "U.S. clinic<br>partnerships" },
+        { "value": "95%", "label": "Screening<br>compliance" }
+      ],
+      "image": { "src": "/images/sections/capitol-02.png", "alt": "Ophthalytics team at the U.S. House of Representatives showcasing AI-assisted eye screening" }
+    },
+    {
+      "type": "divider",
+      "id": "global-reach",
+      "label": "Global reach divider",
+      "heading": "Our Global Reach"
+    },
+    {
+      "type": "split",
+      "id": "international-impact",
+      "label": "International impact (Pakistan)",
+      "eyebrow": "International Impact",
+      "heading": "International Impact",
+      "subheading": "Transforming Diabetic Care Across Pakistan",
+      "paragraphs": [
+        "Recognizing the crucial need to reach underserved communities, we have forged powerful partnerships to amplify our impact. Through dynamic collaborations with The Diabetes Centre and the Layton Rahmatulla Benevolent Trust, we are bringing our services to rural and marginalized populations in Pakistan.",
+        "By harnessing Nsight360, we are breaking down barriers to access, ensuring that individuals in these communities receive the essential diabetic eye exams they deserve."
+      ],
+      "stats": [
+        { "value": "250K+", "label": "Patients<br>screened" },
+        { "value": "2", "label": "Major clinical<br>partners" }
+      ],
+      "image": { "src": "/images/sections/pakistan-collage.jpg", "alt": "Ophthalytics team with The Diabetes Centre partners in Pakistan" }
+    },
+    {
+      "type": "cta",
+      "id": "final-cta",
+      "label": "Final CTA",
+      "heading": "Find the Right Solution for Your Practice",
+      "body": "Whether you are delivering care, supporting diagnosis, or advancing research, Ophthalytics provides AI-powered tools designed for your needs.",
+      "ctas": [{ "label": "Contact Us", "modal": "contact" }],
+      "image": { "src": "/images/cta/future_tech_eye.jpeg", "alt": "" }
+    }
+  ]
+}

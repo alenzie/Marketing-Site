@@ -3,11 +3,37 @@ import Layout from '../components/layout/Layout.astro';
 import PipeHeading from '../components/content/PipeHeading.astro';
 import AudiencePill from '../components/content/AudiencePill.astro';
 import CtaBand from '../components/content/CtaBand.astro';
+import { getPage, required, section, slots } from '../content';
+
+const page = getPage('who-we-help');
+const hero = section(page, 'hero', 'hero');
+const heroImage = required(hero.image, 'who-we-help/hero.image');
+const intro = section(page, 'intro', 'text');
+const nsight = section(page, 'nsight360', 'fit');
+const compliance = section(page, 'compliance-stat', 'figure');
+const secondOpinion = section(page, 'second-opinion', 'fit');
+const ophthal = section(page, 'ophthal360', 'fit');
+const continuum = section(page, 'continuum', 'features');
+const [stepScreening, stepDiagnosis, stepScale] = slots(continuum.items, 3, 'who-we-help/continuum.items');
+const national = section(page, 'national-impact', 'split');
+const nationalImage = required(national.image, 'who-we-help/national-impact.image');
+const [nationalLead, nationalMore] = slots(national.paragraphs, 2, 'who-we-help/national-impact.paragraphs');
+const globalReach = section(page, 'global-reach', 'divider');
+const international = section(page, 'international-impact', 'split');
+const internationalImage = required(international.image, 'who-we-help/international-impact.image');
+const [internationalLead, internationalMore] = slots(international.paragraphs, 2, 'who-we-help/international-impact.paragraphs');
+const finalCta = section(page, 'final-cta', 'cta');
+const [contactCta] = slots(finalCta.ctas, 1, 'who-we-help/final-cta.ctas');
+// Crop tuning of a "who it's for" photo, as the pill's inline style.
+const pillStyle = (a: { photoPosition?: string; photoZoom?: number }) =>
+  [a.photoPosition && `object-position: ${a.photoPosition};`, a.photoZoom && `transform: scale(${a.photoZoom});`]
+    .filter(Boolean)
+    .join(' ') || undefined;
 ---
 
 <Layout
-  title="Who We Help — Ophthalytics"
-  description="Advancing eye care across every stage of the patient journey."
+  title={page.title}
+  description={page.description}
   currentPath="/who-we-help"
 >
 
@@ -16,8 +42,8 @@ import CtaBand from '../components/content/CtaBand.astro';
     <!-- Change 4: Fundus background wash — bleeds in from the right -->
     <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
       <img
-        src="/images/sections/fundus-2.jpeg"
-        alt=""
+        src={heroImage.src}
+        alt={heroImage.alt}
         class="absolute top-0 right-0 h-full"
         style="width:65%;object-fit:cover;object-position:center;opacity:0.13;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);mask-composite:intersect;"
         loading="eager"
@@ -33,9 +59,9 @@ import CtaBand from '../components/content/CtaBand.astro';
       <rect width="100%" height="100%" fill="url(#wwh-dots)" />
     </svg>
     <div class="relative z-[3] max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-24 md:py-32">
-      <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Who We Help</p>
+      <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">{hero.eyebrow}</p>
       <h1 class="mt-4 text-5xl md:text-6xl font-bold text-brand-ink leading-tight max-w-4xl">
-        Advancing Eye Care Across Every Stage of the Patient Journey
+        {hero.heading}
       </h1>
     </div>
   </section>
@@ -43,12 +69,9 @@ import CtaBand from '../components/content/CtaBand.astro';
   <!-- SECTION 2 — INTRO STATEMENT -->
   <section class="bg-white">
     <div class="max-w-3xl mx-auto px-6 md:px-8 lg:px-12 py-20 text-center space-y-6">
-      <p class="text-lg md:text-xl text-brand-body leading-relaxed" data-reveal>
-        Ophthalytics supports healthcare providers, researchers, and organizations through AI-powered solutions designed for screening, diagnosis, and clinical research.
-      </p>
-      <p class="text-lg md:text-xl text-brand-body leading-relaxed" data-reveal>
-        From primary care to optometry to pharmaceutical trials, our products are built to address real-world gaps in detection, decision-making, and patient access.
-      </p>
+      {intro.paragraphs.map((p, i) => <Fragment>{i > 0 && ' '}<p class="text-lg md:text-xl text-brand-body leading-relaxed" data-reveal>
+        {p}
+      </p></Fragment>)}
     </div>
   </section>
 
@@ -56,41 +79,32 @@ import CtaBand from '../components/content/CtaBand.astro';
   <section class="bg-brand-surface">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-6">
-        <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Nsight360</p>
-        <p class="text-sm text-brand-body italic">For Primary Care, Population Health, and Screening Programs</p>
+        <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">{nsight.eyebrow}</p>
+        <p class="text-sm text-brand-body italic">{nsight.tagline}</p>
       </div>
       <h2 class="text-3xl md:text-4xl font-bold text-brand-ink leading-tight max-w-3xl" data-reveal>
-        Bringing retinal screening to the frontlines of care
+        {nsight.heading}
       </h2>
       <p class="mt-6 max-w-3xl text-lg text-brand-body leading-relaxed" data-reveal>
-        Nsight360 is designed for healthcare providers who want to deliver accessible, efficient retinal screening at the point of care. By enabling non-specialists to perform eye exams, it expands access and helps close critical care gaps.
+        {nsight.body}
       </p>
 
       <div class="mt-10 grid gap-10 md:grid-cols-2">
         <div>
-          <h3 class="text-xl font-semibold text-brand-ink mb-4">Who it's for</h3>
+          <h3 class="text-xl font-semibold text-brand-ink mb-4">{nsight.audiencesHeading}</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <AudiencePill label="Primary Care Physicians" photo="/images/audiences/Primary-Care-Physicians.png" photoAlt="Primary care physician" />
-            <AudiencePill label="Endocrinologists & Diabetologists" photo="/images/audiences/Endocrinologists-and-Diabetologists.png" photoAlt="Endocrinologist consultation" />
-            <AudiencePill label="Nurses & Care Teams" photo="/images/audiences/Nurses-and-Educators.png" photoAlt="Nurses and educators" />
-            <AudiencePill label="Home Health Agencies" photo="/images/audiences/Home-Health-Agencies.png" photoAlt="Home health visit" />
-            <AudiencePill label="Community Health Centers" photo="/images/audiences/medical-center-waiting-room.jpeg" photoAlt="Community health center waiting room" photoStyle="object-position: 0% 30%; transform: scale(1.35);" />
-            <AudiencePill label="Remote & Rural Clinics" photo="/images/audiences/underprivileged.jpeg" photoAlt="Field eye examination in an underserved community" photoStyle="transform: scale(1.5);" />
+            {nsight.audiences.map((a, i) => <Fragment>{i > 0 && ' '}<AudiencePill label={a.label} photo={a.photo.src} photoAlt={a.photo.alt} photoStyle={pillStyle(a)} /></Fragment>)}
           </div>
         </div>
         <div>
-          <h3 class="text-xl font-semibold text-brand-ink mb-4">How it helps</h3>
+          <h3 class="text-xl font-semibold text-brand-ink mb-4">{nsight.benefitsHeading}</h3>
           <ul class="space-y-3 text-base text-brand-body leading-relaxed">
-            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Enables retinal screening without requiring an on-site eye specialist</span></li>
-            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Expands access to underserved populations</span></li>
-            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Supports early detection of diabetic retinopathy</span></li>
-            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Improves workflow efficiency and patient throughput</span></li>
-            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Helps close care gaps and improve quality measures</span></li>
+            {nsight.benefits.map((b, i) => <Fragment>{i > 0 && ' '}<li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>{b}</span></li></Fragment>)}
           </ul>
         </div>
       </div>
       <p class="mt-10 italic text-brand-body max-w-3xl">
-        Nsight360 makes it possible to identify at-risk patients earlier—where they already receive care.
+        {nsight.closing}
       </p>
     </div>
   </section>
@@ -100,8 +114,8 @@ import CtaBand from '../components/content/CtaBand.astro';
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-12 md:py-16">
       <div class="rounded-2xl overflow-hidden border border-brand-line bg-brand-surface-blue/40">
         <img
-          src="/images/sections/95-compliance-rate.png"
-          alt="95% compliance rate — diabetic retinopathy screening with Nsight360"
+          src={compliance.image.src}
+          alt={compliance.image.alt}
           class="w-full h-auto"
           loading="lazy"
         />
@@ -113,38 +127,32 @@ import CtaBand from '../components/content/CtaBand.astro';
   <section class="bg-white">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-6">
-        <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">2nd Opinion</p>
-        <p class="text-sm text-brand-body italic">For Optometrists and Eye Care Professionals</p>
+        <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">{secondOpinion.eyebrow}</p>
+        <p class="text-sm text-brand-body italic">{secondOpinion.tagline}</p>
       </div>
       <h2 class="text-3xl md:text-4xl font-bold text-brand-ink leading-tight max-w-3xl" data-reveal>
-        Enhancing confidence in retinal assessments
+        {secondOpinion.heading}
       </h2>
       <p class="mt-6 max-w-3xl text-lg text-brand-body leading-relaxed" data-reveal>
-        2nd Opinion is built for optometrists and eye care providers who want additional support in interpreting retinal images, especially in complex or borderline cases.
+        {secondOpinion.body}
       </p>
 
       <div class="mt-10 grid gap-10 md:grid-cols-2">
         <div>
-          <h3 class="text-xl font-semibold text-brand-ink mb-4">Who it's for</h3>
+          <h3 class="text-xl font-semibold text-brand-ink mb-4">{secondOpinion.audiencesHeading}</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <AudiencePill label="Optometrists" photo="/images/audiences/optician-eye-clinic.jpeg" photoAlt="Optometrist in an eye clinic" photoStyle="transform: scale(1.5);" />
-            <AudiencePill label="Eye Clinics & Optical Chains" photo="/images/audiences/eye-child.jpeg" photoAlt="Child receiving an eye exam" photoStyle="object-position: 40% center; transform: scale(1.6);" />
-            <AudiencePill label="Ophthalmology Practices" photo="/images/audiences/Ophthalmologists.png" photoAlt="Ophthalmologist" />
-            <AudiencePill label="Reading Centers" photo="/images/audiences/fundus.jpeg" photoAlt="Retinal fundus image" />
+            {secondOpinion.audiences.map((a, i) => <Fragment>{i > 0 && ' '}<AudiencePill label={a.label} photo={a.photo.src} photoAlt={a.photo.alt} photoStyle={pillStyle(a)} /></Fragment>)}
           </div>
         </div>
         <div>
-          <h3 class="text-xl font-semibold text-brand-ink mb-4">How it helps</h3>
+          <h3 class="text-xl font-semibold text-brand-ink mb-4">{secondOpinion.benefitsHeading}</h3>
           <ul class="space-y-3 text-base text-brand-body leading-relaxed">
-            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Highlights suspicious regions and potential lesions</span></li>
-            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Supports clinical decision-making in uncertain cases</span></li>
-            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Reduces variability in retinal interpretation</span></li>
-            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Integrates seamlessly into existing workflows</span></li>
+            {secondOpinion.benefits.map((b, i) => <Fragment>{i > 0 && ' '}<li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>{b}</span></li></Fragment>)}
           </ul>
         </div>
       </div>
       <p class="mt-10 italic text-brand-body max-w-3xl">
-        In everyday practice, not every case is clear-cut. 2nd Opinion provides an added layer of insight—helping clinicians see more and decide with greater confidence.
+        {secondOpinion.closing}
       </p>
     </div>
   </section>
@@ -153,41 +161,32 @@ import CtaBand from '../components/content/CtaBand.astro';
   <section class="bg-brand-surface">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-6">
-        <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Ophthal360</p>
-        <p class="text-sm text-brand-body italic">For High-Volume Screening and Autonomous Deployment</p>
+        <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">{ophthal.eyebrow}</p>
+        <p class="text-sm text-brand-body italic">{ophthal.tagline}</p>
       </div>
       <h2 class="text-3xl md:text-4xl font-bold text-brand-ink leading-tight max-w-3xl" data-reveal>
-        Autonomous AI for scale and reach
+        {ophthal.heading}
       </h2>
       <p class="mt-6 max-w-3xl text-lg text-brand-body leading-relaxed" data-reveal>
-        Ophthal360 is designed for organizations delivering retinal screening at scale—healthcare systems, large screening programs, and partners serving high-volume markets. Currently in active deployment in Asian markets, Ophthal360 enables rapid, consistent detection with minimal manual intervention.
+        {ophthal.body}
       </p>
 
       <div class="mt-10 grid gap-10 md:grid-cols-2">
         <div>
-          <h3 class="text-xl font-semibold text-brand-ink mb-4">Who it's for</h3>
+          <h3 class="text-xl font-semibold text-brand-ink mb-4">{ophthal.audiencesHeading}</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <AudiencePill label="Healthcare Systems" photo="/images/audiences/research2.jpeg" photoAlt="Healthcare system clinicians" photoStyle="object-position: 85% center; transform: scale(1.2);" />
-            <AudiencePill label="Population Health Programs" photo="/images/audiences/happy-woman-group-leader.jpeg" photoAlt="Population health program leader" />
-            <AudiencePill label="Pharmaceutical Companies" photo="/images/audiences/Pharmaceutical-Companies.png" photoAlt="Pharmaceutical research" photoStyle="transform: scale(1.35);" />
-            <AudiencePill label="Clinical Research Organizations" photo="/images/audiences/american-doctors.jpeg" photoAlt="Clinical research team" photoStyle="object-position: 45% center; transform: scale(1.4);" />
-            <AudiencePill label="Imaging Centers" photo="/images/audiences/Device-Manufacturers.png" photoAlt="Retinal imaging device" />
-            <AudiencePill label="Academic & Research Institutions" photo="/images/audiences/medical-school.jpeg" photoAlt="Academic research institution" photoStyle="object-position: center; transform: scale(1.4);" />
+            {ophthal.audiences.map((a, i) => <Fragment>{i > 0 && ' '}<AudiencePill label={a.label} photo={a.photo.src} photoAlt={a.photo.alt} photoStyle={pillStyle(a)} /></Fragment>)}
           </div>
         </div>
         <div>
-          <h3 class="text-xl font-semibold text-brand-ink mb-4">How it helps</h3>
+          <h3 class="text-xl font-semibold text-brand-ink mb-4">{ophthal.benefitsHeading}</h3>
           <ul class="space-y-3 text-base text-brand-body leading-relaxed">
-            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Performs retinal analysis and generates screening outputs without manual interpretation</span></li>
-            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Optimized for large-scale deployment in clinics, screening programs, and population health initiatives</span></li>
-            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Identifies at-risk patients and supports timely referral decisions</span></li>
-            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Accelerates recruitment and enrollment timelines for trials</span></li>
-            <li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>Supports consistent evaluation across sites and geographies</span></li>
+            {ophthal.benefits.map((b, i) => <Fragment>{i > 0 && ' '}<li class="flex gap-3"><span class="text-brand-primary mt-1">•</span><span>{b}</span></li></Fragment>)}
           </ul>
         </div>
       </div>
       <p class="mt-10 italic text-brand-body max-w-3xl">
-        Ophthal360 makes it possible to deliver screening coverage at a scale no specialist-dependent model can match.
+        {ophthal.closing}
       </p>
     </div>
   </section>
@@ -196,44 +195,44 @@ import CtaBand from '../components/content/CtaBand.astro';
   <section class="bg-white">
     <div class="max-w-4xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 text-center">
       <h2 class="text-3xl md:text-4xl font-bold text-brand-ink leading-tight" data-reveal>
-        From Screening to Diagnosis to Discovery
+        {continuum.heading}
       </h2>
       <p class="mt-6 text-lg text-brand-body max-w-3xl mx-auto leading-relaxed" data-reveal>
-        Together, our products support the full continuum of eye care:
+        {continuum.intro}
       </p>
 
       <div class="mt-12 grid gap-8 md:grid-cols-3 relative" data-reveal-group>
         <!-- Step 1 -->
-        <a href="/solutions/nsight360" class="flex flex-col items-center text-center p-4 rounded-xl hover:bg-brand-surface transition-colors group">
+        <a href={stepScreening.href} class="flex flex-col items-center text-center p-4 rounded-xl hover:bg-brand-surface transition-colors group">
           <div class="w-16 h-16 rounded-full bg-brand-surface-blue text-brand-primary flex items-center justify-center group-hover:bg-brand-primary group-hover:text-white transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/><path d="M11 8v6"/></svg>
           </div>
-          <p class="mt-4 text-sm uppercase tracking-widest text-brand-muted font-semibold">Screening</p>
-          <p class="mt-1 text-lg font-bold text-brand-primary">Nsight360</p>
-          <p class="mt-3 text-sm text-brand-body leading-relaxed">Bring retinal screening to the frontlines of care.</p>
+          <p class="mt-4 text-sm uppercase tracking-widest text-brand-muted font-semibold">{stepScreening.eyebrow}</p>
+          <p class="mt-1 text-lg font-bold text-brand-primary">{stepScreening.title}</p>
+          <p class="mt-3 text-sm text-brand-body leading-relaxed">{stepScreening.body}</p>
         </a>
         <!-- Step 2 -->
-        <a href="/solutions/2nd-opinion" class="flex flex-col items-center text-center p-4 rounded-xl hover:bg-brand-surface transition-colors group">
+        <a href={stepDiagnosis.href} class="flex flex-col items-center text-center p-4 rounded-xl hover:bg-brand-surface transition-colors group">
           <div class="w-16 h-16 rounded-full bg-brand-surface-blue text-brand-primary flex items-center justify-center group-hover:bg-brand-primary group-hover:text-white transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           </div>
-          <p class="mt-4 text-sm uppercase tracking-widest text-brand-muted font-semibold">Diagnostic Support</p>
-          <p class="mt-1 text-lg font-bold text-brand-primary">2nd Opinion</p>
-          <p class="mt-3 text-sm text-brand-body leading-relaxed">Enhance clinical confidence in complex cases.</p>
+          <p class="mt-4 text-sm uppercase tracking-widest text-brand-muted font-semibold">{stepDiagnosis.eyebrow}</p>
+          <p class="mt-1 text-lg font-bold text-brand-primary">{stepDiagnosis.title}</p>
+          <p class="mt-3 text-sm text-brand-body leading-relaxed">{stepDiagnosis.body}</p>
         </a>
         <!-- Step 3 -->
-        <a href="/solutions/ophthal360" class="flex flex-col items-center text-center p-4 rounded-xl hover:bg-brand-surface transition-colors group">
+        <a href={stepScale.href} class="flex flex-col items-center text-center p-4 rounded-xl hover:bg-brand-surface transition-colors group">
           <div class="w-16 h-16 rounded-full bg-brand-surface-blue text-brand-primary flex items-center justify-center group-hover:bg-brand-primary group-hover:text-white transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
           </div>
-          <p class="mt-4 text-sm uppercase tracking-widest text-brand-muted font-semibold">Scale & Discovery</p>
-          <p class="mt-1 text-lg font-bold text-brand-primary">Ophthal360</p>
-          <p class="mt-3 text-sm text-brand-body leading-relaxed">Autonomous screening for high-volume programs.</p>
+          <p class="mt-4 text-sm uppercase tracking-widest text-brand-muted font-semibold">{stepScale.eyebrow}</p>
+          <p class="mt-1 text-lg font-bold text-brand-primary">{stepScale.title}</p>
+          <p class="mt-3 text-sm text-brand-body leading-relaxed">{stepScale.body}</p>
         </a>
       </div>
 
       <p class="mt-12 text-lg text-brand-body leading-relaxed">
-        This integrated approach enables earlier detection, better decisions, and faster advancements in eye health.
+        {continuum.closing}
       </p>
     </div>
   </section>
@@ -244,33 +243,29 @@ import CtaBand from '../components/content/CtaBand.astro';
       <!-- US single hero photo (P2: one clean shot instead of the squeezed collage) -->
       <div class="rounded-2xl overflow-hidden shadow-[0_10px_30px_-10px_rgba(15,44,92,0.18)] aspect-[4/3]" data-reveal>
         <img
-          src="/images/sections/capitol-02.png"
-          alt="Ophthalytics team at the U.S. House of Representatives showcasing AI-assisted eye screening"
+          src={nationalImage.src}
+          alt={nationalImage.alt}
           class="w-full h-full object-cover"
           loading="lazy"
         />
       </div>
       <div>
-        <p class="text-xs uppercase tracking-[0.18em] text-brand-primary font-bold mb-1" data-reveal>National Impact</p>
-        <PipeHeading level="h2" data-reveal>National Impact</PipeHeading>
+        <p class="text-xs uppercase tracking-[0.18em] text-brand-primary font-bold mb-1" data-reveal>{national.eyebrow}</p>
+        <PipeHeading level="h2" data-reveal>{national.heading}</PipeHeading>
         <h3 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink leading-tight" data-reveal>
-          Redefining American Eye Care Through Intelligence
+          {national.subheading}
         </h3>
         <p class="mt-6 text-base md:text-lg text-brand-body leading-relaxed" data-reveal>
-          Ophthalytics is advancing the future of preventive eye care across the United States — partnering with health systems, community clinics, and policymakers to bring AI-powered retinal screening to the populations that need it most.
+          {nationalLead}
         </p>
         <p class="mt-4 text-base md:text-lg text-brand-body leading-relaxed" data-reveal>
-          From Congressional telehealth showcases to federally qualified health centers, our technology is earning recognition as a critical tool in closing the diabetic eye care gap in America.
+          {nationalMore}
         </p>
         <div class="mt-8 flex gap-3 flex-wrap" data-reveal>
-          <div class="flex items-center gap-2.5 bg-brand-surface-blue border border-brand-line rounded-full px-4 py-2">
-            <span class="text-xl font-extrabold text-brand-primary">50+</span>
-            <span class="text-xs text-brand-muted font-medium leading-tight">U.S. clinic<br/>partnerships</span>
-          </div>
-          <div class="flex items-center gap-2.5 bg-brand-surface-blue border border-brand-line rounded-full px-4 py-2">
-            <span class="text-xl font-extrabold text-brand-primary">95%</span>
-            <span class="text-xs text-brand-muted font-medium leading-tight">Screening<br/>compliance</span>
-          </div>
+          {(national.stats ?? []).map((stat, i) => <Fragment>{i > 0 && ' '}<div class="flex items-center gap-2.5 bg-brand-surface-blue border border-brand-line rounded-full px-4 py-2">
+            <span class="text-xl font-extrabold text-brand-primary">{stat.value}</span>
+            <span class="text-xs text-brand-muted font-medium leading-tight"><Fragment set:html={stat.label} /></span>
+          </div></Fragment>)}
         </div>
       </div>
     </div>
@@ -281,7 +276,7 @@ import CtaBand from '../components/content/CtaBand.astro';
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-2">
       <div class="flex items-center gap-4">
         <span class="flex-1 h-px bg-brand-line"></span>
-        <span class="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-brand-muted whitespace-nowrap">Our Global Reach</span>
+        <span class="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-brand-muted whitespace-nowrap">{globalReach.heading}</span>
         <span class="flex-1 h-px bg-brand-line"></span>
       </div>
     </div>
@@ -291,32 +286,28 @@ import CtaBand from '../components/content/CtaBand.astro';
   <section class="bg-brand-surface-blue">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 grid gap-12 md:grid-cols-2 items-center">
       <div class="order-2 md:order-1">
-        <p class="text-xs uppercase tracking-[0.18em] text-brand-primary font-bold mb-1" data-reveal>International Impact</p>
-        <PipeHeading level="h2" data-reveal>International Impact</PipeHeading>
+        <p class="text-xs uppercase tracking-[0.18em] text-brand-primary font-bold mb-1" data-reveal>{international.eyebrow}</p>
+        <PipeHeading level="h2" data-reveal>{international.heading}</PipeHeading>
         <h3 class="mt-4 text-3xl md:text-4xl font-bold text-brand-ink leading-tight" data-reveal>
-          Transforming Diabetic Care Across Pakistan
+          {international.subheading}
         </h3>
         <p class="mt-6 text-base md:text-lg text-brand-body leading-relaxed" data-reveal>
-          Recognizing the crucial need to reach underserved communities, we have forged powerful partnerships to amplify our impact. Through dynamic collaborations with The Diabetes Centre and the Layton Rahmatulla Benevolent Trust, we are bringing our services to rural and marginalized populations in Pakistan.
+          {internationalLead}
         </p>
         <p class="mt-4 text-base md:text-lg text-brand-body leading-relaxed" data-reveal>
-          By harnessing Nsight360, we are breaking down barriers to access, ensuring that individuals in these communities receive the essential diabetic eye exams they deserve.
+          {internationalMore}
         </p>
         <div class="mt-8 flex gap-3 flex-wrap" data-reveal>
-          <div class="flex items-center gap-2.5 bg-white border border-brand-line rounded-full px-4 py-2">
-            <span class="text-xl font-extrabold text-brand-primary">250K+</span>
-            <span class="text-xs text-brand-muted font-medium leading-tight">Patients<br/>screened</span>
-          </div>
-          <div class="flex items-center gap-2.5 bg-white border border-brand-line rounded-full px-4 py-2">
-            <span class="text-xl font-extrabold text-brand-primary">2</span>
-            <span class="text-xs text-brand-muted font-medium leading-tight">Major clinical<br/>partners</span>
-          </div>
+          {(international.stats ?? []).map((stat, i) => <Fragment>{i > 0 && ' '}<div class="flex items-center gap-2.5 bg-white border border-brand-line rounded-full px-4 py-2">
+            <span class="text-xl font-extrabold text-brand-primary">{stat.value}</span>
+            <span class="text-xs text-brand-muted font-medium leading-tight"><Fragment set:html={stat.label} /></span>
+          </div></Fragment>)}
         </div>
       </div>
       <div class="order-1 md:order-2 rounded-2xl overflow-hidden shadow-[0_10px_30px_-10px_rgba(15,44,92,0.18)]" data-reveal>
         <img
-          src="/images/sections/pakistan-collage.jpg"
-          alt="Ophthalytics team with The Diabetes Centre partners in Pakistan"
+          src={internationalImage.src}
+          alt={internationalImage.alt}
           class="block w-full h-auto"
           loading="lazy"
         />
@@ -325,21 +316,21 @@ import CtaBand from '../components/content/CtaBand.astro';
   </section>
 
   <!-- SECTION 8 — FINAL CTA -->
-  <CtaBand image="/images/cta/future_tech_eye.jpeg">
+  <CtaBand image={finalCta.image?.src}>
     <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 text-center">
       <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight" data-reveal>
-        Find the Right Solution for Your Practice
+        {finalCta.heading}
       </h2>
       <p class="mt-6 max-w-2xl mx-auto text-lg text-white/90 leading-relaxed" data-reveal>
-        Whether you are delivering care, supporting diagnosis, or advancing research, Ophthalytics provides AI-powered tools designed for your needs.
+        {finalCta.body}
       </p>
       <div class="mt-8" data-reveal>
         <button
           type="button"
-          data-open-modal="contact"
+          data-open-modal={contactCta.modal}
           class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-8 py-3 rounded-md hover:bg-brand-surface transition"
         >
-          Contact Us
+          {contactCta.label}
         </button>
       </div>
     </div>

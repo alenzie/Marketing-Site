@@ -1,0 +1,228 @@
+{
+  "slug": "home",
+  "title": "Ophthalytics — Wellness Through the Eyes™",
+  "description": "AI-Powered Retinal Intelligence for earlier detection and better health.",
+  "sections": [
+    {
+      "type": "hero",
+      "id": "hero",
+      "label": "Hero",
+      "eyebrow": "Ophthalytics — Wellness Through the Eyes™",
+      "heading": "Retinal Intelligence for Earlier Detection and Better Health",
+      "body": "Advancing eye care through AI, oculomics, and multimodal intelligence—transforming the retina into a gateway for early disease detection and broader health insights.",
+      "image": { "src": "/images/sections/dr-tablet-ai-graphics.jpg", "alt": "" },
+      "ctas": [
+        { "label": "Request a Demo", "modal": "demo" },
+        { "label": "Explore Our Solutions", "href": "/solutions" }
+      ],
+      "promo": {
+        "eyebrow": "Thank you for joining us",
+        "title": "Clinical Trials at the Summit · Retina 2026",
+        "date": "",
+        "presentedByPrefix": "Presented by",
+        "presenter": "Awais Bajwa, Founder & CEO",
+        "photo": { "src": "/team/awais-bajwa.jpg", "alt": "Awais Bajwa, Founder & CEO" },
+        "url": "https://www.ctsretina.org/",
+        "linkLabel": "Event Recap",
+        "comingSoonTitle": "Event link coming soon"
+      }
+    },
+    {
+      "type": "partners",
+      "id": "partners",
+      "label": "Trusted partners",
+      "eyebrow": "Trusted by leading clinicians, researchers & health systems",
+      "logos": [
+        { "name": "Cleveland Vision Institute", "tag": "Research partner", "icon": "pulse" },
+        { "name": "Global Eye Foundation", "tag": "Screening network", "logo": { "src": "/images/partners/global-eye-foundation.webp", "alt": "Global Eye Foundation logo" }, "scale": 1.2 },
+        { "name": "ATDC", "tag": "Georgia Tech accelerator", "logo": { "src": "/images/partners/atdc-gt.webp", "alt": "ATDC logo" }, "scale": 1.33 },
+        { "name": "Northridge Health System", "tag": "Enterprise deployment", "icon": "hospital" },
+        { "name": "The Diabetes Centre", "tag": "250K+ patients screened", "logo": { "src": "/images/partners/tdc-logo.svg", "alt": "The Diabetes Centre logo" } },
+        { "name": "LRBT", "tag": "Pakistan's largest eye-care NGO", "logo": { "src": "/images/partners/lrbt-logo.webp", "alt": "LRBT logo" } },
+        { "name": "Prominence Health", "tag": "Health plan partner", "logo": { "src": "/images/partners/prominence-logo.webp", "alt": "Prominence Health logo" } },
+        { "name": "Anthem Blue Cross Blue Shield", "tag": "Wellness screening", "logo": { "src": "/images/partners/anthem-logo.png", "alt": "Anthem Blue Cross Blue Shield logo" }, "scale": 1.33 },
+        { "name": "CTeL", "tag": "Telehealth & e-Health law", "logo": { "src": "/images/partners/ctel-logo.webp", "alt": "CTeL logo" } },
+        { "name": "Medlife", "tag": "Healthcare partner", "icon": "cross" },
+        { "name": "Georgia PC Clinic", "tag": "Primary care partner", "logo": { "src": "/images/partners/georgia-clinic-logo.png", "alt": "Georgia PC Clinic logo" } },
+        { "name": "Primary Ways", "tag": "Healthcare partner", "icon": "clinic" },
+        { "name": "Prestige Medical Group", "tag": "Medical group", "logo": { "src": "/images/partners/prestige-logo.webp", "alt": "Prestige Medical Group logo" } }
+      ]
+    },
+    {
+      "type": "split",
+      "id": "beyond-the-eye",
+      "label": "Beyond the Eye",
+      "heading": "Beyond the Eye: A New Frontier in Detection",
+      "paragraphs": [
+        "The retina is one of the only places in the body where microvascular and neural structures can be observed directly and noninvasively.",
+        "At Ophthalytics, we are advancing the field of oculomics—where retinal imaging extends beyond eye disease to reveal early indicators of systemic health.",
+        "By combining AI with multimodal data, we enable earlier risk detection, deeper clinical insights, and more connected care.",
+        "This is the future of preventive healthcare—starting with the eye."
+      ],
+      "image": { "src": "/images/sections/dr-ai-computer-screen.jpg", "alt": "" }
+    },
+    {
+      "type": "showcase",
+      "id": "flagship",
+      "label": "Flagship (Ocula360 + core strengths)",
+      "eyebrow": "Ophthalytics Inc — Product Portfolio",
+      "tagline": "AI-Powered Retinal Intelligence",
+      "pill": "Wellness Through the Eyes™",
+      "flagship": {
+        "eyebrow": "Flagship Innovation",
+        "heading": "Ocula360",
+        "subheading": "Foundational Retinal AI",
+        "paragraphs": [
+          "Ocula360 is our flagship AI engine designed to detect multiple retinal diseases from a single image. Built on a foundational model architecture, it enables scalable screening, advanced DRSS scoring, and future-ready multimodal applications.",
+          "From clinical workflows to research environments, Ocula360 transforms retinal imaging into actionable diagnostic intelligence."
+        ],
+        "link": { "label": "Learn more about Ocula360", "href": "/solutions/ocula360" }
+      },
+      "highlight": {
+        "eyebrow": "Core Strengths",
+        "heading": "From one retinal image to scalable diagnostic intelligence.",
+        "body": "Multi-disease detection, explainable AI outputs, DR severity support, and flexible deployment models for providers, payers, eye care, and global screening markets."
+      },
+      "tiles": [
+        { "title": "Multi-Disease Detection", "body": "Detects diabetic retinopathy, AMD, glaucoma indicators, and vascular abnormalities." },
+        { "title": "DRSS Scoring", "body": "Objective, quantitative DRSS severity grading to support disease staging and patient stratification." },
+        { "title": "Explainable & Multimodal", "body": "Lesion-level visualization, confidence outputs, and compatibility with imaging and patient context." }
+      ]
+    },
+    {
+      "type": "products",
+      "id": "products",
+      "label": "Product ecosystem",
+      "heading": "One Company. Four Retinal AI Solutions.",
+      "intro": "Purpose-built solutions for every point of care.",
+      "cards": [
+        {
+          "title": "Ocula360",
+          "subtitle": "Foundational Retinal AI Engine",
+          "body": "The platform behind every Ophthalytics solution. Built on a foundational model architecture, Ocula360 detects multiple retinal diseases from a single image and powers DRSS scoring, explainable outputs, and future-ready multimodal applications.",
+          "bullets": ["Multi-disease detection", "DRSS severity grading", "Explainable & multimodal outputs"],
+          "image": { "src": "/images/products/ocula360_product_shot_2.jpg", "alt": "Ocula360 Multimodal AI Retinal Platform shown on a clinical workstation display" },
+          "badge": "Flagship",
+          "link": { "label": "Learn more", "href": "/solutions/ocula360" }
+        },
+        {
+          "title": "Nsight360",
+          "subtitle": "AI-Assisted Retinal Screening for Primary Care",
+          "body": "Brings retinal screening directly into primary care settings, enabling non-specialists to capture retinal images and receive AI-assisted reports with expert review—closing care gaps and identifying at-risk patients before vision loss occurs.",
+          "bullets": ["Primary care integration", "Human + AI workflow", "Scalable screening programs"],
+          "image": { "src": "/images/products/nsight360-product.png", "alt": "Nsight360 AI Visualization Lab — multi-overlay retinal analysis dashboard on a desktop monitor" },
+          "link": { "label": "Learn more", "href": "/solutions/nsight360" }
+        },
+        {
+          "title": "2nd Opinion",
+          "subtitle": "AI-Enhanced Diagnostic Support for Optometry",
+          "body": "Built for optometrists and eye care professionals seeking greater confidence in retinal assessments. Provides AI-supported analysis that highlights subtle findings and reduces diagnostic uncertainty without disrupting existing practice workflows.",
+          "bullets": ["Lesion-level visualization", "Decision support", "Workflow integration"],
+          "image": { "src": "/images/products/2nd-opinion-mockup_2.jpg", "alt": "2nd Opinion AI Diagnostic Support — ultra-widefield scan with 7-field overlay" },
+          "link": { "label": "Learn more", "href": "/solutions/2nd-opinion" }
+        },
+        {
+          "title": "Ophthal360",
+          "subtitle": "Autonomous AI for Scalable Retinal Screening",
+          "body": "Designed for high-volume retinal screening across healthcare systems and large-scale programs. Standardizes screening processes and supports timely referral decisions with minimal manual intervention—built for reach in underserved and resource-limited settings.",
+          "bullets": ["Autonomous detection", "High-throughput screening", "Automated referral logic"],
+          "image": { "src": "/images/products/ophthal360-mockup.jpeg", "alt": "Ophthal360 autonomous screening dashboard — multi-patient retinal triage and referral overview" },
+          "link": { "label": "Learn more", "href": "/solutions/ophthal360" }
+        }
+      ],
+      "footnotes": ["Atlanta, Georgia, USA", "Retinal Intelligence for Earlier Detection and Better Health"]
+    },
+    {
+      "type": "audiences",
+      "id": "who-we-help",
+      "label": "Who We Help",
+      "heading": "Who We Help",
+      "intro": "Supporting providers, systems, and researchers across the care continuum.",
+      "cards": [
+        {
+          "title": "Primary Care Providers & Health Systems",
+          "body": "Bring retinal screening directly into primary care—enabling earlier detection without specialist dependency.",
+          "image": { "src": "/images/audiences/primary-care-physicians.webp", "alt": "" }
+        },
+        {
+          "title": "Optometrists & Eye Care Professionals",
+          "body": "Enhance diagnostic confidence with AI-supported interpretation and better visibility into subtle retinal findings.",
+          "image": { "src": "/images/audiences/optometrists.webp", "alt": "" }
+        },
+        {
+          "title": "Insurance Providers & Population Health Programs",
+          "body": "Close care gaps, improve screening rates, and support value-based care initiatives.",
+          "image": { "src": "/images/audiences/insurance-population-health.webp", "alt": "" }
+        },
+        {
+          "title": "Pharmaceutical & Clinical Research Organizations",
+          "body": "Accelerate patient identification and clinical trial recruitment with advanced retinal intelligence.",
+          "image": { "src": "/images/audiences/pharmaceutical.webp", "alt": "" }
+        }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "id": "testimonial",
+      "label": "Proven impact (testimonial)",
+      "heading": "Proven Impact in Real-World Care",
+      "body": "Our solutions are used by healthcare providers globally to expand access to screening, improve early detection, and prevent vision loss.",
+      "quote": "Using Nsight360, we've screened over 250,000 patients and helped prevent thousands of cases of blindness.",
+      "author": "The Diabetic Center, Pakistan",
+      "image": { "src": "/images/cta/healthcare_professionals.jpeg", "alt": "" }
+    },
+    {
+      "type": "resources",
+      "id": "insights",
+      "label": "Insights & Innovations",
+      "heading": "Insights & Innovations",
+      "intro": "Stay informed on the latest in AI, eye care, and early detection.",
+      "cards": [
+        {
+          "category": "Article",
+          "categoryColor": "accent",
+          "title": "Bridging the Gap in Eye Care: How AI-Assisted Technology Enables Early Detection & Prevents Blindness",
+          "excerpt": "How AI-assisted retinal screening brings early detection to the front lines of care and helps prevent avoidable blindness.",
+          "href": "/resources/articles/bridging-the-gap-eye-care",
+          "thumbnail": { "src": "/images/articles/bridging-the-gap-cover.webp", "alt": "" }
+        },
+        {
+          "category": "Article",
+          "categoryColor": "secondary",
+          "title": "How a Small Startup from Atlanta is Saving Billions in U.S. Healthcare Costs and Preventing Blindness With Assistive AI",
+          "excerpt": "The four-month wait that started the company, and how AI-assisted screening changes the economics of early detection.",
+          "href": "/resources/articles/atlanta-startup-saving-billions",
+          "thumbnail": { "src": "/images/articles/atlanta-startup-cover.webp", "alt": "" }
+        },
+        {
+          "category": "Journal",
+          "categoryColor": "primary",
+          "title": "A Prospective Study on Diabetic Retinopathy Detection Based on a Modified CNN Using Fundus Images",
+          "excerpt": "Peer-reviewed research documenting the performance of our early deep-learning models on diabetic retinopathy detection.",
+          "href": "https://www.mdpi.com/2075-4418/13/3/393",
+          "thumbnail": { "src": "/images/articles/mdpi-card.svg", "alt": "" }
+        }
+      ],
+      "link": { "label": "View All Resources", "href": "/resources" }
+    },
+    {
+      "type": "text",
+      "id": "closing",
+      "label": "Closing statement",
+      "heading": "From Eye Exams to Better Outcomes",
+      "paragraphs": [
+        "Ophthalytics is building a connected ecosystem of retinal AI solutions—designed to improve early detection, expand access to care, and unlock deeper health insights.",
+        "Because the future of healthcare starts with seeing risk earlier."
+      ]
+    },
+    {
+      "type": "cta",
+      "id": "final-cta",
+      "label": "Final CTA",
+      "heading": "Transform Early Detection with Retinal AI",
+      "ctas": [{ "label": "Contact Us", "modal": "contact" }],
+      "note": "For inquiries, connect with us on <a href=\"https://www.linkedin.com/company/360idx/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline hover:text-white\">LinkedIn</a> or reach out at <a href=\"tel:+18622226880\" class=\"underline hover:text-white\">+1 862 222 6880</a> | <a href=\"mailto:info@ophthalytics.com\" class=\"underline hover:text-white\">info@ophthalytics.com</a>",
+      "image": { "src": "/images/cta/zoom_on_retina_huge.jpeg", "alt": "" }
+    }
+  ]
+}

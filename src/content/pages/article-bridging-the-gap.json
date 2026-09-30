@@ -1,0 +1,218 @@
+{
+  "slug": "article-bridging-the-gap",
+  "title": "Bridging the Gap in Eye Care: How AI-Assisted Technology Enables Early Detection & Prevents Blindness — Ophthalytics",
+  "description": "Ophthalytics CEO Awais Bajwa on the U.S. eye care specialist shortage, the rising burden of diabetic retinopathy, and how AI-assisted retinal screening is bringing early detection into primary care.",
+  "sections": [
+    {
+      "type": "hero",
+      "id": "hero",
+      "label": "Hero",
+      "breadcrumb": "Bridging the Gap in Eye Care",
+      "eyebrow": "Industry Insight",
+      "heading": "Bridging the Gap in Eye Care: How AI-Assisted Technology Enables Early Detection & Prevents Blindness"
+    },
+    {
+      "type": "article",
+      "id": "article",
+      "label": "Article",
+      "author": "Awais Bajwa",
+      "authorRole": "Founder & CEO, Ophthalytics",
+      "date": "March 18, 2025",
+      "cover": {
+        "src": "/images/articles/bridging-the-gap-cover.webp",
+        "alt": "A clinician screens a patient with a handheld retinal camera"
+      },
+      "lead": "Every year, thousands of people in the U.S. lose their sight to preventable eye diseases—diabetic retinopathy chief among them. The bottleneck isn't medicine. It's access.",
+      "body": [
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "The U.S. Eye Care Crisis"
+        },
+        {
+          "type": "paragraph",
+          "text": "In 2021, an estimated <strong>9.6 million Americans</strong> had diabetic retinopathy (DR), with <strong>1.84 million at risk of vision loss</strong>. The problem isn't a lack of treatment options—it's a shortage of specialists and screening programs. Detection comes too late."
+        },
+        {
+          "type": "paragraph",
+          "text": "While the number of ophthalmologists in the U.S. has remained roughly flat since 1990, the population over age 65 is projected to grow <strong>42% by 2030</strong> and <strong>83% by 2050</strong>. The gap is widening every year, and the consequences are concrete:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Longer wait times for eye exams",
+            "Delayed diagnoses of retinal diseases",
+            "Preventable blindness due to lack of early detection"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "What if primary care physicians, clinics, and pharmacies could conduct retinal screening exams—without being eye specialists?"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Nsight360: AI-Assisted Eye Care, Bridging the Gap"
+        },
+        {
+          "type": "paragraph",
+          "text": "Nsight360 is an AI-assisted retinal screening solution that empowers PCPs, clinics, and pharmacies to detect diabetic retinopathy and other retinal diseases—quickly and accurately. By bringing in-office retinal screening to primary healthcare providers, Nsight360 helps:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Expand access to screenings, especially in underserved and rural areas",
+            "Improve early detection rates, leading to timely interventions and better patient outcomes",
+            "Boost practice revenue with reimbursable retinal screenings"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "By combining advanced artificial intelligence with licensed eye specialists, Nsight360 helps healthcare providers deliver faster, more accurate diagnoses—reducing preventable blindness in the process."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "What Makes Nsight360 Different"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "1. Reliable image-quality check"
+        },
+        {
+          "type": "paragraph",
+          "text": "Many AI screening tools analyze every image, regardless of quality—often producing false negatives (missed disease) or false positives (unnecessary referrals). Nsight360's built-in quality check ensures only clear, well-captured images are analyzed, significantly reducing retests, inconclusive results, and unnecessary patient recalls. A blurry or off-center image triggers a re-scan prompt before analysis—not after."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "2. AI + human expertise for nuanced detection"
+        },
+        {
+          "type": "paragraph",
+          "text": "Autonomous AI models typically deliver a binary answer: DR or no DR. That's a major limitation, because not all cases are equal. Nsight360's hybrid approach classifies cases as <strong>mild, moderate, or severe</strong>—the granularity that drives appropriate care. A mild finding may only need lifestyle changes and monitoring; a severe finding may require urgent referral for laser treatment or injections."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "3. Detects 8+ retinal diseases—beyond diabetic retinopathy"
+        },
+        {
+          "type": "paragraph",
+          "text": "Most AI tools focus only on DR. Nsight360 detects a wider range of retinal conditions, including:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "<strong>Glaucoma</strong> — a leading cause of irreversible blindness",
+            "<strong>Cataracts</strong> — clouding of the lens",
+            "<strong>Hypertensive retinopathy</strong> — linked to high blood pressure and stroke risk",
+            "<strong>Retinal vein occlusion (RVO)</strong> — a serious vision-loss condition",
+            "<strong>Macular edema</strong> — common in diabetes patients",
+            "<strong>Age-related macular degeneration (AMD)</strong> — affects central vision",
+            "<strong>Epiretinal membrane</strong> — scar tissue that can distort vision",
+            "<strong>Macular hole</strong> — a small break in the macula"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "4. Camera-agnostic with EHR integration"
+        },
+        {
+          "type": "paragraph",
+          "text": "Unlike AI solutions that require specific, expensive cameras, Nsight360 works with any retinal imaging system—handheld and tabletop cameras alike. It integrates into existing Electronic Health Records workflows, so physicians don't have to change their infrastructure, patient data flows automatically, and documentation and billing stay streamlined."
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "text": "5. Fast turnaround—as fast as 45 minutes"
+        },
+        {
+          "type": "paragraph",
+          "text": "Most AI screening tools provide instant results, but accuracy can suffer without specialist review. Nsight360 ensures both speed and reliability: AI-assisted results in as fast as 45 minutes, verified by board-certified eye specialists. A patient can complete a retinal screening at their primary care visit and receive an AI-assisted diagnosis before they leave—no specialist appointment, no waiting weeks."
+        },
+        {
+          "type": "quote",
+          "text": "AI isn't replacing specialists—it's empowering healthcare providers."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "Financial & Clinical Benefits"
+        },
+        {
+          "type": "paragraph",
+          "text": "Nsight360 is built so that screenings are billable and reimbursable. That means measurable benefits for healthcare providers:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Improved HEDIS scores",
+            "Risk-adjustment payments",
+            "Improved profitability for practices"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "By reducing the burden on ophthalmologists and enabling primary care to detect retinal disease early, Nsight360 aligns with value-based care models—better outcomes at lower cost."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "The Future Is AI-Assisted"
+        },
+        {
+          "type": "paragraph",
+          "text": "Preventable blindness starts with missed early signs. Pairing AI precision with specialist oversight makes early detection faster, more accessible, and more reliable than it has ever been. The result:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "<strong>Improved access</strong> — non-specialists can perform retinal screening in primary care and remote settings",
+            "<strong>Faster diagnoses</strong> — turnaround time drops from weeks to under an hour",
+            "<strong>Better outcomes</strong> — fewer complications, lower healthcare costs, less avoidable vision loss",
+            "<strong>Cost-effective</strong> — specialist visits reserved for cases that need them"
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "We're not just addressing today's eye care crisis—we're shaping how ophthalmology gets delivered in the next decade."
+        },
+        {
+          "type": "paragraph",
+          "text": "Join us in making early detection the standard. No one should lose sight of a preventable disease."
+        }
+      ],
+      "source": {
+        "text": "Originally published by Awais Bajwa on LinkedIn —",
+        "link": {
+          "label": "read the original article",
+          "href": "https://www.linkedin.com/pulse/bridging-gap-eye-care-how-ai-assisted-technology-enables-early-kai8c"
+        }
+      }
+    },
+    {
+      "type": "cta",
+      "id": "cta",
+      "label": "Closing CTA",
+      "heading": "Ready to bring AI-assisted retinal screening to your practice?",
+      "body": "See how Nsight360 detects 8+ retinal conditions, fits into your existing workflow, and supports better outcomes for your patients.",
+      "ctas": [
+        {
+          "label": "Contact Us",
+          "modal": "contact"
+        },
+        {
+          "label": "Learn about Nsight360",
+          "href": "/solutions/nsight360"
+        }
+      ],
+      "image": {
+        "src": "/images/cta/underprivaliged.jpeg",
+        "alt": ""
+      }
+    }
+  ]
+}

@@ -2,60 +2,39 @@
 import Layout from '../../components/layout/Layout.astro';
 import ProductCard from '../../components/content/ProductCard.astro';
 import CtaBand from '../../components/content/CtaBand.astro';
+import { getPage, required, section, slots } from '../../content';
 
-const products = [
-  {
-    slug: 'nsight360',
-    eyebrow: 'HUMAN + AI',
-    name: 'Nsight360',
-    tagline: 'AI-assisted retinal screening for primary care, health systems, and insurance providers.',
-    capabilities: [
-      'Primary care integration',
-      'Human + AI workflow',
-      'Scalable screening programs',
-    ],
-  },
-  {
-    slug: '2nd-opinion',
-    eyebrow: 'EYE CARE MARKET',
-    name: '2nd Opinion',
-    tagline: 'AI-enhanced diagnostic support for optometrists and eye care professionals.',
-    capabilities: [
-      'Lesion visualization',
-      'Diagnostic confidence',
-      'Workflow integration',
-    ],
-  },
-  {
-    slug: 'ophthal360',
-    eyebrow: 'AUTONOMOUS AI',
-    name: 'Ophthal360',
-    tagline: 'Autonomous retinal diagnostics for high-volume screening programs and global markets.',
-    capabilities: [
-      'Autonomous detection',
-      'High-throughput screening',
-      'Automated referral logic',
-    ],
-  },
-];
+const page = getPage('solutions');
+const hero = section(page, 'hero', 'hero');
+const heroImage = required(hero.image, 'solutions/hero.image');
+const flagship = section(page, 'flagship', 'split');
+const flagshipImage = required(flagship.image, 'solutions/flagship.image');
+const flagshipLink = required(flagship.link, 'solutions/flagship.link');
+const products = section(page, 'products', 'features');
+const platformStats = section(page, 'platform-stats', 'stats');
+const platformStatsImage = required(platformStats.image, 'solutions/platform-stats.image');
+const platform = section(page, 'platform', 'features');
+const [foundation, nsight, secondOpinion, ophthal] = slots(platform.items, 4, 'solutions/platform.items');
+const finalCta = section(page, 'final-cta', 'cta');
+const [contactCta] = slots(finalCta.ctas, 1, 'solutions/final-cta.ctas');
 ---
 
 <Layout
-  title="Solutions — Ophthalytics"
-  description="Four retinal AI solutions, one foundational platform. Ophthalytics builds AI that turns retinal images into actionable diagnostic intelligence."
+  title={page.title}
+  description={page.description}
 >
   <!-- SECTION 1 — HERO -->
   <section class="relative overflow-hidden isolate bg-brand-surface-blue">
     <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
-      <img src="/images/sections/eye-scan-banner.jpg" alt="" class="absolute top-0 right-0 h-full" style="width:65%;object-fit:cover;object-position:center;opacity:0.13;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);mask-composite:intersect;" loading="eager" decoding="async" />
+      <img src={heroImage.src} alt={heroImage.alt} class="absolute top-0 right-0 h-full" style="width:65%;object-fit:cover;object-position:center;opacity:0.13;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);mask-composite:intersect;" loading="eager" decoding="async" />
     </div>
     <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28">
-      <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">Our Solutions</p>
+      <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">{hero.eyebrow}</p>
       <h1 class="mt-3 text-5xl md:text-6xl font-bold text-brand-ink leading-tight max-w-4xl">
-        Four Retinal AI Solutions.<br/>One Foundational Platform.
+        {hero.heading}<br/>{hero.headingLine2}
       </h1>
       <p class="mt-6 max-w-3xl text-lg md:text-xl text-brand-body leading-relaxed" data-reveal>
-        Ophthalytics builds AI that turns a retinal image into actionable diagnostic intelligence—purpose-built for every point in the care continuum, from primary care screening to clinical research.
+        {hero.body}
       </p>
     </div>
   </section>
@@ -66,31 +45,29 @@ const products = [
       <div class="grid gap-0 md:grid-cols-2 rounded-2xl overflow-hidden border border-brand-line">
         <div class="relative bg-gradient-to-br from-[#0F2C5C] via-[#123F6E] to-[#0F6F7D] flex items-center justify-center min-h-[380px] overflow-hidden">
           <img
-            src="/images/products/ocula360_product_shot_2.jpg"
-            alt="Ocula360 Multimodal AI Retinal Platform shown on a clinical workstation display"
+            src={flagshipImage.src}
+            alt={flagshipImage.alt}
             class="absolute inset-0 w-full h-full object-cover"
             loading="lazy"
           />
         </div>
         <div class="p-10 md:p-12 flex flex-col justify-center">
           <span class="inline-block self-start rounded-full bg-brand-primary/10 text-brand-primary text-xs font-semibold uppercase tracking-widest px-3 py-1">
-            Flagship
+            {flagship.badge}
           </span>
-          <h2 class="mt-5 text-4xl md:text-5xl font-bold text-brand-ink">Ocula360</h2>
-          <p class="mt-2 text-2xl text-brand-primary leading-tight">Foundational Retinal AI</p>
-          <p class="mt-5 text-base text-brand-body leading-relaxed">
-            Our flagship AI engine, built on a foundational model architecture to detect multiple retinal diseases from a single image. Ocula360 powers scalable screening, advanced DRSS scoring, and future-ready multimodal applications across clinical care and research.
-          </p>
+          <h2 class="mt-5 text-4xl md:text-5xl font-bold text-brand-ink">{flagship.heading}</h2>
+          <p class="mt-2 text-2xl text-brand-primary leading-tight">{flagship.subheading}</p>
+          {flagship.paragraphs.map((p, i) => <Fragment>{i > 0 && ' '}<p class="mt-5 text-base text-brand-body leading-relaxed">
+            {p}
+          </p></Fragment>)}
           <ul class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-brand-ink">
-            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand-primary"></span>Multi-Disease Detection</li>
-            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand-primary"></span>DRSS Scoring</li>
-            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand-primary"></span>Explainable &amp; Multimodal</li>
+            {(flagship.bullets ?? []).map((b, i) => <Fragment>{i > 0 && ' '}<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand-primary"></span>{b}</li></Fragment>)}
           </ul>
           <a
-            href="/solutions/ocula360"
+            href={flagshipLink.href}
             class="mt-7 inline-flex items-center gap-2 text-brand-primary font-semibold hover:gap-3 transition-all"
           >
-            Learn more about Ocula360
+            {flagshipLink.label}
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
               <polyline points="12 5 19 12 12 19"></polyline>
@@ -105,23 +82,23 @@ const products = [
   <section class="bg-brand-surface">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20">
       <div class="text-center max-w-3xl mx-auto">
-        <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold" data-reveal>Purpose-Built Solutions</p>
-        <h2 class="mt-3 text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>Tailored for Every Point of Care</h2>
+        <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold" data-reveal>{products.eyebrow}</p>
+        <h2 class="mt-3 text-3xl md:text-4xl font-bold text-brand-ink" data-reveal>{products.heading}</h2>
         <p class="mt-4 text-lg text-brand-body leading-relaxed" data-reveal>
-          Each solution extends Ocula360's foundational intelligence into a specific care environment.
+          {products.intro}
         </p>
       </div>
       <div class="mt-12 grid gap-6 md:grid-cols-3" data-reveal-group>
-        {products.map((p) => (
-          <a href={`/solutions/${p.slug}`} class="group transition-transform hover:-translate-y-1">
+        {products.items.map((p) => (
+          <a href={p.href} class="group transition-transform hover:-translate-y-1">
             <ProductCard
-              eyebrow={p.eyebrow}
-              name={p.name}
-              tagline={p.tagline}
-              capabilities={p.capabilities}
+              eyebrow={p.eyebrow ?? ''}
+              name={p.title}
+              tagline={p.body ?? ''}
+              capabilities={p.bullets ?? []}
             />
             <span class="mt-4 inline-flex items-center gap-1 text-brand-primary font-semibold">
-              Learn more <span class="transition-transform group-hover:translate-x-1">→</span>
+              {products.linkLabel} <span class="transition-transform group-hover:translate-x-1">→</span>
             </span>
           </a>
         ))}
@@ -134,8 +111,8 @@ const products = [
     <div class="am-band">
       <img
         class="am-bg"
-        src="/images/sections/ai-montage-with-dr-on-pad-LIGHTER-scaled.jpg"
-        alt=""
+        src={platformStatsImage.src}
+        alt={platformStatsImage.alt}
         aria-hidden="true"
         style="filter: grayscale(0.7) contrast(1.05);"
       />
@@ -144,21 +121,13 @@ const products = [
       <div class="absolute inset-x-0 top-0 h-40 pointer-events-none" style="background: linear-gradient(to bottom, #ffffff 0%, rgba(255,255,255,0.92) 18%, rgba(255,255,255,0.7) 38%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0.15) 80%, rgba(255,255,255,0) 100%);"></div>
       <div class="absolute inset-x-0 bottom-0 h-40 pointer-events-none" style="background: linear-gradient(to top, #ffffff 0%, rgba(255,255,255,0.92) 18%, rgba(255,255,255,0.7) 38%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0.15) 80%, rgba(255,255,255,0) 100%);"></div>
       <div class="am-content">
-        <p class="am-eyebrow" style="color:#27AAE1;">Built on Ocula360</p>
-        <p class="am-quote" style="color:#fff;">One foundation. Four purpose-built deployments.</p>
+        <p class="am-eyebrow" style="color:#27AAE1;">{platformStats.eyebrow}</p>
+        <p class="am-quote" style="color:#fff;">{platformStats.heading}</p>
         <div class="mt-7 grid grid-cols-3 gap-8 md:gap-12 text-center">
-          <div>
-            <p class="text-2xl md:text-3xl font-bold text-white">4+</p>
-            <p class="text-xs uppercase tracking-wider text-white/70 mt-1">Diseases detected</p>
-          </div>
-          <div>
-            <p class="text-2xl md:text-3xl font-bold text-white">250K+</p>
-            <p class="text-xs uppercase tracking-wider text-white/70 mt-1">Patients screened</p>
-          </div>
-          <div>
-            <p class="text-2xl md:text-3xl font-bold text-white">&lt;2s</p>
-            <p class="text-xs uppercase tracking-wider text-white/70 mt-1">Per-image inference</p>
-          </div>
+          {platformStats.stats.map((stat, i) => <Fragment>{i > 0 && ' '}<div>
+            <p class="text-2xl md:text-3xl font-bold text-white">{stat.value}</p>
+            <p class="text-xs uppercase tracking-wider text-white/70 mt-1"><Fragment set:html={stat.label} /></p>
+          </div></Fragment>)}
         </div>
       </div>
     </div>
@@ -181,10 +150,10 @@ const products = [
   <section class="relative bg-white overflow-hidden">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
       <div class="text-center max-w-3xl mx-auto">
-        <span class="inline-block text-xs uppercase tracking-[0.2em] font-bold text-brand-secondary">The Platform</span>
-        <h2 class="mt-4 text-3xl md:text-5xl font-bold text-brand-ink tracking-tight" data-reveal>One Platform. Four Deployments.</h2>
+        <span class="inline-block text-xs uppercase tracking-[0.2em] font-bold text-brand-secondary">{platform.eyebrow}</span>
+        <h2 class="mt-4 text-3xl md:text-5xl font-bold text-brand-ink tracking-tight" data-reveal>{platform.heading}</h2>
         <p class="mt-5 text-lg text-brand-body leading-relaxed" data-reveal>
-          Ocula360 is the foundation. Nsight360, 2nd Opinion, and Ophthal360 are purpose-built deployments of that foundation — each tuned for the workflows, decision points, and volume of a specific care setting.
+          {platform.intro}
         </p>
       </div>
 
@@ -225,12 +194,12 @@ const products = [
 
             <div class="absolute z-10" style="left:50%; top:50%; transform: translate(-50%,-50%);">
               <div class="opfdA-layer" data-depth="0">
-                <a href="/solutions/ocula360" class="opfdA-foundation group block relative outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
+                <a href={foundation.href} class="opfdA-foundation group block relative outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
                   <div class="absolute inset-0 rounded-full bg-brand-secondary/40 blur-2xl scale-125 transition-all duration-300 group-hover:bg-brand-secondary/60 group-hover:scale-[1.4]"></div>
                   <div class="relative w-40 h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-br from-brand-primary-dark via-brand-primary to-[#2B4FB8] shadow-2xl shadow-brand-primary/40 flex flex-col items-center justify-center text-white border border-white/20 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_25px_60px_-15px_rgba(39,170,225,0.6)] group-hover:border-brand-secondary/60">
-                    <span class="text-[10px] uppercase tracking-[0.18em] font-semibold text-brand-secondary">Foundation</span>
-                    <span class="mt-1 text-2xl md:text-3xl font-bold">Ocula360</span>
-                    <span class="mt-1 text-xs text-white/70">Retinal AI Platform</span>
+                    <span class="text-[10px] uppercase tracking-[0.18em] font-semibold text-brand-secondary">{foundation.eyebrow}</span>
+                    <span class="mt-1 text-2xl md:text-3xl font-bold">{foundation.title}</span>
+                    <span class="mt-1 text-xs text-white/70">{foundation.body}</span>
                   </div>
                 </a>
               </div>
@@ -238,10 +207,10 @@ const products = [
 
             <div class="absolute z-20" style="left:50%; top:10%; transform: translate(-50%,-50%);">
               <div class="opfdA-layer" data-depth="0">
-                <a href="/solutions/nsight360" class="group block outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
+                <a href={nsight.href} class="group block outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
                   <div class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-white border-2 border-brand-primary/15 shadow-lg shadow-brand-primary/10 flex flex-col items-center justify-center text-center px-3 transition-all hover:border-brand-secondary hover:shadow-xl hover:-translate-y-1">
-                    <span class="text-sm md:text-base font-bold text-brand-ink">Nsight360</span>
-                    <span class="mt-1 text-[10px] uppercase tracking-wider font-semibold text-brand-secondary">Primary care</span>
+                    <span class="text-sm md:text-base font-bold text-brand-ink">{nsight.title}</span>
+                    <span class="mt-1 text-[10px] uppercase tracking-wider font-semibold text-brand-secondary">{nsight.body}</span>
                   </div>
                 </a>
               </div>
@@ -249,10 +218,10 @@ const products = [
 
             <div class="absolute z-20" style="left:15%; top:85%; transform: translate(-50%,-50%);">
               <div class="opfdA-layer" data-depth="0">
-                <a href="/solutions/2nd-opinion" class="group block outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
+                <a href={secondOpinion.href} class="group block outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
                   <div class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-white border-2 border-brand-primary/15 shadow-lg shadow-brand-primary/10 flex flex-col items-center justify-center text-center px-3 transition-all hover:border-brand-secondary hover:shadow-xl hover:-translate-y-1">
-                    <span class="text-sm md:text-base font-bold text-brand-ink">2nd Opinion</span>
-                    <span class="mt-1 text-[10px] uppercase tracking-wider font-semibold text-brand-secondary">Optometry</span>
+                    <span class="text-sm md:text-base font-bold text-brand-ink">{secondOpinion.title}</span>
+                    <span class="mt-1 text-[10px] uppercase tracking-wider font-semibold text-brand-secondary">{secondOpinion.body}</span>
                   </div>
                 </a>
               </div>
@@ -260,10 +229,10 @@ const products = [
 
             <div class="absolute z-20" style="left:85%; top:85%; transform: translate(-50%,-50%);">
               <div class="opfdA-layer" data-depth="0">
-                <a href="/solutions/ophthal360" class="group block outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
+                <a href={ophthal.href} class="group block outline-none focus-visible:ring-4 focus-visible:ring-brand-secondary/40 rounded-full">
                   <div class="w-28 h-28 md:w-32 md:h-32 rounded-full bg-white border-2 border-brand-primary/15 shadow-lg shadow-brand-primary/10 flex flex-col items-center justify-center text-center px-3 transition-all hover:border-brand-secondary hover:shadow-xl hover:-translate-y-1">
-                    <span class="text-sm md:text-base font-bold text-brand-ink">Ophthal360</span>
-                    <span class="mt-1 text-[10px] uppercase tracking-wider font-semibold text-brand-secondary">Autonomous</span>
+                    <span class="text-sm md:text-base font-bold text-brand-ink">{ophthal.title}</span>
+                    <span class="mt-1 text-[10px] uppercase tracking-wider font-semibold text-brand-secondary">{ophthal.body}</span>
                   </div>
                 </a>
               </div>
@@ -408,19 +377,19 @@ const products = [
   </script>
 
   <!-- SECTION 5 — FINAL CTA -->
-  <CtaBand>
+  <CtaBand image={finalCta.image?.src}>
     <div class="max-w-4xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight" data-reveal>Find the right solution for your organization.</h2>
+      <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight" data-reveal>{finalCta.heading}</h2>
       <p class="mt-6 max-w-2xl mx-auto text-lg text-white/90 leading-relaxed" data-reveal>
-        Whether you're screening at the point of care, supporting diagnosis, or running a clinical trial, we'll help you identify which solution fits your workflow.
+        {finalCta.body}
       </p>
       <div class="mt-8" data-reveal>
         <button
           type="button"
-          data-open-modal="contact"
+          data-open-modal={contactCta.modal}
           class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-8 py-3 rounded-md hover:bg-brand-surface transition"
         >
-          Contact Us
+          {contactCta.label}
         </button>
       </div>
     </div>

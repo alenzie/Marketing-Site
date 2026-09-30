@@ -4,68 +4,32 @@ import PipeHeading from '../components/content/PipeHeading.astro';
 import TeamCard from '../components/content/TeamCard.astro';
 import Modal from '../components/interactive/Modal.astro';
 import CtaBand from '../components/content/CtaBand.astro';
+import { getPage, required, section, slots } from '../content';
 
-const scientificAdvisors = [
-  {
-    name: 'Nadia Waheed, MD, MPH',
-    role: 'Professor of Ophthalmology, Retina Specialist — Retinal & Macular Disease',
-    headshot: '/team/advisors/nadia-waheed.jpg',
-  },
-  {
-    name: 'Peter Kaiser, MD',
-    role: 'Professor of Ophthalmology, Director, Center for Ocular Research and Evaluation (CORE)',
-    headshot: '/team/advisors/peter-kaiser.jpg',
-  },
-  {
-    name: 'Justis Ehlers, MD',
-    role: 'Professor of Ophthalmology; Retina Specialist for detached retinas, cataracts & glaucoma',
-    headshot: '/team/advisors/justis-ehlers.jpg',
-  },
-  {
-    name: 'Arshad Khanani, MD',
-    role: 'Director of Clinical Research at Sierra Eye Associates',
-    headshot: '/team/advisors/arshad-khanani.jpg',
-  },
-  {
-    name: 'Dr. SriniVas Sadda',
-    role: 'President & Chief Scientific Officer, Doheny Eye Institute',
-    headshot: '/team/advisors/srinivas-sadda.jpg',
-  },
-  {
-    name: 'Joshua Freeman',
-    role: 'Medical Device Clinical and Regulatory Professional',
-    headshot: '/team/advisors/joshua-freeman.jpg',
-  },
-];
-
-const businessAdvisors = [
-  {
-    name: 'Raghib Hussain',
-    role: 'Business Advisor',
-    headshot: '/team/advisors/raghib-hussain.jpg',
-  },
-  {
-    name: 'Scott Brands',
-    role: 'Financial Advisor, SVP Finance at Brightwell Payments, Inc',
-    headshot: '/team/advisors/scott-brands.jpg',
-  },
-  {
-    name: 'Abu Bakar',
-    role: 'Business Advisor',
-    headshot: '/team/advisors/abu-bakar.jpg',
-  },
-];
+const page = getPage('about');
+const hero = section(page, 'hero', 'hero');
+const heroImage = required(hero.image, 'about/hero.image');
+const story = section(page, 'story', 'text');
+const mission = section(page, 'mission', 'text');
+const vision = section(page, 'vision', 'text');
+const leadership = section(page, 'leadership', 'people');
+const scientificAdvisors = section(page, 'scientific-advisors', 'people');
+const businessAdvisors = section(page, 'business-advisors', 'people');
+const joinUs = section(page, 'join-us', 'cta');
+const [joinCta] = slots(joinUs.ctas, 1, 'about/join-us.ctas');
+// People with a bio get a "Read Bio" modal, rendered at the end of the page.
+const bios = leadership.people.flatMap((person) => (person.bio ? [{ person, bio: person.bio }] : []));
 ---
 
 <Layout
-  title="About — Ophthalytics"
-  description="Pioneering Human + AI to advance healthcare through retinal intelligence."
+  title={page.title}
+  description={page.description}
 >
 
   <!-- SECTION 1 — HERO BAND -->
   <section class="relative overflow-hidden isolate bg-gradient-to-b from-brand-surface-blue to-white">
     <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
-      <img src="/images/sections/medical-team.jpg" alt="" class="absolute top-0 right-0 h-full" style="width:65%;object-fit:cover;object-position:center;opacity:0.13;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);mask-composite:intersect;" loading="eager" decoding="async" />
+      <img src={heroImage.src} alt={heroImage.alt} class="absolute top-0 right-0 h-full" style="width:65%;object-fit:cover;object-position:center;opacity:0.13;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%),linear-gradient(to right,transparent 0%,transparent 5%,black 40%,black 100%);mask-composite:intersect;" loading="eager" decoding="async" />
     </div>
     <svg class="absolute inset-0 w-full h-full opacity-[0.12] pointer-events-none" aria-hidden="true">
       <defs>
@@ -77,7 +41,7 @@ const businessAdvisors = [
     </svg>
     <div class="relative max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-24 md:py-32">
       <PipeHeading level="h1" size="text-5xl md:text-6xl">
-        About Us: Pioneering Human + AI to Advance Healthcare
+        {' '}{hero.heading}{' '}
       </PipeHeading>
     </div>
   </section>
@@ -86,26 +50,24 @@ const businessAdvisors = [
   <section class="bg-white">
     <div class="max-w-3xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 space-y-16">
       <div>
-        <PipeHeading level="h2" size="text-2xl md:text-3xl" data-reveal>Our Story</PipeHeading>
+        <PipeHeading level="h2" size="text-2xl md:text-3xl" data-reveal>{story.heading}</PipeHeading>
         <div class="mt-5 space-y-5 text-lg text-brand-body leading-relaxed" data-reveal>
-          <p>Ophthalytics was founded with a simple but urgent mission: prevent avoidable blindness through early detection.</p>
-          <p>We saw how specialist shortages, long wait times, and unequal access to care left millions undiagnosed until it was too late.</p>
-          <p>By combining AI with clinical expertise, we empower frontline healthcare providers to deliver sight-saving screenings—when and where patients need them most.</p>
+          {story.paragraphs.map((p, i) => <Fragment>{i > 0 && ' '}<p>{p}</p></Fragment>)}
         </div>
       </div>
 
       <div>
-        <PipeHeading level="h2" size="text-2xl md:text-3xl" data-reveal>Our Mission</PipeHeading>
-        <p class="mt-5 text-lg text-brand-body leading-relaxed" data-reveal>
-          To amplify the expertise of real doctors with AI-assisted diagnostic tools, delivering faster and more affordable retinal screenings to clinics that need them most.
-        </p>
+        <PipeHeading level="h2" size="text-2xl md:text-3xl" data-reveal>{mission.heading}</PipeHeading>
+        {mission.paragraphs.map((p, i) => <Fragment>{i > 0 && ' '}<p class="mt-5 text-lg text-brand-body leading-relaxed" data-reveal>
+          {p}
+        </p></Fragment>)}
       </div>
 
       <div>
-        <PipeHeading level="h2" size="text-2xl md:text-3xl" data-reveal>Our Vision</PipeHeading>
-        <p class="mt-5 text-lg text-brand-body leading-relaxed" data-reveal>
-          AI-driven predictive health through non-invasive, accessible eye scans—enabling earlier disease detection and better outcomes.
-        </p>
+        <PipeHeading level="h2" size="text-2xl md:text-3xl" data-reveal>{vision.heading}</PipeHeading>
+        {vision.paragraphs.map((p, i) => <Fragment>{i > 0 && ' '}<p class="mt-5 text-lg text-brand-body leading-relaxed" data-reveal>
+          {p}
+        </p></Fragment>)}
       </div>
     </div>
   </section>
@@ -114,15 +76,15 @@ const businessAdvisors = [
   <section id="leadership" class="bg-brand-surface-blue scroll-mt-24">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
       <div class="text-center">
-        <PipeHeading level="h2" class="justify-center" data-reveal>Leadership</PipeHeading>
+        <PipeHeading level="h2" class="justify-center" data-reveal>{leadership.heading}</PipeHeading>
       </div>
       <div class="mt-12 grid gap-10 max-w-4xl mx-auto" data-reveal-group>
-        <TeamCard
-          name="Awais Bajwa"
-          role="Founder & CEO"
-          headshot="/team/awais-bajwa.jpg"
-          bioModal="bio-awais"
-        />
+        {leadership.people.map((person, i) => <Fragment>{i > 0 && ' '}<TeamCard
+          name={person.name}
+          role={person.role}
+          headshot={person.headshot?.src}
+          bioModal={person.bio?.modal}
+        /></Fragment>)}
       </div>
     </div>
   </section>
@@ -131,11 +93,11 @@ const businessAdvisors = [
   <section class="bg-white">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
       <div class="text-center">
-        <PipeHeading level="h2" class="justify-center" data-reveal>Scientific Advisory Board</PipeHeading>
+        <PipeHeading level="h2" class="justify-center" data-reveal>{scientificAdvisors.heading}</PipeHeading>
       </div>
       <div class="mt-12 grid gap-10 md:grid-cols-3 max-w-6xl mx-auto" data-reveal-group>
-        {scientificAdvisors.map((a) => (
-          <TeamCard size="sm" name={a.name} role={a.role} headshot={a.headshot} />
+        {scientificAdvisors.people.map((a) => (
+          <TeamCard size="sm" name={a.name} role={a.role} headshot={a.headshot?.src} />
         ))}
       </div>
     </div>
@@ -145,57 +107,54 @@ const businessAdvisors = [
   <section class="bg-brand-surface">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
       <div class="text-center">
-        <PipeHeading level="h2" class="justify-center" data-reveal>Business Advisory Board</PipeHeading>
+        <PipeHeading level="h2" class="justify-center" data-reveal>{businessAdvisors.heading}</PipeHeading>
       </div>
       <div class="mt-12 grid gap-10 md:grid-cols-3" data-reveal-group>
-        {businessAdvisors.map((a) => (
-          <TeamCard size="sm" name={a.name} role={a.role} headshot={a.headshot} />
+        {businessAdvisors.people.map((a) => (
+          <TeamCard size="sm" name={a.name} role={a.role} headshot={a.headshot?.src} />
         ))}
       </div>
     </div>
   </section>
 
   <!-- SECTION 6 — JOIN US (Change 5: converted to washed CtaBand) -->
-  <CtaBand image="/images/cta/healthcare_professionals.jpeg">
+  <CtaBand image={joinUs.image?.src}>
     <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
-      <PipeHeading level="h2" color="text-white" barColor="bg-brand-secondary" data-reveal>Join Us</PipeHeading>
+      <PipeHeading level="h2" color="text-white" barColor="bg-brand-secondary" data-reveal>{joinUs.heading}</PipeHeading>
       <p class="mt-6 max-w-2xl text-lg text-white/90 leading-relaxed" data-reveal>
-        Take the first step toward an exciting career with Ophthalytics. Join our team and be a part of our mission to advance wellbeing through deep-learning AI. We are looking for driven and passionate individuals who share our vision and want to make a meaningful impact. Don't wait — start your journey with us today.
+        {joinUs.body}
       </p>
       <div class="mt-8" data-reveal>
         <button
           type="button"
-          data-open-modal="contact"
+          data-open-modal={joinCta.modal}
           class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-8 py-3 rounded-md hover:bg-brand-surface transition"
         >
-          Contact Us
+          {joinCta.label}
         </button>
       </div>
     </div>
   </CtaBand>
 
   <!-- BIO MODALS -->
-  <Modal name="bio-awais" labelledBy="bio-awais-title" size="lg">
+  {bios.map(({ person, bio }, i) => <Fragment>{i > 0 && ' '}<Modal name={bio.modal} labelledBy={`${bio.modal}-title`} size="lg">
     <div class="flex flex-col items-center">
       <img
-        src="/team/awais-bajwa.jpg"
-        alt="Awais Bajwa"
+        src={person.headshot?.src}
+        alt={person.headshot?.alt}
         class="w-28 h-28 rounded-full object-cover border-4 border-white shadow-md"
       />
-      <h2 id="bio-awais-title" class="mt-5 text-2xl md:text-3xl font-bold text-brand-ink text-center">
-        Awais Bajwa
+      <h2 id={`${bio.modal}-title`} class="mt-5 text-2xl md:text-3xl font-bold text-brand-ink text-center">
+        {person.name}
       </h2>
-      <p class="mt-1 text-brand-primary font-semibold">Founder &amp; CEO</p>
-      <p class="mt-1 italic text-brand-primary text-sm">Machine Learning, Data Science Expert &amp; AI Junkie</p>
+      <p class="mt-1 text-brand-primary font-semibold">{person.role}</p>
+      <p class="mt-1 italic text-brand-primary text-sm">{bio.tagline}</p>
     </div>
     <div class="mt-6 space-y-4 text-base text-brand-body leading-relaxed">
-      <p>
-        Awais is a visionary healthcare innovator and data scientist. Blending innovation with compassion, he has used knowledge engineering—commonly called artificial intelligence, or AI—to greatly expand the access, accuracy, and efficiency of diagnosis. Under his leadership, the company has won accolades, such as the Health Equity Initiative award from Amazon Web Services, for its transformative impact.
-      </p>
-      <p>
-        With more than 15 years of experience in advanced data analytics, Awais previously led AI product development for GE Companies, contributing advances in deep learning, generative AI, computer vision, and enterprise architecture.
-      </p>
+      {bio.paragraphs.map((p, i) => <Fragment>{i > 0 && ' '}<p>
+        {p}
+      </p></Fragment>)}
     </div>
-  </Modal>
+  </Modal></Fragment>)}
 
 </Layout>

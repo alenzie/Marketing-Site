@@ -1,0 +1,106 @@
+{
+  "slug": "second-opinion",
+  "title": "2nd Opinion — Diagnostic Support for Optometry — Ophthalytics",
+  "description": "AI-assisted retinal analysis built for optometrists and eye care professionals.",
+  "sections": [
+    {
+      "type": "hero",
+      "id": "hero",
+      "label": "Hero",
+      "eyebrow": "Diagnostic Support Solution",
+      "heading": "2nd Opinion",
+      "subheading": "Greater confidence on the cases that matter most.",
+      "body": "AI-assisted retinal analysis built for optometrists and eye care professionals. 2nd Opinion highlights subtle findings, standardizes interpretation, and adds a trusted layer of review to every complex or borderline case.",
+      "image": { "src": "/images/sections/healthcare-professionals.jpg", "alt": "" },
+      "media": { "src": "/images/products/2nd-opinion-mockup_2.jpg", "alt": "2nd Opinion AI Diagnostic Support — ultra-widefield retinal scan with a 7-field overlay" },
+      "ctas": [
+        { "label": "Request a Demo", "modal": "demo" },
+        { "label": "See How It Integrates", "href": "#how-it-integrates" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "challenge",
+      "label": "The challenge",
+      "eyebrow": "THE CHALLENGE",
+      "heading": "In everyday practice, not every case is clear-cut.",
+      "paragraphs": [
+        "Subtle lesions. Early-stage disease. Borderline findings that could go either way. Every optometrist knows the cases that demand a second look—and the weight of interpretation that comes with them.",
+        "Variability in retinal image interpretation is well-documented across the industry. Even experienced clinicians can reach different conclusions on the same image. The cost of missing something small is sometimes a patient's sight.",
+        "2nd Opinion exists to make those moments easier—by surfacing what the eye can miss and standardizing what trained AI can see."
+      ]
+    },
+    {
+      "type": "split",
+      "id": "solution",
+      "label": "The solution",
+      "eyebrow": "THE SOLUTION",
+      "heading": "AI-supported interpretation, built for optometry.",
+      "paragraphs": [
+        "2nd Opinion analyzes retinal images alongside your clinical review, highlighting regions of interest, flagging potential lesions, and offering confidence signals that inform—but never replace—your clinical judgment.",
+        "It acts as a second set of expert eyes on every case, without slowing your workflow or complicating your tech stack."
+      ],
+      "aside": {
+        "heading": "Not a replacement. A second pair of eyes.",
+        "body": "2nd Opinion informs your clinical decisions. It does not make them. Every output is explainable, every finding is reviewable, and every case stays yours to interpret."
+      }
+    },
+    {
+      "type": "features",
+      "id": "capabilities",
+      "label": "Capabilities",
+      "eyebrow": "CAPABILITIES",
+      "heading": "Three Layers of Insight",
+      "items": [
+        { "title": "Lesion Visualization", "body": "Clear visual overlays highlight suspicious regions and lesion-level features—so you see what the AI saw, and why it flagged it." },
+        { "title": "Decision Support", "body": "Confidence signals and standardized grading help reduce variability in interpretation across clinicians, clinics, and time." },
+        { "title": "Workflow Integration", "body": "Designed to fit into existing optometric workflows with minimal disruption. No new hardware required. No workflow rebuild required." }
+      ]
+    },
+    {
+      "type": "audiences",
+      "id": "who-its-for",
+      "label": "Who it's for",
+      "heading": "Built for the Eye Care Market",
+      "cards": [
+        { "title": "Optometrists", "body": "Add a confident second layer of AI-supported review to everyday exams, especially on subtle or borderline retinal findings.", "image": { "src": "/images/audiences/optician-eye-clinic.jpeg", "alt": "Optometrist performing an eye exam" } },
+        { "title": "Eye Clinics & Optical Chains", "body": "Standardize retinal interpretation across locations and clinicians to deliver consistent patient experiences at every branch.", "image": { "src": "/images/audiences/eye-child.jpeg", "alt": "Child receiving an eye exam at a clinic" } },
+        { "title": "Ophthalmology Practices", "body": "Strengthen diagnostic confidence on high-volume days without expanding headcount. Every image gets a second look.", "image": { "src": "/images/audiences/ophthalmology-exam.jpg", "alt": "Ophthalmologist conducting a slit-lamp eye exam" } },
+        { "title": "Reading Centers", "body": "Reduce inter-reader variability and improve throughput on large-volume retinal image review projects.", "image": { "src": "/images/audiences/fundus.jpeg", "alt": "Retinal fundus image under review" } }
+      ]
+    },
+    {
+      "type": "features",
+      "id": "how-it-integrates",
+      "label": "How it integrates",
+      "heading": "Fits Your Workflow, Not the Other Way Around",
+      "items": [
+        { "title": "Capture or Import", "body": "Use your existing retinal camera or import images from your current system. No new hardware. No workflow redesign." },
+        { "title": "AI-Assisted Review", "body": "2nd Opinion analyzes each image and surfaces potential findings with visual overlays and confidence signals." },
+        { "title": "Clinician-Led Decision", "body": "You review the AI output alongside the original image and make the call. The clinical decision is always yours." }
+      ]
+    },
+    {
+      "type": "features",
+      "id": "benefits",
+      "label": "Why 2nd Opinion",
+      "heading": "Confidence. Consistency. Control.",
+      "image": { "src": "/images/cta/optometrist.jpeg", "alt": "" },
+      "items": [
+        { "title": "Reduce Diagnostic Variability", "body": "Standardized AI interpretation brings consistency to what is historically one of the most subjective areas of eye care." },
+        { "title": "Find What's Easy to Miss", "body": "Early-stage indicators and subtle lesions get surfaced automatically—supporting earlier intervention and better outcomes." },
+        { "title": "Fits Your Existing Practice", "body": "Works with any retinal camera and integrates with standard clinical workflows. No tech-stack overhaul required." },
+        { "title": "Your Clinical Judgment, Amplified", "body": "2nd Opinion supports and standardizes your expertise—it does not substitute for it. Every decision stays with the clinician." }
+      ]
+    },
+    {
+      "type": "cta",
+      "id": "final-cta",
+      "label": "Final CTA",
+      "heading": "Give every case a second set of expert eyes.",
+      "body": "Talk to our team about how 2nd Opinion fits into your optometric practice.",
+      "ctas": [{ "label": "Contact Us", "modal": "contact" }],
+      "image": { "src": "/images/cta/patient_records.jpeg", "alt": "" }
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "slug": "nsight360",
+  "title": "Nsight360 — Primary Care Retinal Screening — Ophthalytics",
+  "description": "Nsight360 brings AI-assisted retinal screening to primary care, endocrinology, home health, and community clinics.",
+  "sections": [
+    {
+      "type": "hero",
+      "id": "hero",
+      "label": "Hero",
+      "eyebrow": "Primary Care Solution",
+      "heading": "Nsight360",
+      "subheading": "Retinal screening, delivered where care begins.",
+      "body": "Nsight360 brings AI-assisted retinal screening directly into primary care, endocrinology, home health, and community clinics—so at-risk patients are identified where they already receive care.",
+      "image": { "src": "/images/sections/high-five-care.jpg", "alt": "" },
+      "media": { "src": "/images/hero/laptop-with-ai-scan.webp", "alt": "Laptop displaying an AI-assisted retinal scan" },
+      "ctas": [
+        { "label": "Request a Demo", "modal": "demo" },
+        { "label": "See Who It's For", "href": "#who-its-for" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "care-gap",
+      "label": "The care gap",
+      "eyebrow": "THE CARE GAP",
+      "heading": "Millions of at-risk patients never reach a specialist.",
+      "paragraphs": [
+        "Diabetic retinopathy is the leading cause of preventable blindness in working-age adults. It is also one of the most treatable conditions—when caught early.",
+        "But specialist shortages, long wait times, and travel barriers mean that millions of at-risk patients never make it in for an eye exam until symptoms appear. By then, intervention is harder and outcomes are worse.",
+        "Primary care is where most of these patients already go. It is also where retinal screening has been hardest to deploy. Until now."
+      ]
+    },
+    {
+      "type": "split",
+      "id": "solution",
+      "label": "The solution",
+      "eyebrow": "THE SOLUTION",
+      "heading": "Retinal screening built for the front line of care.",
+      "paragraphs": [
+        "Nsight360 enables non-specialists—primary care physicians, nurses, endocrinologists, home health aides—to capture retinal images using accessible hand-held or portable cameras. Our AI analyzes each image and produces a clinically actionable report, reviewed by licensed ophthalmologists, within minutes.",
+        "No on-site eye specialist required. No workflow rebuild required. Just faster, broader access to sight-saving screening."
+      ],
+      "stats": [
+        { "value": "95%", "label": "Compliance rate providers can reach within 1 year" },
+        { "value": "3x", "label": "Screening efficiency versus existing systems" },
+        { "value": "50", "label": "US states where our reading ophthalmologists are licensed" }
+      ]
+    },
+    {
+      "type": "features",
+      "id": "capabilities",
+      "label": "Capabilities",
+      "eyebrow": "CAPABILITIES",
+      "heading": "What Makes Nsight360 Unique",
+      "items": [
+        { "title": "AI-Powered Precision", "body": "Our deep-learning models are built on existing clinical practice guidelines to deliver fast, accurate assessments of diabetic retinopathy and other retinal conditions.", "image": { "src": "/images/icons/brain.webp", "alt": "" } },
+        { "title": "Camera Agnostic", "body": "Nsight360 works seamlessly with any retinal camera—stationary or portable—from 30-degree to 200-degree fields of view. No lock-in. No proprietary hardware required.", "image": { "src": "/images/icons/camera.webp", "alt": "" } },
+        { "title": "Portable & Easy to Deploy", "body": "Integrates with hand-held cameras so exams can happen anywhere—from a rural home health visit to a high-volume community clinic—without specialist presence.", "image": { "src": "/images/icons/arrows.webp", "alt": "" } }
+      ]
+    },
+    {
+      "type": "features",
+      "id": "who-its-for",
+      "label": "Who it's for",
+      "heading": "Built for Teams on the Front Line of Care",
+      "items": [
+        { "title": "Primary Care Physicians", "body": "Add affordable, in-clinic retinal screening to your practice—creating a new revenue stream while closing a critical care gap.", "image": { "src": "/images/audiences/primary-care-physicians.webp", "alt": "" } },
+        { "title": "Endocrinologists & Diabetologists", "body": "Identify patients with vision-threatening retinopathy in real time during routine diabetes care, then refer to specialists before sight is lost.", "image": { "src": "/images/audiences/endocrinologists.webp", "alt": "" } },
+        { "title": "Nurses & Care Teams", "body": "Perform screenings on-site or remotely without an on-site eye doctor. Nsight360's AI-assisted workflow fits team-based care models.", "image": { "src": "/images/audiences/nurses.webp", "alt": "" } },
+        { "title": "Home Health Agencies", "body": "Bring retinal screening into the home. Add a new revenue source through diabetic retinopathy exams and improve HEDIS measures for underserved populations.", "image": { "src": "/images/audiences/home-health.webp", "alt": "" } },
+        { "title": "Community Health Centers", "body": "Expand access to preventive screening in the communities that need it most—especially where specialty eye care is scarce or unaffordable." },
+        { "title": "Remote & Rural Clinics", "body": "Overcome geography. Nsight360's handheld-compatible workflow enables eye screening in regions with no on-site ophthalmology coverage.", "image": { "src": "/images/audiences/remote-rural.webp", "alt": "" } }
+      ]
+    },
+    {
+      "type": "features",
+      "id": "how-it-works",
+      "label": "How it works",
+      "heading": "Simple, Fast, Integrated.",
+      "items": [
+        { "title": "Capture", "body": "Any member of the care team uses a supported fundus camera to capture a retinal image." },
+        { "title": "Upload", "body": "The image uploads securely to the Nsight360 platform via HIPAA-compliant transfer." },
+        { "title": "AI + Expert Review", "body": "Our AI analyzes the image. A licensed ophthalmologist confirms findings and generates a clinical report." },
+        { "title": "Report", "body": "Receive a clinically actionable report—complete with billing codes—within minutes. Refer, treat, or monitor." }
+      ]
+    },
+    {
+      "type": "features",
+      "id": "benefits",
+      "label": "Why Nsight360",
+      "heading": "Designed for Real-World Care",
+      "image": { "src": "/images/cta/patient_records.jpeg", "alt": "" },
+      "items": [
+        { "title": "Flexible Pay-As-You-Go", "body": "No subscription fees. No long-term contracts. Pay only for the exams you perform." },
+        { "title": "Nationwide Ophthalmology Network", "body": "Our board-certified reading ophthalmologists are licensed across all 50 states, ready to confirm and sign off on diagnoses." },
+        { "title": "Patient Education Built In", "body": "Gen-AI powered communication tools help patients understand diabetic retinopathy and the importance of preventive care." },
+        { "title": "Training & Ongoing Support", "body": "Your team is fully trained on the platform, camera workflow, and clinical protocols—with continuous technical support on every deployment." }
+      ]
+    },
+    {
+      "type": "cta",
+      "id": "final-cta",
+      "label": "Final CTA",
+      "heading": "Close the diabetic eye care gap—where your patients already are.",
+      "body": "Talk to our team about Nsight360 for your clinic, system, or program.",
+      "ctas": [{ "label": "Contact Us", "modal": "contact" }],
+      "image": { "src": "/images/cta/optometrist.jpeg", "alt": "" }
+    }
+  ]
+}

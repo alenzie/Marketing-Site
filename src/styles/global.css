@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* Content layer (src/content): keep scanning the JSON, since rich text can carry
+   utility classes, but skip its code and docs, whose prose would otherwise
+   generate stray utility classes. */
+@source not "../content/*.ts";
+@source not "../content/README.md";
+@source not "../../scripts";
+
 /* Ophthalytics design tokens — see instructions/01-design-tokens.txt */
 @theme {
   /* Brand palette */

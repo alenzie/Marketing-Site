@@ -1,4 +1,6 @@
 ---
+import { getGlobals, slots } from '../../content';
+
 interface Props {
   variant?: 'default' | 'minimal';
 }
@@ -8,30 +10,8 @@ const { variant = 'default' } = Astro.props;
 // signup under a security exhibit read badly to a vendor-risk reviewer.
 const isMinimal = variant === 'minimal';
 
-const platformLinks = [
-  { href: '/solutions/ocula360', label: 'Ocula360' },
-  { href: '/solutions/nsight360', label: 'Nsight360' },
-  { href: '/solutions/2nd-opinion', label: '2nd Opinion' },
-  { href: '/solutions/ophthal360', label: 'Ophthal360' },
-];
-
-const clinicianLinks = [
-  { href: '/who-we-help', label: 'Who We Help' },
-  { href: '/solutions', label: 'All Solutions' },
-];
-
-const scienceLinks = [
-  { href: 'https://www.mdpi.com/2075-4418/13/3/393', label: 'Peer-Reviewed Research' },
-  { href: '/resources/newsroom', label: 'Newsroom' },
-  { href: '/resources', label: 'All Resources' },
-];
-
-const companyLinks = [
-  { href: '/about', label: 'About' },
-  { href: '/about#leadership', label: 'Leadership' },
-  { href: '/resources/newsroom', label: 'Press' },
-  { href: '/trust', label: 'Trust Center' },
-];
+const { footer } = getGlobals();
+const [platform, clinicians, science, company] = slots(footer.columns, 4, 'globals/footer.columns');
 ---
 
 <footer class="relative bg-brand-navy text-white overflow-hidden">
@@ -68,14 +48,14 @@ const companyLinks = [
     <div class="relative border-b border-white/10">
       <div class="max-w-7xl mx-auto px-6 lg:px-12 py-14 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 md:gap-10 items-center">
         <h2 class="text-3xl md:text-[38px] font-bold leading-[1.1] tracking-[-0.02em] max-w-[640px] m-0">
-          Eye doctors operate with greater confidence — <em class="not-italic text-brand-cyan">with the help of Ocula360.</em>
+          {footer.cta.heading} <em class="not-italic text-brand-cyan">{footer.cta.highlight}</em>
         </h2>
         <button
           type="button"
-          data-open-modal="demo"
+          data-open-modal={footer.cta.button.modal}
           class="inline-flex items-center gap-2 bg-white text-brand-primary font-semibold text-sm px-[22px] py-[14px] rounded-[10px] hover:bg-brand-cyan-soft transition-colors whitespace-nowrap"
         >
-          Book a demo
+          {footer.cta.button.label}
           <svg class="w-[14px] h-[14px]" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -97,21 +77,21 @@ const companyLinks = [
         />
       </div>
       <p class="text-[13px] text-slate-300 leading-[1.6] max-w-[280px] mb-5">
-        Retinal AI platform for multi-disease detection, DRSS scoring, and explainable outputs.
+        {footer.tagline}
       </p>
 
       <!-- Newsletter signup — suppressed on Trust Center pages -->
       {!isMinimal && (
         <form id="newsletter" data-newsletter-form class="space-y-2 max-w-[280px] scroll-mt-24" novalidate>
           <p class="font-mono text-[10px] uppercase tracking-[.16em] text-brand-cyan mb-2">
-            Stay in the loop
+            {footer.newsletter.eyebrow}
           </p>
           <div class="flex gap-2">
             <input
               type="email"
               name="email"
               required
-              placeholder="your@email.com"
+              placeholder={footer.newsletter.placeholder}
               aria-label="Email"
               class="flex-1 min-w-0 px-3 py-2 rounded-md bg-white/5 border border-white/15 text-white placeholder-slate-400 text-sm focus:border-brand-cyan focus:ring-2 focus:ring-brand-cyan/30 outline-none transition"
             />
@@ -119,11 +99,11 @@ const companyLinks = [
               type="submit"
               class="bg-brand-cyan text-white font-semibold text-sm px-3 py-2 rounded-md hover:bg-brand-cyan-ink transition-colors"
             >
-              Join
+              {footer.newsletter.buttonLabel}
             </button>
           </div>
           <p data-newsletter-success hidden class="text-xs text-brand-cyan mt-1">
-            Thanks — you're on the list.
+            {footer.newsletter.success}
           </p>
         </form>
       )}
@@ -154,9 +134,9 @@ const companyLinks = [
     </div>
 
     <div class="col">
-      <h5 class="font-mono text-[10px] text-brand-cyan uppercase tracking-[.16em] mb-4 mt-0">Platform</h5>
+      <h5 class="font-mono text-[10px] text-brand-cyan uppercase tracking-[.16em] mb-4 mt-0">{platform.heading}</h5>
       <ul class="list-none p-0 m-0 space-y-2.5">
-        {platformLinks.map((link) => (
+        {platform.links.map((link) => (
           <li class="text-[13.5px] leading-[1.3]">
             <a href={link.href} class="text-slate-300 hover:text-white transition-colors">
               {link.label}
@@ -167,9 +147,9 @@ const companyLinks = [
     </div>
 
     <div class="col">
-      <h5 class="font-mono text-[10px] text-brand-cyan uppercase tracking-[.16em] mb-4 mt-0">Clinicians</h5>
+      <h5 class="font-mono text-[10px] text-brand-cyan uppercase tracking-[.16em] mb-4 mt-0">{clinicians.heading}</h5>
       <ul class="list-none p-0 m-0 space-y-2.5">
-        {clinicianLinks.map((link) => (
+        {clinicians.links.map((link) => (
           <li class="text-[13.5px] leading-[1.3]">
             <a href={link.href} class="text-slate-300 hover:text-white transition-colors">
               {link.label}
@@ -180,9 +160,9 @@ const companyLinks = [
     </div>
 
     <div class="col">
-      <h5 class="font-mono text-[10px] text-brand-cyan uppercase tracking-[.16em] mb-4 mt-0">Science</h5>
+      <h5 class="font-mono text-[10px] text-brand-cyan uppercase tracking-[.16em] mb-4 mt-0">{science.heading}</h5>
       <ul class="list-none p-0 m-0 space-y-2.5">
-        {scienceLinks.map((link) => (
+        {science.links.map((link) => (
           <li class="text-[13.5px] leading-[1.3]">
             <a href={link.href} class="text-slate-300 hover:text-white transition-colors">
               {link.label}
@@ -193,9 +173,9 @@ const companyLinks = [
     </div>
 
     <div class="col">
-      <h5 class="font-mono text-[10px] text-brand-cyan uppercase tracking-[.16em] mb-4 mt-0">Company</h5>
+      <h5 class="font-mono text-[10px] text-brand-cyan uppercase tracking-[.16em] mb-4 mt-0">{company.heading}</h5>
       <ul class="list-none p-0 m-0 space-y-2.5">
-        {companyLinks.map((link) => (
+        {company.links.map((link) => (
           <li class="text-[13.5px] leading-[1.3]">
             <a href={link.href} class="text-slate-300 hover:text-white transition-colors">
               {link.label}
@@ -208,7 +188,7 @@ const companyLinks = [
             data-open-modal="contact"
             class="text-slate-300 hover:text-white transition-colors text-left"
           >
-            Contact
+            {footer.contactLabel}
           </button>
         </li>
       </ul>
@@ -218,10 +198,9 @@ const companyLinks = [
   <!-- Bottom bar: copyright + legal -->
   <div class="relative border-t border-white/10">
     <div class="max-w-7xl mx-auto px-6 lg:px-12 py-5 flex flex-col md:flex-row justify-between items-center gap-3 font-mono text-[10px] text-slate-400 tracking-[.14em] uppercase">
-      <div>© 2019 – 2026 Ophthalytics, Inc. · All rights reserved</div>
+      <div>{footer.copyright}</div>
       <div class="flex gap-6">
-        <a href="/privacy" class="hover:text-white transition-colors">Privacy</a>
-        <a href="/terms" class="hover:text-white transition-colors">Terms</a>
+        {footer.legalLinks.map((link, i) => <Fragment>{i > 0 && ' '}<a href={link.href} class="hover:text-white transition-colors">{link.label}</a></Fragment>)}
       </div>
     </div>
   </div>

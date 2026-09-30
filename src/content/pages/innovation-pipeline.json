@@ -1,0 +1,82 @@
+{
+  "slug": "innovation-pipeline",
+  "title": "Innovation Pipeline — Resources — Ophthalytics",
+  "description": "We're harnessing the power of deep-learning AI to enable retinal scans to detect more than just eye-related diseases.",
+  "sections": [
+    {
+      "type": "hero",
+      "id": "hero",
+      "label": "Hero",
+      "breadcrumb": "Innovation Pipeline",
+      "heading": "Our Innovation Pipeline: The Next Generation of Breakthroughs",
+      "body": "We're harnessing the power of deep-learning AI to enable retinal scans to detect more than just eye-related diseases—opening an unprecedented window into overall health."
+    },
+    {
+      "type": "text",
+      "id": "intro",
+      "label": "Intro",
+      "paragraphs": [
+        "Beyond diabetic retinopathy and our current product lineup, we're developing AI applications that extend the power of retinal analysis into adjacent areas of human health.",
+        "Each initiative is rooted in the same principle: the retina is one of the only places in the body where microvascular and neural structures can be observed directly, non-invasively, and at scale. We believe that makes the eye an unprecedented starting point for early detection across a wide range of systemic conditions.",
+        "Below are three of the initiatives we're actively pursuing."
+      ]
+    },
+    {
+      "type": "split",
+      "id": "four-front",
+      "label": "4Front360",
+      "eyebrow": "Closing the Care Gap",
+      "heading": "4Front360",
+      "paragraphs": [
+        "We are pioneering an autonomous version of our optical diagnostic breakthrough—Nsight360—that can be administered and reported without the supervision of a physician. We call this innovation 4Front360.",
+        "4Front360 has been administered successfully for more than 150,000 patients in South Asia, extending the reach of the benefit and, at the same time, adding dimension to the body of data sets that inform and validate the technique."
+      ]
+    },
+    {
+      "type": "split",
+      "id": "cardiovascular",
+      "label": "Cardiovascular risk",
+      "eyebrow": "Cardiovascular Risk Assessment",
+      "heading": "Seeing Heart Disease, Early",
+      "paragraphs": [
+        "Already we can see with confidence that evidence of cardiovascular risk is revealed in retinal scans. We are working to complete the application of our \"Human + AI\" knowledge engineering to diagnosis of cardiovascular risk.",
+        "Cardiovascular disease is one of the most notorious care gaps in healthcare, and even though it is one of the top five factors in mortality, cardiovascular risk has persisted with few diagnostic tools. The first symptom for most people is a heart attack. We intend to play a role in addressing this effectively and efficiently by making intelligent diagnostics more widely available."
+      ],
+      "image": { "src": "/images/sections/cardio-risk.webp", "alt": "Cardiovascular risk assessment from retinal imaging" }
+    },
+    {
+      "type": "split",
+      "id": "systemic-health",
+      "label": "The windows to 270 diseases",
+      "eyebrow": "The Windows to 270 Diseases",
+      "heading": "A Non-Invasive Window Into Full-Body Health",
+      "paragraphs": [
+        "In addition to sight-threatening conditions in the eye, retinal scans have emerged as an effective, non-invasive window into full-body health. We were invited recently to take part in a conference on this subject by risk experts VSP Vision.",
+        "As reported by VSP and by MATTER, an organized community of healthcare innovators, a comprehensive eye exam can provide valuable insights on more than 270 systemic and chronic diseases, such as heart disease, diabetes, and neurological diseases such as Alzheimer's.",
+        "We are working to extend the known accuracy and affordability of our systems of intelligent diagnosis to increase the availability of this array of vital insights."
+      ]
+    },
+    {
+      "type": "cta",
+      "id": "stay-connected",
+      "label": "Stay connected",
+      "heading": "We're just getting started.",
+      "body": "Every scan contributes to a growing foundation of real-world data—making future applications possible. To stay informed as we release more, subscribe to our newsletter or reach out directly.",
+      "ctas": [
+        { "label": "Subscribe to Updates", "href": "#newsletter" },
+        { "label": "Contact the Team", "modal": "contact" }
+      ],
+      "image": { "src": "/images/cta/research1.jpeg", "alt": "" }
+    },
+    {
+      "type": "features",
+      "id": "related",
+      "label": "Related resources",
+      "heading": "Related Resources",
+      "items": [
+        { "eyebrow": "Resources", "title": "Articles", "body": "Industry insights from the Ophthalytics team on AI-assisted eye care.", "href": "/resources/articles" },
+        { "eyebrow": "Resources", "title": "Newsroom", "body": "Press releases, company news, and conference appearances.", "href": "/resources/newsroom" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "slug": "solutions",
+  "title": "Solutions — Ophthalytics",
+  "description": "Four retinal AI solutions, one foundational platform. Ophthalytics builds AI that turns retinal images into actionable diagnostic intelligence.",
+  "sections": [
+    {
+      "type": "hero",
+      "id": "hero",
+      "label": "Hero",
+      "eyebrow": "Our Solutions",
+      "heading": "Four Retinal AI Solutions.",
+      "headingLine2": "One Foundational Platform.",
+      "body": "Ophthalytics builds AI that turns a retinal image into actionable diagnostic intelligence—purpose-built for every point in the care continuum, from primary care screening to clinical research.",
+      "image": { "src": "/images/sections/eye-scan-banner.jpg", "alt": "" }
+    },
+    {
+      "type": "split",
+      "id": "flagship",
+      "label": "Flagship (Ocula360)",
+      "badge": "Flagship",
+      "heading": "Ocula360",
+      "subheading": "Foundational Retinal AI",
+      "paragraphs": [
+        "Our flagship AI engine, built on a foundational model architecture to detect multiple retinal diseases from a single image. Ocula360 powers scalable screening, advanced DRSS scoring, and future-ready multimodal applications across clinical care and research."
+      ],
+      "bullets": ["Multi-Disease Detection", "DRSS Scoring", "Explainable & Multimodal"],
+      "image": { "src": "/images/products/ocula360_product_shot_2.jpg", "alt": "Ocula360 Multimodal AI Retinal Platform shown on a clinical workstation display" },
+      "link": { "label": "Learn more about Ocula360", "href": "/solutions/ocula360" }
+    },
+    {
+      "type": "features",
+      "id": "products",
+      "label": "Purpose-built solutions",
+      "eyebrow": "Purpose-Built Solutions",
+      "heading": "Tailored for Every Point of Care",
+      "intro": "Each solution extends Ocula360's foundational intelligence into a specific care environment.",
+      "linkLabel": "Learn more",
+      "items": [
+        {
+          "eyebrow": "HUMAN + AI",
+          "title": "Nsight360",
+          "body": "AI-assisted retinal screening for primary care, health systems, and insurance providers.",
+          "bullets": ["Primary care integration", "Human + AI workflow", "Scalable screening programs"],
+          "href": "/solutions/nsight360"
+        },
+        {
+          "eyebrow": "EYE CARE MARKET",
+          "title": "2nd Opinion",
+          "body": "AI-enhanced diagnostic support for optometrists and eye care professionals.",
+          "bullets": ["Lesion visualization", "Diagnostic confidence", "Workflow integration"],
+          "href": "/solutions/2nd-opinion"
+        },
+        {
+          "eyebrow": "AUTONOMOUS AI",
+          "title": "Ophthal360",
+          "body": "Autonomous retinal diagnostics for high-volume screening programs and global markets.",
+          "bullets": ["Autonomous detection", "High-throughput screening", "Automated referral logic"],
+          "href": "/solutions/ophthal360"
+        }
+      ]
+    },
+    {
+      "type": "stats",
+      "id": "platform-stats",
+      "label": "Platform stats band",
+      "eyebrow": "Built on Ocula360",
+      "heading": "One foundation. Four purpose-built deployments.",
+      "image": { "src": "/images/sections/ai-montage-with-dr-on-pad-LIGHTER-scaled.jpg", "alt": "" },
+      "stats": [
+        { "value": "4+", "label": "Diseases detected" },
+        { "value": "250K+", "label": "Patients screened" },
+        { "value": "<2s", "label": "Per-image inference" }
+      ]
+    },
+    {
+      "type": "features",
+      "id": "platform",
+      "label": "One platform, four deployments",
+      "eyebrow": "The Platform",
+      "heading": "One Platform. Four Deployments.",
+      "intro": "Ocula360 is the foundation. Nsight360, 2nd Opinion, and Ophthal360 are purpose-built deployments of that foundation — each tuned for the workflows, decision points, and volume of a specific care setting.",
+      "items": [
+        { "eyebrow": "Foundation", "title": "Ocula360", "body": "Retinal AI Platform", "href": "/solutions/ocula360" },
+        { "title": "Nsight360", "body": "Primary care", "href": "/solutions/nsight360" },
+        { "title": "2nd Opinion", "body": "Optometry", "href": "/solutions/2nd-opinion" },
+        { "title": "Ophthal360", "body": "Autonomous", "href": "/solutions/ophthal360" }
+      ]
+    },
+    {
+      "type": "cta",
+      "id": "final-cta",
+      "label": "Final CTA",
+      "heading": "Find the right solution for your organization.",
+      "body": "Whether you're screening at the point of care, supporting diagnosis, or running a clinical trial, we'll help you identify which solution fits your workflow.",
+      "ctas": [{ "label": "Contact Us", "modal": "contact" }]
+    }
+  ]
+}

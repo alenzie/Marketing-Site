@@ -1,16 +1,16 @@
 ---
 import Layout from '../../../components/layout/Layout.astro';
 import CtaBand from '../../../components/content/CtaBand.astro';
+import { getPage, richRuns, section, slots } from '../../../content';
 
-const title = 'Bridging the Gap in Eye Care: How AI-Assisted Technology Enables Early Detection & Prevents Blindness';
-const description = 'Ophthalytics CEO Awais Bajwa on the U.S. eye care specialist shortage, the rising burden of diabetic retinopathy, and how AI-assisted retinal screening is bringing early detection into primary care.';
-const author = 'Awais Bajwa';
-const authorTitle = 'Founder & CEO, Ophthalytics';
-const publishedDate = 'March 18, 2025';
-const sourceUrl = 'https://www.linkedin.com/pulse/bridging-gap-eye-care-how-ai-assisted-technology-enables-early-kai8c';
+const page = getPage('article-bridging-the-gap');
+const hero = section(page, 'hero', 'hero');
+const article = section(page, 'article', 'article');
+const cta = section(page, 'cta', 'cta');
+const [modalCta, linkCta] = slots(cta.ctas, 2, 'article-bridging-the-gap/cta.ctas');
 ---
 
-<Layout title={`${title} — Ophthalytics`} description={description}>
+<Layout title={page.title} description={page.description}>
   <!-- HERO -->
   <section class="bg-brand-surface-blue">
     <div class="max-w-4xl mx-auto px-6 md:px-8 lg:px-12 py-16 md:py-20">
@@ -19,19 +19,19 @@ const sourceUrl = 'https://www.linkedin.com/pulse/bridging-gap-eye-care-how-ai-a
         <span class="mx-2">/</span>
         <a href="/resources/articles" class="hover:text-brand-primary">Articles</a>
         <span class="mx-2">/</span>
-        <span class="text-brand-ink">Bridging the Gap in Eye Care</span>
+        <span class="text-brand-ink">{hero.breadcrumb}</span>
       </nav>
       <span class="mt-5 inline-block rounded-full bg-brand-primary/10 text-brand-primary text-xs uppercase tracking-widest font-semibold px-3 py-1">
-        Industry Insight
+        {hero.eyebrow}
       </span>
       <h1 class="mt-4 text-3xl md:text-5xl font-bold text-brand-ink leading-tight">
-        {title}
+        {hero.heading}
       </h1>
       <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-brand-body">
-        <span class="font-semibold text-brand-ink">{author}</span>
-        <span class="text-brand-muted">{authorTitle}</span>
+        <span class="font-semibold text-brand-ink">{article.author}</span>
+        <span class="text-brand-muted">{article.authorRole}</span>
         <span class="text-brand-muted">·</span>
-        <span class="text-brand-muted">{publishedDate}</span>
+        <span class="text-brand-muted">{article.date}</span>
       </div>
     </div>
   </section>
@@ -40,8 +40,8 @@ const sourceUrl = 'https://www.linkedin.com/pulse/bridging-gap-eye-care-how-ai-a
   <article class="bg-white">
     <div class="max-w-3xl mx-auto px-6 md:px-8 lg:px-12 pt-12 md:pt-16">
       <img
-        src="/images/articles/bridging-the-gap-cover.webp"
-        alt="A clinician screens a patient with a handheld retinal camera"
+        src={article.cover.src}
+        alt={article.cover.alt}
         width="1144"
         height="644"
         class="w-full rounded-xl border border-brand-line"
@@ -49,142 +49,65 @@ const sourceUrl = 'https://www.linkedin.com/pulse/bridging-gap-eye-care-how-ai-a
     </div>
     <div class="max-w-3xl mx-auto px-6 md:px-8 lg:px-12 py-16 md:py-20 prose-content">
       <p class="lead text-xl md:text-2xl text-brand-ink font-medium leading-snug">
-        Every year, thousands of people in the U.S. lose their sight to preventable eye diseases—diabetic retinopathy chief among them. The bottleneck isn't medicine. It's access.
+        {article.lead}
       </p>
 
-      <h2>The U.S. Eye Care Crisis</h2>
-      <p>
-        In 2021, an estimated <strong>9.6 million Americans</strong> had diabetic retinopathy (DR), with <strong>1.84 million at risk of vision loss</strong>. The problem isn't a lack of treatment options—it's a shortage of specialists and screening programs. Detection comes too late.
-      </p>
-      <p>
-        While the number of ophthalmologists in the U.S. has remained roughly flat since 1990, the population over age 65 is projected to grow <strong>42% by 2030</strong> and <strong>83% by 2050</strong>. The gap is widening every year, and the consequences are concrete:
-      </p>
-      <ul>
-        <li>Longer wait times for eye exams</li>
-        <li>Delayed diagnoses of retinal diseases</li>
-        <li>Preventable blindness due to lack of early detection</li>
-      </ul>
-      <p>
-        What if primary care physicians, clinics, and pharmacies could conduct retinal screening exams—without being eye specialists?
-      </p>
-
-      <h2>Nsight360: AI-Assisted Eye Care, Bridging the Gap</h2>
-      <p>
-        Nsight360 is an AI-assisted retinal screening solution that empowers PCPs, clinics, and pharmacies to detect diabetic retinopathy and other retinal diseases—quickly and accurately. By bringing in-office retinal screening to primary healthcare providers, Nsight360 helps:
-      </p>
-      <ul>
-        <li>Expand access to screenings, especially in underserved and rural areas</li>
-        <li>Improve early detection rates, leading to timely interventions and better patient outcomes</li>
-        <li>Boost practice revenue with reimbursable retinal screenings</li>
-      </ul>
-      <p>
-        By combining advanced artificial intelligence with licensed eye specialists, Nsight360 helps healthcare providers deliver faster, more accurate diagnoses—reducing preventable blindness in the process.
-      </p>
-
-      <h2>What Makes Nsight360 Different</h2>
-
-      <h3>1. Reliable image-quality check</h3>
-      <p>
-        Many AI screening tools analyze every image, regardless of quality—often producing false negatives (missed disease) or false positives (unnecessary referrals). Nsight360's built-in quality check ensures only clear, well-captured images are analyzed, significantly reducing retests, inconclusive results, and unnecessary patient recalls. A blurry or off-center image triggers a re-scan prompt before analysis—not after.
-      </p>
-
-      <h3>2. AI + human expertise for nuanced detection</h3>
-      <p>
-        Autonomous AI models typically deliver a binary answer: DR or no DR. That's a major limitation, because not all cases are equal. Nsight360's hybrid approach classifies cases as <strong>mild, moderate, or severe</strong>—the granularity that drives appropriate care. A mild finding may only need lifestyle changes and monitoring; a severe finding may require urgent referral for laser treatment or injections.
-      </p>
-
-      <h3>3. Detects 8+ retinal diseases—beyond diabetic retinopathy</h3>
-      <p>
-        Most AI tools focus only on DR. Nsight360 detects a wider range of retinal conditions, including:
-      </p>
-      <ul>
-        <li><strong>Glaucoma</strong> — a leading cause of irreversible blindness</li>
-        <li><strong>Cataracts</strong> — clouding of the lens</li>
-        <li><strong>Hypertensive retinopathy</strong> — linked to high blood pressure and stroke risk</li>
-        <li><strong>Retinal vein occlusion (RVO)</strong> — a serious vision-loss condition</li>
-        <li><strong>Macular edema</strong> — common in diabetes patients</li>
-        <li><strong>Age-related macular degeneration (AMD)</strong> — affects central vision</li>
-        <li><strong>Epiretinal membrane</strong> — scar tissue that can distort vision</li>
-        <li><strong>Macular hole</strong> — a small break in the macula</li>
-      </ul>
-
-      <h3>4. Camera-agnostic with EHR integration</h3>
-      <p>
-        Unlike AI solutions that require specific, expensive cameras, Nsight360 works with any retinal imaging system—handheld and tabletop cameras alike. It integrates into existing Electronic Health Records workflows, so physicians don't have to change their infrastructure, patient data flows automatically, and documentation and billing stay streamlined.
-      </p>
-
-      <h3>5. Fast turnaround—as fast as 45 minutes</h3>
-      <p>
-        Most AI screening tools provide instant results, but accuracy can suffer without specialist review. Nsight360 ensures both speed and reliability: AI-assisted results in as fast as 45 minutes, verified by board-certified eye specialists. A patient can complete a retinal screening at their primary care visit and receive an AI-assisted diagnosis before they leave—no specialist appointment, no waiting weeks.
-      </p>
-
-      <blockquote class="border-l-4 border-brand-primary pl-6 my-10 text-xl md:text-2xl font-semibold text-brand-ink leading-snug not-italic">
-        AI isn't replacing specialists—it's empowering healthcare providers.
-      </blockquote>
-
-      <h2>Financial &amp; Clinical Benefits</h2>
-      <p>
-        Nsight360 is built so that screenings are billable and reimbursable. That means measurable benefits for healthcare providers:
-      </p>
-      <ul>
-        <li>Improved HEDIS scores</li>
-        <li>Risk-adjustment payments</li>
-        <li>Improved profitability for practices</li>
-      </ul>
-      <p>
-        By reducing the burden on ophthalmologists and enabling primary care to detect retinal disease early, Nsight360 aligns with value-based care models—better outcomes at lower cost.
-      </p>
-
-      <h2>The Future Is AI-Assisted</h2>
-      <p>
-        Preventable blindness starts with missed early signs. Pairing AI precision with specialist oversight makes early detection faster, more accessible, and more reliable than it has ever been. The result:
-      </p>
-      <ul>
-        <li><strong>Improved access</strong> — non-specialists can perform retinal screening in primary care and remote settings</li>
-        <li><strong>Faster diagnoses</strong> — turnaround time drops from weeks to under an hour</li>
-        <li><strong>Better outcomes</strong> — fewer complications, lower healthcare costs, less avoidable vision loss</li>
-        <li><strong>Cost-effective</strong> — specialist visits reserved for cases that need them</li>
-      </ul>
-      <p>
-        We're not just addressing today's eye care crisis—we're shaping how ophthalmology gets delivered in the next decade.
-      </p>
-      <p>
-        Join us in making early detection the standard. No one should lose sight of a preventable disease.
-      </p>
+      {article.body.map((node, i) => <Fragment>{i > 0 && ' '}{node.type === 'heading' ? (
+        node.level === 2 ? <h2>{node.text}</h2> : <h3>{node.text}</h3>
+      ) : node.type === 'paragraph' ? (
+        <p>
+          {richRuns(node.text).map((r) => (r.tag === 'text' ? r.text : r.tag === 'strong' ? <strong>{r.text}</strong> : r.tag === 'em' ? <em>{r.text}</em> : r.tag === 'br' ? <br /> : <a href={r.href} target={r.target} rel={r.rel} class={r.class}>{r.text}</a>))}
+        </p>
+      ) : node.type === 'list' ? (
+        <Fragment>{node.intro && <Fragment><p>{node.intro}</p>{' '}</Fragment>}<ul>
+          {node.items.map((item, j) => <Fragment>{j > 0 && ' '}<li>{richRuns(item).map((r) => (r.tag === 'text' ? r.text : r.tag === 'strong' ? <strong>{r.text}</strong> : r.tag === 'em' ? <em>{r.text}</em> : r.tag === 'br' ? <br /> : <a href={r.href} target={r.target} rel={r.rel} class={r.class}>{r.text}</a>))}</li></Fragment>)}
+        </ul></Fragment>
+      ) : node.type === 'quote' ? (
+        <blockquote class="border-l-4 border-brand-primary pl-6 my-10 text-xl md:text-2xl font-semibold text-brand-ink leading-snug not-italic">
+          {node.text}
+        </blockquote>
+      ) : node.type === 'rule' ? (
+        <hr class="my-12 border-brand-line" />
+      ) : (
+        <figure>
+          <img src={node.image.src} alt={node.image.alt} class="w-full rounded-xl border border-brand-line" loading="lazy" />
+          {node.caption && <figcaption class="mt-3 text-sm text-brand-muted">{node.caption}</figcaption>}
+        </figure>
+      )}</Fragment>)}
 
       <hr class="my-12 border-brand-line" />
 
       <p class="text-sm text-brand-muted">
-        Originally published by Awais Bajwa on LinkedIn —
-        <a href={sourceUrl} target="_blank" rel="noopener noreferrer" class="text-brand-primary hover:underline">
-          read the original article
+        {article.source.text}
+        <a href={article.source.link.href} target="_blank" rel="noopener noreferrer" class="text-brand-primary hover:underline">
+          {article.source.link.label}
         </a>.
       </p>
     </div>
   </article>
 
   <!-- CTA -->
-  <CtaBand image="/images/cta/underprivaliged.jpeg">
+  <CtaBand image={cta.image?.src}>
     <div class="max-w-4xl mx-auto px-6 md:px-8 lg:px-12 py-16 md:py-20 text-center">
       <h2 class="text-3xl md:text-4xl font-bold leading-tight" data-reveal>
-        Ready to bring AI-assisted retinal screening to your practice?
+        {cta.heading}
       </h2>
       <p class="mt-5 max-w-2xl mx-auto text-lg text-white/90 leading-relaxed" data-reveal>
-        See how Nsight360 detects 8+ retinal conditions, fits into your existing workflow, and supports better outcomes for your patients.
+        {cta.body}
       </p>
       <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center" data-reveal>
         <button
           type="button"
-          data-open-modal="contact"
+          data-open-modal={modalCta.modal}
           class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-8 py-3 rounded-md hover:bg-brand-surface transition"
         >
-          Contact Us
+          {modalCta.label}
         </button>
         <a
-          href="/solutions/nsight360"
+          href={linkCta.href}
           class="inline-flex items-center justify-center border-2 border-white text-white font-semibold px-8 py-3 rounded-md hover:bg-white hover:text-brand-primary transition"
         >
-          Learn about Nsight360
+          {linkCta.label}
         </a>
       </div>
     </div>

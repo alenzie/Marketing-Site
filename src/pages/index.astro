@@ -6,22 +6,36 @@ import AudienceCard from '../components/content/AudienceCard.astro';
 import TestimonialFeature from '../components/content/TestimonialFeature.astro';
 import ResourceCard from '../components/content/ResourceCard.astro';
 import CtaBand from '../components/content/CtaBand.astro';
+import { getPage, required, section, slots } from '../content';
 
+const page = getPage('home');
+const hero = section(page, 'hero', 'hero');
+const heroImage = required(hero.image, 'home/hero.image');
+const [demoCta, exploreCta] = slots(hero.ctas, 2, 'home/hero.ctas');
 // #2 — Post-event recap promo shown at the bottom of the hero (amaros.ai-style).
-// The "Event Recap" button is a link only when `url` is set; clear `url` to drop the link.
-const speakerEvent = {
-  eyebrow: 'Thank you for joining us',
-  title: 'Clinical Trials at the Summit · Retina 2026',
-  date: '',
-  presenter: 'Awais Bajwa, Founder & CEO',
-  photo: '/team/awais-bajwa.jpg',
-  url: 'https://www.ctsretina.org/',
-};
+// The "Event Recap" button is a link only when `promo.url` is set; clear it to drop the link.
+const speakerEvent = required(hero.promo, 'home/hero.promo');
+const partners = section(page, 'partners', 'partners');
+const beyond = section(page, 'beyond-the-eye', 'split');
+const beyondImage = required(beyond.image, 'home/beyond-the-eye.image');
+const flagship = section(page, 'flagship', 'showcase');
+const [flagshipLead, flagshipMore] = slots(flagship.flagship.paragraphs, 2, 'home/flagship.flagship.paragraphs');
+const [tileDetect, tileDrss, tileExplain] = slots(flagship.tiles, 3, 'home/flagship.tiles');
+const products = section(page, 'products', 'products');
+const [ocula, nsight, secondOpinion, ophthal] = slots(products.cards, 4, 'home/products.cards');
+const whoWeHelp = section(page, 'who-we-help', 'audiences');
+const [audPrimary, audOptometry, audInsurance, audPharma] = slots(whoWeHelp.cards, 4, 'home/who-we-help.cards');
+const testimonial = section(page, 'testimonial', 'testimonial');
+const insights = section(page, 'insights', 'resources');
+const insightsLink = required(insights.link, 'home/insights.link');
+const closing = section(page, 'closing', 'text');
+const finalCta = section(page, 'final-cta', 'cta');
+const [contactCta] = slots(finalCta.ctas, 1, 'home/final-cta.ctas');
 ---
 
 <Layout
-  title="Ophthalytics — Wellness Through the Eyes™"
-  description="AI-Powered Retinal Intelligence for earlier detection and better health."
+  title={page.title}
+  description={page.description}
   currentPath="/"
 >
 
@@ -29,8 +43,8 @@ const speakerEvent = {
   <section class="relative bg-white overflow-hidden isolate">
     <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
       <img
-        src="/images/sections/dr-tablet-ai-graphics.jpg"
-        alt=""
+        src={heroImage.src}
+        alt={heroImage.alt}
         class="absolute inset-0 w-full h-full object-cover object-center md:object-right"
         loading="eager"
         style="-webkit-mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 100%); mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 100%);"
@@ -44,27 +58,27 @@ const speakerEvent = {
     <div class="relative z-[2] max-w-7xl mx-auto px-6 md:px-8 lg:px-12 pt-20 md:pt-32 pb-10 md:pb-14 grid md:grid-cols-2 gap-8 items-center">
       <div>
         <p class="text-sm uppercase tracking-widest text-brand-primary font-semibold">
-          Ophthalytics — Wellness Through the Eyes™
+          {hero.eyebrow}
         </p>
         <h1 class="mt-4 text-5xl md:text-6xl font-bold text-brand-ink leading-tight">
-          Retinal Intelligence for Earlier Detection and Better Health
+          {hero.heading}
         </h1>
         <p class="mt-6 max-w-2xl text-lg md:text-xl text-brand-body leading-relaxed" data-reveal>
-          Advancing eye care through AI, oculomics, and multimodal intelligence—transforming the retina into a gateway for early disease detection and broader health insights.
+          {hero.body}
         </p>
         <div class="mt-8 flex flex-col sm:flex-row gap-4">
           <button
             type="button"
-            data-open-modal="demo"
+            data-open-modal={demoCta.modal}
             class="inline-flex items-center justify-center bg-brand-primary text-white font-semibold px-6 py-3 rounded-md hover:bg-brand-primary-dark transition"
           >
-            Request a Demo
+            {demoCta.label}
           </button>
           <a
-            href="/solutions"
+            href={exploreCta.href}
             class="inline-flex items-center justify-center border-2 border-brand-primary text-brand-primary font-semibold px-6 py-3 rounded-md hover:bg-brand-primary hover:text-white transition"
           >
-            Explore Our Solutions
+            {exploreCta.label}
           </a>
         </div>
       </div>
@@ -75,8 +89,8 @@ const speakerEvent = {
     <div class="relative z-[2] max-w-7xl mx-auto px-6 md:px-8 lg:px-12 pb-12 md:pb-16">
       <div class="rounded-2xl bg-slate-900/70 backdrop-blur-md border border-white/10 shadow-xl px-5 py-4 md:px-6 md:py-5 flex flex-col sm:flex-row items-center gap-4 md:gap-6">
         <img
-          src={speakerEvent.photo}
-          alt={speakerEvent.presenter}
+          src={speakerEvent.photo.src}
+          alt={speakerEvent.photo.alt}
           class="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover border-2 border-white/30 shrink-0"
           loading="lazy"
         />
@@ -85,7 +99,7 @@ const speakerEvent = {
           <p class="mt-1 text-white font-bold text-base md:text-lg leading-snug">
             {speakerEvent.title}{speakerEvent.date ? ` · ${speakerEvent.date}` : ''}
           </p>
-          <p class="mt-0.5 text-sm text-white/70">Presented by {speakerEvent.presenter}</p>
+          <p class="mt-0.5 text-sm text-white/70">{speakerEvent.presentedByPrefix} {speakerEvent.presenter}</p>
         </div>
         {speakerEvent.url ? (
           <a
@@ -94,14 +108,14 @@ const speakerEvent = {
             rel="noopener noreferrer"
             class="shrink-0 inline-flex items-center gap-2 bg-white text-brand-primary font-semibold text-sm px-5 py-3 rounded-lg hover:bg-brand-cyan-soft transition-colors whitespace-nowrap"
           >
-            Event Recap
+            {speakerEvent.linkLabel}
             <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none" aria-hidden="true">
               <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
         ) : (
-          <span class="shrink-0 inline-flex items-center gap-2 bg-white/30 text-white font-semibold text-sm px-5 py-3 rounded-lg whitespace-nowrap cursor-default" aria-disabled="true" title="Event link coming soon">
-            Event Recap
+          <span class="shrink-0 inline-flex items-center gap-2 bg-white/30 text-white font-semibold text-sm px-5 py-3 rounded-lg whitespace-nowrap cursor-default" aria-disabled="true" title={speakerEvent.comingSoonTitle}>
+            {speakerEvent.linkLabel}
           </span>
         )}
       </div>
@@ -112,7 +126,7 @@ const speakerEvent = {
   <section class="relative overflow-hidden bg-white">
     <div class="tp-band">
       <div class="tp-stack">
-        <p class="tp-eyebrow">Trusted by leading clinicians, researchers &amp; health systems</p>
+        <p class="tp-eyebrow">{partners.eyebrow}</p>
         <div class="tp-marquee" data-tp-track></div>
       </div>
     </div>
@@ -175,32 +189,27 @@ const speakerEvent = {
     @media (prefers-reduced-motion: reduce) { .tp-track { animation: none; } }
   </style>
 
-  <script is:inline>
+  <script is:inline define:vars={{ partners: partners.logos }}>
     (function () {
-      var partners = [
-        { name: 'Cleveland Vision Institute', tag: 'Research partner', icon: '<path d="M3 12h4l3-9 4 18 3-9h4"/>' },
-        { name: 'Global Eye Foundation',      tag: 'Screening network', image: '/images/partners/global-eye-foundation.webp', scale: 1.2 },
-        { name: 'ATDC',                       tag: 'Georgia Tech accelerator', image: '/images/partners/atdc-gt.webp', scale: 1.33 },
-        { name: 'Northridge Health System',   tag: 'Enterprise deployment', icon: '<path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-7h6v7"/>' },
-        { name: 'The Diabetes Centre',        tag: '250K+ patients screened', image: '/images/partners/tdc-logo.svg' },
-        { name: 'LRBT',                       tag: "Pakistan's largest eye-care NGO", image: '/images/partners/lrbt-logo.webp' },
-        { name: 'Prominence Health',          tag: 'Health plan partner', image: '/images/partners/prominence-logo.webp' },
-        { name: 'Anthem Blue Cross Blue Shield', tag: 'Wellness screening', image: '/images/partners/anthem-logo.png', scale: 1.33 },
-        { name: 'CTeL',                       tag: 'Telehealth & e-Health law', image: '/images/partners/ctel-logo.webp' },
-        { name: 'Medlife',                    tag: 'Healthcare partner', icon: '<path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6z"/>' },
-        { name: 'Georgia PC Clinic',          tag: 'Primary care partner', image: '/images/partners/georgia-clinic-logo.png' },
-        { name: 'Primary Ways',               tag: 'Healthcare partner', icon: '<path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-5h6v5"/>' },
-        { name: 'Prestige Medical Group',     tag: 'Medical group', image: '/images/partners/prestige-logo.webp' }
-      ];
+      // Built-in marks for partners without a logo file (PartnerIconSchema).
+      var icons = {
+        pulse: '<path d="M3 12h4l3-9 4 18 3-9h4"/>',
+        hospital: '<path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-7h6v7"/>',
+        cross: '<path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6z"/>',
+        clinic: '<path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-5h6v5"/>'
+      };
+      function esc(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
       function buildLogo(p) {
         var imgStyle = p.scale ? ' style="height:' + Math.round(80 * p.scale) + 'px"' : '';
-        var mark = p.image
-          ? '<img src="' + p.image + '" alt="' + p.name + ' logo" loading="lazy" decoding="async"' + imgStyle + '/>'
-          : '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F2350" stroke-width="2">' + p.icon + '</svg>';
-        var markClass = p.image ? 'tp-mark is-img' : 'tp-mark';
+        var mark = p.logo
+          ? '<img src="' + esc(p.logo.src) + '" alt="' + esc(p.logo.alt) + '" loading="lazy" decoding="async"' + imgStyle + '/>'
+          : '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F2350" stroke-width="2">' + (icons[p.icon] || '') + '</svg>';
+        var markClass = p.logo ? 'tp-mark is-img' : 'tp-mark';
         return '<div class="tp-logo">' +
           '<span class="' + markClass + '">' + mark + '</span>' +
-          '<span class="tp-name">' + p.name + '<small>' + p.tag + '</small></span>' +
+          '<span class="tp-name">' + esc(p.name) + '<small>' + esc(p.tag) + '</small></span>' +
         '</div>';
       }
       document.querySelectorAll('[data-tp-track]').forEach(function (el) {
@@ -214,8 +223,8 @@ const speakerEvent = {
   <section class="relative bg-white overflow-hidden isolate py-10">
     <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
       <img
-        src="/images/sections/dr-ai-computer-screen.jpg"
-        alt=""
+        src={beyondImage.src}
+        alt={beyondImage.alt}
         class="absolute inset-0 w-full h-full object-cover object-center md:object-right"
         loading="lazy"
         style="-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);"
@@ -228,12 +237,9 @@ const speakerEvent = {
     ></div>
     <div class="relative z-[2] max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center">
       <div class="bg-white/[0.78] backdrop-blur-md border border-brand-line/70 rounded-2xl p-8 md:p-10 shadow-[0_10px_30px_-12px_rgba(15,44,92,0.12)]">
-        <PipeHeading level="h2" data-reveal>Beyond the Eye: A New Frontier in Detection</PipeHeading>
+        <PipeHeading level="h2" data-reveal>{beyond.heading}</PipeHeading>
         <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed" data-reveal>
-          <p>The retina is one of the only places in the body where microvascular and neural structures can be observed directly and noninvasively.</p>
-          <p>At Ophthalytics, we are advancing the field of oculomics—where retinal imaging extends beyond eye disease to reveal early indicators of systemic health.</p>
-          <p>By combining AI with multimodal data, we enable earlier risk detection, deeper clinical insights, and more connected care.</p>
-          <p>This is the future of preventive healthcare—starting with the eye.</p>
+          {beyond.paragraphs.map((p, i) => <Fragment>{i > 0 && ' '}<p>{p}</p></Fragment>)}
         </div>
       </div>
       <div class="hidden md:block"></div>
@@ -247,12 +253,12 @@ const speakerEvent = {
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
         <div>
           <p class="text-xs uppercase tracking-widest text-brand-muted font-semibold">
-            Ophthalytics Inc — Product Portfolio
+            {flagship.eyebrow}
           </p>
-          <p class="mt-1 text-sm text-brand-body">AI-Powered Retinal Intelligence</p>
+          <p class="mt-1 text-sm text-brand-body">{flagship.tagline}</p>
         </div>
         <span class="self-start md:self-auto inline-block rounded-full bg-brand-primary text-white px-4 py-1.5 text-sm font-medium">
-          Wellness Through the Eyes™
+          {flagship.pill}
         </span>
       </div>
 
@@ -260,23 +266,23 @@ const speakerEvent = {
         <!-- Flagship Card -->
         <div class="bg-white border border-brand-line rounded-2xl p-8 md:p-10 shadow-md">
           <p class="text-xs uppercase tracking-widest text-brand-primary-light font-semibold">
-            Flagship Innovation
+            {flagship.flagship.eyebrow}
           </p>
-          <h2 class="mt-3 text-4xl font-bold text-brand-ink">Ocula360</h2>
+          <h2 class="mt-3 text-4xl font-bold text-brand-ink">{flagship.flagship.heading}</h2>
           <p class="mt-4 text-3xl font-bold text-brand-primary leading-tight">
-            Foundational Retinal AI
+            {flagship.flagship.subheading}
           </p>
           <p class="mt-5 text-base text-brand-body leading-relaxed">
-            Ocula360 is our flagship AI engine designed to detect multiple retinal diseases from a single image. Built on a foundational model architecture, it enables scalable screening, advanced DRSS scoring, and future-ready multimodal applications.
+            {flagshipLead}
           </p>
           <p class="mt-4 text-base text-brand-body leading-relaxed">
-            From clinical workflows to research environments, Ocula360 transforms retinal imaging into actionable diagnostic intelligence.
+            {flagshipMore}
           </p>
           <a
-            href="/solutions/ocula360"
+            href={flagship.flagship.link.href}
             class="mt-6 inline-flex items-center gap-2 text-brand-primary font-semibold hover:gap-3 transition-all"
           >
-            Learn more about Ocula360
+            {flagship.flagship.link.label}
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
               <polyline points="12 5 19 12 12 19"></polyline>
@@ -287,21 +293,21 @@ const speakerEvent = {
         <!-- Core Strengths Card -->
         <div class="relative rounded-2xl p-8 md:p-10 overflow-hidden bg-gradient-to-br from-[#0F2C5C] via-[#123F6E] to-[#0F6F7D] text-white">
           <p class="text-xs uppercase tracking-widest text-brand-secondary font-semibold">
-            Core Strengths
+            {flagship.highlight.eyebrow}
           </p>
           <p class="mt-3 text-3xl font-bold leading-tight">
-            From one retinal image to scalable diagnostic intelligence.
+            {flagship.highlight.heading}
           </p>
           <p class="mt-5 text-base text-white/80 leading-relaxed">
-            Multi-disease detection, explainable AI outputs, DR severity support, and flexible deployment models for providers, payers, eye care, and global screening markets.
+            {flagship.highlight.body}
           </p>
         </div>
       </div>
 
       <div class="mt-6 grid gap-5 md:grid-cols-3" data-reveal-group>
         <CapabilityTile
-          title="Multi-Disease Detection"
-          body="Detects diabetic retinopathy, AMD, glaucoma indicators, and vascular abnormalities."
+          title={tileDetect.title}
+          body={tileDetect.body}
         >
           <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/>
@@ -309,8 +315,8 @@ const speakerEvent = {
           </svg>
         </CapabilityTile>
         <CapabilityTile
-          title="DRSS Scoring"
-          body="Objective, quantitative DRSS severity grading to support disease staging and patient stratification."
+          title={tileDrss.title}
+          body={tileDrss.body}
         >
           <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 3v18h18"/>
@@ -320,8 +326,8 @@ const speakerEvent = {
           </svg>
         </CapabilityTile>
         <CapabilityTile
-          title="Explainable & Multimodal"
-          body="Lesion-level visualization, confidence outputs, and compatibility with imaging and patient context."
+          title={tileExplain.title}
+          body={tileExplain.body}
         >
           <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="12 2 2 7 12 12 22 7 12 2"/>
@@ -337,9 +343,9 @@ const speakerEvent = {
   <section id="products" class="bg-white scroll-mt-24">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
       <div class="text-center max-w-3xl mx-auto mb-14" data-reveal>
-        <PipeHeading level="h2">One Company. Four Retinal AI Solutions.</PipeHeading>
+        <PipeHeading level="h2">{products.heading}</PipeHeading>
         <p class="mt-4 text-lg text-brand-body leading-relaxed">
-          Purpose-built solutions for every point of care.
+          {products.intro}
         </p>
       </div>
 
@@ -348,33 +354,31 @@ const speakerEvent = {
         <article class="group bg-white border border-brand-line rounded-2xl shadow-sm overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
           <div class="relative aspect-[16/10] bg-brand-surface-blue overflow-hidden">
             <img
-              src="/images/products/ocula360_product_shot_2.jpg"
-              alt="Ocula360 Multimodal AI Retinal Platform shown on a clinical workstation display"
+              src={ocula.image.src}
+              alt={ocula.image.alt}
               class="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
             />
             <span class="absolute top-3 left-3 inline-block rounded-full bg-brand-primary text-white text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 shadow">
-              Flagship
+              {ocula.badge}
             </span>
           </div>
           <div class="p-7 flex flex-col flex-1">
-            <h3 class="text-2xl font-bold text-brand-ink">Ocula360</h3>
+            <h3 class="text-2xl font-bold text-brand-ink">{ocula.title}</h3>
             <p class="mt-2 text-sm font-semibold text-brand-primary">
-              Foundational Retinal AI Engine
+              {ocula.subtitle}
             </p>
             <p class="mt-3 text-sm text-brand-body leading-relaxed">
-              The platform behind every Ophthalytics solution. Built on a foundational model architecture, Ocula360 detects multiple retinal diseases from a single image and powers DRSS scoring, explainable outputs, and future-ready multimodal applications.
+              {ocula.body}
             </p>
             <ul class="mt-4 space-y-1.5 text-sm text-brand-body">
-              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Multi-disease detection</span></li>
-              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>DRSS severity grading</span></li>
-              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Explainable &amp; multimodal outputs</span></li>
+              {ocula.bullets.map((b, i) => <Fragment>{i > 0 && ' '}<li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>{b}</span></li></Fragment>)}
             </ul>
             <a
-              href="/solutions/ocula360"
+              href={ocula.link.href}
               class="mt-auto pt-5 inline-flex items-center gap-2 text-brand-primary font-semibold group-hover:gap-3 transition-all"
             >
-              Learn more
+              {ocula.link.label}
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
@@ -387,30 +391,28 @@ const speakerEvent = {
         <article class="group bg-white border border-brand-line rounded-2xl shadow-sm overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
           <div class="relative aspect-[16/10] bg-brand-surface-blue overflow-hidden">
             <img
-              src="/images/products/nsight360-product.png"
-              alt="Nsight360 AI Visualization Lab — multi-overlay retinal analysis dashboard on a desktop monitor"
+              src={nsight.image.src}
+              alt={nsight.image.alt}
               class="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
             />
           </div>
           <div class="p-7 flex flex-col flex-1">
-            <h3 class="text-2xl font-bold text-brand-ink">Nsight360</h3>
+            <h3 class="text-2xl font-bold text-brand-ink">{nsight.title}</h3>
             <p class="mt-2 text-sm font-semibold text-brand-primary">
-              AI-Assisted Retinal Screening for Primary Care
+              {nsight.subtitle}
             </p>
             <p class="mt-3 text-sm text-brand-body leading-relaxed">
-              Brings retinal screening directly into primary care settings, enabling non-specialists to capture retinal images and receive AI-assisted reports with expert review—closing care gaps and identifying at-risk patients before vision loss occurs.
+              {nsight.body}
             </p>
             <ul class="mt-4 space-y-1.5 text-sm text-brand-body">
-              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Primary care integration</span></li>
-              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Human + AI workflow</span></li>
-              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Scalable screening programs</span></li>
+              {nsight.bullets.map((b, i) => <Fragment>{i > 0 && ' '}<li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>{b}</span></li></Fragment>)}
             </ul>
             <a
-              href="/solutions/nsight360"
+              href={nsight.link.href}
               class="mt-auto pt-5 inline-flex items-center gap-2 text-brand-primary font-semibold group-hover:gap-3 transition-all"
             >
-              Learn more
+              {nsight.link.label}
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
@@ -423,30 +425,28 @@ const speakerEvent = {
         <article class="group bg-white border border-brand-line rounded-2xl shadow-sm overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
           <div class="relative aspect-[16/10] bg-brand-surface-blue overflow-hidden">
             <img
-              src="/images/products/2nd-opinion-mockup_2.jpg"
-              alt="2nd Opinion AI Diagnostic Support — ultra-widefield scan with 7-field overlay"
+              src={secondOpinion.image.src}
+              alt={secondOpinion.image.alt}
               class="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
             />
           </div>
           <div class="p-7 flex flex-col flex-1">
-            <h3 class="text-2xl font-bold text-brand-ink">2nd Opinion</h3>
+            <h3 class="text-2xl font-bold text-brand-ink">{secondOpinion.title}</h3>
             <p class="mt-2 text-sm font-semibold text-brand-primary">
-              AI-Enhanced Diagnostic Support for Optometry
+              {secondOpinion.subtitle}
             </p>
             <p class="mt-3 text-sm text-brand-body leading-relaxed">
-              Built for optometrists and eye care professionals seeking greater confidence in retinal assessments. Provides AI-supported analysis that highlights subtle findings and reduces diagnostic uncertainty without disrupting existing practice workflows.
+              {secondOpinion.body}
             </p>
             <ul class="mt-4 space-y-1.5 text-sm text-brand-body">
-              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Lesion-level visualization</span></li>
-              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Decision support</span></li>
-              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Workflow integration</span></li>
+              {secondOpinion.bullets.map((b, i) => <Fragment>{i > 0 && ' '}<li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>{b}</span></li></Fragment>)}
             </ul>
             <a
-              href="/solutions/2nd-opinion"
+              href={secondOpinion.link.href}
               class="mt-auto pt-5 inline-flex items-center gap-2 text-brand-primary font-semibold group-hover:gap-3 transition-all"
             >
-              Learn more
+              {secondOpinion.link.label}
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
@@ -459,30 +459,28 @@ const speakerEvent = {
         <article class="group bg-white border border-brand-line rounded-2xl shadow-sm overflow-hidden flex flex-col hover:shadow-lg transition-shadow">
           <div class="relative aspect-[16/10] bg-brand-surface-blue overflow-hidden">
             <img
-              src="/images/products/ophthal360-mockup.jpeg"
-              alt="Ophthal360 autonomous screening dashboard — multi-patient retinal triage and referral overview"
+              src={ophthal.image.src}
+              alt={ophthal.image.alt}
               class="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
             />
           </div>
           <div class="p-7 flex flex-col flex-1">
-            <h3 class="text-2xl font-bold text-brand-ink">Ophthal360</h3>
+            <h3 class="text-2xl font-bold text-brand-ink">{ophthal.title}</h3>
             <p class="mt-2 text-sm font-semibold text-brand-primary">
-              Autonomous AI for Scalable Retinal Screening
+              {ophthal.subtitle}
             </p>
             <p class="mt-3 text-sm text-brand-body leading-relaxed">
-              Designed for high-volume retinal screening across healthcare systems and large-scale programs. Standardizes screening processes and supports timely referral decisions with minimal manual intervention—built for reach in underserved and resource-limited settings.
+              {ophthal.body}
             </p>
             <ul class="mt-4 space-y-1.5 text-sm text-brand-body">
-              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Autonomous detection</span></li>
-              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>High-throughput screening</span></li>
-              <li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>Automated referral logic</span></li>
+              {ophthal.bullets.map((b, i) => <Fragment>{i > 0 && ' '}<li class="flex gap-2"><span class="text-brand-primary mt-0.5">•</span><span>{b}</span></li></Fragment>)}
             </ul>
             <a
-              href="/solutions/ophthal360"
+              href={ophthal.link.href}
               class="mt-auto pt-5 inline-flex items-center gap-2 text-brand-primary font-semibold group-hover:gap-3 transition-all"
             >
-              Learn more
+              {ophthal.link.label}
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
@@ -493,8 +491,7 @@ const speakerEvent = {
       </div>
 
       <div class="mt-12 flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-xs text-brand-muted">
-        <span>Atlanta, Georgia, USA</span>
-        <span>Retinal Intelligence for Earlier Detection and Better Health</span>
+        {products.footnotes?.map((note, i) => <Fragment>{i > 0 && ' '}<span>{note}</span></Fragment>)}
       </div>
     </div>
   </section>
@@ -502,20 +499,20 @@ const speakerEvent = {
   <!-- SECTION 5 — WHO WE HELP -->
   <section class="bg-brand-surface">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
-      <PipeHeading level="h2" data-reveal>Who We Help</PipeHeading>
+      <PipeHeading level="h2" data-reveal>{whoWeHelp.heading}</PipeHeading>
       <p class="mt-4 max-w-3xl text-lg text-brand-body leading-relaxed" data-reveal>
-        Supporting providers, systems, and researchers across the care continuum.
+        {whoWeHelp.intro}
       </p>
 
       <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4" data-reveal-group>
         <AudienceCard
-          title="Primary Care Providers & Health Systems"
-          body="Bring retinal screening directly into primary care—enabling earlier detection without specialist dependency."
+          title={audPrimary.title}
+          body={audPrimary.body}
         >
           <img
             slot="icon"
-            src="/images/audiences/primary-care-physicians.webp"
-            alt=""
+            src={audPrimary.image.src}
+            alt={audPrimary.image.alt}
             width="96"
             height="96"
             class="w-full h-full object-contain"
@@ -524,13 +521,13 @@ const speakerEvent = {
           />
         </AudienceCard>
         <AudienceCard
-          title="Optometrists & Eye Care Professionals"
-          body="Enhance diagnostic confidence with AI-supported interpretation and better visibility into subtle retinal findings."
+          title={audOptometry.title}
+          body={audOptometry.body}
         >
           <img
             slot="icon"
-            src="/images/audiences/optometrists.webp"
-            alt=""
+            src={audOptometry.image.src}
+            alt={audOptometry.image.alt}
             width="96"
             height="96"
             class="w-full h-full object-contain"
@@ -539,13 +536,13 @@ const speakerEvent = {
           />
         </AudienceCard>
         <AudienceCard
-          title="Insurance Providers & Population Health Programs"
-          body="Close care gaps, improve screening rates, and support value-based care initiatives."
+          title={audInsurance.title}
+          body={audInsurance.body}
         >
           <img
             slot="icon"
-            src="/images/audiences/insurance-population-health.webp"
-            alt=""
+            src={audInsurance.image.src}
+            alt={audInsurance.image.alt}
             width="96"
             height="96"
             class="w-full h-full object-cover rounded-full"
@@ -554,13 +551,13 @@ const speakerEvent = {
           />
         </AudienceCard>
         <AudienceCard
-          title="Pharmaceutical & Clinical Research Organizations"
-          body="Accelerate patient identification and clinical trial recruitment with advanced retinal intelligence."
+          title={audPharma.title}
+          body={audPharma.body}
         >
           <img
             slot="icon"
-            src="/images/audiences/pharmaceutical.webp"
-            alt=""
+            src={audPharma.image.src}
+            alt={audPharma.image.alt}
             width="96"
             height="96"
             class="w-full h-full object-contain"
@@ -573,18 +570,18 @@ const speakerEvent = {
   </section>
 
   <!-- SECTION 6 — TESTIMONIALS -->
-  <CtaBand image="/images/cta/healthcare_professionals.jpeg">
+  <CtaBand image={testimonial.image.src}>
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24 text-center">
       <h2 class="text-3xl md:text-4xl font-bold text-white" data-reveal>
-        Proven Impact in Real-World Care
+        {testimonial.heading}
       </h2>
       <p class="mt-4 max-w-3xl mx-auto text-lg text-white/80 leading-relaxed" data-reveal>
-        Our solutions are used by healthcare providers globally to expand access to screening, improve early detection, and prevent vision loss.
+        {testimonial.body}
       </p>
       <div class="mt-12" data-reveal>
         <TestimonialFeature
-          quote="Using Nsight360, we've screened over 250,000 patients and helped prevent thousands of cases of blindness."
-          author="The Diabetic Center, Pakistan"
+          quote={testimonial.quote}
+          author={testimonial.author}
         />
       </div>
     </div>
@@ -593,44 +590,28 @@ const speakerEvent = {
   <!-- SECTION 7 — LATEST RESOURCES -->
   <section class="bg-white">
     <div class="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-24">
-      <PipeHeading level="h2" data-reveal>Insights & Innovations</PipeHeading>
+      <PipeHeading level="h2" data-reveal>{insights.heading}</PipeHeading>
       <p class="mt-4 max-w-3xl text-lg text-brand-body leading-relaxed" data-reveal>
-        Stay informed on the latest in AI, eye care, and early detection.
+        {insights.intro}
       </p>
 
       <div class="mt-10 grid gap-6 md:grid-cols-3" data-reveal-group>
-        <ResourceCard
-          categoryColor="accent"
-          category="Article"
-          title="Bridging the Gap in Eye Care: How AI-Assisted Technology Enables Early Detection & Prevents Blindness"
-          excerpt="How AI-assisted retinal screening brings early detection to the front lines of care and helps prevent avoidable blindness."
-          link="/resources/articles/bridging-the-gap-eye-care"
-          thumbnail="/images/articles/bridging-the-gap-cover.webp"
-        />
-        <ResourceCard
-          categoryColor="secondary"
-          category="Article"
-          title="How a Small Startup from Atlanta is Saving Billions in U.S. Healthcare Costs and Preventing Blindness With Assistive AI"
-          excerpt="The four-month wait that started the company, and how AI-assisted screening changes the economics of early detection."
-          link="/resources/articles/atlanta-startup-saving-billions"
-          thumbnail="/images/articles/atlanta-startup-cover.webp"
-        />
-        <ResourceCard
-          categoryColor="primary"
-          category="Journal"
-          title="A Prospective Study on Diabetic Retinopathy Detection Based on a Modified CNN Using Fundus Images"
-          excerpt="Peer-reviewed research documenting the performance of our early deep-learning models on diabetic retinopathy detection."
-          link="https://www.mdpi.com/2075-4418/13/3/393"
-          thumbnail="/images/articles/mdpi-card.svg"
-        />
+        {insights.cards.map((card, i) => <Fragment>{i > 0 && ' '}<ResourceCard
+          categoryColor={card.categoryColor}
+          category={card.category}
+          title={card.title}
+          excerpt={card.excerpt}
+          link={card.href}
+          thumbnail={card.thumbnail?.src}
+        /></Fragment>)}
       </div>
 
       <div class="mt-10 text-center">
         <a
-          href="/resources"
+          href={insightsLink.href}
           class="inline-flex items-center gap-2 text-brand-primary font-semibold hover:underline"
         >
-          View All Resources
+          {insightsLink.label}
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
@@ -644,37 +625,31 @@ const speakerEvent = {
   <section class="bg-brand-surface-blue">
     <div class="max-w-3xl mx-auto px-6 md:px-8 lg:px-12 py-24 text-center">
       <h2 class="text-3xl md:text-4xl font-bold text-brand-ink leading-tight" data-reveal>
-        From Eye Exams to Better Outcomes
+        {closing.heading}
       </h2>
       <div class="mt-6 space-y-5 text-lg text-brand-body leading-relaxed" data-reveal>
-        <p>Ophthalytics is building a connected ecosystem of retinal AI solutions—designed to improve early detection, expand access to care, and unlock deeper health insights.</p>
-        <p>Because the future of healthcare starts with seeing risk earlier.</p>
+        {closing.paragraphs.map((p, i) => <Fragment>{i > 0 && ' '}<p>{p}</p></Fragment>)}
       </div>
     </div>
   </section>
 
   <!-- SECTION 9 — FINAL CTA -->
-  <CtaBand image="/images/cta/zoom_on_retina_huge.jpeg">
+  <CtaBand image={finalCta.image?.src}>
     <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 py-20 md:py-28 text-center">
       <h2 class="text-4xl md:text-5xl font-bold text-white leading-tight" data-reveal>
-        Transform Early Detection with Retinal AI
+        {finalCta.heading}
       </h2>
       <div class="mt-8" data-reveal>
         <button
           type="button"
-          data-open-modal="contact"
+          data-open-modal={contactCta.modal}
           class="inline-flex items-center justify-center bg-white text-brand-primary font-semibold px-8 py-3 rounded-md hover:bg-brand-surface transition"
         >
-          Contact Us
+          {contactCta.label}
         </button>
       </div>
       <p class="mt-8 text-sm text-white/80">
-        For inquiries, connect with us on
-        <a href="https://www.linkedin.com/company/360idx/" target="_blank" rel="noopener noreferrer" class="underline hover:text-white">LinkedIn</a>
-        or reach out at
-        <a href="tel:+18622226880" class="underline hover:text-white">+1 862 222 6880</a>
-        |
-        <a href="mailto:info@ophthalytics.com" class="underline hover:text-white">info@ophthalytics.com</a>
+        <Fragment set:html={finalCta.note} />
       </p>
     </div>
   </CtaBand>

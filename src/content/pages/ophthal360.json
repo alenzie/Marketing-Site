@@ -1,0 +1,120 @@
+{
+  "slug": "ophthal360",
+  "title": "Ophthal360 — Autonomous Retinal AI at Scale — Ophthalytics",
+  "description": "An autonomous AI platform for health systems and population-scale retinal screening programs. In active deployment across Asian markets.",
+  "sections": [
+    {
+      "type": "hero",
+      "id": "hero",
+      "label": "Hero",
+      "eyebrow": "Autonomous AI",
+      "heading": "Ophthal360",
+      "subheading": "Retinal screening at the scale of a population.",
+      "body": "An autonomous AI platform built for health systems, population health programs, and large-scale screening deployments—delivering retinal analysis and referral decision support without manual image review.",
+      "image": { "src": "/images/sections/medical-center-waiting-room.jpg", "alt": "" },
+      "media": { "src": "/images/products/ophthal360-mockup_blue_3.jpg", "alt": "Ophthal360 Multimodal AI Retinal Platform — DRSS eligibility dashboard shown on a clinical workstation" },
+      "ctas": [
+        { "label": "Request a Demo", "modal": "demo" },
+        { "label": "See Deployment Case", "href": "#deployment-case" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "challenge",
+      "label": "The challenge",
+      "eyebrow": "THE CHALLENGE",
+      "heading": "Specialist-dependent screening doesn't scale.",
+      "paragraphs": [
+        "Preventable blindness remains one of the largest unaddressed public health challenges globally. The tools to detect diabetic retinopathy and other retinal conditions exist. The specialists to interpret every image do not.",
+        "Every screening model that requires expert image review hits the same ceiling: the supply of reading ophthalmologists. At national scale. At global scale. It's not enough.",
+        "Ophthal360 was built to move past that ceiling."
+      ]
+    },
+    {
+      "type": "split",
+      "id": "solution",
+      "label": "The solution",
+      "eyebrow": "THE SOLUTION",
+      "heading": "Autonomous retinal analysis at population scale.",
+      "paragraphs": [
+        "Ophthal360 performs retinal analysis and generates screening outputs without manual interpretation—combining automated disease detection, referral decision support, and integration pathways for large-volume deployment.",
+        "It is designed for environments where traditional specialist-dependent workflows are not feasible: rural regions, developing healthcare markets, national screening programs, and high-throughput clinical networks."
+      ],
+      "aside": {
+        "eyebrow": "In Active Deployment",
+        "heading": "Currently deployed across Asian markets.",
+        "body": "Ophthal360 is live today in healthcare programs across Asia, where access to specialist eye care is scarce and the need for scale is immediate. Every scan contributes to a validated body of real-world performance data."
+      }
+    },
+    {
+      "type": "features",
+      "id": "capabilities",
+      "label": "Capabilities",
+      "eyebrow": "CAPABILITIES",
+      "heading": "Built for Autonomous Scale",
+      "items": [
+        { "title": "Autonomous Detection", "body": "Performs retinal analysis and generates screening outputs without requiring manual interpretation at every image. Operates continuously, at scale." },
+        { "title": "High-Throughput Screening", "body": "Optimized for large-scale deployment across clinics, screening programs, and population health initiatives where volume makes manual review impossible." },
+        { "title": "Automated Referral Logic", "body": "Identifies at-risk patients and supports timely, consistent referral decisions—reducing delays between screening and specialist care." }
+      ]
+    },
+    {
+      "type": "features",
+      "id": "who-its-for",
+      "label": "Who it's for",
+      "heading": "Built for Systems and Programs at Scale",
+      "items": [
+        { "title": "Healthcare Systems & Networks", "body": "Deploy autonomous screening across hospitals, clinics, and satellite locations—without adding specialist capacity." },
+        { "title": "Population Health Programs", "body": "Screen tens or hundreds of thousands of at-risk individuals as part of national, regional, or payer-driven public health initiatives." },
+        { "title": "Remote & Underserved Regions", "body": "Bring retinal screening to geographies where specialist ophthalmology is unavailable or unaffordable." },
+        { "title": "Pharmaceutical & Research Programs", "body": "Integrate large-scale retinal screening into epidemiological studies, population cohorts, and multi-site clinical programs." }
+      ]
+    },
+    {
+      "type": "features",
+      "id": "how-it-works",
+      "label": "How it works",
+      "heading": "Screening Without Bottlenecks",
+      "items": [
+        { "title": "Capture at the Source", "body": "Retinal images captured at any deployment location—rural clinic, mobile unit, community health center, home visit." },
+        { "title": "Automated Analysis", "body": "The Ophthal360 platform processes each image automatically—no queue for specialist review." },
+        { "title": "Triage & Routing", "body": "AI determines referral urgency and routes flagged patients to appropriate specialist care pathways." },
+        { "title": "Continuous Validation", "body": "Every deployment generates feedback data used to monitor real-world performance and refine the model." }
+      ]
+    },
+    {
+      "type": "split",
+      "id": "deployment-case",
+      "label": "Case in practice",
+      "eyebrow": "Case in Practice",
+      "heading": "Transforming eye care access where specialists are scarce.",
+      "paragraphs": [
+        "Across Asian markets, Ophthal360 is enabling eye screening for populations that historically have had limited or no access to specialist ophthalmology. From urban community clinics to rural home health programs, the platform supports screening decisions at a scale that would be impossible under a traditional expert-review model.",
+        "This is what autonomous AI makes possible: care that reaches the people who need it, where they are."
+      ],
+      "image": { "src": "/images/sections/underprivileged.jpeg", "alt": "Field eye examination in an underserved community" },
+      "background": { "src": "/images/cta/fundus.jpeg", "alt": "" }
+    },
+    {
+      "type": "features",
+      "id": "benefits",
+      "label": "Why Ophthal360",
+      "heading": "Designed for Real-World Operating Conditions",
+      "items": [
+        { "title": "Scales Beyond Specialist Supply", "body": "Remove the specialist bottleneck. Screening capacity is defined by deployment footprint, not ophthalmologist availability." },
+        { "title": "Consistent Performance at Scale", "body": "Every image receives the same analysis, across every site, every day. Standardization is a feature, not an aspiration." },
+        { "title": "Designed for Low-Resource Settings", "body": "Works with portable and handheld imaging. Designed for environments where infrastructure is limited." },
+        { "title": "Real-World Validated", "body": "In active deployment across Asian markets. Performance grounded in real operating conditions, not just published benchmarks." }
+      ]
+    },
+    {
+      "type": "cta",
+      "id": "final-cta",
+      "label": "Final CTA",
+      "heading": "Ready to scale retinal screening?",
+      "body": "Let's discuss what autonomous deployment looks like for your system, program, or market.",
+      "ctas": [{ "label": "Contact Us", "modal": "contact" }],
+      "image": { "src": "/images/cta/fundus_2.jpeg", "alt": "" }
+    }
+  ]
+}
